@@ -1,0 +1,78 @@
+(function () {
+  var footerTemplate = [
+    '<div class="container">',
+    '  <div class="footer-top">',
+    '    <div class="footer-brand">',
+    '      <a href="index.html" class="logo">',
+    '        <img src="image/clans_logo.png" alt="Clans Machina" class="logo-img logo-img--footer" width="99" height="32" loading="lazy" decoding="async" fetchpriority="low" />',
+    '      </a>',
+    '      <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>',
+    '      <div class="social-links">',
+    '        <a href="https://www.instagram.com/clansmachina" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="si-instagram">',
+    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+    '        </a>',
+    '        <a href="https://www.youtube.com/@ClansMachina" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="si-youtube">',
+    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>',
+    '        </a>',
+    '        <a href="https://www.facebook.com/clansmachina" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="si-facebook">',
+    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    '        </a>',
+    '        <a href="https://www.linkedin.com/company/clansmachina" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="si-linkedin">',
+    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M11 17v-4a2 2 0 0 1 4 0v4M11 10v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    '        </a>',
+    '        <a href="https://twitter.com/clansmachina" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="si-x">',
+    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    '        </a>',
+    '      </div>',
+    '    </div>',
+    '    <div class="footer-links-group">',
+    '      <h5>Solutions</h5>',
+    '      <ul>',
+    '        <li><a href="services.html">All Solar Services</a></li>',
+    '        <li><a href="services.html#residential">Residential Solar</a></li>',
+    '        <li><a href="services.html#commercial">Commercial Solar</a></li>',
+    '        <li><a href="society.html">Housing Societies</a></li>',
+    '        <li><a href="index.html#process">On-Grid Systems</a></li>',
+    '        <li><a href="index.html#process">Off-Grid Systems</a></li>',
+    '      </ul>',
+    '    </div>',
+    '    <div class="footer-links-group">',
+    '      <h5>Company</h5>',
+    '      <ul>',
+    '        <li><a href="about.html">About Us</a></li>',
+    '        <li><a href="projects.html">Our Projects</a></li>',
+    '        <li><a href="index.html#features">Technology</a></li>',
+    '        <li><a href="index.html#contact">Careers</a></li>',
+    '      </ul>',
+    '    </div>',
+    '    <div class="footer-links-group">',
+    '      <h5>Resources</h5>',
+    '      <ul>',
+    '        <li><a href="calculator.html">Solar Calculator</a></li>',
+    '        <li><a href="blog.html">Blog and Insights</a></li>',
+    '        <li><a href="faq.html">Government Subsidies</a></li>',
+    '        <li><a href="faq.html">FAQ</a></li>',
+    '        <li><a href="index.html#contact">Support Center</a></li>',
+    '      </ul>',
+    '    </div>',
+    '  </div>',
+    '  <div class="footer-bottom">',
+    '    <p>&#169; 2026 Clans Machina Energy Pvt. Ltd. All rights reserved. Proudly Made in India.</p>',
+    '    <div class="footer-legal">',
+    '      <a href="footer.html#privacy">Privacy Policy</a>',
+    '      <a href="footer.html#terms">Terms and Conditions</a>',
+    '      <a href="footer.html#cancellation">Warranty &amp; Return Policy</a>',
+    '    </div>',
+    '  </div>',
+    '</div>'
+  ].join('');
+
+  var footers = document.querySelectorAll('footer.footer');
+  if (!footers.length) {
+    return;
+  }
+
+  footers.forEach(function (footer) {
+    footer.innerHTML = footerTemplate;
+  });
+})();

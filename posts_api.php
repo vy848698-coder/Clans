@@ -18,8 +18,12 @@
 
 require __DIR__ . '/db.php';
 
-// CORS for the admin dashboard (origin configurable via DASHBOARD_ORIGIN env).
-send_cors_headers();
+// --- CORS: allow the Next.js dashboard (localhost:3000) ---------------------
+header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json; charset=utf-8");
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") { http_response_code(204); exit; }
 
 function out($data, $code = 200) { http_response_code($code); echo json_encode($data); exit; }
 
@@ -49,6 +53,7 @@ function save_image($image) {
     $ext  = $m[1] === "jpeg" ? "jpg" : $m[1];
     $data = base64_decode($m[2]);
     if ($data === false) return "";
+    if (strlen($data) > 8 * 1024 * 1024) return ""; // safety cap: 8 MB decoded
     $dir = __DIR__ . "/image/blog/uploads";
     if (!is_dir($dir)) mkdir($dir, 0775, true);
     $name = "post_" . time() . "_" . bin2hex(random_bytes(4)) . "." . $ext;

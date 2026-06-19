@@ -167,6 +167,57 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 
 .about-values { grid-template-columns: repeat(3, 1fr); }
 
+/* ---- VALUES & MISSION/VISION CARD HOVER ---- */
+.about-values .feature-card,
+.about-2col .feature-card {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+  overflow: hidden;
+}
+.about-values .feature-card::after,
+.about-2col .feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 0%, rgba(62,207,142,0.10) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.about-values .feature-card:hover,
+.about-2col .feature-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--border-bright);
+  box-shadow: 0 24px 52px -16px rgba(0,0,0,0.55), 0 0 0 1px var(--border-bright);
+}
+.about-values .feature-card:hover::after,
+.about-2col .feature-card:hover::after { opacity: 1; }
+.about-values .feature-card .feature-icon-wrap,
+.about-2col .feature-card .feature-icon-wrap {
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
+              background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+  position: relative; z-index: 1;
+}
+.about-values .feature-card:hover .feature-icon-wrap,
+.about-2col .feature-card:hover .feature-icon-wrap {
+  transform: translateY(-4px) scale(1.12);
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  color: #07120d;
+  box-shadow: 0 12px 24px -8px var(--green-glow);
+}
+.about-values .feature-card h3,
+.about-2col .feature-card h3 {
+  position: relative; z-index: 1;
+  transition: transform 0.35s ease, color 0.3s ease;
+}
+.about-values .feature-card:hover h3,
+.about-2col .feature-card:hover h3 { transform: translateX(4px); color: #fff; }
+.about-values .feature-card p,
+.about-2col .feature-card p { position: relative; z-index: 1; }
+
 .about-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .about-member { padding: 36px 28px; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease; }
 .about-member:hover { transform: translateY(-6px); border-color: var(--border-bright); }
@@ -402,6 +453,185 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   color: var(--text-secondary);
 }
 
+/* ============================================================
+   LEGAL / POLICIES PAGE (footer.html)
+   ============================================================ */
+.legal-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+/* sticky table of contents */
+.legal-toc {
+  position: sticky;
+  top: 100px;
+  padding: 22px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-secondary);
+  box-shadow: 0 14px 32px -22px rgba(0,0,0,0.5);
+}
+.legal-toc-title {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.legal-toc nav { display: flex; flex-direction: column; gap: 2px; }
+.legal-toc nav a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.legal-toc nav a:hover {
+  background: rgba(245,165,36,0.1);
+  color: var(--text-primary);
+  border-left-color: #f5a524;
+}
+.legal-toc-meta {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.legal-toc-meta span { display: block; font-size: 0.72rem; color: var(--text-muted); }
+.legal-toc-meta strong { font-size: 0.9rem; color: var(--text-primary); font-family: var(--font-display); }
+
+/* policy cards */
+.legal-content { display: flex; flex-direction: column; gap: 26px; }
+.legal-card {
+  position: relative;
+  padding: 38px 40px;
+  border-radius: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  scroll-margin-top: 100px;
+}
+.legal-eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #f5a524;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: rgba(245,165,36,0.12);
+  border: 1px solid rgba(245,165,36,0.28);
+  margin-bottom: 14px;
+}
+.legal-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.legal-intro {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+.legal-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.legal-meta strong { color: var(--text-secondary); }
+.legal-section {
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.legal-section:first-of-type { border-top: none; padding-top: 0; }
+.legal-subhead {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 16px 0 8px;
+}
+.legal-list--nested { margin-top: 12px; margin-left: 6px; }
+.legal-list--contact li { padding-left: 0; }
+.legal-list--contact li::before { display: none; }
+.legal-list--contact a { color: #f5a524; text-decoration: none; word-break: break-word; }
+.legal-list--contact a:hover { text-decoration: underline; }
+.legal-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.legal-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f5a524;
+  background: rgba(245,165,36,0.12);
+  border: 1px solid rgba(245,165,36,0.25);
+}
+.legal-section > p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.legal-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.legal-list li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.legal-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid #f5a524;
+  border-bottom: 2px solid #f5a524;
+  transform: rotate(-45deg);
+}
+.legal-list li strong { color: var(--text-primary); }
+/* coverage grid inside a legal card */
+.legal-card .footer-city-grid { margin-top: 22px; }
+/* contact CTA card */
+.legal-contact { text-align: center; }
+.legal-contact .legal-intro { max-width: 540px; margin: 0 auto 22px; }
+.legal-contact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .legal-layout { grid-template-columns: 1fr; gap: 22px; }
+  .legal-toc { position: static; }
+  .legal-toc nav { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .legal-toc nav a { border-left: none; }
+  .legal-toc-meta { display: none; }
+  .legal-card { padding: 28px 22px; }
+  .legal-card h2 { font-size: 1.4rem; }
+}
+
 /* GLASS CARD */
 .glass-card {
   background: var(--bg-card);
@@ -538,16 +768,15 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 .logo-icon { width: 36px; height: 36px; flex-shrink: 0; }
 .logo-accent { color: var(--green); }
 .logo-img {
-  height: 38px;
+  height: 44px;
   width: auto;
   display: block;
-  filter: var(--logo-filter);
   transition: opacity 0.2s;
 }
 .logo-img:hover { opacity: 0.85; }
 .logo-img--footer {
   height: 32px;
-  filter: brightness(0) invert(0.75);
+  /* filter: brightness(0) invert(1); */
 }
 .nav-links {
   display: flex;
@@ -781,7 +1010,12 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   .nav-dropdown-menu a {
     text-align: left;
   }
-  .nav-actions { display: none; }
+  /* Keep the theme picker reachable on mobile/tablet — only the
+     Contact / CTA buttons collapse into the hamburger menu, the small
+     Themes button stays visible so the picker is always accessible. */
+  .nav-actions { display: flex; }
+  .nav-actions .btn { display: none; }
+  .theme-picker-btn { display: inline-flex; margin-right: 6px; }
   .hamburger { display: flex; }
 }
 
@@ -966,6 +1200,81 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 }
 .trust-item p { font-size: 0.78rem; color: var(--text-muted); margin: 4px 0 0; }
 .trust-divider { width: 1px; height: 50px; background: var(--border); flex-shrink: 0; }
+
+/* Hero feature strip (PDF: 5 key value props) — premium full-width row */
+.hero-features {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: stretch;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  padding: 26px 12px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 24px 60px -28px rgba(0,0,0,0.7);
+  animation: fadeInUp 0.9s ease 0.4s both;
+}
+.hf-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 4px 14px;
+}
+/* elegant dividers between columns */
+.hf-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.14), transparent);
+}
+.hf-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  color: var(--green);
+  background: var(--green-dim);
+  border: 1px solid var(--border-bright);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.hf-icon svg { width: 24px; height: 24px; }
+.hf-label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+.hf-item:hover .hf-icon {
+  transform: translateY(-4px) scale(1.06);
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  color: #07120d;
+  box-shadow: 0 10px 24px -6px var(--green-glow);
+}
+.hf-item:hover .hf-label { color: var(--text-primary); }
+
+@media (max-width: 860px) {
+  .hero-features { grid-template-columns: repeat(3, 1fr); gap: 22px 0; padding: 24px 10px; }
+  .hf-item:nth-child(3)::after { display: none; } /* row break */
+}
+@media (max-width: 560px) {
+  .hero-features { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
+  .hf-item::after { display: none; }
+  .hf-icon { width: 46px; height: 46px; }
+  .hf-icon svg { width: 21px; height: 21px; }
+  .hf-label { font-size: 0.8rem; }
+}
 
 .hero-scroll-indicator {
   position: absolute;
@@ -1202,6 +1511,79 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
+/* 7 advantage cards: flexible centered rows so no orphan card looks odd */
+.features-grid--advantages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+}
+.features-grid--advantages .feature-card {
+  flex: 1 1 290px;
+  max-width: 330px;
+  padding: 30px 28px;
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,0.06), transparent 55%),
+    var(--bg-card);
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.4s ease, box-shadow 0.4s ease;
+}
+/* animated gradient glow that fades in on hover */
+.features-grid--advantages .feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--green), var(--blue), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.features-grid--advantages .feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.65),
+              0 0 0 1px var(--border-bright);
+}
+.features-grid--advantages .feature-card:hover::after { opacity: 1; }
+.features-grid--advantages .feature-card:hover::before { opacity: 1; height: 3px; }
+
+/* icon badge: premium lift + fill on hover */
+.features-grid--advantages .feature-icon-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1),
+              background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+.features-grid--advantages .feature-icon-wrap svg {
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+.features-grid--advantages .feature-card:hover .feature-icon-wrap {
+  transform: translateY(-4px) rotate(-6deg) scale(1.08);
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  color: #07120d;
+  box-shadow: 0 14px 28px -8px var(--green-glow);
+}
+.features-grid--advantages .feature-card:hover .feature-icon-wrap svg {
+  transform: rotate(6deg) scale(1.05);
+}
+/* title nudges right + heading sheen on hover */
+.features-grid--advantages .feature-card h3 {
+  position: relative; z-index: 2;
+  font-size: 1.12rem;
+  transition: transform 0.4s ease, color 0.3s ease;
+}
+.features-grid--advantages .feature-card:hover h3 { transform: translateX(4px); color: #fff; }
+.features-grid--advantages .feature-card p { position: relative; z-index: 2; }
 .feature-card {
   padding: 32px 28px 28px;
   position: relative;
@@ -1269,10 +1651,42 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   display: block;
 }
 
-/* Certifications / credibility strip */
-.cert-strip { border-bottom: 1px solid var(--border); background: var(--bg-card); }
-.cert-inner { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 34px; padding: 20px 24px; }
-.cert-item { display: inline-flex; align-items: center; gap: 9px; font-size: 0.86rem; font-weight: 600; color: var(--text-secondary); }
+/* Certifications / credibility strip — marquee ticker */
+.cert-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  padding: 18px 0;
+}
+.cert-ticker {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+}
+.cert-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  width: max-content;
+  animation: cert-scroll 28s linear infinite;
+}
+.cert-track:hover { animation-play-state: paused; }
+@keyframes cert-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.cert-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .cert-item svg { width: 19px; height: 19px; color: var(--green); flex-shrink: 0; }
 
 /* Lucide icons inside existing slots */
@@ -1287,7 +1701,6 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 @media (max-width: 640px) {
   .hero-sunburst { width: 600px; top: -200px; }
   .hero-sun { width: 180px; height: 180px; top: 40px; right: 20px; }
-  .cert-inner { gap: 12px 20px; }
   .cert-item { font-size: 0.78rem; }
 }
 .feature-icon-wrap {
@@ -1768,8 +2181,163 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 /* ============================================================
    SERVICES
    ============================================================ */
-.services { padding: 100px 0; }
-.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.services {
+  padding: 100px 0;
+  background: var(--bg-primary);
+  position: relative;
+}
+.services .section-tag { background: rgba(245,165,36,0.14); border-color: rgba(245,165,36,0.4); color: #f5a524; }
+.services .section-header h2 { color: var(--text-primary); }
+.services .section-header h2 .gradient-text {
+  background: linear-gradient(135deg, #f5a524, #e8841a);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.services .section-header p { color: var(--text-secondary); }
+/* ===== Redesigned service cards (light, premium, icon-overlap) ===== */
+.services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+.svc2-card {
+  flex: 1 1 320px;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -22px rgba(0,0,0,0.35);
+}
+/* staggered entrance delay (entrance handled by shared [data-animate].visible) */
+.svc2-card:nth-child(2) { transition-delay: 0.08s; }
+.svc2-card:nth-child(3) { transition-delay: 0.16s; }
+.svc2-card:nth-child(4) { transition-delay: 0.24s; }
+.svc2-card:nth-child(5) { transition-delay: 0.32s; }
+/* hover lift — no delay, snappy response */
+.svc2-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 38px 64px -26px rgba(20,16,8,0.52);
+  transition-delay: 0s;
+}
+/* shine sweep on hover */
+.svc2-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+  transform: skewX(-18deg);
+  z-index: 4;
+  pointer-events: none;
+  transition: left 0.7s ease;
+}
+.svc2-card:hover::after { left: 130%; }
+.svc2-media {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.svc2-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease;
+}
+.svc2-card:hover .svc2-media img { transform: scale(1.08); filter: saturate(1.08); }
+/* gradient fade at the image bottom so the badge sits cleanly */
+.svc2-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, transparent 70%, var(--bg-secondary) 100%);
+  pointer-events: none;
+}
+/* circular icon badge overlapping the image / body boundary */
+.svc2-icon {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  color: #f5a524;
+  box-shadow: 0 6px 18px -4px rgba(0,0,0,0.3), 0 0 0 6px var(--bg-secondary);
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+.svc2-icon svg { width: 30px; height: 30px; transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1); }
+.svc2-card:hover .svc2-icon {
+  transform: translate(-50%, -50%) scale(1.12) rotate(-6deg);
+  background: linear-gradient(135deg, #f5a524, #e8841a);
+  color: #fff;
+  box-shadow: 0 12px 26px -6px rgba(245,165,36,0.6), 0 0 0 6px var(--bg-secondary);
+}
+.svc2-card:hover .svc2-icon svg { transform: rotate(6deg) scale(1.05); }
+.svc2-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 28px 30px;
+}
+.svc2-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 14px;
+  line-height: 1.3;
+}
+.svc2-rule {
+  width: 46px;
+  height: 3px;
+  border-radius: 3px;
+  background: #f5a524;
+  margin-bottom: 18px;
+  transition: width 0.4s ease;
+}
+.svc2-card:hover .svc2-rule { width: 72px; }
+.svc2-body p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 26px;
+  flex: 1;
+}
+.svc2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.svc2-btn svg { width: 16px; height: 16px; color: #f5a524; transition: transform 0.3s ease, color 0.3s ease; }
+.svc2-btn:hover {
+  background: #f5a524;
+  border-color: #f5a524;
+  color: #fff;
+  box-shadow: 0 10px 22px -8px rgba(245,165,36,0.6);
+}
+.svc2-btn:hover svg { color: #fff; transform: translateX(4px); }
+@media (max-width: 760px) {
+  .services-grid { gap: 24px; }
+  .svc2-card { flex: 1 1 280px; max-width: 420px; }
+}
 .service-card { overflow: hidden; transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease; }
 .service-card:hover { transform: translateY(-10px); border-color: var(--border-bright); box-shadow: 0 22px 48px rgba(0,0,0,0.16); }
 .service-card--residential:hover { box-shadow: 0 24px 52px rgba(0,0,0,0.22), 0 0 0 1px rgba(62,207,142,0.25), 0 0 40px rgba(62,207,142,0.08); border-color: rgba(62,207,142,0.35); }
@@ -2093,33 +2661,245 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   justify-content: center;
 }
 
+/* Benefits grid (PDF: Benefits of Solar Energy) */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.benefit-card {
+  position: relative;
+  padding: 34px 28px 30px;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(160deg, rgba(245,165,36,0.05), transparent 42%),
+    var(--bg-secondary);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 32px -20px rgba(0,0,0,0.55);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+/* glowing accent bar that grows along the top on hover */
+.benefit-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, #f5a524, #e8841a);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  z-index: 2;
+}
+/* soft radial glow that fades in behind the content on hover */
+.benefit-card::after {
+  content: "";
+  position: absolute;
+  top: -40%; right: -30%;
+  width: 70%; height: 80%;
+  background: radial-gradient(circle, rgba(245,165,36,0.18), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.benefit-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(245,165,36,0.45);
+  box-shadow: 0 30px 56px -24px rgba(0,0,0,0.6), 0 0 0 1px rgba(245,165,36,0.12);
+}
+.benefit-card:hover::before { transform: scaleX(1); }
+.benefit-card:hover::after { opacity: 1; }
+.benefit-ico {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #f5a524;
+  background: linear-gradient(145deg, rgba(245,165,36,0.16), rgba(232,132,26,0.08));
+  border: 1px solid rgba(245,165,36,0.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 18px -10px rgba(245,165,36,0.5);
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+.benefit-card:hover .benefit-ico {
+  transform: translateY(-2px) scale(1.08) rotate(-4deg);
+  background: linear-gradient(145deg, #f5a524, #e8841a);
+  color: #fff;
+  box-shadow: 0 14px 28px -10px rgba(245,165,36,0.65);
+}
+.benefit-ico i, .benefit-ico svg { width: 27px; height: 27px; transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1); }
+.benefit-card:hover .benefit-ico i, .benefit-card:hover .benefit-ico svg { transform: rotate(4deg); }
+.benefit-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.14rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.benefit-card p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65; margin: 0; }
+@media (max-width: 900px) { .benefits-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
+
 /* ============================================================
    TESTIMONIALS
    ============================================================ */
-.testimonials { padding: 100px 0; background: radial-gradient(ellipse at 50% 50%, rgba(0,170,255,0.04), transparent 70%); }
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.testi-card { padding: 32px; transition: transform 0.3s, border-color 0.3s; }
-.testi-card:hover { transform: translateY(-6px); border-color: rgba(0,255,136,0.2); }
-.testi-featured { border-color: rgba(0,255,136,0.2); background: rgba(0,255,136,0.04); }
-.testi-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 18px; letter-spacing: 2px; }
-.testi-quote { font-size: 0.92rem; line-height: 1.75; color: var(--text-secondary); margin-bottom: 24px; font-style: italic; }
-.testi-footer { display: flex; align-items: center; gap: 14px; }
+.testimonials { padding: 100px 0; background: radial-gradient(ellipse at 50% 0%, rgba(245,165,36,0.05), transparent 65%); }
+/* aggregate rating shown under the header */
+.testi-rating-summary {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(245,165,36,0.25);
+  box-shadow: 0 8px 22px -14px rgba(0,0,0,0.5);
+}
+.testi-summary-stars { color: #f5a524; letter-spacing: 2px; font-size: 1rem; }
+.testi-rating-summary strong { color: var(--text-primary); font-family: var(--font-display); font-size: 1rem; }
+.testi-summary-count { color: var(--text-muted); font-size: 0.82rem; }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+.testi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 28px 26px;
+  border-radius: 22px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(165deg, rgba(245,165,36,0.06), transparent 42%),
+    var(--bg-secondary);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -24px rgba(0,0,0,0.6);
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.45s ease, box-shadow 0.45s ease;
+}
+/* glowing accent bar across the top of each card */
+.testi-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f5a524, #e8841a);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  z-index: 4;
+}
+.testi-card:hover::before { opacity: 1; transform: scaleX(1); }
+/* large decorative quotation watermark */
+.testi-mark {
+  position: relative;
+  display: block;
+  margin: 0 0 -18px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3.6rem;
+  line-height: 1;
+  color: #f5a524;
+  opacity: 0.45;
+  z-index: 1;
+  pointer-events: none;
+}
+.testi-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(245,165,36,0.5);
+  box-shadow: 0 36px 64px -26px rgba(0,0,0,0.65), 0 0 0 1px rgba(245,165,36,0.15);
+}
+/* featured card stands out */
+.testi-featured {
+  border-color: rgba(245,165,36,0.42);
+  background:
+    linear-gradient(165deg, rgba(245,165,36,0.13), transparent 52%),
+    var(--bg-secondary);
+  box-shadow: 0 24px 52px -22px rgba(245,165,36,0.38);
+}
+.testi-featured::before { opacity: 1; transform: scaleX(1); }
+
+/* (project photos removed from review cards — photo + quote only) */
+/* inline star rating row above the quote */
+.testi-stars {
+  position: relative;
+  z-index: 3;
+  color: #f5a524;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.testi-quote {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 450;
+  line-height: 1.75;
+  letter-spacing: 0.1px;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+}
+.testi-quote[lang="hi"], .testi-quote[lang="or"] { line-height: 1.95; }
+.testi-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
 .testi-avatar {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, var(--green-dim), var(--blue-dim));
-  border: 1px solid var(--border-bright);
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #f5a524, #e8841a);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--green);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  color: #fff;
   flex-shrink: 0;
+  box-shadow: 0 8px 18px -8px rgba(245,165,36,0.6);
 }
-.testi-footer strong { display: block; font-size: 0.9rem; color: var(--text-primary); }
-.testi-footer span { display: block; font-size: 0.78rem; color: var(--text-muted); }
+/* passport-style customer photo with a glowing ring */
+.testi-avatar.testi-photo {
+  object-fit: cover;
+  background: var(--bg-secondary);
+  border: none;
+  padding: 2px;
+  box-shadow: 0 0 0 2px rgba(245,165,36,0.6), 0 8px 18px -8px rgba(245,165,36,0.6);
+}
+.testi-footer strong { display: flex; align-items: center; gap: 6px; font-family: var(--font-display); font-weight: 700; font-size: 0.96rem; color: var(--text-primary); }
+.testi-footer > div > span { display: block; font-size: 0.8rem; color: var(--text-secondary); }
+.testi-verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2ecc71;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+.testi-grid-actions { text-align: center; margin-top: 40px; }
 
 /* ============================================================
    SUSTAINABILITY
@@ -2417,11 +3197,12 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 }
 .blog-page-card {
   overflow: hidden;
-  transition: transform 0.25s, border-color 0.25s;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
 }
 .blog-page-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   border-color: var(--border-bright);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.55);
 }
 .blog-hidden { display: none; }
 .bp-thumb {
@@ -2556,11 +3337,18 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   justify-content: center;
 }
 .blog-empty-state {
-  padding: 28px 18px;
+  padding: 52px 24px;
   text-align: center;
 }
+.blog-empty-state::before {
+  content: "🔍";
+  display: block;
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
 .blog-empty-state h3 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   margin-bottom: 8px;
 }
 .blog-empty-state p {
@@ -2696,6 +3484,28 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   color: var(--green);
   font-weight: 600;
   font-size: 0.9rem;
+  animation: formSuccessIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.form-success > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--btn-neon-text);
+  font-size: 0.8rem;
+  animation: formCheckPop 0.5s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes formSuccessIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes formCheckPop {
+  0%   { transform: scale(0); }
+  100% { transform: scale(1); }
 }
 .cta-contacts { display: flex; flex-direction: column; gap: 14px; }
 .contact-card { padding: 20px 24px; transition: border-color 0.2s; }
@@ -2751,23 +3561,34 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 .social-links a {
   width: 38px;
   height: 38px;
+  color: var(--text-secondary);
   background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
-  transition: background 0.22s, border-color 0.22s, color 0.22s, transform 0.22s;
+  transition: color 0.22s, background 0.22s, border-color 0.22s, transform 0.22s, box-shadow 0.22s;
   flex-shrink: 0;
 }
 .social-links a svg { display: block; }
-.social-links a:hover {
-  background: var(--green-dim);
-  border-color: var(--border-bright);
-  color: var(--green);
-  transform: translateY(-2px);
-}
+
+/* Neutral at rest, brand color revealed on hover */
+
+/* Instagram — gradient purple/pink */
+.social-links a.si-instagram:hover { color: #E1306C; background: rgba(225,48,108,0.14); border-color: #E1306C; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(225,48,108,0.3); }
+
+/* YouTube — red */
+.social-links a.si-youtube:hover { color: #FF0000; background: rgba(255,0,0,0.14); border-color: #FF0000; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(255,0,0,0.3); }
+
+/* Facebook — blue */
+.social-links a.si-facebook:hover { color: #1877F2; background: rgba(24,119,242,0.14); border-color: #1877F2; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(24,119,242,0.3); }
+
+/* LinkedIn — blue */
+.social-links a.si-linkedin:hover { color: #0A66C2; background: rgba(10,102,194,0.14); border-color: #0A66C2; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(10,102,194,0.3); }
+
+/* X / Twitter — white */
+.social-links a.si-x:hover { color: #fff; background: rgba(229,229,229,0.14); border-color: #e5e5e5; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(229,229,229,0.15); }
 .footer-links-group h5 { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
 .footer-links-group ul { display: flex; flex-direction: column; gap: 10px; }
 .footer-links-group a { font-size: 0.85rem; color: var(--text-secondary); transition: color 0.2s; }
@@ -3297,6 +4118,372 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   background-image: linear-gradient(rgba(234,88,12,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(234,88,12,0.06) 1px,transparent 1px);
 }
 
+/* --- LIGHT: Clans Brand (palette pulled from clansmachina.in) ---
+   Elementor globals: primary #2C2A09, accent #89EA5F, secondary #FCFEFF,
+   text #60A9B0, deep green #163300. We use the deep green for primary
+   actions/headings (good contrast on the near-white bg) and the bright
+   accent green as the glow/highlight. */
+[data-theme="clans-brand"] {
+  --bg-primary: #fcfeff;
+  --bg-secondary: #f1f7f1;
+  --bg-card: rgba(22,51,0,0.05);
+  /* --green is used site-wide for both text AND fills, so it must stay
+     readable on the near-white background — we use the deep brand green
+     #163300 here. The signature bright solar green #89EA5F drives every
+     accent role instead (glows, bright borders, tints, button hover), so
+     it still reads as the brand colour throughout. */
+  --green: #1f6b1a;
+  --green-dim: rgba(137,234,95,0.20);
+  --green-glow: rgba(137,234,95,0.55);
+  --blue: #468d94;
+  --blue-dim: rgba(96,169,176,0.14);
+  --blue-glow: rgba(96,169,176,0.28);
+  --purple: #2c2a09;
+  --gold: #2bb826;
+  --text-primary: #163300;
+  --text-secondary: rgba(22,51,0,0.72);
+  --text-muted: rgba(22,51,0,0.45);
+  --border: rgba(22,51,0,0.14);
+  --border-bright: rgba(137,234,95,0.7);
+  --shadow-green: 0 0 40px rgba(137,234,95,0.25);
+  --shadow-blue: 0 0 40px rgba(96,169,176,0.1);
+  --navbar-scrolled-bg: rgba(252,254,255,0.96);
+  --logo-filter: brightness(0.12) saturate(0);
+  --btn-neon-text: #ffffff;
+  --gradient-start: #163300;
+}
+[data-theme="clans-brand"] .hero-grid-overlay {
+  background-image: linear-gradient(rgba(22,51,0,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(22,51,0,0.05) 1px,transparent 1px);
+}
+
+/* ============================================================
+   CLANS BRAND — BOLD & CATCHY LANDING POLISH
+   Scoped enhancements so the signature solar green (#89EA5F) and
+   deep brand green (#163300) drive a punchier, cleaner hero on the
+   light brand theme. No HTML changes — pure theme styling.
+   ============================================================ */
+
+/* Vivid headline gradient — deep brand green into a rich, saturated
+   green. Avoids the pale #89ea5f end that washed out on white. */
+[data-theme="clans-brand"] .gradient-text {
+  background: linear-gradient(115deg, #163300 0%, #1f7a1a 50%, #37b32e 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* Hero glow recolored gold → on-brand green/sky (intensity set in the
+   bolder override further down). */
+
+/* Brand-green badge instead of the gold one for cohesion */
+[data-theme="clans-brand"] .hero-badge {
+  background: rgba(137,234,95,0.14);
+  border-color: rgba(31,107,26,0.35);
+  color: #1f6b1a;
+}
+[data-theme="clans-brand"] .hero-badge svg { color: #1f6b1a; }
+
+/* Punchier neon CTA — bright solar-green hover glow */
+[data-theme="clans-brand"] .btn-neon {
+  background: #1f6b1a;
+  box-shadow: 0 4px 14px rgba(31,107,26,0.22);
+}
+[data-theme="clans-brand"] .btn-neon:hover {
+  background: #2a8a23;
+  box-shadow: 0 0 26px rgba(137,234,95,0.55), 0 6px 20px rgba(31,107,26,0.28);
+  transform: translateY(-2px);
+}
+
+/* Crisper section tags + cleaner glass CTA on the white canvas */
+[data-theme="clans-brand"] .section-tag {
+  background: rgba(137,234,95,0.16);
+  border-color: rgba(31,107,26,0.30);
+  color: #1f6b1a;
+}
+[data-theme="clans-brand"] .btn-glass {
+  background: #ffffff;
+  border-color: rgba(22,51,0,0.16);
+  box-shadow: 0 2px 10px rgba(22,51,0,0.06);
+}
+[data-theme="clans-brand"] .btn-glass:hover {
+  background: #f1f7f1;
+  border-color: #1f6b1a;
+  color: #1f6b1a;
+}
+
+/* Lift cards / feature icons with a brighter solar-green edge on hover */
+[data-theme="clans-brand"] .feature-card:hover,
+[data-theme="clans-brand"] .svc2-card:hover {
+  border-color: rgba(137,234,95,0.7);
+  box-shadow: 0 12px 34px rgba(22,51,0,0.10), 0 0 0 1px rgba(137,234,95,0.25);
+}
+
+/* Brighter, more legible marquee strip on the light theme */
+[data-theme="clans-brand"] .marquee-strip {
+  background: #163300;
+  border-top-color: rgba(137,234,95,0.25);
+  border-bottom-color: rgba(137,234,95,0.25);
+}
+[data-theme="clans-brand"] .marquee-track span { color: #eafbe3; }
+[data-theme="clans-brand"] .marquee-track .mx { color: #89ea5f; }
+
+/* Bolder, more energetic hero glow on the brand theme */
+[data-theme="clans-brand"] .hero-sunburst {
+  background: radial-gradient(circle,
+    rgba(137,234,95,0.62) 0%,
+    rgba(137,234,95,0.30) 22%,
+    rgba(96,169,176,0.16) 42%,
+    rgba(137,234,95,0.06) 58%,
+    transparent 74%);
+}
+[data-theme="clans-brand"] .hero-sun {
+  background: radial-gradient(circle, rgba(137,234,95,0.48) 0%, rgba(96,169,176,0.18) 40%, transparent 70%);
+}
+
+/* ---- Convert hardcoded amber accents to brand green (Services) ---- */
+[data-theme="clans-brand"] .services .section-tag {
+  background: rgba(137,234,95,0.16); border-color: rgba(31,107,26,0.30); color: #1f6b1a;
+}
+[data-theme="clans-brand"] .services .section-header h2 .gradient-text {
+  background: linear-gradient(135deg, #1f6b1a, #89ea5f);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+[data-theme="clans-brand"] .svc2-icon {
+  background: linear-gradient(135deg, #1f6b1a, #2a8a23);
+  box-shadow: 0 12px 26px -6px rgba(31,107,26,0.45), 0 0 0 6px var(--bg-secondary);
+}
+[data-theme="clans-brand"] .svc2-card:hover { border-color: rgba(31,107,26,0.45); }
+[data-theme="clans-brand"] .svc2-card:hover .svc2-icon {
+  background: linear-gradient(135deg, #1f6b1a, #2a8a23);
+  color: #fff;
+  box-shadow: 0 12px 26px -6px rgba(31,107,26,0.5), 0 0 0 6px var(--bg-secondary);
+}
+[data-theme="clans-brand"] .svc2-rule { background: #1f6b1a; }
+[data-theme="clans-brand"] .svc2-btn svg { color: #1f6b1a; }
+[data-theme="clans-brand"] .svc2-btn:hover {
+  background: #1f6b1a; border-color: #1f6b1a; color: #fff;
+  box-shadow: 0 10px 22px -8px rgba(31,107,26,0.5);
+}
+[data-theme="clans-brand"] .svc2-btn:hover svg { color: #fff; }
+
+/* ---- Convert hardcoded amber accents to brand green (Testimonials) ---- */
+[data-theme="clans-brand"] .testimonials {
+  background: radial-gradient(ellipse at 50% 0%, rgba(137,234,95,0.10), transparent 65%);
+}
+[data-theme="clans-brand"] .testi-rating-summary { border-color: rgba(31,107,26,0.25); }
+[data-theme="clans-brand"] .testi-summary-stars { color: #1f6b1a; }
+[data-theme="clans-brand"] .testi-mark { color: #1f6b1a; }
+[data-theme="clans-brand"] .testi-card {
+  background: linear-gradient(165deg, rgba(137,234,95,0.08), transparent 45%), var(--bg-secondary);
+}
+[data-theme="clans-brand"] .testi-card::before {
+  background: linear-gradient(90deg, #1f6b1a, #89ea5f);
+}
+[data-theme="clans-brand"] .testi-card:hover {
+  border-color: rgba(31,107,26,0.45);
+  box-shadow: 0 36px 64px -26px rgba(22,51,0,0.2), 0 0 0 1px rgba(137,234,95,0.3);
+}
+[data-theme="clans-brand"] .testi-featured {
+  border-color: rgba(31,107,26,0.40);
+  background: linear-gradient(165deg, rgba(137,234,95,0.16), transparent 55%), var(--bg-secondary);
+  box-shadow: 0 24px 52px -22px rgba(31,107,26,0.32);
+}
+[data-theme="clans-brand"] .testi-avatar {
+  background: linear-gradient(135deg, #1f6b1a, #2a8a23);
+  box-shadow: 0 8px 18px -8px rgba(31,107,26,0.5);
+}
+[data-theme="clans-brand"] .testi-avatar.testi-photo {
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 2px rgba(31,107,26,0.6), 0 8px 18px -8px rgba(31,107,26,0.5);
+}
+
+/* ---- Convert hardcoded amber accents to brand green (Benefits) ---- */
+[data-theme="clans-brand"] .benefit-card {
+  background: linear-gradient(160deg, rgba(137,234,95,0.07), transparent 42%), var(--bg-secondary);
+}
+[data-theme="clans-brand"] .benefit-card::before {
+  background: linear-gradient(90deg, #1f6b1a, #89ea5f);
+}
+[data-theme="clans-brand"] .benefit-card::after {
+  background: radial-gradient(circle, rgba(137,234,95,0.20), transparent 70%);
+}
+[data-theme="clans-brand"] .benefit-card:hover {
+  border-color: rgba(31,107,26,0.45);
+  box-shadow: 0 30px 56px -24px rgba(22,51,0,0.18), 0 0 0 1px rgba(137,234,95,0.25);
+}
+[data-theme="clans-brand"] .benefit-ico {
+  color: #1f6b1a;
+  background: linear-gradient(145deg, rgba(137,234,95,0.20), rgba(31,107,26,0.08));
+  border-color: rgba(31,107,26,0.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 18px -10px rgba(31,107,26,0.4);
+}
+[data-theme="clans-brand"] .benefit-card:hover .benefit-ico {
+  background: linear-gradient(145deg, #1f6b1a, #2a8a23);
+  color: #fff;
+  box-shadow: 0 14px 28px -10px rgba(31,107,26,0.5);
+}
+
+/* ---- About page: keep green→muted-teal gradients vivid & on-brand ---- */
+[data-theme="clans-brand"] .about-quote-mark,
+[data-theme="clans-brand"] .about-impact-stat strong {
+  background: linear-gradient(135deg, #163300, #37b32e);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+[data-theme="clans-brand"] .about-impact-band {
+  background: linear-gradient(120deg, rgba(137,234,95,0.12), rgba(96,169,176,0.08));
+}
+/* Unify the blue/purple icon tiles to brand green on the light theme
+   (purple --olive reads as a dead icon; blue clashes with the green brand) */
+[data-theme="clans-brand"] .icon-purple,
+[data-theme="clans-brand"] .icon-blue {
+  background: var(--green-dim); border-color: var(--border-bright); color: #1f6b1a;
+}
+
+/* About cards: the hover state turns text white for a dark overlay that
+   never appears on the light brand theme — keep text dark & visible. */
+[data-theme="clans-brand"] .about-values .feature-card:hover h3,
+[data-theme="clans-brand"] .about-2col .feature-card:hover h3 {
+  color: #163300;
+}
+[data-theme="clans-brand"] .about-values .feature-card:hover .feature-icon-wrap,
+[data-theme="clans-brand"] .about-2col .feature-card:hover .feature-icon-wrap {
+  background: linear-gradient(135deg, #1f6b1a, #37b32e);
+  color: #fff;
+  box-shadow: 0 12px 24px -8px rgba(31,107,26,0.4);
+}
+/* subtle green wash on the hover overlay so the lift reads on white */
+[data-theme="clans-brand"] .about-values .feature-card::after,
+[data-theme="clans-brand"] .about-2col .feature-card::after {
+  background: radial-gradient(ellipse at 50% 0%, rgba(137,234,95,0.16) 0%, transparent 70%);
+}
+
+/* Same white-on-white hover bug on the landing "Why Choose" cards */
+[data-theme="clans-brand"] .features-grid--advantages .feature-card:hover h3 {
+  color: #163300;
+}
+[data-theme="clans-brand"] .features-grid--advantages .feature-card:hover .feature-icon-wrap {
+  background: linear-gradient(135deg, #1f6b1a, #37b32e);
+  color: #fff;
+  box-shadow: 0 14px 28px -8px rgba(31,107,26,0.4);
+}
+
+/* Cert strip: crisper, more on-brand — deep-green text, bright icons */
+[data-theme="clans-brand"] .cert-strip {
+  background: rgba(137,234,95,0.07);
+}
+[data-theme="clans-brand"] .cert-item { color: #163300; }
+[data-theme="clans-brand"] .cert-item svg { color: #1f6b1a; }
+
+/* Projects page: amber hero glow + residential badge → on-brand green */
+[data-theme="clans-brand"] .proj-hero-glow {
+  background: radial-gradient(circle, rgba(137,234,95,0.22) 0%, rgba(137,234,95,0.07) 45%, transparent 70%);
+}
+/* Badges sit on the dark info bar / hover overlay — use a solid fill +
+   white text so the label is crisp, not mushy tinted-text-on-dark. */
+[data-theme="clans-brand"] .proj-badge--residential {
+  background: #1f6b1a;
+  border-color: #1f6b1a;
+  color: #fff;
+}
+[data-theme="clans-brand"] .proj-badge--commercial {
+  background: #1f6b1a;
+  border-color: #1f6b1a;
+  color: #fff;
+}
+/* Active filter pill: near-black text on deep green is muddy — use white */
+[data-theme="clans-brand"] .proj-filter.active {
+  background: #1f6b1a;
+  border-color: #1f6b1a;
+  color: #fff;
+}
+/* Spec values sit on the dark hover overlay — use bright solar green so
+   the deep brand green doesn't disappear against the dark scrim. */
+[data-theme="clans-brand"] .proj-spec-val {
+  color: #89ea5f;
+}
+
+/* ---- Calculator: white slider tracks/bars vanish on the white theme ---- */
+[data-theme="clans-brand"] .sc-range {
+  background: linear-gradient(to right, #1f6b1a 0%, #1f6b1a var(--fill, 50%), rgba(22,51,0,0.12) var(--fill, 50%), rgba(22,51,0,0.12) 100%);
+}
+[data-theme="clans-brand"] .sc-range-blue {
+  background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--fill, 50%), rgba(22,51,0,0.12) var(--fill, 50%), rgba(22,51,0,0.12) 100%);
+}
+[data-theme="clans-brand"] .sc-emi-splitbar,
+[data-theme="clans-brand"] .sc-bill-bar {
+  background: rgba(22,51,0,0.08);
+}
+
+/* Calculator category cards: bolder, catchier hover on the brand theme */
+[data-theme="clans-brand"] .sc-choose-card:hover {
+  border-color: rgba(31,107,26,0.45);
+  box-shadow: 0 22px 48px -18px rgba(22,51,0,0.18), 0 0 0 1px rgba(137,234,95,0.30);
+}
+[data-theme="clans-brand"] .sc-choose-card:hover .sc-choose-icon {
+  background: linear-gradient(135deg, #1f6b1a, #37b32e);
+  border-color: transparent;
+  color: #fff;
+  transform: scale(1.06) rotate(-4deg);
+}
+[data-theme="clans-brand"] .sc-choose-icon {
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+/* Tag pills use a white tint that vanishes on the light theme */
+[data-theme="clans-brand"] .sc-choose-tag {
+  background: rgba(137,234,95,0.16);
+  border-color: rgba(31,107,26,0.25);
+}
+
+/* Result panels use rgba(0,0,0,0.22) → flat gray on white. Use a clean
+   light card so the calculated results read crisply. */
+[data-theme="clans-brand"] .sc-results,
+[data-theme="clans-brand"] .sc-emi-output {
+  background: #f4f9f3;
+  border-color: rgba(22,51,0,0.10);
+}
+/* EMI hero + card tint were blue — make them brand green */
+[data-theme="clans-brand"] .sc-emi-hero {
+  background: linear-gradient(135deg, rgba(137,234,95,0.18), rgba(137,234,95,0.05));
+  border-color: rgba(31,107,26,0.25);
+}
+[data-theme="clans-brand"] .sc-emi-hero-value { color: #1f6b1a; }
+[data-theme="clans-brand"] .sc-card-emi {
+  background: linear-gradient(180deg, rgba(137,234,95,0.06), transparent 40%);
+}
+/* "EMI Calculator" heading was a blue gradient */
+[data-theme="clans-brand"] .gradient-text-blue {
+  background: linear-gradient(115deg, #163300 0%, #1f7a1a 50%, #37b32e 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+/* Random purple/cyan/blue stat numbers → on-brand green on white */
+[data-theme="clans-brand"] .sc-stat-purple .sc-stat-value,
+[data-theme="clans-brand"] .sc-stat-cyan .sc-stat-value,
+[data-theme="clans-brand"] .sc-stat-blue .sc-stat-value {
+  color: #1f6b1a;
+}
+/* Inner stat tiles: near-invisible white tint → white card on the panel */
+[data-theme="clans-brand"] .sc-stat {
+  background: #ffffff;
+  border-color: rgba(22,51,0,0.10);
+}
+
+/* Society page: timeline connector green→teal gradient → all green */
+[data-theme="clans-brand"] .timeline-connector {
+  background: linear-gradient(to bottom, #1f6b1a, #37b32e);
+}
+
+/* Blog page: the "Solar Guide" book illustration was hardcoded blue */
+[data-theme="clans-brand"] .blog-guide-book {
+  background:
+    linear-gradient(155deg, #2a8a23, #163300),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 50%);
+}
+/* Active category was a blue highlight — make it brand green */
+[data-theme="clans-brand"] .blog-categories a.active {
+  background: var(--green-dim);
+  color: #1f6b1a;
+}
+
 /* --- MID: Slate Teal --- */
 [data-theme="slate-teal"] {
   --bg-primary: #182f3d;
@@ -3607,7 +4794,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 .proj-filter:hover {
   border-color: var(--border-bright);
   color: var(--text-primary);
-  background: var(--surface-2);
+  background: var(--green-dim);
 }
 .proj-filter.active {
   background: var(--green);

@@ -1,2 +1,14 @@
+# Dependencies
+node_modules/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+
+# Temp / build
+*.tmp
+.pw-*.js
+.tmp_shots/
+_*.html
 commit.patch
-*.rej

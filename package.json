@@ -1,0 +1,12 @@
+{
+  "name": "clans-machina",
+  "version": "1.0.0",
+  "description": "Static website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "http-server -p 8000 -o -c-1"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

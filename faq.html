@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="solar-premium">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Clans Machina Solar FAQ — costs, PM Surya Ghar subsidy, sizing, installation, warranty and financing. Clear answers before you go solar." />
+  <title>FAQ | Clans Machina Solar</title>
+  <script>(function(){try{var t=localStorage.getItem('cm_theme'),h=document.documentElement;if(t){if(t==='industrial'){h.removeAttribute('data-theme');}else{h.setAttribute('data-theme',t);}}}catch(e){}})();</script>
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* =========================================================
+       FAQ PAGE — "Knowledge Hub" design
+       Structural colours are mapped to the site theme variables so
+       the page follows the active theme (light AND dark) like every
+       other page. Topic accent hues stay fixed but their tint
+       backgrounds are mixed against the theme card colour so they
+       read correctly on any background.
+       ========================================================= */
+    .fqp {
+      /* structural — follow the active theme.
+         The card surface is derived from the theme's --bg-secondary plus a
+         faint white veil so cards always read as elevated above the page
+         background on both light and dark themes. --fq-tint controls how
+         strongly accent tints lift on that surface (low on light themes,
+         raised on dark themes) so coloured chips and icons stay legible. */
+      --fq-bg:       var(--bg-primary, #faf4ea);
+      --fq-card-solid: color-mix(in srgb, #ffffff 5%, var(--bg-secondary, #ffffff));
+      --fq-card:     var(--fq-card-solid);
+      --fq-ink:      var(--text-primary, #1d1b16);
+      --fq-ink-soft: var(--text-secondary, #6b6256);
+      --fq-line:     var(--border, #ece4d6);
+
+      /* PRIMARY accent — follows the active theme so the page's main
+         identity (badge, search, primary CTA, cost/finance cards) re-themes
+         like every other page. Falls back to the Solar Premium orange. */
+      --fq-orange: var(--green, #e8740c);
+      /* secondary decorative hues for the topic cards (kept fixed so the
+         six topics stay visually distinct on any theme) */
+      --fq-green:  #4caf50;
+      --fq-blue:   #3b82c4;
+      --fq-purple: #8e63c8;
+      --fq-pink:   #d6457f;
+      --fq-amber:  #d99a1e;
+
+      /* tint backgrounds — mixed against the solid theme surface.
+         Default 18% works for light themes; dark themes raise --fq-tint. */
+      --fq-tint: 18%;
+      --fq-orange-dim: color-mix(in srgb, var(--fq-orange) var(--fq-tint), var(--fq-card-solid));
+      --fq-green-dim:  color-mix(in srgb, var(--fq-green)  var(--fq-tint), var(--fq-card-solid));
+      --fq-blue-dim:   color-mix(in srgb, var(--fq-blue)   var(--fq-tint), var(--fq-card-solid));
+      --fq-purple-dim: color-mix(in srgb, var(--fq-purple) var(--fq-tint), var(--fq-card-solid));
+      --fq-pink-dim:   color-mix(in srgb, var(--fq-pink)   var(--fq-tint), var(--fq-card-solid));
+      --fq-amber-dim:  color-mix(in srgb, var(--fq-amber)  var(--fq-tint), var(--fq-card-solid));
+
+      background: var(--fq-bg);
+      color: var(--fq-ink);
+      font-family: var(--font-display, 'Inter', sans-serif);
+    }
+    /* Dark themes: lift the card veil and accent tints so cards separate
+       from the page and coloured chips/icons stay vivid. These selectors
+       follow the same data-theme switch the rest of the site uses, so the
+       FAQ now re-themes correctly across every option. */
+    [data-theme="solar-premium"] .fqp,
+    [data-theme="midnight-navy"] .fqp,
+    [data-theme="obsidian-purple"] .fqp,
+    [data-theme="carbon-ember"] .fqp,
+    [data-theme="slate-teal"] .fqp,
+    [data-theme="ocean-depth"] .fqp,
+    html:not([data-theme]) .fqp {           /* Industrial (no data-theme attr) */
+      --fq-card-solid: color-mix(in srgb, #ffffff 8%, var(--bg-secondary));
+      --fq-tint: 30%;
+    }
+    /* Clans Brand: unify all topic hues to the brand green for a single
+       cohesive look (matches services/projects). */
+    [data-theme="clans-brand"] .fqp {
+      --fq-green:  #1f6b1a;
+      --fq-blue:   #1f6b1a;
+      --fq-purple: #1f6b1a;
+      --fq-pink:   #1f6b1a;
+      --fq-amber:  #1f6b1a;
+    }
+    .fqp *, .fqp *::before, .fqp *::after { box-sizing: border-box; }
+    .fqp .fq-wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- HERO ---------- */
+    .fq-hero { position: relative; padding: 130px 0 1.5rem; overflow: hidden; }
+    .fq-hero-grid {
+      display: grid; grid-template-columns: 1.05fr .95fr;
+      gap: 2.5rem; align-items: center;
+    }
+    .fq-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--fq-orange);
+      background: var(--fq-orange-dim);
+      border: 1px solid color-mix(in srgb, var(--fq-orange) 30%, transparent);
+      border-radius: 999px; padding: 6px 14px; margin-bottom: 1.4rem;
+    }
+    .fq-badge svg { width: 14px; height: 14px; }
+    .fq-hero h1 {
+      font-size: clamp(2.3rem, 5.2vw, 3.6rem); line-height: 1.07;
+      letter-spacing: -.02em; margin: 0 0 1.2rem; color: var(--fq-ink); font-weight: 800;
+    }
+    .fq-hero h1 .accent { color: var(--fq-orange); display: block; }
+    .fq-hero-lead { font-size: 1.02rem; color: var(--fq-ink-soft); line-height: 1.65; margin: 0 0 1.8rem; max-width: 44ch; }
+
+    /* search */
+    .fq-search { display: flex; max-width: 440px; background: var(--fq-card); border: 1px solid var(--fq-line); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); }
+    .fq-search input {
+      flex: 1; border: none; outline: none; background: transparent;
+      padding: 1rem 1.2rem; font-size: .95rem; color: var(--fq-ink); font-family: inherit;
+    }
+    .fq-search input::placeholder { color: color-mix(in srgb, var(--fq-ink) 40%, transparent); }
+    .fq-search button {
+      border: none; cursor: pointer; background: var(--fq-orange); color: #fff;
+      width: 56px; display: flex; align-items: center; justify-content: center;
+      transition: background .25s;
+    }
+    .fq-search button:hover { background: color-mix(in srgb, var(--fq-orange) 85%, #000); }
+    .fq-search button svg { width: 20px; height: 20px; }
+
+    /* hero image + floating cards */
+    .fq-hero-visual { position: relative; min-height: 320px; display: flex; align-items: center; }
+    .fq-hero-visual::before {
+      content: ''; position: absolute; inset: -8% -4% auto auto;
+      width: 78%; aspect-ratio: 1; right: 4%; top: 50%; transform: translateY(-50%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--fq-orange) 22%, transparent), transparent 68%);
+      z-index: 0; pointer-events: none;
+    }
+    .fq-hero-img {
+      position: relative; z-index: 1;
+      width: 100%; height: auto; display: block; border-radius: 18px;
+      filter: drop-shadow(0 30px 50px rgba(0,0,0,.18));
+    }
+    .fq-float {
+      position: absolute; z-index: 2; background: var(--fq-card);
+      border: 1px solid var(--fq-line); border-radius: 14px;
+      padding: .8rem 1rem; box-shadow: 0 16px 36px -16px rgba(0,0,0,.28);
+      display: flex; align-items: center; gap: .65rem;
+      animation: fqFloat 5s ease-in-out infinite;
+    }
+    .fq-float small { display: block; font-size: .68rem; color: var(--fq-ink-soft); font-weight: 600; }
+    .fq-float strong { display: block; font-size: 1.15rem; line-height: 1.1; color: var(--fq-ink); }
+    .fq-float .fq-float-ico { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fq-float .fq-float-ico svg { width: 17px; height: 17px; }
+    .fq-float--save  { top: 2%;   left: -2%;  animation-delay: 0s; }
+    .fq-float--warr  { top: 10%;  right: -3%; animation-delay: .8s; }
+    .fq-float--back  { bottom: 12%; right: 0;  animation-delay: 1.6s; }
+    .fq-float--save strong { color: var(--fq-orange); font-size: 1.4rem; }
+    .fq-float--warr .fq-float-ico { background: var(--fq-green-dim); color: var(--fq-green); }
+    .fq-float--back .fq-float-ico { background: var(--fq-amber-dim); color: var(--fq-amber); }
+    @keyframes fqFloat { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-9px); } }
+
+    /* ---------- KPI STRIP ---------- */
+    .fq-kpi {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: var(--fq-card); border: 1px solid var(--fq-line);
+      border-radius: 18px; margin: 1.5rem 0 3rem;
+      box-shadow: 0 18px 44px -28px rgba(0,0,0,.2); overflow: hidden;
+    }
+    .fq-kpi-item { display: flex; align-items: center; gap: .85rem; padding: 1.4rem 1.5rem; position: relative; }
+    .fq-kpi-item + .fq-kpi-item::before { content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--fq-line); }
+    .fq-kpi-ico { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fq-kpi-ico svg { width: 20px; height: 20px; }
+    .fq-kpi-item:nth-child(1) .fq-kpi-ico { background: var(--fq-orange-dim); color: var(--fq-orange); }
+    .fq-kpi-item:nth-child(2) .fq-kpi-ico { background: var(--fq-green-dim);  color: var(--fq-green); }
+    .fq-kpi-item:nth-child(3) .fq-kpi-ico { background: var(--fq-blue-dim);   color: var(--fq-blue); }
+    .fq-kpi-item:nth-child(4) .fq-kpi-ico { background: var(--fq-purple-dim); color: var(--fq-purple); }
+    .fq-kpi-item strong { display: block; font-size: 1.18rem; color: var(--fq-ink); line-height: 1.1; }
+    .fq-kpi-item span { font-size: .82rem; color: var(--fq-ink-soft); }
+
+    /* ---------- EXPLORE BY TOPIC ---------- */
+    .fq-explore-title { font-size: 1.4rem; font-weight: 700; color: var(--fq-ink); margin: 0 0 1.2rem; }
+    .fq-topic-chips { display: flex; flex-wrap: nowrap; gap: .8rem; margin-bottom: 2.5rem; overflow-x: auto; padding-bottom: .4rem; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+    .fq-topic-chip { flex-shrink: 0; white-space: nowrap; }
+    .fq-topic-chip {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .9rem; font-weight: 600; color: var(--fq-ink); text-decoration: none;
+      background: var(--fq-card); border: 1px solid var(--fq-line);
+      border-radius: 12px; padding: .75rem 1.1rem; cursor: pointer;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .fq-topic-chip:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -16px rgba(0,0,0,.25); border-color: color-mix(in srgb, var(--c) 50%, var(--fq-line)); }
+    .fq-topic-chip .fq-chip-ico { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--cd); color: var(--c); }
+    .fq-topic-chip .fq-chip-ico svg { width: 17px; height: 17px; }
+
+    /* ---------- TOPIC CARD GRID ---------- */
+    .fq-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .fq-card {
+      background: var(--fq-card); border: 1px solid var(--fq-line);
+      border-radius: 18px; padding: 1.6rem 1.5rem; position: relative; overflow: hidden;
+      transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s;
+    }
+    .fq-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .fq-card:hover { transform: translateY(-6px); box-shadow: 0 24px 54px -22px rgba(0,0,0,.22); border-color: color-mix(in srgb, var(--c) 40%, var(--fq-line)); }
+    .fq-card:hover::before { transform: scaleX(1); }
+    .fq-card-head { display: flex; align-items: center; gap: .7rem; margin-bottom: 1.1rem; }
+    .fq-card-ico { width: 38px; height: 38px; border-radius: 10px; background: var(--cd); color: var(--c); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fq-card-ico svg { width: 20px; height: 20px; }
+    .fq-card-head h3 { font-size: 1.08rem; font-weight: 700; color: var(--c); margin: 0; }
+
+    .fq-qlist { display: flex; flex-direction: column; }
+    .fq-q {
+      width: 100%; text-align: left; border: none; background: transparent; cursor: pointer;
+      font-family: inherit; font-size: .9rem; color: var(--fq-ink); font-weight: 500;
+      padding: .85rem 0; border-top: 1px solid var(--fq-line);
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      transition: color .2s;
+    }
+    .fq-qlist .fq-q:first-child { border-top: none; }
+    .fq-q:hover { color: var(--c); }
+    .fq-q .fq-chev { flex-shrink: 0; color: color-mix(in srgb, var(--fq-ink) 35%, transparent); transition: transform .3s, color .2s; }
+    .fq-q .fq-chev svg { width: 16px; height: 16px; display: block; }
+    .fq-q:hover .fq-chev { color: var(--c); }
+    .fq-item.open .fq-q { color: var(--c); font-weight: 600; }
+    .fq-item.open .fq-chev { transform: rotate(90deg); color: var(--c); }
+    .fq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    .fq-item.open .fq-a { max-height: 320px; }
+    .fq-a p { font-size: .85rem; color: var(--fq-ink-soft); line-height: 1.6; margin: 0 0 .9rem; padding-left: .1rem; }
+
+    .fq-viewall {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .85rem; font-weight: 700; color: var(--c); text-decoration: none;
+      margin-top: .9rem; padding-top: .9rem; border-top: 1px solid var(--fq-line); width: 100%;
+      justify-content: flex-end; transition: gap .25s;
+    }
+    .fq-viewall:hover { gap: .7rem; }
+    .fq-viewall svg { width: 15px; height: 15px; }
+
+    /* topic accent colours */
+    .fq-card--cost,  .fq-topic-chip--cost  { --c: var(--fq-orange); --cd: var(--fq-orange-dim); }
+    .fq-card--sub,   .fq-topic-chip--sub   { --c: var(--fq-green);  --cd: var(--fq-green-dim); }
+    .fq-card--tech,  .fq-topic-chip--tech  { --c: var(--fq-blue);   --cd: var(--fq-blue-dim); }
+    .fq-card--inst,  .fq-topic-chip--inst  { --c: var(--fq-purple); --cd: var(--fq-purple-dim); }
+    .fq-card--warr,  .fq-topic-chip--warr  { --c: var(--fq-pink);   --cd: var(--fq-pink-dim); }
+    .fq-card--fin,   .fq-topic-chip--fin   { --c: var(--fq-orange); --cd: var(--fq-orange-dim); }
+
+    /* ---------- BOTTOM CTA ---------- */
+    .fq-cta {
+      margin: 3.5rem 0; background: linear-gradient(120deg, var(--fq-card) 0%, var(--fq-orange-dim) 100%);
+      border: 1px solid color-mix(in srgb, var(--fq-orange) 25%, var(--fq-line));
+      border-radius: 22px; padding: 2.2rem 2.4rem;
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem;
+    }
+    .fq-cta-avatar { width: 130px; height: 130px; border-radius: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 40%, var(--fq-card), var(--fq-orange-dim)); }
+    .fq-cta-avatar svg { width: 96px; height: 96px; }
+    .fq-cta-copy h2 { font-size: 1.55rem; font-weight: 800; color: var(--fq-ink); margin: 0 0 .5rem; }
+    .fq-cta-copy p { font-size: .95rem; color: var(--fq-ink-soft); line-height: 1.6; margin: 0; max-width: 50ch; }
+    .fq-cta-actions { display: flex; flex-direction: column; gap: .8rem; }
+    .fq-cta-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      font-size: .92rem; font-weight: 700; text-decoration: none;
+      padding: .85rem 1.5rem; border-radius: 12px; white-space: nowrap; transition: transform .2s, box-shadow .25s, background .25s;
+    }
+    .fq-cta-btn svg { width: 18px; height: 18px; }
+    .fq-cta-btn--primary { background: var(--fq-orange); color: #fff; box-shadow: 0 12px 28px -12px var(--fq-orange); }
+    .fq-cta-btn--primary:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--fq-orange) 85%, #000); }
+    .fq-cta-btn--ghost { background: var(--fq-card); color: var(--fq-ink); border: 1px solid var(--fq-line); }
+    .fq-cta-btn--ghost:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -16px rgba(0,0,0,.3); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 980px) {
+      .fq-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .fq-hero-grid { grid-template-columns: 1fr; }
+      .fq-hero-visual { order: -1; max-width: 520px; margin: 0 auto; }
+      .fq-hero h1, .fq-hero-lead { text-align: left; }
+      .fq-kpi { grid-template-columns: repeat(2, 1fr); }
+      .fq-kpi-item:nth-child(3)::before { display: none; }
+      .fq-cta { grid-template-columns: 1fr; text-align: center; }
+      .fq-cta-avatar { margin: 0 auto; }
+      .fq-cta-copy p { margin: 0 auto; }
+      .fq-cta-actions { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+    }
+    @media (max-width: 600px) {
+      .fq-hero { padding-top: 100px; }
+      .fq-search { max-width: 100%; }
+      .fq-cards { grid-template-columns: 1fr; }
+      .fq-kpi { grid-template-columns: 1fr; }
+      .fq-kpi-item + .fq-kpi-item::before { display: none; }
+      .fq-kpi-item { border-top: 1px solid var(--fq-line); }
+      .fq-kpi-item:first-child { border-top: none; }
+      .fq-float { padding: .6rem .8rem; }
+      .fq-float strong { font-size: 1rem; }
+      .fq-float--save strong { font-size: 1.15rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fq-float { animation: none; }
+      .fq-card, .fq-topic-chip, .fq-cta-btn { transition: none; }
+      .fq-card:hover, .fq-topic-chip:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><img src="image/clans_logo.png" alt="Clans Machina" class="logo-img" width="136" height="44" decoding="async" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="faq.html" class="active">FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="index.html#contact" class="btn btn-ghost">Contact</a>
+        <a href="calculator.html" class="btn btn-neon">Try Calculator</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main class="fqp">
+    <!-- ============ HERO ============ -->
+    <section class="fq-hero">
+      <div class="fq-wrap fq-hero-grid">
+        <div class="fq-hero-copy" data-animate>
+          <span class="fq-badge">
+            <svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Solar Knowledge Hub
+          </span>
+          <h1>Solar Questions,<span class="accent">Clearly Answered</span></h1>
+          <p class="fq-hero-lead">Everything you need to know before going solar &mdash; costs, subsidy, savings, installation, financing and more. No jargon, just straight answers.</p>
+          <form class="fq-search" id="fqSearch" role="search" onsubmit="return false;">
+            <input type="text" id="fqSearchInput" placeholder="Search your question here..." aria-label="Search questions" />
+            <button type="submit" aria-label="Search">
+              <svg fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <div class="fq-hero-visual" data-animate>
+          <img class="fq-hero-img" src="image/house.png.png" alt="Modern home with rooftop solar panels" />
+          <div class="fq-float fq-float--save">
+            <div>
+              <small>Save up to</small>
+              <strong>90%</strong>
+              <small>on Electricity Bills</small>
+            </div>
+          </div>
+          <div class="fq-float fq-float--warr">
+            <span class="fq-float-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><strong>25 Years</strong><small>Performance Warranty</small></div>
+          </div>
+          <div class="fq-float fq-float--back">
+            <span class="fq-float-ico"><svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <div><strong>4&ndash;5 Yrs</strong><small>Typical Payback</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KPI STRIP ============ -->
+    <div class="fq-wrap">
+      <div class="fq-kpi" data-animate>
+        <div class="fq-kpi-item">
+          <span class="fq-kpi-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>&#8377;78,000</strong><span>Max residential subsidy</span></div>
+        </div>
+        <div class="fq-kpi-item">
+          <span class="fq-kpi-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 7h4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>Up to 90%</strong><span>Bill reduction</span></div>
+        </div>
+        <div class="fq-kpi-item">
+          <span class="fq-kpi-ico"><svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <div><strong>4&ndash;5 Years</strong><span>Typical payback</span></div>
+        </div>
+        <div class="fq-kpi-item">
+          <span class="fq-kpi-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+          <div><strong>25 Years</strong><span>Performance warranty</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ EXPLORE BY TOPIC ============ -->
+    <div class="fq-wrap">
+      <h2 class="fq-explore-title" data-animate>Explore by Topic</h2>
+      <div class="fq-topic-chips" data-animate>
+        <a href="#fq-cost" class="fq-topic-chip fq-topic-chip--cost"><span class="fq-chip-ico"><svg fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 14h2M14 14h2M8 17h2M14 17h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Costs &amp; Savings</a>
+        <a href="#fq-sub" class="fq-topic-chip fq-topic-chip--sub"><span class="fq-chip-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>PM Surya Ghar Subsidy</a>
+        <a href="#fq-tech" class="fq-topic-chip fq-topic-chip--tech"><span class="fq-chip-ico"><svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 6.7 19l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 12.6H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 5 6.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 11 3V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span>Sizing &amp; Technology</a>
+        <a href="#fq-inst" class="fq-topic-chip fq-topic-chip--inst"><span class="fq-chip-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Installation &amp; Process</a>
+        <a href="#fq-warr" class="fq-topic-chip fq-topic-chip--warr"><span class="fq-chip-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Warranty &amp; Service</a>
+        <a href="#fq-fin" class="fq-topic-chip fq-topic-chip--fin"><span class="fq-chip-ico"><svg fill="none" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12.5" r="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M6 6V4M18 6V4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Financing &amp; Loans</a>
+      </div>
+    </div>
+
+    <!-- ============ TOPIC CARDS ============ -->
+    <div class="fq-wrap">
+      <div class="fq-cards">
+
+        <!-- Costs & Savings -->
+        <div class="fq-card fq-card--cost" id="fq-cost" data-animate>
+          <div class="fq-card-head">
+            <span class="fq-card-ico"><svg fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 14h2M14 14h2M8 17h2M14 17h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <h3>Costs &amp; Savings</h3>
+          </div>
+          <div class="fq-qlist">
+            <div class="fq-item"><button class="fq-q" type="button">What does a rooftop solar system cost in India?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Residential systems run roughly &#8377;55,000&ndash;70,000 per kW before subsidy (a 3 kW system is about &#8377;1.7&ndash;2.1 lakh). Larger plants cost less per kW.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">How much can I actually save?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>A well-sized on-grid system with net metering can cut your bill by up to 90%. Most homes save lakhs over the 25-year life.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">What is the payback period?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Typically 4&ndash;5 years for homes after subsidy, and 3.5&ndash;5 years for commercial plants. After that, the power is effectively free.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Do I keep saving after the payback period?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Yes. Panels are warranted for 25 years, so once the system pays for itself you enjoy two decades of near-free electricity.</p></div></div>
+          </div>
+          <a href="index.html#contact" class="fq-viewall">Contact Us <svg fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <!-- PM Surya Ghar Subsidy -->
+        <div class="fq-card fq-card--sub" id="fq-sub" data-animate>
+          <div class="fq-card-head">
+            <span class="fq-card-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+            <h3>PM Surya Ghar Subsidy</h3>
+          </div>
+          <div class="fq-qlist">
+            <div class="fq-item"><button class="fq-q" type="button">What is PM Surya Ghar: Muft Bijli Yojana?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>The central scheme that subsidises residential rooftop solar to promote clean energy and free up to 300 units/month for households.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">How much subsidy can I get?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Up to &#8377;60,000 for 2 kW, &#8377;78,000 for 3 kW, capped at &#8377;78,000 for larger residential systems.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Who is eligible for the subsidy?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Indian homeowners with a valid connection in the household's name, a shadow-free roof, and a registered-vendor install via the national portal.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">How is the subsidy paid out?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Credited directly to your bank account, usually within a few weeks of commissioning, net-meter installation and inspection.</p></div></div>
+          </div>
+          <a href="index.html#contact" class="fq-viewall">Contact Us <svg fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <!-- Sizing & Technology -->
+        <div class="fq-card fq-card--tech" id="fq-tech" data-animate>
+          <div class="fq-card-head">
+            <span class="fq-card-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/></svg></span>
+            <h3>Sizing &amp; Technology</h3>
+          </div>
+          <div class="fq-qlist">
+            <div class="fq-item"><button class="fq-q" type="button">How much roof area do I need?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>About 100 sq.ft. of shadow-free roof per kW. A typical 3 kW home system needs roughly 300 sq.ft.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">How many units will my system generate?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Around 4 units (kWh) per kW per day &mdash; about 120 units a month, or 1,400&ndash;1,500 units a year per kW.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Which panels are best for me?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Tier-1 monocrystalline (Mono PERC / N-type TOPCon) panels for high efficiency and strong low-light performance.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Does solar work in cloudy or low light?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Yes. Output dips on cloudy days but systems are sized around annual averages. India gets 300+ sunny days in most regions.</p></div></div>
+          </div>
+          <a href="index.html#contact" class="fq-viewall">Contact Us <svg fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <!-- Installation & Process -->
+        <div class="fq-card fq-card--inst" id="fq-inst" data-animate>
+          <div class="fq-card-head">
+            <span class="fq-card-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Installation &amp; Process</h3>
+          </div>
+          <div class="fq-qlist">
+            <div class="fq-item"><button class="fq-q" type="button">How long does the installation take?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Most projects go from survey to commissioning in 18&ndash;27 days. The physical installation usually takes just 1&ndash;3 days.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">What are the steps from start to finish?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Site survey &rarr; 3D design &amp; quote &rarr; subsidy paperwork &rarr; installation &rarr; net-meter &amp; inspection &rarr; go-live &amp; app onboarding.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Do I need any government approvals?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Yes &mdash; net metering and DISCOM approvals are required. We handle the entire application and coordination for you.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Will solar panels damage my roof?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>No. With proper waterproofing and structures, panels actually shade and protect the roof beneath them.</p></div></div>
+          </div>
+          <a href="index.html#contact" class="fq-viewall">Contact Us <svg fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <!-- Warranty & Service -->
+        <div class="fq-card fq-card--warr" id="fq-warr" data-animate>
+          <div class="fq-card-head">
+            <span class="fq-card-ico"><svg fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Warranty &amp; Service</h3>
+          </div>
+          <div class="fq-qlist">
+            <div class="fq-item"><button class="fq-q" type="button">What warranties are included?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>A 25-year performance warranty on panels, a 10&ndash;12 year product warranty, and a 5&ndash;10 year inverter warranty, plus our service support.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">How long do solar panels last?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>25+ years of useful life. Many systems keep generating well beyond that at slightly reduced output.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">How often should panels be cleaned?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Usually once a month, or more in dusty areas. Rain handles a lot of it. Cleaning keeps generation at its peak.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">What if my generation suddenly drops?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Our monitoring flags under-performance automatically and triggers a service check before losses add up &mdash; backed by an SLA.</p></div></div>
+          </div>
+          <a href="index.html#contact" class="fq-viewall">Contact Us <svg fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <!-- Financing & Loans -->
+        <div class="fq-card fq-card--fin" id="fq-fin" data-animate>
+          <div class="fq-card-head">
+            <span class="fq-card-ico"><svg fill="none" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12.5" r="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M6 6V4M18 6V4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <h3>Financing &amp; Loans</h3>
+          </div>
+          <div class="fq-qlist">
+            <div class="fq-item"><button class="fq-q" type="button">Is financing or EMI available?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Yes. We offer solar loans through partner institutions &mdash; often your EMI is lower than your electricity savings, so you're cash-positive from day one.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Can I add battery backup later?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>Yes. Systems can be designed hybrid-ready so you can add batteries or an EV charger later without replacing the core setup.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">What is CAPEX vs OPEX/RESCO?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>CAPEX means you own the system (lowest lifetime cost, tax benefits). OPEX/RESCO means we own it and you pay a discounted per-unit tariff &mdash; zero upfront.</p></div></div>
+            <div class="fq-item"><button class="fq-q" type="button">Is solar really worth it in India?<span class="fq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="fq-a"><p>For most homes and businesses, yes &mdash; abundant sunlight, rising tariffs, subsidies and 25-year life make it a safe long-term investment.</p></div></div>
+          </div>
+          <a href="index.html#contact" class="fq-viewall">Contact Us <svg fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ BOTTOM CTA ============ -->
+    <div class="fq-wrap">
+      <div class="fq-cta" data-animate>
+        <div class="fq-cta-avatar">
+          <svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="var(--fq-orange)" stroke-width="1.6"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" stroke="var(--fq-orange)" stroke-width="1.6" stroke-linecap="round"/><path d="M16 3l1 1.5L18.5 5 17 6l-1 1.5L15 6l-1.5-1L15 4z" fill="var(--fq-amber)"/></svg>
+        </div>
+        <div class="fq-cta-copy">
+          <h2>Still have a question?</h2>
+          <p>Talk to a solar expert for a free, no-obligation answer &mdash; or estimate your savings and subsidy in under a minute.</p>
+        </div>
+        <div class="fq-cta-actions">
+          <a href="index.html#contact" class="fq-cta-btn fq-cta-btn--primary"><svg fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Talk to an Expert</a>
+          <a href="calculator.html" class="fq-cta-btn fq-cta-btn--ghost"><svg fill="none" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 6h8M8 10h2M12 10h2M8 14h2M12 14h2M8 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Estimate Savings</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="image/clans_logo.png" alt="Clans Machina" class="logo-img logo-img--footer" width="99" height="32" loading="lazy" decoding="async" fetchpriority="low" />
+          </a>
+          <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">IN</a>
+            <a href="#" aria-label="LinkedIn">LI</a>
+            <a href="#" aria-label="YouTube">YT</a>
+            <a href="#" aria-label="Twitter">TW</a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h5>Solutions</h5>
+          <ul>
+            <li><a href="services.html">All Solar Services</a></li>
+            <li><a href="services.html#residential">Residential Solar</a></li>
+            <li><a href="services.html#commercial">Commercial Solar</a></li>
+            <li><a href="society.html">Housing Societies</a></li>
+            <li><a href="index.html#process">On-Grid Systems</a></li>
+            <li><a href="index.html#process">Off-Grid Systems</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="index.html#hero">About Us</a></li>
+            <li><a href="index.html#features">ClansZero Plan</a></li>
+            <li><a href="index.html#features">Technology</a></li>
+            <li><a href="index.html#app">ClansMonitor App</a></li>
+            <li><a href="index.html#contact">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="calculator.html">Solar Calculator</a></li>
+            <li><a href="blog.html">Blog and Insights</a></li>
+            <li><a href="faq.html">Government Subsidies</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="index.html#contact">Support Center</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&#169; 2026 Clans Machina Energy Pvt. Ltd. All rights reserved. Proudly Made in India.</p>
+        <div class="footer-legal">
+          <a href="footer.html#privacy">Privacy Policy</a>
+          <a href="footer.html#terms">Terms and Conditions</a>
+          <a href="footer.html#cancellation">Warranty and Return Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHATBOT WIDGET (same as index.html) -->
+  <div class="chatbot-widget" id="chatbot">
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open solar consultation chat">
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="chatbot-pulse"></span>
+    </button>
+    <div class="chatbot-panel glass-card" id="chatbotPanel" style="display:none;">
+      <div class="chat-header">
+        <div class="chat-avatar-icon">&#9889;</div>
+        <div><strong>Solar Helper</strong><span class="chat-status">&#9679; Online</span></div>
+        <button class="chat-close" id="chatClose">&#215;</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg bot-msg"><span>&#128075; Hi! I am your Solar Helper. Ask me anything about solar — costs, subsidies, installation and more!</span></div>
+      </div>
+      <div class="chat-quick-replies">
+        <button class="quick-reply" data-reply="What does a rooftop solar system cost in India?">&#128176; System Cost</button>
+        <button class="quick-reply" data-reply="How much subsidy can I get?">&#127963; Subsidy</button>
+        <button class="quick-reply" data-reply="How long does the installation take?">&#128295; Installation</button>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Ask about solar..." />
+        <button id="chatSend">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/shared-footer.js" defer></script>
+  <script src="js/shared-theme.js" defer></script>
+  <script src="js/subpage.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      /* ---- ACCORDION ---- */
+      document.querySelectorAll('.fq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = btn.closest('.fq-item');
+          if (!item) return;
+          var wasOpen = item.classList.contains('open');
+          var card = btn.closest('.fq-card');
+          if (card) card.querySelectorAll('.fq-item.open').forEach(function (o) { o.classList.remove('open'); });
+          if (!wasOpen) item.classList.add('open');
+        });
+      });
+
+      /* ---- CHATBOT ---- */
+      var chatbotToggle = document.getElementById('chatbotToggle');
+      var chatbotPanel  = document.getElementById('chatbotPanel');
+      var chatClose     = document.getElementById('chatClose');
+      var chatMessages  = document.getElementById('chatMessages');
+      var chatInput     = document.getElementById('chatInput');
+      var chatSend      = document.getElementById('chatSend');
+
+      function addMsg(text, isBot) {
+        var div = document.createElement('div');
+        div.className = 'chat-msg ' + (isBot ? 'bot-msg' : 'user-msg');
+        var span = document.createElement('span');
+        span.textContent = text;
+        div.appendChild(span);
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function getBotResponse(msg) {
+        var m = msg.toLowerCase();
+        if (m.includes('cost') || m.includes('price') || m.includes('much') || m.includes('lakh')) {
+          return 'Residential systems run roughly ₹55,000–70,000 per kW before subsidy. A 3 kW system is about ₹1.7–2.1 lakh. Want a personalised quote?';
+        }
+        if (m.includes('saving') || m.includes('bill') || m.includes('reduc')) {
+          return 'A well-sized on-grid system with net metering can cut your bill by up to 90%. Use our Calculator to get your exact savings!';
+        }
+        if (m.includes('subsid') || m.includes('surya') || m.includes('government') || m.includes('scheme')) {
+          return 'Under PM Surya Ghar Muft Bijli Yojana you can get up to ₹78,000 subsidy for a 3 kW residential system. We handle all the paperwork!';
+        }
+        if (m.includes('payback') || m.includes('return') || m.includes('roi') || m.includes('year')) {
+          return 'Typical payback is 4–5 years for homes after subsidy. After that the power is effectively free for 20+ years.';
+        }
+        if (m.includes('install') || m.includes('how long') || m.includes('time') || m.includes('days')) {
+          return 'Most projects go from survey to commissioning in 18–27 days. The physical installation usually takes just 1–3 days.';
+        }
+        if (m.includes('roof') || m.includes('area') || m.includes('space') || m.includes('sqft') || m.includes('sq.ft')) {
+          return 'About 100 sq.ft. of shadow-free roof per kW. A typical 3 kW home system needs roughly 300 sq.ft.';
+        }
+        if (m.includes('panel') || m.includes('technolog') || m.includes('mono') || m.includes('perc') || m.includes('topcon')) {
+          return 'We recommend Tier-1 monocrystalline (Mono PERC / N-type TOPCon) panels for high efficiency and strong low-light performance.';
+        }
+        if (m.includes('warrant') || m.includes('guarantee') || m.includes('last')) {
+          return 'You get a 25-year panel performance warranty, 10–12 year product warranty, and 5–10 year inverter warranty, plus our service support.';
+        }
+        if (m.includes('clean') || m.includes('mainten') || m.includes('servic')) {
+          return 'Cleaning once a month keeps generation at peak. Our monitoring flags under-performance automatically and triggers a service check.';
+        }
+        if (m.includes('financ') || m.includes('loan') || m.includes('emi')) {
+          return 'We offer solar loans through partner institutions — your EMI is often lower than your electricity savings, so you are cash-positive from day one!';
+        }
+        if (m.includes('batter') || m.includes('backup') || m.includes('hybrid')) {
+          return 'Yes! Systems can be designed hybrid-ready so you can add batteries or an EV charger later without replacing the core setup.';
+        }
+        if (m.includes('cloud') || m.includes('rain') || m.includes('low light')) {
+          return 'Output dips on cloudy days but systems are sized around annual averages. India gets 300+ sunny days in most regions.';
+        }
+        if (m.includes('hi') || m.includes('hello') || m.includes('hey')) {
+          return 'Hello! I am your Solar Helper. Ask me about costs, subsidies, installation, warranties or financing — I am here to help!';
+        }
+        return 'Great question! Our solar experts can give you a detailed answer. Book a free consultation and we will call you within 2 hours. 📞';
+      }
+
+      function openChat() { chatbotPanel.style.display = 'block'; }
+      function closeChat() { chatbotPanel.style.display = 'none'; }
+
+      function sendChat() {
+        var text = chatInput.value.trim();
+        if (!text) return;
+        addMsg(text, false);
+        chatInput.value = '';
+        setTimeout(function () { addMsg(getBotResponse(text), true); }, 700);
+      }
+
+      if (chatbotToggle) chatbotToggle.addEventListener('click', function () {
+        chatbotPanel.style.display === 'none' ? openChat() : closeChat();
+      });
+      if (chatClose) chatClose.addEventListener('click', closeChat);
+      if (chatSend)  chatSend.addEventListener('click', sendChat);
+      if (chatInput) chatInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendChat(); });
+
+      document.querySelectorAll('.quick-reply').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var reply = btn.dataset.reply;
+          addMsg(reply, false);
+          setTimeout(function () { addMsg(getBotResponse(reply), true); }, 700);
+          openChat();
+        });
+      });
+
+      /* ---- SMART SEARCH ---- */
+      var searchInput = document.getElementById('fqSearchInput');
+      var searchForm  = document.getElementById('fqSearch');
+      var chatbotRedirectTimer = null;
+
+      function runSearch(q) {
+        q = (q || '').trim().toLowerCase();
+        var totalHits = 0;
+
+        document.querySelectorAll('.fq-card').forEach(function (card) {
+          var hits = 0;
+          card.querySelectorAll('.fq-item').forEach(function (item) {
+            var text = item.textContent.toLowerCase();
+            var match = q === '' || text.indexOf(q) !== -1;
+            item.style.display = match ? '' : 'none';
+            if (match) hits++;
+          });
+          card.style.display = (q !== '' && hits === 0) ? 'none' : '';
+          totalHits += hits;
+        });
+
+        if (chatbotRedirectTimer) clearTimeout(chatbotRedirectTimer);
+
+        if (q !== '' && totalHits === 0) {
+          chatbotRedirectTimer = setTimeout(function () {
+            chatInput.value = searchInput.value.trim();
+            openChat();
+            addMsg(searchInput.value.trim(), false);
+            setTimeout(function () { addMsg(getBotResponse(searchInput.value.trim()), true); }, 700);
+          }, 600);
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () { runSearch(searchInput.value); });
+      }
+      if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var q = searchInput ? searchInput.value.trim() : '';
+          if (!q) return;
+          var totalHits = 0;
+          document.querySelectorAll('.fq-item').forEach(function (item) {
+            if (item.style.display !== 'none') totalHits++;
+          });
+          if (totalHits === 0) {
+            chatInput.value = q;
+            openChat();
+            addMsg(q, false);
+            setTimeout(function () { addMsg(getBotResponse(q), true); }, 700);
+          }
+        });
+      }
+
+    });
+  </script>
+</body>
+</html>

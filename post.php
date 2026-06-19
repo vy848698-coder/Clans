@@ -179,7 +179,7 @@ if ($post) {
     <?php if (!$post): ?>
       <div class="crumbs"><a href="blog.php">&larr; Back to all blogs</a></div>
       <h1>Article not found</h1>
-      <p>This article may have been removed. <a href="blog.php" style="color:var(--accent,#22d3ee);">Browse all blogs</a>.</p>
+      <p>This article may have been removed. <a href="blog.php" style="color:var(--green);">Browse all blogs</a>.</p>
     <?php else: ?>
       <div class="crumbs"><a href="index.html">Home</a> / <a href="blog.php">Blogs</a> / <span><?= v($post['title']) ?></span></div>
 
