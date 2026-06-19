@@ -29,7 +29,6 @@
         <li><a href="projects.html">Projects</a></li>
         <li><a href="calculator.html">Calculator</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="blog.html">Blog</a></li>
       </ul>
       <div class="nav-actions">
         <a href="index.html#contact" class="btn btn-ghost">Contact</a>
@@ -52,20 +51,20 @@
       </div>
       <div class="proj-impact-strip" data-animate>
         <div class="proj-impact-item glass-card">
-          <span class="proj-impact-num">12,000+</span>
-          <span class="proj-impact-label">Installations Completed</span>
+          <span class="proj-impact-num">1,000+</span>
+          <span class="proj-impact-label">Solar Installations</span>
         </div>
         <div class="proj-impact-item glass-card">
-          <span class="proj-impact-num">29</span>
-          <span class="proj-impact-label">Cities Served</span>
+          <span class="proj-impact-num">1,200+</span>
+          <span class="proj-impact-label">Satisfied Customers</span>
         </div>
         <div class="proj-impact-item glass-card">
-          <span class="proj-impact-num">180 GWh</span>
-          <span class="proj-impact-label">Clean Energy Generated</span>
+          <span class="proj-impact-num">98%</span>
+          <span class="proj-impact-label">Customer Retention</span>
         </div>
         <div class="proj-impact-item glass-card">
-          <span class="proj-impact-num">&#8377;84 Cr+</span>
-          <span class="proj-impact-label">Customer Savings</span>
+          <span class="proj-impact-num">24/7</span>
+          <span class="proj-impact-label">Technical Support</span>
         </div>
       </div>
     </div>
@@ -308,15 +307,69 @@
   ============================================================ -->
   <section class="proj-quote-section">
     <div class="container">
-      <div class="proj-quote-card glass-card" data-animate>
-        <div class="proj-quote-mark">&#8220;</div>
-        <div class="proj-quote-body">
-          <p class="proj-quote-text">After Clans Machina installed our system, our electricity bill dropped from &#8377;6,800 to under &#8377;800 a month. The team handled everything &mdash; from design to subsidy paperwork. Best investment I have made for this home.</p>
-          <div class="proj-quote-author">
-            <span class="proj-quote-avatar">RS</span>
-            <div>
-              <strong>Ramesh S.</strong>
-              <span>5 kW Residential Install &mdash; Odisha</span>
+      <div class="section-header" data-animate>
+        <span class="section-tag">In Their Words</span>
+        <h2>What Our <span class="gradient-text">Customers Say</span></h2>
+        <p>Real homeowners across Odisha sharing the savings, service and peace of mind they got with Clans Machina.</p>
+      </div>
+
+      <div class="proj-quote-grid">
+        <!-- Review 1 -->
+        <div class="proj-quote-card glass-card" data-animate>
+          <div class="proj-quote-mark">&#8220;</div>
+          <div class="proj-quote-body">
+            <p class="proj-quote-text">Maine Clans Machina Solar se apne ghar me solar system install karwaya hai aur experience bahut hi accha raha. Team bahut professional thi aur installation bhi time par complete hua. Ab mera electricity bill pehle se kaafi kam aa raha hai. Highly recommended!</p>
+            <div class="proj-quote-author">
+              <img class="proj-quote-photo" src="image/customer Photo/1.png" alt="Rajesh Sahoo" loading="lazy" />
+              <div>
+                <strong>Rajesh Sahoo</strong>
+                <span>Homeowner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="proj-quote-card glass-card" data-animate>
+          <div class="proj-quote-mark">&#8220;</div>
+          <div class="proj-quote-body">
+            <p class="proj-quote-text">Hamare office ke liye Clans Machina Solar ne rooftop solar install kiya. Installation quality bahut achhi hai aur ab monthly electricity cost me kaafi savings ho rahi hai. Team ka support bhi outstanding hai.</p>
+            <div class="proj-quote-author">
+              <img class="proj-quote-photo" src="image/customer Photo/2.png" alt="Mohammed Arif Khan" loading="lazy" />
+              <div>
+                <strong>Mohammed Arif Khan</strong>
+                <span>Business Owner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="proj-quote-card glass-card" data-animate>
+          <div class="proj-quote-mark">&#8220;</div>
+          <div class="proj-quote-body">
+            <p class="proj-quote-text">I am extremely satisfied with the service provided by Clans Machina Solar. From the initial consultation to the final installation, the entire process was smooth, professional, and transparent.</p>
+            <div class="proj-quote-author">
+              <img class="proj-quote-photo" src="image/customer Photo/3.png" alt="Anil Patel" loading="lazy" />
+              <div>
+                <strong>Anil Patel</strong>
+                <span>Business Homeowner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="proj-quote-card glass-card" data-animate>
+          <div class="proj-quote-mark">&#8220;</div>
+          <div class="proj-quote-body">
+            <p class="proj-quote-text">Clans Machina Solar ra service re mu bahut khusi. Installation bahut neat au professional way re hela. Ebe mora electricity bill bahut kama asuchi. Dhanyabad pura team ku.</p>
+            <div class="proj-quote-author">
+              <img class="proj-quote-photo" src="image/customer Photo/4.png" alt="Sasmita Behera" loading="lazy" />
+              <div>
+                <strong>Sasmita Behera</strong>
+                <span>3 kW Residential Install &mdash; Odisha</span>
+              </div>
             </div>
           </div>
         </div>
@@ -349,6 +402,51 @@
   <script src="js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
   <script>
+    /* ---- IMPACT COUNTER ANIMATION ---- */
+    (function () {
+      var counters = [
+        { el: null, target: 1000, suffix: '+', prefix: '', decimals: 0, format: 'comma' },
+        { el: null, target: 1200, suffix: '+', prefix: '', decimals: 0, format: 'comma' },
+        { el: null, target: 98,   suffix: '%', prefix: '', decimals: 0, format: 'plain' },
+        { el: null, target: 24,   suffix: '/7', prefix: '', decimals: 0, format: 'plain' }
+      ];
+      var nums = document.querySelectorAll('.proj-impact-num');
+      nums.forEach(function (el, i) { if (counters[i]) counters[i].el = el; });
+
+      function formatNum(val, fmt) {
+        if (fmt === 'comma') return Math.floor(val).toLocaleString('en-IN');
+        return Math.floor(val).toString();
+      }
+
+      function animateCounter(cfg) {
+        var duration = 1800;
+        var start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          cfg.el.textContent = cfg.prefix + formatNum(ease * cfg.target, cfg.format) + cfg.suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      var strip = document.querySelector('.proj-impact-strip');
+      if (strip && 'IntersectionObserver' in window) {
+        var once = false;
+        var obs = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting || once) return;
+          once = true;
+          counters.forEach(function (cfg, i) {
+            if (!cfg.el) return;
+            setTimeout(function () { animateCounter(cfg); }, i * 120);
+          });
+          obs.disconnect();
+        }, { threshold: 0.4 });
+        obs.observe(strip);
+      }
+    })();
+
     (function () {
       var filters = document.querySelectorAll('.proj-filter');
       var cards   = document.querySelectorAll('.proj-card');

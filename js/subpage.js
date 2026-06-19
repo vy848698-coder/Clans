@@ -24,10 +24,10 @@
           { href: 'faq.html', label: 'Subsidy and FAQ' }
         ]
       },
-      'blog.html': {
+      'blog.php': {
         heading: 'Read Next',
         links: [
-          { href: 'blog.html', label: 'Latest Insights' },
+          { href: 'blog.php', label: 'Latest Insights' },
           { href: 'index.html#projects', label: 'Case Studies' },
           { href: 'index.html#contact', label: 'Talk to Solar Expert' }
         ]
@@ -75,7 +75,7 @@
       'footer.html': {
         heading: 'Helpful Pages',
         links: [
-          { href: 'blog.html', label: 'Blog and Insights' },
+          { href: 'blog.php', label: 'Blog and Insights' },
           { href: 'faq.html', label: 'Policy and FAQ' },
           { href: 'index.html#contact', label: 'Contact Team' }
         ]
@@ -321,6 +321,61 @@
     }, { threshold: 0.15 });
 
     animElements.forEach(el => observer.observe(el));
+  }
+
+  /* ---- LEGAL TOC SCROLL-SPY ---- */
+  const tocLinks = document.querySelectorAll('.legal-toc nav a');
+  if (tocLinks.length > 0) {
+    const sections = Array.from(tocLinks)
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.toggle('active',
+            l.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => spy.observe(s));
+  }
+
+  /* ---- COUNT-UP ANIMATION for .about-impact-stat ---- */
+  const impactStats = document.querySelectorAll('.about-impact-stat strong');
+  if (impactStats.length > 0) {
+    function animateCount(el) {
+      const raw = el.textContent.trim();
+      // Extract leading number, optional decimal, and trailing suffix (e.g. "+", " MW", " %")
+      const match = raw.match(/^([\d,]+(?:\.\d+)?)(.*)/);
+      if (!match) return;
+      const target = parseFloat(match[1].replace(/,/g, ''));
+      const suffix = match[2];
+      const useComma = match[1].includes(',');
+      const duration = 1800;
+      const start = performance.now();
+
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        const formatted = useComma ? current.toLocaleString('en-IN') : current;
+        el.textContent = formatted + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const countObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    impactStats.forEach(el => countObserver.observe(el));
   }
 
   /* ---- RANGE SLIDER LABEL ---- */

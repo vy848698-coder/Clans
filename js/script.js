@@ -24,10 +24,10 @@
           { href: 'faq.html', label: 'Subsidy and FAQ' }
         ]
       },
-      'blog.html': {
+      'blog.php': {
         heading: 'Read Next',
         links: [
-          { href: 'blog.html', label: 'Latest Insights' },
+          { href: 'blog.php', label: 'Latest Insights' },
           { href: 'index.html#projects', label: 'Case Studies' },
           { href: 'index.html#contact', label: 'Talk to Solar Expert' }
         ]
@@ -75,7 +75,7 @@
       'footer.html': {
         heading: 'Helpful Pages',
         links: [
-          { href: 'blog.html', label: 'Blog and Insights' },
+          { href: 'blog.php', label: 'Blog and Insights' },
           { href: 'faq.html', label: 'Policy and FAQ' },
           { href: 'index.html#contact', label: 'Contact Team' }
         ]
