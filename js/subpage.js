@@ -19,7 +19,7 @@
       'index.html': {
         heading: 'Quick Links',
         links: [
-          { href: 'services.html', label: 'Our Services' },
+          { href: 'residential.html', label: 'Residential Solar' },
           { href: 'calculator.html', label: 'Savings Calculator' },
           { href: 'faq.html', label: 'Subsidy and FAQ' }
         ]
@@ -43,17 +43,17 @@
       'calculator.html': {
         heading: 'From Estimate to Install',
         links: [
-          { href: 'services.html#commercial', label: 'Commercial Solar' },
+          { href: 'commercial.html', label: 'Commercial Offering' },
           { href: 'society.html', label: 'Society Offering' },
           { href: 'index.html#contact', label: 'Request Site Survey' }
         ]
       },
-      'services.html': {
-        heading: 'Services',
+      'commercial.html': {
+        heading: 'Commercial Flow',
         links: [
-          { href: 'calculator.html', label: 'Savings Calculator' },
+          { href: 'calculator.html', label: 'Commercial ROI Tool' },
           { href: 'faq.html', label: 'Policy and FAQ' },
-          { href: 'index.html#contact', label: 'Book Free Consultation' }
+          { href: 'index.html#contact', label: 'Book Business Audit' }
         ]
       },
       'society.html': {
@@ -62,6 +62,14 @@
           { href: 'calculator.html', label: 'Society Savings Tool' },
           { href: 'faq.html', label: 'Committee FAQs' },
           { href: 'index.html#contact', label: 'Schedule Feasibility Call' }
+        ]
+      },
+      'residential.html': {
+        heading: 'Homeowner Journey',
+        links: [
+          { href: 'calculator.html', label: 'Home Savings Tool' },
+          { href: 'faq.html', label: 'Subsidy and FAQ' },
+          { href: 'index.html#contact', label: 'Book Home Survey' }
         ]
       },
       'footer.html': {
@@ -315,39 +323,6 @@
     animElements.forEach(el => observer.observe(el));
   }
 
-  /* ---- COUNTUP ANIMATION ---- */
-  const countupEls = document.querySelectorAll('[data-countup]');
-  if (countupEls.length > 0) {
-    function animateCount(el) {
-      const target = parseInt(el.dataset.target, 10);
-      const suffix = el.dataset.suffix || '';
-      const strong = el.querySelector('strong');
-      if (!strong || isNaN(target)) return;
-      const duration = 1800;
-      const start = performance.now();
-      function tick(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        strong.textContent = Math.floor(eased * target).toLocaleString('en-IN') + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-        else strong.textContent = target.toLocaleString('en-IN') + suffix;
-      }
-      requestAnimationFrame(tick);
-    }
-
-    const countObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          countObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-
-    countupEls.forEach(el => countObserver.observe(el));
-  }
-
   /* ---- RANGE SLIDER LABEL ---- */
   const roofSize = document.getElementById('roofSize');
   const roofSizeLabel = document.getElementById('roofSizeLabel');
@@ -432,7 +407,6 @@
     const searchInput = document.getElementById('blogSearchInput');
     const loadMoreBtn = document.getElementById('blogLoadMoreBtn');
     const emptyState = document.getElementById('blogEmptyState');
-    const resultCount = document.getElementById('blogResultCount');
 
     let activeFilter = 'all';
     let query = '';
@@ -478,9 +452,6 @@
       }
       if (emptyState) {
         emptyState.style.display = visible === 0 ? 'block' : 'none';
-      }
-      if (resultCount) {
-        resultCount.textContent = visible + ' article' + (visible === 1 ? '' : 's');
       }
     }
 

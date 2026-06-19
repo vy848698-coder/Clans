@@ -19,7 +19,7 @@
       'index.html': {
         heading: 'Quick Links',
         links: [
-          { href: 'services.html', label: 'Our Services' },
+          { href: 'residential.html', label: 'Residential Solar' },
           { href: 'calculator.html', label: 'Savings Calculator' },
           { href: 'faq.html', label: 'Subsidy and FAQ' }
         ]
@@ -43,17 +43,17 @@
       'calculator.html': {
         heading: 'From Estimate to Install',
         links: [
-          { href: 'services.html#commercial', label: 'Commercial Solar' },
+          { href: 'commercial.html', label: 'Commercial Offering' },
           { href: 'society.html', label: 'Society Offering' },
           { href: 'index.html#contact', label: 'Request Site Survey' }
         ]
       },
-      'services.html': {
-        heading: 'Services',
+      'commercial.html': {
+        heading: 'Commercial Flow',
         links: [
-          { href: 'calculator.html', label: 'Savings Calculator' },
+          { href: 'calculator.html', label: 'Commercial ROI Tool' },
           { href: 'faq.html', label: 'Policy and FAQ' },
-          { href: 'index.html#contact', label: 'Book Free Consultation' }
+          { href: 'index.html#contact', label: 'Book Business Audit' }
         ]
       },
       'society.html': {
@@ -62,6 +62,14 @@
           { href: 'calculator.html', label: 'Society Savings Tool' },
           { href: 'faq.html', label: 'Committee FAQs' },
           { href: 'index.html#contact', label: 'Schedule Feasibility Call' }
+        ]
+      },
+      'residential.html': {
+        heading: 'Homeowner Journey',
+        links: [
+          { href: 'calculator.html', label: 'Home Savings Tool' },
+          { href: 'faq.html', label: 'Subsidy and FAQ' },
+          { href: 'index.html#contact', label: 'Book Home Survey' }
         ]
       },
       'footer.html': {

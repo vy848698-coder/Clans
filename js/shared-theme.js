@@ -32,7 +32,6 @@
         swatch('solar-premium', 'Solar Premium', '#16130d', '#f5b234', '#5cb3df') +
       '</div></div>' +
       '<div class="theme-group"><p class="theme-group-label">&#9788; Light Themes</p><div class="theme-swatches">' +
-        swatch('clans-brand', 'Clans Brand', '#fcfeff', '#163300', '#89ea5f') +
         swatch('solar-white', 'Solar White', '#fffbf0', '#d97706', '#dc2626') +
         swatch('sky-light', 'Sky Light', '#eef3fc', '#1d4ed8', '#0891b2') +
         swatch('mint-fresh', 'Mint Fresh', '#f0fdf8', '#059669', '#0284c7') +

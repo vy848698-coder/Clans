@@ -31,8 +31,7 @@ function initials($name) {
       <div class="blog-page-crumbs" data-animate><a href="index.html">Home</a><span>/</span><span>Blogs</span></div>
 
       <div class="blog-page-head" data-animate>
-        <span class="blog-page-eyebrow">Insights &amp; Guides</span>
-        <h2>Solar Knowledge Hub</h2>
+        <h2>All Blogs</h2>
       </div>
 
       <div class="blog-directory">

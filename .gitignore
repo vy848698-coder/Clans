@@ -9,6 +9,4 @@ Thumbs.db
 # Temp / build
 *.tmp
 .pw-*.js
-.tmp_shots/
-_*.html
 commit.patch

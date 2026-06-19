@@ -11,7 +11,9 @@
  * The dashboard POSTs JSON: { "id": 12, "status": "Replied" }
  */
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+// Origin is configurable via DASHBOARD_ORIGIN env var; defaults to the dev server.
+$ALLOWED_ORIGIN = getenv('DASHBOARD_ORIGIN') ?: 'http://localhost:3000';
+header("Access-Control-Allow-Origin: $ALLOWED_ORIGIN");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=utf-8");
@@ -22,12 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 }
 
 // --- DB connection ----------------------------------------------------------
-$DB_HOST = "localhost";
-$DB_USER = "root";
-$DB_PASS = "";
-$DB_NAME = "clansmachina";
+// Reads Railway's env vars in production; falls back to local XAMPP defaults.
+$DB_HOST = getenv('MYSQLHOST')     ?: "localhost";
+$DB_PORT = (int)(getenv('MYSQLPORT') ?: 3306);
+$DB_USER = getenv('MYSQLUSER')     ?: "root";
+$DB_PASS = getenv('MYSQLPASSWORD') !== false ? getenv('MYSQLPASSWORD') : "";
+$DB_NAME = getenv('MYSQLDATABASE') ?: "clansmachina";
 
-$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_PORT);
 if ($conn->connect_error) {
     http_response_code(500);
     echo json_encode(["error" => "DB connection failed"]);

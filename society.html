@@ -12,10 +12,18 @@
 <body>
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
-      <a href="index.html" class="logo"><img src="image/clans_logo.png" alt="Clans Machina" class="logo-img" width="136" height="44" decoding="async" /></a>
+      <a href="index.html" class="logo"><img src="image/clans_logo.png" alt="Clans Machina" class="logo-img" width="113" height="38" decoding="async" /></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Services</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="commercial.html" class="nav-service-link-min">Commercial</a>
+              <a href="society.html" class="nav-service-link-min">Society</a>
+            </li>
+          </ul>
+        </li>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="calculator.html">Calculator</a></li>
@@ -422,7 +430,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="index.html" class="logo">
-            <img src="image/clans_logo.png" alt="Clans Machina" class="logo-img logo-img--footer" width="99" height="32" loading="lazy" decoding="async" fetchpriority="low" />
+            <img src="image/clans_logo.png" alt="Clans Machina" class="logo-img logo-img--footer" width="95" height="32" loading="lazy" decoding="async" fetchpriority="low" />
           </a>
           <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>
           <div class="social-links">
@@ -435,9 +443,8 @@
         <div class="footer-links-group">
           <h5>Solutions</h5>
           <ul>
-            <li><a href="services.html">All Solar Services</a></li>
-            <li><a href="services.html#residential">Residential Solar</a></li>
-            <li><a href="services.html#commercial">Commercial Solar</a></li>
+            <li><a href="residential.html">Residential Solar</a></li>
+            <li><a href="commercial.html">Commercial Solar</a></li>
             <li><a href="society.html">Housing Societies</a></li>
             <li><a href="index.html#process">On-Grid Systems</a></li>
             <li><a href="index.html#process">Off-Grid Systems</a></li>
@@ -467,10 +474,10 @@
       <div class="footer-bottom">
         <p>&#169; 2026 Clans Machina Energy Pvt. Ltd. All rights reserved. Proudly Made in India.</p>
         <div class="footer-legal">
-          <!-- <a href="footer.html">Legal</a> -->
+          <a href="footer.html">Footer</a>
           <a href="footer.html#privacy">Privacy Policy</a>
-          <a href="footer.html#terms">Terms and Conditions</a>
-          <a href="footer.html#cancellation">Warranty and Return Policy</a>
+          <a href="footer.html#terms">Terms of Service</a>
+          <a href="footer.html#cancellation">Cancellation Policy</a>
         </div>
       </div>
     </div>

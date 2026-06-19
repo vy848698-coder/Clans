@@ -15,12 +15,8 @@
 
 require __DIR__ . '/db.php';
 
-// --- CORS: allow the Next.js dashboard (localhost:3000) ---------------------
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json; charset=utf-8");
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") { http_response_code(204); exit; }
+// CORS for the admin dashboard (origin configurable via DASHBOARD_ORIGIN env).
+send_cors_headers();
 
 function out($data, $code = 200) { http_response_code($code); echo json_encode($data); exit; }
 

@@ -1,13 +1,17 @@
 <?php
 /**
  * Database connection (shared).
- * XAMPP default: host=localhost, user=root, password='' (empty).
- * Change these if you set a MySQL password.
+ *
+ * In production (e.g. Railway MySQL), set these environment variables on the host:
+ *   MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE
+ * Locally (XAMPP) none are set, so it falls back to the defaults below
+ * (host=localhost, user=root, empty password, db=clansmachina).
  */
-$DB_HOST = 'localhost';
-$DB_USER = 'root';
-$DB_PASS = '';
-$DB_NAME = 'clansmachina';
+$DB_HOST = getenv('MYSQLHOST')     ?: 'localhost';
+$DB_PORT = getenv('MYSQLPORT')     ?: '3306';
+$DB_USER = getenv('MYSQLUSER')     ?: 'root';
+$DB_PASS = getenv('MYSQLPASSWORD') !== false ? getenv('MYSQLPASSWORD') : '';
+$DB_NAME = getenv('MYSQLDATABASE') ?: 'clansmachina';
 
 // Admin dashboard login.
 // Password is stored as a bcrypt hash, never plain text.
@@ -19,7 +23,7 @@ define('ADMIN_PASS_HASH', '$2y$10$duVYYUwumwQj1DIT1ra4GO5xuB3p3U1uQuaX/oZ7PW90gc
 
 try {
     $pdo = new PDO(
-        "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
+        "mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;charset=utf8mb4",
         $DB_USER,
         $DB_PASS,
         [
@@ -30,6 +34,25 @@ try {
 } catch (PDOException $e) {
     http_response_code(500);
     die('Database connection failed: ' . $e->getMessage());
+}
+
+/**
+ * Send CORS headers allowing the admin dashboard to call our JSON endpoints.
+ *
+ * The allowed origin comes from the DASHBOARD_ORIGIN env var in production
+ * (e.g. "https://your-app.vercel.app"); locally it defaults to the Next.js dev
+ * server. Call this at the top of every *_api.php / get_*.php / update_*.php.
+ */
+function send_cors_headers(): void {
+    $origin = getenv('DASHBOARD_ORIGIN') ?: 'http://localhost:3000';
+    header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header("Content-Type: application/json; charset=utf-8");
+    if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+        http_response_code(204);
+        exit;
+    }
 }
 
 /**
