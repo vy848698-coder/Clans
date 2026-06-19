@@ -13,13 +13,13 @@ function initials($name) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" data-theme="solar-premium">
+<html lang="en" data-theme="mint-fresh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Clans Machina Solar Blog" />
   <title>Blog and Insights | Clans Machina</title>
-  <script>(function(){try{var t=localStorage.getItem('cm_theme'),h=document.documentElement;if(t){if(t==='industrial'){h.removeAttribute('data-theme');}else{h.setAttribute('data-theme',t);}}}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('cm_theme_v2')||'mint-fresh',h=document.documentElement;if(t==='industrial'){h.removeAttribute('data-theme');}else{h.setAttribute('data-theme',t);}}catch(e){}})();</script>
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>

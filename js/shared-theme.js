@@ -1,13 +1,15 @@
 /* ============================================================
    CLANS MACHINA — SHARED THEME PICKER
    Injects the theme button + panel on every page (if not already
-   present) and applies the saved theme. Default: Solar Premium.
+   present) and applies the saved theme. Default: Mint Fresh.
    ============================================================ */
 (function () {
   'use strict';
 
-  var THEME_KEY = 'cm_theme';
-  var DEFAULT_THEME = 'solar-premium';
+  // Bumped to v2 so the new Mint Fresh default applies even to visitors
+  // who previously had an older default saved in localStorage.
+  var THEME_KEY = 'cm_theme_v2';
+  var DEFAULT_THEME = 'mint-fresh';
 
   var BTN_HTML =
     '<button class="theme-picker-btn" id="themePickerBtn" aria-label="Switch theme" title="Switch theme">' +
@@ -29,12 +31,12 @@
       '<div class="theme-panel-header"><h3>&#127912; Choose Theme</h3>' +
         '<button class="theme-panel-close" id="themePanelClose" aria-label="Close">&times;</button></div>' +
       '<div class="theme-group"><p class="theme-group-label">&#9733; Default</p><div class="theme-swatches">' +
-        swatch('solar-premium', 'Solar Premium', '#16130d', '#f5b234', '#5cb3df') +
+        swatch('mint-fresh', 'Mint Fresh', '#f0fdf8', '#059669', '#0284c7') +
       '</div></div>' +
       '<div class="theme-group"><p class="theme-group-label">&#9788; Light Themes</p><div class="theme-swatches">' +
+        swatch('solar-premium', 'Solar Premium', '#16130d', '#f5b234', '#5cb3df') +
         swatch('solar-white', 'Solar White', '#fffbf0', '#d97706', '#dc2626') +
         swatch('sky-light', 'Sky Light', '#eef3fc', '#1d4ed8', '#0891b2') +
-        swatch('mint-fresh', 'Mint Fresh', '#f0fdf8', '#059669', '#0284c7') +
         swatch('sunrise-warm', 'Sunrise Warm', '#fdf6ec', '#ea580c', '#ca8a04') +
       '</div></div>' +
       '<div class="theme-group"><p class="theme-group-label">&#9670; Mid Themes</p><div class="theme-swatches">' +
