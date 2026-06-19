@@ -1,0 +1,18 @@
+/*
+ * ClansMachina — main stylesheet.
+ *
+ * NOTE: This commit (fb91680) only ADDED the blog-card rules below to an
+ * already-existing styles.css. The full base stylesheet was not part of the
+ * commit, so only the rules introduced by the commit are reproduced here.
+ * Drop your existing styles.css in place to restore the complete theme.
+ */
+
+.bp-readmore {
+  display: inline-flex; align-items: center; gap: 5px; align-self: flex-start;
+  font-size: 0.8rem; font-weight: 600; color: var(--green);
+  text-decoration: none; margin-bottom: 14px; transition: gap 0.25s ease, color 0.25s ease;
+}
+.bp-readmore svg { transition: transform 0.25s ease; }
+.blog-page-card:hover .bp-readmore { gap: 9px; }
+.bp-title-link { color: inherit; text-decoration: none; }
+.bp-title-link:hover { color: var(--green); }

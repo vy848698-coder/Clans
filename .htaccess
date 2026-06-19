@@ -1,0 +1,25 @@
+# Block direct browser access to sensitive files.
+# (db.php is still usable via require/include from PHP — this only blocks
+#  someone typing the file's URL directly. submit-contact.php stays public.)
+
+<FilesMatch "(?i)\.(sql|md|log|json|lock)$">
+    Require all denied
+</FilesMatch>
+
+<Files "db.php">
+    Require all denied
+</Files>
+
+# Don't list directory contents
+Options -Indexes
+
+# Send old blog.html links to the new dynamic blog.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^blog\.html$ /ClansMachina/blog.php [R=301,L]
+</IfModule>
+
+# partials/ are includes, never meant to be opened directly
+<FilesMatch "^(nav|footer)\.php$">
+    Require all denied
+</FilesMatch>
