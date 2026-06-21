@@ -373,4 +373,21 @@
 
   // Initial paint with default asset cost
   configureEmiFromAsset(assetCost);
+
+  /* Hero visual: count-up the sample 25-year savings figure once. */
+  (function heroCountUp() {
+    var el = document.getElementById('scArtCount');
+    if (!el) return;
+    var target = 1280000, dur = 1600, start = null;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { el.textContent = fmt(target); return; }
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * eased);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
 })();
