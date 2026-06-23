@@ -57,7 +57,6 @@ if ($post) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
   <title><?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina</title>
-  <script>(function(){try{var t=localStorage.getItem('cm_theme_v2')||'mint-fresh',h=document.documentElement;if(t==='industrial'){h.removeAttribute('data-theme');}else{h.setAttribute('data-theme',t);}}catch(e){}})();</script>
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>

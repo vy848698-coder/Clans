@@ -8,17 +8,17 @@
           <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>
           <div class="social-links">
             <a href="#" aria-label="Instagram">IN</a>
-            <a href="#" aria-label="LinkedIn">LI</a>
+            <a href="https://in.linkedin.com/company/clansmachinaofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LI</a>
             <a href="#" aria-label="YouTube">YT</a>
             <a href="#" aria-label="Twitter">TW</a>
           </div>
         </div>
         <div class="footer-links-group">
-          <h5>Solutions</h5>
+          <h5>Our Offerings</h5>
           <ul>
-            <li><a href="residential.html">Residential Solar</a></li>
-            <li><a href="commercial.html">Commercial Solar</a></li>
-            <li><a href="society.html">Housing Societies</a></li>
+            <li><a href="services.html">Residential Solar</a></li>
+            <li><a href="services.html">Commercial Solar</a></li>
+            <li><a href="services.html">Housing Societies</a></li>
             <li><a href="index.html#process">On-Grid Systems</a></li>
             <li><a href="index.html#process">Off-Grid Systems</a></li>
           </ul>
@@ -56,5 +56,4 @@
     </div>
   </footer>
   <script src="js/shared-footer.js" defer></script>
-  <script src="js/shared-theme.js" defer></script>
   <script src="js/subpage.js" defer></script>

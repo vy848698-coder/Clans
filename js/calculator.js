@@ -11,19 +11,53 @@
     return rupee + Math.round(n).toLocaleString('en-IN');
   }
 
-  /* Cost per kW and subsidy rules differ by consumer category. */
-  var CATEGORY = {
-    residential: { costPerKw: function (kw) { return kw >= 10 ? 53000 : (kw >= 3 ? 58000 : 60000); }, subsidy: true,  offsetCap: 0.90 },
-    commercial:  { costPerKw: function (kw) { return kw >= 50 ? 46000 : (kw >= 10 ? 50000 : 54000); }, subsidy: false, offsetCap: 0.85 },
-    industrial:  { costPerKw: function (kw) { return kw >= 100 ? 43000 : (kw >= 30 ? 45000 : 48000); }, subsidy: false, offsetCap: 0.82 }
-  };
+  /* ------------------------------------------------------------
+     All tunable constants live in js/calculator-data.js
+     (window.CALC_DATA). Fall back to sane defaults if it didn't load.
+     ------------------------------------------------------------ */
+  var CD = window.CALC_DATA || {};
+  var PANEL_KW    = CD.panelKw || 0.54;
+  var TARIFF_DEF  = CD.tariffPerUnit || 8;
+  var ESCAL       = (CD.tariffEscalation != null ? CD.tariffEscalation : 0.03);
+  var LIFE_YRS    = CD.systemLifeYears || 25;
+  var CO2_FAC     = CD.co2FactorKgPerKwh || 0.82;
+  var SQFT_PER_KW = CD.sqftPerKw || 100;
 
-  /* PM Surya Ghar (residential): 30k/kW first 2kW, 18k next 1kW, cap 78k. */
+  /* Aerem cost-per-kW tiers (₹67k ≤5kW, ₹55k 5–10kW). */
+  var COST_TIERS = CD.costPerKwTiers || [
+    { uptoKw: 5,        ratePerKw: 67000 },
+    { uptoKw: 10,       ratePerKw: 55000 },
+    { uptoKw: Infinity, ratePerKw: 55000 }
+  ];
+  function baseCostPerKw(kw) {
+    for (var i = 0; i < COST_TIERS.length; i++) {
+      if (kw <= COST_TIERS[i].uptoKw) return COST_TIERS[i].ratePerKw;
+    }
+    return COST_TIERS[COST_TIERS.length - 1].ratePerKw;
+  }
+
+  /* Category: subsidy eligibility, bill-offset cap, cost multiplier vs base. */
+  var CATEGORY = {
+    residential: { subsidy: true,  offsetCap: CD.billOffsetRate || 0.90, mult: 1.00 },
+    commercial:  { subsidy: false, offsetCap: 0.85, mult: 0.95 },
+    industrial:  { subsidy: false, offsetCap: 0.82, mult: 0.92 }
+  };
+  if (CD.categories) {
+    if (CD.categories.RESIDENTIAL) CATEGORY.residential.mult = CD.categories.RESIDENTIAL.costMultiplier;
+    if (CD.categories.COMMERCIAL)  CATEGORY.commercial.mult  = CD.categories.COMMERCIAL.costMultiplier;
+    if (CD.categories.INDUSTRIAL)  CATEGORY.industrial.mult  = CD.categories.INDUSTRIAL.costMultiplier;
+  }
+
+  /* PM Surya Ghar subsidy (residential) — read slabs/cap from CALC_DATA. */
   function residentialSubsidy(kw) {
-    var s = 0;
-    s += Math.min(kw, 2) * 30000;
-    if (kw > 2) s += Math.min(kw - 2, 1) * 18000;
-    return Math.min(Math.round(s), 78000);
+    var s = CD.subsidy;
+    if (!s || !s.enabled) {
+      var a = Math.min(kw, 2) * 30000 + (kw > 2 ? Math.min(kw - 2, 1) * 18000 : 0);
+      return Math.min(Math.round(a), 78000);
+    }
+    var amt = Math.min(kw, 2) * s.perKwFirst2Kw + (kw > 2 ? Math.min(kw - 2, 1) * s.perKw3rdKw : 0);
+    amt = Math.min(amt, s.cap) + (s.stateSubsidy || 0);
+    return Math.round(amt);
   }
 
   /* ---------- shared state fed from estimator into EMI ---------- */
@@ -162,7 +196,7 @@
 
     var opt = $('estLocation').selectedOptions[0];
     var sun = parseFloat(opt.getAttribute('data-sun')) || 4.4;     // peak sun hours / day
-    var tariff = parseFloat(opt.getAttribute('data-tariff')) || 8;  // Rs per unit
+    var tariff = parseFloat(opt.getAttribute('data-tariff')) || TARIFF_DEF;  // Rs per unit
 
     // Validate mandatory inputs
     var billInput = parseFloat($('estBill').value) || 0;
@@ -188,14 +222,14 @@
     // Consumption and sizing
     var dailyUnits = monthlyUnits / 30;
     var sizeFromBill = dailyUnits / sun;          // kW needed to cover usage
-    var sizeFromRoof = roofArea / 100;            // ~100 sq ft per kW
+    var sizeFromRoof = roofArea / SQFT_PER_KW;    // ~100 sq ft per kW
     var systemSize = Math.max(1, Math.min(sizeFromRoof, sizeFromBill));
     systemSize = parseFloat(systemSize.toFixed(1));
 
     // Generation, panels, CO2
     var monthlyGen = Math.round(systemSize * sun * 30);
-    var panels = Math.ceil(systemSize / 0.55);    // 550 Wp panels
-    var co2 = parseFloat((monthlyGen * 12 * 0.82 / 1000).toFixed(1)); // tonnes/yr
+    var panels = Math.ceil(systemSize / PANEL_KW);    // 540 Wp panels
+    var co2 = parseFloat((monthlyGen * 12 * CO2_FAC / 1000).toFixed(1)); // tonnes/yr
 
     // Savings (capped offset of consumption)
     var offsetUnits = Math.min(monthlyUnits * cat.offsetCap, monthlyGen);
@@ -204,13 +238,13 @@
     var reduction = Math.round((bill - newBill) / bill * 100);
     var annualSaving = monthlySaving * 12;
 
-    // 25-year savings with 3% annual tariff escalation
+    // 25-year savings with annual tariff escalation
     var savings25 = 0, yearSave = annualSaving;
-    for (var y = 0; y < 25; y++) { savings25 += yearSave; yearSave *= 1.03; }
+    for (var y = 0; y < LIFE_YRS; y++) { savings25 += yearSave; yearSave *= (1 + ESCAL); }
     savings25 = Math.round(savings25);
 
     // Cost and subsidy
-    var grossCost = Math.round(systemSize * cat.costPerKw(systemSize));
+    var grossCost = Math.round(systemSize * baseCostPerKw(systemSize) * cat.mult);
     var subsidy = cat.subsidy ? residentialSubsidy(systemSize) : 0;
     var netCost = Math.max(grossCost - subsidy, 0);
     var payback = annualSaving > 0 ? parseFloat((netCost / annualSaving).toFixed(1)) : 0;

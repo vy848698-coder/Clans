@@ -170,3 +170,57 @@ The **EMI block (§6) is exact and can be reused verbatim.**
 
 All ₹ assumptions above are placeholders — confirm desired values with the user
 before building.
+
+---
+
+## 9. Investigation log — 2026-06-23
+
+### Method & limitations (important)
+The live calculator could **not** be driven interactively from this environment:
+- `www.aerem.co/calculator` and `webform.aerem.co/calculator` are client-side
+  rendered (Next.js). A plain HTML fetch returns only the shell — the form
+  fields, sliders and results are injected by JS at runtime, so fetching the
+  page does not reveal computed numbers.
+- The real math runs server-side at `POST installer-api.aerem.co/api/solar-calculator`.
+  A bare `GET` on that path returns **HTTP 404** (it only answers authed POSTs
+  with a JSON body), so we cannot replay inputs and read outputs through it.
+- Therefore §§1–7 (reverse-engineered from the JS bundle) remain our source of
+  truth for *structure & formulas*; the numeric constants below are corroborated
+  from Aerem's own 2026 blog posts + general Indian-market sources, not from a
+  live run.
+
+### Confirmed Indian-market constants (use these as our defaults)
+| Constant            | Value to use            | Source / range observed |
+|---------------------|-------------------------|-------------------------|
+| Generation per kW   | **4 kWh/day** (~120 units/kW/month) | 100–140 units/kW/mo depending on location |
+| Cost per kW         | **₹67,000/kW ≤ 5 kW**, **₹55,000/kW for 5–10 kW** | market ₹45k–80k/kW before subsidy |
+| Panel wattage       | **0.54 kW/panel** (540 Wp) | current mono-PERC/TOPCon standard |
+| Tariff (₹/unit)     | **₹8** default (editable) | residential slab avg |
+| Tariff escalation   | **~3%/yr** over 25 yr | bill-rise assumption |
+| CO₂ factor          | **0.82 kg/kWh** | Indian grid emission factor |
+| Subsidy (residential)| ₹30k/kW first 2 kW + ₹18k for 3rd kW, **cap ₹78,000** | PM Surya Ghar (§7) |
+
+### Cross-checks from Aerem's published examples
+- "**1 kW → ~₹30,000 subsidy**, effective price ≈ ₹20k–35k after subsidy."
+- "**5 kW system: post-subsidy project cost ≈ ₹2.57 lakh, EMI ≈ ₹5,000–5,500/mo**,
+  with monthly electricity savings ≈ the EMI amount." → good sanity-check target:
+  our 5 kW output should land near these numbers.
+- Design principle they advertise: **monthly EMI ≈ monthly bill savings** (so the
+  system pays for itself out of saved electricity), with payback ~3–4 yr.
+
+### Open questions to confirm with the user before coding
+1. Cost-per-kW tiers — use the table above, or our own pricing?
+2. Default tariff ₹8/unit and 3% escalation — OK?
+3. Subsidy: residential only (cap ₹78k) or also surface the Odisha ₹60k state
+   subsidy already shown on the homepage (would change net cost)?
+4. Commercial/Industrial: no subsidy + different cost/kW + accelerated-depreciation
+   benefit — do we model that, or keep v1 residential-only?
+
+### Build plan (v1, fully client-side — no backend needed)
+1. Inputs: location (optional text), monthly bill **or** units, roof area (optional),
+   consumer category tabs.
+2. Derive `monthlyUnits` → `systemCapacity` → clamp by roof area if given.
+3. `systemCost` from tiered cost/kW; subtract subsidy → `netCost`.
+4. Generation, new bill, monthly + 25-yr savings, CO₂, panels.
+5. EMI sliders (loan/down-payment/tenure/interest) using the **exact §6 formula**.
+6. Show savings-vs-bill bar like §4; optional lead form (skip PDF for v1).
