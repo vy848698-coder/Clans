@@ -19,7 +19,7 @@
       'index.html': {
         heading: 'Quick Links',
         links: [
-          { href: 'services.html', label: 'Our Offerings' },
+          { href: 'our-offering/home.html', label: 'Our Offerings' },
           { href: 'calculator.html', label: 'Savings Calculator' },
           { href: 'faq.html', label: 'Subsidy and FAQ' }
         ]
@@ -43,7 +43,7 @@
       'calculator.html': {
         heading: 'From Estimate to Install',
         links: [
-          { href: 'services.html', label: 'Our Offerings' },
+          { href: 'our-offering/home.html', label: 'Our Offerings' },
           { href: 'faq.html', label: 'Subsidy and FAQ' },
           { href: 'index.html#contact', label: 'Request Site Survey' }
         ]

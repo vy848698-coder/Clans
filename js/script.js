@@ -19,7 +19,7 @@
       'index.html': {
         heading: 'Quick Links',
         links: [
-          { href: 'services.html', label: 'Our Offerings' },
+          { href: 'our-offering/home.html', label: 'Our Offerings' },
           { href: 'calculator.html', label: 'Savings Calculator' },
           { href: 'faq.html', label: 'Subsidy and FAQ' }
         ]
@@ -43,7 +43,7 @@
       'calculator.html': {
         heading: 'From Estimate to Install',
         links: [
-          { href: 'services.html', label: 'Our Offerings' },
+          { href: 'our-offering/home.html', label: 'Our Offerings' },
           { href: 'faq.html', label: 'Subsidy and FAQ' },
           { href: 'index.html#contact', label: 'Request Site Survey' }
         ]
@@ -596,7 +596,16 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-        .then(res => res.json())
+        .then(res => res.text().then(text => {
+          // Parse manually so a non-JSON response (PHP not executed, 404,
+          // server warning) gives a clear message instead of a vague error.
+          try {
+            return JSON.parse(text);
+          } catch (err) {
+            console.error('Contact form: server did not return JSON.', { status: res.status, body: text });
+            throw new Error('Bad server response (HTTP ' + res.status + '). If you opened this page via Live Server or as a file, open it through http://localhost/ instead so PHP can run.');
+          }
+        }))
         .then(data => {
           if (data.ok) {
             if (formSuccess) formSuccess.style.display = 'flex';
@@ -606,9 +615,9 @@
             formErrors.style.display = 'block';
           }
         })
-        .catch(() => {
+        .catch(err => {
           if (formErrors) {
-            formErrors.innerHTML = '<ul><li>Network error. Please try again.</li></ul>';
+            formErrors.innerHTML = '<ul><li>' + (err && err.message ? err.message : 'Network error. Please try again.') + '</li></ul>';
             formErrors.style.display = 'block';
           }
         })

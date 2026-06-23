@@ -33,7 +33,11 @@ try {
     );
 } catch (PDOException $e) {
     http_response_code(500);
-    die('Database connection failed: ' . $e->getMessage());
+    // Return JSON so AJAX callers (e.g. the contact form) can show a real
+    // message instead of failing to parse plain text as a "network error".
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'message' => 'Database connection failed. Please try again later.']);
+    exit;
 }
 
 /**
