@@ -10,3 +10,7 @@ Thumbs.db
 *.tmp
 .pw-*.js
 commit.patch
+
+# Image optimizer backups (pristine originals, not for deploy)
+image/_originals/
+optimize-images.js

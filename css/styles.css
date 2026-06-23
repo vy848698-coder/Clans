@@ -558,7 +558,7 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 36px;
   flex: 1;
   justify-content: center;
 }
@@ -566,21 +566,25 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   position: relative;
 }
 .nav-links a {
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   color: var(--text-secondary);
-  font-weight: 500;
-  transition: color 0.2s;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
   position: relative;
 }
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   right: 0;
-  height: 1px;
-  background: var(--green);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--green), var(--blue, var(--green)));
   transform: scaleX(0);
+  transform-origin: left;
   transition: transform 0.25s ease;
 }
 .nav-links a:hover { color: var(--text-primary); }
@@ -592,10 +596,12 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   transform: scaleX(1);
 }
 .nav-dropdown-toggle {
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   color: var(--text-secondary);
-  font-weight: 500;
-  transition: color 0.2s;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
   position: relative;
   background: none;
   border: 0;
@@ -608,12 +614,14 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 .nav-dropdown-toggle::before {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   right: 0;
-  height: 1px;
-  background: var(--green);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--green), var(--blue, var(--green)));
   transform: scaleX(0);
+  transform-origin: left;
   transition: transform 0.25s ease;
 }
 .nav-dropdown-toggle::after {
@@ -732,8 +740,9 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 .hamburger span { width:22px; height:2px; background:var(--text-primary); border-radius:2px; transition:all 0.3s; display:block; }
 
 @media (max-width: 1180px) {
-  .nav-links { gap: 20px; }
-  .nav-links a { font-size: 0.84rem; }
+  .nav-links { gap: 22px; }
+  .nav-links a,
+  .nav-dropdown-toggle { font-size: 0.92rem; }
   .nav-actions .btn { padding: 10px 14px; font-size: 0.82rem; }
 }
 

@@ -23,3 +23,28 @@ Options -Indexes
 <FilesMatch "^(nav|footer)\.php$">
     Require all denied
 </FilesMatch>
+
+# --- Performance: compression + browser caching ---
+
+# Gzip text-based assets (HTML, CSS, JS, fonts, SVG)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+        application/javascript application/json image/svg+xml \
+        application/x-font-ttf application/vnd.ms-fontobject font/ttf font/otf
+</IfModule>
+
+# Tell browsers to cache static assets so repeat visits don't re-download them
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg   "access plus 1 year"
+    ExpiresByType image/png    "access plus 1 year"
+    ExpiresByType image/webp   "access plus 1 year"
+    ExpiresByType image/gif    "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css     "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/ttf     "access plus 1 year"
+    ExpiresByType font/otf     "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresDefault             "access plus 2 days"
+</IfModule>
