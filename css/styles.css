@@ -601,8 +601,11 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   border: 0;
   padding: 0;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
-.nav-dropdown-toggle::after {
+.nav-dropdown-toggle::before {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -613,16 +616,28 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   transform: scaleX(0);
   transition: transform 0.25s ease;
 }
+.nav-dropdown-toggle::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.nav-dropdown.open .nav-dropdown-toggle::after {
+  transform: translateY(1px) rotate(225deg);
+}
 .nav-dropdown:hover .nav-dropdown-toggle,
 .nav-dropdown.open .nav-dropdown-toggle,
 .nav-dropdown-toggle.active,
 .nav-dropdown-toggle:focus-visible {
   color: var(--text-primary);
 }
-.nav-dropdown:hover .nav-dropdown-toggle::after,
-.nav-dropdown.open .nav-dropdown-toggle::after,
-.nav-dropdown-toggle.active::after,
-.nav-dropdown-toggle:focus-visible::after {
+.nav-dropdown:hover .nav-dropdown-toggle::before,
+.nav-dropdown.open .nav-dropdown-toggle::before,
+.nav-dropdown-toggle.active::before,
+.nav-dropdown-toggle:focus-visible::before {
   transform: scaleX(1);
 }
 .nav-dropdown::after {
@@ -666,7 +681,7 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 }
 .nav-dropdown-menu a:hover {
   background: var(--dropdown-hover-bg);
-  color: var(--text-primary);
+  color: var(--dropdown-text);
 }
 .nav-dropdown-col {
   display: flex;
@@ -935,6 +950,32 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   .google-review-badge { font-size: 0.74rem; padding: 8px 14px; }
   .google-review-badge .grb-text { white-space: normal; }
 }
+/* White Google rating pill (used on hero sections) */
+.google-rating-pill-wrap { margin: 24px 0 28px; }
+.google-rating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 18px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 40px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-decoration: none;
+  box-shadow: 0 8px 24px -12px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.google-rating-pill:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -12px rgba(0,0,0,0.4); }
+.google-rating-pill .grp-logo { flex-shrink: 0; }
+.google-rating-pill .grp-stars { color: #f5b234; letter-spacing: 1px; flex-shrink: 0; }
+.google-rating-pill .grp-text { white-space: nowrap; color: #374151; }
+.google-rating-pill .grp-text strong { color: #111827; font-weight: 800; }
+@media (max-width: 480px) {
+  .google-rating-pill { font-size: 0.8rem; padding: 8px 14px; gap: 7px; }
+  .google-rating-pill .grp-text { white-space: normal; }
+}
 .badge-dot {
   width: 8px;
   height: 8px;
@@ -1184,6 +1225,7 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
   border-color: rgba(245,178,52,0.45);
   background: rgba(245,178,52,0.06);
   box-shadow: 0 0 60px rgba(245,178,52,0.1), 0 4px 32px rgba(0,0,0,0.28);
+  padding-top: 56px;
 }
 .why-now-card--featured:hover {
   border-color: rgba(245,178,52,0.7);
@@ -1192,12 +1234,23 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 }
 .why-now-card--featured .wn-card-num { color: rgba(245,178,52,0.06); }
 
+/* Highlighted subsidy price inside the featured card */
+.wn-price-hi {
+  color: var(--gold);
+  font-weight: 800;
+  white-space: nowrap;
+  background: rgba(245,178,52,0.12);
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
 /* "Act Now" badge */
 .wn-badge-top {
   position: absolute;
-  top: -14px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -2329,6 +2382,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   gap: 10px;
   color: #fff;
   overflow: hidden;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 .rc-top::after {
   content: ''; position: absolute; inset: 0; opacity: 0.16; pointer-events: none;
@@ -2336,15 +2390,16 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
     repeating-linear-gradient(0deg, rgba(255,255,255,0.7) 0 1px, transparent 1px 16px),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.7) 0 1px, transparent 1px 22px);
 }
-.rc-residential { background: linear-gradient(135deg, #fbbf24, #ea580c); }
-.rc-commercial  { background: linear-gradient(135deg, #22d3ee, #0e7490); }
-.rc-society     { background: linear-gradient(135deg, #a78bfa, #6d28d9); }
-.rc-industrial  { background: linear-gradient(135deg, #fb7185, #be123c); }
+.rc-residential { background: linear-gradient(135deg, #f59e0b, #c2410c); }
+.rc-commercial  { background: linear-gradient(135deg, #0891b2, #0e7490); }
+.rc-society     { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.rc-industrial  { background: linear-gradient(135deg, #f43f5e, #be123c); }
 .rc-badge {
   position: relative; z-index: 1;
   font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
   padding: 5px 11px; border-radius: 20px;
-  background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.55);
+  text-shadow: none;
 }
 .rc-size { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 800; font-size: 2.1rem; line-height: 1; white-space: nowrap; }
 .rc-size small { font-size: 0.85rem; font-weight: 600; opacity: 0.92; margin-left: 2px; }
@@ -2356,12 +2411,21 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   padding: 12px 14px; border-radius: var(--radius-sm);
   background: var(--green-dim); border: 1px solid var(--border-bright);
 }
-.rc-bill { display: flex; flex-direction: column; line-height: 1.15; }
+.rc-bill { display: flex; flex-direction: column; line-height: 1.2; }
 .rc-bill > span { font-size: 0.64rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.rc-bill strong { font-family: var(--font-display); font-size: 1rem; color: var(--text-secondary); }
-.rc-bill-after strong { color: var(--green); }
-.rc-arrow { color: var(--text-muted); font-weight: 700; }
-.rc-cut { margin-left: auto; font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: var(--green); }
+.rc-bill strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-secondary); text-decoration: line-through; text-decoration-color: rgba(127,127,127,0.5); }
+.rc-bill-after strong {
+  color: var(--green);
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-decoration: none;
+  background: var(--green-dim);
+  border: 1px solid var(--border-bright);
+  padding: 2px 9px;
+  border-radius: 7px;
+}
+.rc-arrow { color: var(--green); font-weight: 800; font-size: 1.1rem; }
+.rc-cut { margin-left: auto; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--green); }
 .rc-metrics { display: grid; gap: 8px; margin-top: auto; list-style: none; }
 .rc-metrics li { display: flex; justify-content: space-between; gap: 10px; font-size: 0.84rem; border-top: 1px dashed var(--border); padding-top: 9px; }
 .rc-metrics li:first-child { border-top: none; padding-top: 0; }
@@ -3530,6 +3594,11 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 
 /* --- LIGHT: Sky Light --- */
 [data-theme="sky-light"] {
+  --dropdown-bg: rgba(238, 243, 252, 0.98);
+  --dropdown-border: rgba(29,78,216,0.18);
+  --dropdown-text: #0f172a;
+  --dropdown-hover-bg: rgba(29,78,216,0.1);
+  --dropdown-shadow: 0 12px 24px rgba(15,23,42,0.12);
   --bg-primary: #eef3fc;
   --bg-secondary: #e4ecf8;
   --bg-card: rgba(0,0,0,0.05);
@@ -3559,6 +3628,11 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 
 /* --- LIGHT: Mint Fresh --- */
 [data-theme="mint-fresh"] {
+  --dropdown-bg: rgba(240, 253, 248, 0.98);
+  --dropdown-border: rgba(5,150,105,0.18);
+  --dropdown-text: #042f22;
+  --dropdown-hover-bg: rgba(5,150,105,0.1);
+  --dropdown-shadow: 0 12px 24px rgba(4,47,34,0.12);
   --bg-primary: #f0fdf8;
   --bg-secondary: #e6faf2;
   --bg-card: rgba(0,0,0,0.05);
@@ -3588,6 +3662,11 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 
 /* --- LIGHT: Sunrise Warm --- */
 [data-theme="sunrise-warm"] {
+  --dropdown-bg: rgba(253, 246, 236, 0.98);
+  --dropdown-border: rgba(234,88,12,0.18);
+  --dropdown-text: #1c0f08;
+  --dropdown-hover-bg: rgba(234,88,12,0.1);
+  --dropdown-shadow: 0 12px 24px rgba(28,15,8,0.12);
   --bg-primary: #fdf6ec;
   --bg-secondary: #fef0d8;
   --bg-card: rgba(0,0,0,0.05);

@@ -8,13 +8,13 @@
     '      </a>',
     '      <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>',
     '      <div class="social-links">',
-    '        <a href="https://www.instagram.com/clansmachina" target="_blank" rel="noopener noreferrer" aria-label="Instagram">',
+    '        <a href="https://www.instagram.com/clansmachinaofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">',
     '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
     '        </a>',
-    '        <a href="https://www.youtube.com/@ClansMachina" target="_blank" rel="noopener noreferrer" aria-label="YouTube">',
+    '        <a href="https://www.youtube.com/@clansmachina" target="_blank" rel="noopener noreferrer" aria-label="YouTube">',
     '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>',
     '        </a>',
-    '        <a href="https://www.facebook.com/clansmachina" target="_blank" rel="noopener noreferrer" aria-label="Facebook">',
+    '        <a href="https://www.facebook.com/clansmachinaindia" target="_blank" rel="noopener noreferrer" aria-label="Facebook">',
     '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     '        </a>',
     '        <a href="https://in.linkedin.com/company/clansmachinaofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">',
@@ -28,11 +28,11 @@
     '    <div class="footer-links-group">',
     '      <h5>Our Offerings</h5>',
     '      <ul>',
-    '        <li><a href="services.html">Residential Solar</a></li>',
-    '        <li><a href="services.html">Commercial Solar</a></li>',
-    '        <li><a href="services.html">Housing Societies</a></li>',
-    '        <li><a href="index.html#process">On-Grid Systems</a></li>',
-    '        <li><a href="index.html#process">Off-Grid Systems</a></li>',
+    '        <li><a href="our-offering/home.html">Residential Solar</a></li>',
+    '        <li><a href="our-offering/commercial.html">Commercial Solar</a></li>',
+    '        <li><a href="our-offering/housing-society.html">Housing Societies</a></li>',
+    '        <li><a href="solar-solutions/Ongrid.html">On-Grid Systems</a></li>',
+    '        <li><a href="solar-solutions/Offgrid.html">Off-Grid Systems</a></li>',
     '      </ul>',
     '    </div>',
     '    <div class="footer-links-group">',
@@ -66,9 +66,20 @@
     '</div>'
   ].join('');
 
+  // Pages living in a subfolder (e.g. /our-offering/) need internal links
+  // and the logo image prefixed with '../' so they resolve to the site root.
+  var inSubfolder = /\/(our-offering|solar-solutions)\//i.test(window.location.pathname);
+
   var footers = document.querySelectorAll('footer.footer');
   footers.forEach(function (footer) {
     footer.innerHTML = footerTemplate;
+    if (!inSubfolder) return;
+    footer.querySelectorAll('a[href], img[src]').forEach(function (el) {
+      var attr = el.tagName === 'IMG' ? 'src' : 'href';
+      var val = el.getAttribute(attr);
+      if (!val || /^(https?:|\/\/|#|mailto:|tel:|\.\.\/)/i.test(val)) return;
+      el.setAttribute(attr, '../' + val);
+    });
   });
 
   // Floating WhatsApp button (site-wide, bottom-left)

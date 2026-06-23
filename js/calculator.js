@@ -16,6 +16,8 @@
      (window.CALC_DATA). Fall back to sane defaults if it didn't load.
      ------------------------------------------------------------ */
   var CD = window.CALC_DATA || {};
+  var GEN_PER_KW  = CD.perKwDailyGen || 4;   // kWh per kW per day
+  var DAYS        = CD.daysPerMonth || 30;
   var PANEL_KW    = CD.panelKw || 0.54;
   var TARIFF_DEF  = CD.tariffPerUnit || 8;
   var ESCAL       = (CD.tariffEscalation != null ? CD.tariffEscalation : 0.03);
@@ -195,7 +197,6 @@
     e.preventDefault();
 
     var opt = $('estLocation').selectedOptions[0];
-    var sun = parseFloat(opt.getAttribute('data-sun')) || 4.4;     // peak sun hours / day
     var tariff = parseFloat(opt.getAttribute('data-tariff')) || TARIFF_DEF;  // Rs per unit
 
     // Validate mandatory inputs
@@ -219,15 +220,15 @@
     var roofArea = (roofUnit && roofUnit.value === 'sqm') ? roofInput * 10.7639 : roofInput;
     var cat = CATEGORY[consumerType];
 
-    // Consumption and sizing
-    var dailyUnits = monthlyUnits / 30;
-    var sizeFromBill = dailyUnits / sun;          // kW needed to cover usage
+    // Consumption and sizing (generation = flat kWh/kW/day from CALC_DATA)
+    var dailyUnits = monthlyUnits / DAYS;
+    var sizeFromBill = dailyUnits / GEN_PER_KW;   // kW needed to cover usage
     var sizeFromRoof = roofArea / SQFT_PER_KW;    // ~100 sq ft per kW
     var systemSize = Math.max(1, Math.min(sizeFromRoof, sizeFromBill));
     systemSize = parseFloat(systemSize.toFixed(1));
 
     // Generation, panels, CO2
-    var monthlyGen = Math.round(systemSize * sun * 30);
+    var monthlyGen = Math.round(systemSize * GEN_PER_KW * DAYS);
     var panels = Math.ceil(systemSize / PANEL_KW);    // 540 Wp panels
     var co2 = parseFloat((monthlyGen * 12 * CO2_FAC / 1000).toFixed(1)); // tonnes/yr
 

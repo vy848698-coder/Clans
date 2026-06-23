@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="mint-fresh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Housing society solar by Clans Machina — slash common-area electricity bills for apartments and gated communities with shared rooftop solar, transparent committee support and 25-year service." />
+  <title>Housing Society Solar | Clans Machina</title>
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- Page-scoped styles for the Housing Society landing layout -->
+  <style id="hsoc-styles">
+    /* ===================== HERO (image + catchy copy, no form) ===================== */
+    /* margin-top drops the whole hero below the fixed navbar so the image never touches it */
+    .hsoc-hero { position: relative; margin-top: 84px; padding: 52px 0 64px; min-height: clamp(520px, 72vh, 720px);
+      display: flex; align-items: center; overflow: hidden; isolation: isolate; }
+    .hsoc-hero-bg { position: absolute; inset: 0; z-index: -2; }
+    .hsoc-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
+      transform: scale(1.04); animation: hsoc-kenburns 18s ease-in-out infinite alternate; }
+    @keyframes hsoc-kenburns { from { transform: scale(1.04); } to { transform: scale(1.12) translateY(-2%); } }
+    /* legibility overlay — dark anchored left, fading right so copy stays readable over the panels */
+    .hsoc-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background:
+      linear-gradient(100deg, rgba(4,16,34,0.94) 0%, rgba(5,22,46,0.82) 42%, rgba(6,28,22,0.46) 70%, rgba(6,28,22,0.10) 100%); }
+    /* subtle bottom fade so section melts into page below */
+    .hsoc-hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; z-index: -1; pointer-events: none;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.18)); }
+    .hsoc-hero-inner { position: relative; z-index: 1; max-width: 880px; padding: 0; color: #fff; }
+    .hsoc-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 7px 16px 7px 12px;
+      border-radius: 100px; background: rgba(110,231,183,0.13); border: 1px solid rgba(110,231,183,0.40);
+      backdrop-filter: blur(10px); color: #b6ffd9; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .hsoc-hero-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; flex: none;
+      box-shadow: 0 0 7px 2px rgba(74,222,128,0.7); animation: hsoc-pulse 2s infinite; }
+    @keyframes hsoc-pulse { 0% { box-shadow: 0 0 0 0 rgba(110,231,183,0.7); } 70% { box-shadow: 0 0 0 9px rgba(110,231,183,0); } 100% { box-shadow: 0 0 0 0 rgba(110,231,183,0); } }
+    .hsoc-hero-inner h1 { color: #fff; font-size: clamp(2.1rem, 4.6vw, 3.5rem); line-height: 1.1; margin: 0 0 14px;
+      font-weight: 900; letter-spacing: -0.02em; text-wrap: balance; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+    .hsoc-hero-inner h1 .gradient-text { display: inline;
+      background: linear-gradient(120deg, #6ee7b7 0%, #34d399 40%, #38bdf8 90%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(52,211,153,0.5)); }
+    .hsoc-hero-lead { color: rgba(255,255,255,0.88); font-size: clamp(0.96rem, 1.3vw, 1.08rem); line-height: 1.65;
+      max-width: 60ch; margin: 0 0 24px; text-shadow: 0 1px 10px rgba(0,0,0,0.35); }
+    .hsoc-hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hsoc-hero-cta .btn-glass { color: #fff; border-color: rgba(255,255,255,0.40); background: rgba(255,255,255,0.10); }
+    .hsoc-hero-cta .btn-glass:hover { color: #6ee7b7; border-color: #6ee7b7; background: rgba(255,255,255,0.16); }
+    .hsoc-hero-strip { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
+    .hsoc-hero-strip div { display: flex; flex-direction: column; }
+    .hsoc-hero-strip strong { font-size: clamp(1.25rem, 2vw, 1.7rem); font-weight: 800; line-height: 1;
+      background: linear-gradient(120deg, #6ee7b7, #38bdf8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .hsoc-hero-strip span { font-size: 0.78rem; color: rgba(255,255,255,0.76); margin-top: 5px; font-weight: 500; }
+    .hsoc-hero-strip .sep { width: 1px; height: 36px; background: rgba(255,255,255,0.20); flex-shrink: 0; }
+
+    /* ===================== TRUSTED BRANDS MARQUEE ===================== */
+    .hsoc-brands { padding: 54px 0 40px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .hsoc-brands-title { text-align: center; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-secondary); margin: 0 0 30px; }
+    .hsoc-marquee-outer { overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .hsoc-marquee-track { display: flex; align-items: center; gap: 64px; width: max-content;
+      animation: hsocScroll 32s linear infinite; }
+    .hsoc-marquee-outer:hover .hsoc-marquee-track { animation-play-state: paused; }
+    @keyframes hsocScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .hsoc-brand { font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: 0.01em; white-space: nowrap;
+      color: var(--text-primary); opacity: 0.42; flex-shrink: 0; transition: opacity .25s ease, color .25s ease;
+      font-family: 'Segoe UI', system-ui, sans-serif; }
+    .hsoc-brand:hover { opacity: 1; color: var(--green); }
+    @media (prefers-reduced-motion: reduce) { .hsoc-marquee-track { animation: none; } }
+
+    /* ===================== SPLIT: LEFT DATA / RIGHT SERVICES ===================== */
+    .hsoc-split { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 56px; align-items: center; }
+    .hsoc-split-left .section-tag { margin-bottom: 4px; }
+    .hsoc-split-left h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; margin: 14px 0 16px; }
+    .hsoc-split-left h2 .gradient-text { display: inline; }
+    .hsoc-split-left p { color: var(--text-secondary); font-size: 1.04rem; line-height: 1.7; margin: 0 0 28px; max-width: 46ch; }
+    .hsoc-data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 30px; }
+    .hsoc-data-card { padding: 22px 22px; border-radius: 16px; }
+    .hsoc-data-card strong { display: block; font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 800; line-height: 1;
+      background: linear-gradient(120deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .hsoc-data-card span { display: block; margin-top: 8px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
+
+    .hsoc-services { display: grid; gap: 16px; }
+    .hsoc-service { display: flex; gap: 18px; align-items: flex-start; padding: 22px 24px; border-radius: 18px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .hsoc-service:hover { transform: translateX(6px); box-shadow: 0 22px 44px -28px rgba(11,42,85,0.45); border-color: rgba(62,207,142,0.4); }
+    .hsoc-service-ic { width: 54px; height: 54px; flex: none; border-radius: 15px; display: grid; place-items: center;
+      color: #fff; background: linear-gradient(135deg, var(--green), var(--blue)); box-shadow: 0 12px 26px rgba(34,197,94,0.28); }
+    .hsoc-service-ic svg { width: 26px; height: 26px; }
+    .hsoc-service h3 { font-size: 1.1rem; margin: 0 0 6px; }
+    .hsoc-service p { margin: 0; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; }
+
+    /* ===================== IMAGE BAND ===================== */
+    .hsoc-band { position: relative; height: clamp(340px, 44vw, 520px); overflow: hidden; }
+    .hsoc-band img { width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: block;
+      transform: scale(1.04); transition: transform 8s ease; }
+    .hsoc-band:hover img { transform: scale(1.1); }
+    .hsoc-band::before { content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(100deg, rgba(4,18,44,0.84) 0%, rgba(6,30,55,0.55) 45%, rgba(4,22,14,0.1) 100%); }
+    .hsoc-band-cap { position: absolute; z-index: 2; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
+    .hsoc-band-cap .container { color: #fff; }
+    .hsoc-band-cap h2 { color: #fff; font-size: clamp(2rem, 4.2vw, 3.4rem); margin: 0 0 16px; max-width: 20ch; line-height: 1.1;
+      font-weight: 900; letter-spacing: -0.03em; text-shadow: 0 2px 32px rgba(0,0,0,0.45); }
+    .hsoc-band-cap h2 .gradient-text { display: inline;
+      background: linear-gradient(120deg, #34d399 0%, #10b981 35%, #38bdf8 80%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 18px rgba(52,211,153,0.5)); }
+    .hsoc-band-cap p { color: rgba(255,255,255,0.9); font-size: clamp(1rem, 1.5vw, 1.18rem); max-width: 46ch; margin: 0;
+      line-height: 1.65; text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+
+    /* ===================== CERTIFICATE SHOWCASE (drop-in image slots) ===================== */
+    .hsoc-cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+    .hsoc-cert { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3 / 4;
+      border: 1px solid rgba(0,0,0,0.08); background: linear-gradient(180deg, #ffffff, #f6faf8);
+      box-shadow: 0 26px 56px -34px rgba(11,42,85,0.5);
+      display: grid; place-items: center; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .hsoc-cert:hover { transform: translateY(-8px); border-color: rgba(62,207,142,0.45);
+      box-shadow: 0 36px 70px -34px rgba(16,90,60,0.5); }
+    /* Drop your certificate image inside .hsoc-cert as <img> — it fills the slot perfectly */
+    .hsoc-cert img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Placeholder shown only until you add an <img> */
+    .hsoc-cert-ph { text-align: center; padding: 24px; color: var(--text-secondary); }
+    .hsoc-cert-ph svg { width: 44px; height: 44px; color: var(--green); opacity: 0.5; margin-bottom: 14px; }
+    .hsoc-cert-ph strong { display: block; font-size: 0.96rem; color: var(--text-primary); margin-bottom: 4px; }
+    .hsoc-cert-ph span { font-size: 0.8rem; }
+    .hsoc-cert:has(img) .hsoc-cert-ph { display: none; }
+
+    /* ===================== STATS BAND ===================== */
+    .hsoc-stats-band { position: relative; overflow: hidden; border-radius: 26px; padding: 48px 40px;
+      background: linear-gradient(135deg, #0b5a39 0%, #0f7d4e 50%, #0e7490 120%); color: #fff; }
+    .hsoc-stats-band::before { content: ''; position: absolute; right: -60px; top: -60px; width: 300px; height: 300px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%); }
+    .hsoc-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; position: relative; z-index: 1; }
+    .hsoc-stat { text-align: center; }
+    .hsoc-stat-ic { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 16px; display: grid; place-items: center;
+      background: rgba(255,255,255,0.16); }
+    .hsoc-stat-ic svg { width: 28px; height: 28px; color: #fff; }
+    .hsoc-stat strong { display: block; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 800; line-height: 1; color: #fff; }
+    .hsoc-stat span { display: block; margin-top: 8px; font-size: 0.92rem; color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 1024px) {
+      .hsoc-split { grid-template-columns: 1fr; gap: 40px; }
+      .hsoc-cert-grid { grid-template-columns: repeat(2, 1fr); }
+      .hsoc-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 22px; }
+    }
+    @media (max-width: 768px) {
+      .hsoc-hero { margin-top: 74px; padding: 40px 0 48px; min-height: clamp(480px, 80vh, 720px); }
+      .hsoc-hero-inner { padding: 0; }
+    }
+    @media (max-width: 560px) {
+      .hsoc-hero { margin-top: 66px; padding: 32px 0 40px; }
+      .hsoc-hero-inner { padding: 0; }
+      .hsoc-data-grid { grid-template-columns: 1fr 1fr; }
+      .hsoc-cert-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+      .hsoc-stats-grid { grid-template-columns: 1fr; }
+      .hsoc-hero-cta { flex-direction: column; }
+      .hsoc-hero-strip { gap: 10px 18px; }
+      .hsoc-hero-strip .sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo"><img src="../image/clans_logo.png" alt="Clans Machina" class="logo-img" width="113" height="38" decoding="async" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Our Offerings</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="home.html" class="nav-service-link-min">Home Solar</a>
+              <a href="commercial.html" class="nav-service-link-min">Commercial Solar</a>
+              <a href="housing-society.html" class="nav-service-link-min">Housing Society</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Solar Solutions</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="../solar-solutions/Offgrid.html" class="nav-service-link-min">Off-grid Solar</a>
+              <a href="../solar-solutions/Ongrid.html" class="nav-service-link-min">On-grid Solar</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../calculator.html">Solar Calculator</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">More</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="../projects.html" class="nav-service-link-min">Projects</a>
+              <a href="../faq.html" class="nav-service-link-min">FAQ</a>
+              <a href="../blog.php" class="nav-service-link-min">Blog</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <a href="../index.html#contact" class="btn btn-ghost">Contact</a>
+        <a href="../calculator.html" class="btn btn-neon">Get a Free Quote</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hsoc-hero">
+    <div class="hsoc-hero-bg">
+      <img src="../image/commercial/2.jpg" alt="Solar panels powering a residential housing society in India" loading="eager" />
+    </div>
+    <div class="container">
+      <div class="hsoc-hero-inner" data-animate>
+        <span class="hsoc-hero-eyebrow"><span class="dot"></span>Housing Society Solar</span>
+        <h1>Cut your society&rsquo;s common bills by up to <span class="gradient-text">90%</span></h1>
+        <p class="hsoc-hero-lead">Shared rooftop solar for your lifts, pumps, lighting and clubhouse &mdash; designed, installed and maintained by one accountable team. Lower maintenance charges for every flat, with full transparency your committee can trust.</p>
+        <div class="hsoc-hero-cta">
+          <a href="../index.html#contact" class="btn btn-neon btn-lg">Book a Consultation</a>
+          <a href="../calculator.html" class="btn btn-glass btn-lg">Estimate Savings</a>
+        </div>
+        <div class="google-rating-pill-wrap">
+          <a class="google-rating-pill" href="https://www.google.com/search?q=Clans+Machina+Solar+reviews" target="_blank" rel="noopener" aria-label="Rated 4.8 on Google from 1000+ ratings">
+            <svg class="grp-logo" width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+            <span class="grp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="grp-text">Rated <strong>4.8</strong> on Google &middot; <strong>1000+</strong> ratings</span>
+          </a>
+        </div>
+        <div class="hsoc-hero-strip">
+          <div><strong>Up to 90%</strong><span>Lower Common Bills</span></div>
+          <span class="sep"></span>
+          <div><strong>4&ndash;5 Yr</strong><span>Typical Payback</span></div>
+          <span class="sep"></span>
+          <div><strong>1000+</strong><span>Societies Served</span></div>
+          <span class="sep"></span>
+          <div><strong>25 Yr</strong><span>Performance Warranty</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUSTED BRANDS MARQUEE ===================== -->
+  <section class="hsoc-brands">
+    <div class="container">
+      <p class="hsoc-brands-title">Trusted by leading societies &amp; developers across India</p>
+    </div>
+    <div class="hsoc-marquee-outer">
+      <div class="hsoc-marquee-track">
+        <span class="hsoc-brand">Reliance</span>
+        <span class="hsoc-brand">Godrej</span>
+        <span class="hsoc-brand">Lodha</span>
+        <span class="hsoc-brand">Piramal</span>
+        <span class="hsoc-brand">Kumar</span>
+        <span class="hsoc-brand">Century</span>
+        <span class="hsoc-brand">Raheja</span>
+        <span class="hsoc-brand">Hiranandani</span>
+        <!-- duplicate set for seamless loop -->
+        <span class="hsoc-brand">Reliance</span>
+        <span class="hsoc-brand">Godrej</span>
+        <span class="hsoc-brand">Lodha</span>
+        <span class="hsoc-brand">Piramal</span>
+        <span class="hsoc-brand">Kumar</span>
+        <span class="hsoc-brand">Century</span>
+        <span class="hsoc-brand">Raheja</span>
+        <span class="hsoc-brand">Hiranandani</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SPLIT: LEFT DATA / RIGHT SERVICES ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="hsoc-split">
+        <div class="hsoc-split-left" data-animate>
+          <span class="section-tag">Why Societies Choose Us</span>
+          <h2>Shared power, <span class="gradient-text">shared savings</span> for every resident</h2>
+          <p>From the first committee presentation to commissioning and 25 years of upkeep, one accountable team handles it all &mdash; so common-area bills drop and maintenance charges stay low.</p>
+          <div class="hsoc-data-grid">
+            <div class="hsoc-data-card glass-card">
+              <strong>90%</strong>
+              <span>Cut in common-area electricity bills</span>
+            </div>
+            <div class="hsoc-data-card glass-card">
+              <strong>1000+</strong>
+              <span>Housing societies powered by us</span>
+            </div>
+            <div class="hsoc-data-card glass-card">
+              <strong>4&ndash;5 Yr</strong>
+              <span>Typical payback on investment</span>
+            </div>
+            <div class="hsoc-data-card glass-card">
+              <strong>25 Yr</strong>
+              <span>Performance warranty &amp; service</span>
+            </div>
+          </div>
+          <a href="../index.html#contact" class="btn btn-neon">Book a Committee Demo</a>
+        </div>
+
+        <div class="hsoc-services" data-animate>
+          <div class="hsoc-service glass-card">
+            <div class="hsoc-service-ic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-3"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
+            </div>
+            <div>
+              <h3>Lower Maintenance Charges</h3>
+              <p>Cut common-area electricity bills by up to 90% and ease the monthly burden on every flat owner.</p>
+            </div>
+          </div>
+          <div class="hsoc-service glass-card">
+            <div class="hsoc-service-ic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h3>Committee-Friendly Process</h3>
+              <p>Clear presentations, written proposals and patient coordination with your entire managing committee.</p>
+            </div>
+          </div>
+          <div class="hsoc-service glass-card">
+            <div class="hsoc-service-ic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div>
+              <h3>Minimal Disruption</h3>
+              <p>Phased, scheduled installation that keeps lifts, water pumps and security running throughout.</p>
+            </div>
+          </div>
+          <div class="hsoc-service glass-card">
+            <div class="hsoc-service-ic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h3>Subsidy &amp; Net Metering, Handled</h3>
+              <p>We manage group-housing subsidy applications and all DISCOM net-metering approvals end to end.</p>
+            </div>
+          </div>
+          <div class="hsoc-service glass-card">
+            <div class="hsoc-service-ic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div>
+              <h3>Transparent Monitoring</h3>
+              <p>Shared dashboards show exactly how much your society generates and saves every single month.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== IMAGE BAND ===================== -->
+  <section class="hsoc-band" data-animate>
+    <img src="../image/commercial/1.jpg" alt="Rooftop solar plant on a housing society in India" loading="lazy" />
+    <div class="hsoc-band-cap">
+      <div class="container">
+        <h2>Your Safety, <span class="gradient-text">Our Obsession</span></h2>
+        <p>We ensure state-of-the-art safety measures during and after post-installation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CERTIFICATE SHOWCASE ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Certified &amp; Compliant</span>
+        <h2>Backed by <span class="gradient-text">Leading Certifications</span></h2>
+        <p>Every society installation meets national quality, safety and performance standards &mdash; so your committee can approve with full confidence.</p>
+      </div>
+      <!-- Drop your certificate images inside each .hsoc-cert as: <img src="..." alt="..." />
+           The placeholder hides automatically and the image fills the slot perfectly. -->
+      <div class="hsoc-cert-grid" data-animate>
+        <div class="hsoc-cert">
+          <img src="../image/certificate/1.jpg" alt="Certificate 01" />
+          <div class="hsoc-cert-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+            <strong>Certificate 01</strong>
+            <span>Add your image here</span>
+          </div>
+        </div>
+        <div class="hsoc-cert">
+          <img src="../image/certificate/2.jpg" alt="Certificate 02" />
+          <div class="hsoc-cert-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+            <strong>Certificate 02</strong>
+            <span>Add your image here</span>
+          </div>
+        </div>
+        <div class="hsoc-cert">
+          <img src="../image/certificate/3.jpg" alt="Certificate 03" />
+          <div class="hsoc-cert-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+            <strong>Certificate 03</strong>
+            <span>Add your image here</span>
+          </div>
+        </div>
+        <div class="hsoc-cert">
+          <img src="../image/certificate/4.jpg" alt="Certificate 04" />
+          <div class="hsoc-cert-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+            <strong>Certificate 04</strong>
+            <span>Add your image here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS BAND ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="hsoc-stats-band" data-animate>
+        <div class="hsoc-stats-grid">
+          <div class="hsoc-stat">
+            <div class="hsoc-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-3"/></svg></div>
+            <strong data-count="100" data-suffix="+">0</strong>
+            <span>Societies Served</span>
+          </div>
+          <div class="hsoc-stat">
+            <div class="hsoc-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+            <strong data-count="90" data-suffix="%">0</strong>
+            <span>Bill Reduction</span>
+          </div>
+          <div class="hsoc-stat">
+            <div class="hsoc-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <strong data-count="29" data-suffix="+">0</strong>
+            <span>Cities Served</span>
+          </div>
+          <div class="hsoc-stat">
+            <div class="hsoc-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <strong>25 Yr</strong>
+            <span>Performance Warranty</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Committee Love</span>
+        <h2>What managing committees <span class="gradient-text">say about us</span></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Hamare office ke liye Clans Machina Solar ne rooftop solar install kiya. Installation quality bahut achhi hai aur ab monthly electricity cost me kaafi savings ho rahi hai. Team ka support bhi outstanding hai.</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/2.png" alt="Mohammed Arif Khan" loading="lazy" />
+            <div class="testi-meta"><strong>Mohammed Arif Khan</strong><span>Secretary, Housing Society</span></div>
+          </div>
+        </div>
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">I am extremely satisfied with the service provided by Clans Machina Solar. From the initial consultation to the final installation, the entire process was smooth, professional, and transparent.</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/3.png" alt="Anil Patel" loading="lazy" />
+            <div class="testi-meta"><strong>Anil Patel</strong><span>Treasurer, Apartment Association</span></div>
+          </div>
+        </div>
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Excellent service from start to finish! The installation was completed on time, and my electricity bill has reduced significantly. The team was professional and very supportive throughout the process. Highly recommended!</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/5.png" alt="Imran Khan" loading="lazy" />
+            <div class="testi-meta"><strong>Imran Khan</strong><span>Committee Member</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="cm-cta">
+    <div class="container">
+      <div class="cm-cta-card glass-card" data-animate>
+        <div>
+          <h2>Bring Solar to Your Society</h2>
+          <p>Invite us for a free committee presentation and site survey. We&rsquo;ll return a transparent proposal with savings, payback and a phased execution plan your residents can vote on with confidence.</p>
+        </div>
+        <div class="cm-cta-actions">
+          <a href="../index.html#contact" class="btn btn-neon btn-lg">Book a Committee Demo</a>
+          <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer"></footer>
+
+  <script src="../js/shared-footer.js" defer></script>
+  <script src="../js/subpage.js" defer></script>
+  <script src="../js/lib/lucide.min.js"></script>
+  <script>if (window.lucide) lucide.createIcons();</script>
+
+  <!-- Count-up animation for the stats band -->
+  <script>
+    (function () {
+      var counters = document.querySelectorAll('strong[data-count]');
+      if (!counters.length) return;
+
+      function runCount(el) {
+        var target = parseFloat(el.getAttribute('data-count')) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1600;
+        var start = null;
+
+        function format(n) { return Math.round(n) + suffix; }
+
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = format(target * eased);
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = format(target);
+        }
+        requestAnimationFrame(step);
+      }
+
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counters.forEach(function (el) {
+          el.textContent = (parseFloat(el.getAttribute('data-count')) || 0) + (el.getAttribute('data-suffix') || '');
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { runCount(entry.target); observer.unobserve(entry.target); }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>

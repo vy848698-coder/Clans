@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="mint-fresh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Home solar by Clans Machina — rooftop solar systems for Indian homes with up to 90% bill savings, up to ₹1,38,000 government subsidy support and a 25-year performance warranty." />
+  <title>Home Solar | Clans Machina</title>
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- Page-scoped styles for the Home Solar landing layout -->
+  <style id="hs-styles">
+    .hs-hero { position: relative; margin-top: 90px; padding: 56px 0 70px; overflow: hidden; background:
+        linear-gradient(95deg, rgba(6,18,14,0.78) 0%, rgba(6,18,14,0.50) 45%, rgba(6,18,14,0.18) 78%, rgba(6,18,14,0) 100%),
+        linear-gradient(0deg, rgba(6,18,14,0.58) 0%, rgba(6,18,14,0.20) 30%, rgba(6,18,14,0) 55%),
+        url('../image/commercial/7.jpg') center / cover no-repeat; }
+    .hs-hero-grid { position: relative; z-index: 1; }
+    /* Light copy over a dark photographic scrim — crisp, not dull */
+    .hs-hero-copy h1 { color: #ffffff; text-shadow: 0 2px 12px rgba(0,0,0,0.45); }
+    .hs-hero-copy h1 .gradient-text {
+      background: linear-gradient(120deg, #a7f3d0 0%, #6ee7b7 45%, #5eead4 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+    .hs-hero-points svg { color: #6ee7b7; }
+    .hs-hero .section-tag { background: rgba(255,255,255,0.16); color: #eafff4; border-color: rgba(255,255,255,0.4); }
+    .hs-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
+    .hs-hero-copy { padding-top: 6px; }
+    .hs-hero-copy h1 { font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; margin: 14px 0 18px; }
+    .hs-hero-copy .gradient-text { display: inline; }
+    .hs-hero-lead { color: rgba(255,255,255,0.92); text-shadow: 0 1px 8px rgba(0,0,0,0.55); font-size: 1.05rem; max-width: 46ch; margin-bottom: 22px; }
+    .hs-hero-points { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 12px; }
+    .hs-hero-points li { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 12px rgba(0,0,0,0.6); }
+    .hs-hero-points svg { width: 20px; height: 20px; flex: none; color: var(--green); }
+    .hs-rating { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.92); border: 1px solid rgba(0,0,0,0.08);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 6px 18px -10px rgba(0,0,0,0.4); }
+    .hs-rating .g-logo { width: 22px; height: 22px; }
+    .hs-rating strong { color: var(--text-primary); }
+    .hs-rating .hs-stars { color: #f5a623; letter-spacing: 1px; }
+
+    /* Hero consultation form */
+    .hs-form-card { padding: 26px; border-radius: 18px;
+      background: rgba(255,255,255,0.94); border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 30px 70px -30px rgba(11,42,85,0.45); }
+    .hs-form-card h3 { margin: 0 0 4px; font-size: 1.25rem; }
+    .hs-form-card .hs-form-sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 18px; }
+    .hs-form .form-group { margin-bottom: 13px; display: flex; flex-direction: column; }
+    .hs-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .hs-form label { font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
+    .hs-form input, .hs-form select, .hs-form textarea {
+      padding: 11px 13px; border-radius: 10px; border: 1px solid var(--input-border, rgba(0,0,0,0.12));
+      background: var(--input-bg, rgba(255,255,255,0.7)); color: var(--text-primary); font: inherit; width: 100%; }
+    .hs-form textarea { resize: vertical; min-height: 76px; }
+    .hs-form input:focus, .hs-form select:focus, .hs-form textarea:focus { outline: 2px solid var(--green); border-color: var(--green); }
+    .hs-trust-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .hs-trust-badges span { font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
+      padding: 5px 11px; border-radius: 999px; border: 1px solid var(--card-border, rgba(0,0,0,0.10));
+      background: var(--card-bg, rgba(255,255,255,0.45)); }
+    .hs-bill-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .hs-bill-options label { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;
+      padding: 9px 6px; border-radius: 10px; border: 1px solid var(--input-border, rgba(0,0,0,0.12));
+      font-size: 0.82rem; font-weight: 600; margin: 0; color: var(--text-primary); transition: all .18s; text-align: center; }
+    .hs-bill-options input { display: none; }
+    .hs-bill-options input:checked + span { color: #fff; }
+    .hs-bill-options label:has(input:checked) { background: var(--green); border-color: var(--green); color: #fff; }
+    .hs-form-success { display: none; margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+      background: rgba(34,197,94,0.14); color: var(--green); font-weight: 600; }
+    .hs-consent { font-size: 0.72rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.5; }
+
+    /* Journey steps */
+    .hs-journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .hs-step { padding: 30px 24px 28px; border-radius: 20px; position: relative; overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .hs-step::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--blue)); transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease; }
+    .hs-step:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(34,197,94,0.16); border-color: rgba(34,197,94,0.35); }
+    .hs-step:hover::before { transform: scaleX(1); }
+    .hs-step-icon { width: 60px; height: 60px; border-radius: 16px; display: grid; place-items: center;
+      color: #fff; background: linear-gradient(135deg, var(--green), var(--blue)); margin-bottom: 18px;
+      box-shadow: 0 12px 26px rgba(34,197,94,0.30); transition: transform .3s ease; }
+    .hs-step:hover .hs-step-icon { transform: scale(1.08) rotate(-4deg); }
+    .hs-step-icon svg { width: 30px; height: 30px; }
+    .hs-step-num { position: absolute; top: 18px; right: 20px; font-size: 2.6rem; font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; opacity: 0.16; }
+    .hs-step h3 { font-size: 1.08rem; margin: 0 0 8px; }
+    .hs-step p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.55; }
+
+    /* Product / guarantee band */
+    .hs-product { position: relative; border-radius: 22px; padding: 46px; overflow: hidden;
+      background: linear-gradient(120deg, rgba(34,197,94,0.10), rgba(59,130,246,0.12)); border: 1px solid var(--card-border, rgba(0,0,0,0.06)); }
+    .hs-product-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    .hs-product h2 { font-size: clamp(1.8rem,3vw,2.6rem); margin: 8px 0 6px; }
+    .hs-product .hs-trade { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 24px; }
+    .hs-benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hs-benefit { display: flex; gap: 12px; align-items: flex-start; }
+    .hs-benefit svg { width: 26px; height: 26px; color: var(--green); flex: none; }
+    .hs-benefit strong { display: block; font-size: 0.98rem; }
+    .hs-benefit span { font-size: 0.85rem; color: var(--text-secondary); }
+    .hs-shield { display: grid; place-items: center; }
+    .hs-shield svg { width: 180px; height: 180px; filter: drop-shadow(0 18px 40px rgba(34,197,94,0.3)); }
+
+    /* Stats band */
+    .hs-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .hs-stat { text-align: center; padding: 26px 18px; border-radius: 16px; }
+    .hs-stat strong { display: block; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800;
+      background: linear-gradient(120deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .hs-stat span { color: var(--text-secondary); font-size: 0.9rem; }
+
+    /* Comparison table */
+    /* ===== Premium comparison card ===== */
+    .hs-compare { position: relative; border-radius: 28px; padding: 40px 26px;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: linear-gradient(180deg, #ffffff, #fbfdfb);
+      box-shadow: 0 48px 90px -40px rgba(16,90,60,0.45); }
+    .hs-compare-row { display: grid; grid-template-columns: 1.55fr 1.25fr 1.25fr;
+      align-items: stretch; position: relative; }
+    .hs-compare-row + .hs-compare-row > div:first-child,
+    .hs-compare-row + .hs-compare-row > .hs-c-them {
+      border-top: 1px solid rgba(0,0,0,0.055); }
+    .hs-compare-row > div { padding: 22px 24px; display: flex; align-items: center; gap: 14px;
+      font-size: 1rem; transition: background 0.2s ease; }
+    .hs-compare-row > div:not(:first-child) { justify-content: flex-start; }
+    .hs-compare-row > div:first-child { font-weight: 700; color: var(--text-primary, #042f22); }
+    .hs-compare-row:not(.hs-compare-head):hover > div:first-child,
+    .hs-compare-row:not(.hs-compare-head):hover > .hs-c-them { background: rgba(0,0,0,0.02); }
+
+    /* left-column row icons */
+    .hs-row-ic { width: 46px; height: 46px; flex: none; display: grid; place-items: center;
+      border-radius: 14px; background: rgba(232,196,104,0.16); color: #c79a2e; }
+    .hs-row-ic svg { width: 22px; height: 22px; }
+
+    /* ===== Floating featured "Clans Machina" column ===== */
+    .hs-c-us { color: #15824f; font-weight: 700; position: relative;
+      background: linear-gradient(180deg, #f3fbf6, #eef9f9);
+      border-left: 1.5px solid rgba(232,196,104,0.55);
+      border-right: 1.5px solid rgba(232,196,104,0.55); }
+    /* header cell protrudes above; last cell protrudes below -> floating card */
+    .hs-compare-head .hs-c-us {
+      background: linear-gradient(150deg, #0b5a39 0%, #0f7d4e 55%, #14507a 130%);
+      color: #fff; border-radius: 22px 22px 0 0; margin-top: -28px;
+      border: 1.5px solid rgba(232,196,104,0.55); border-bottom: none;
+      flex-direction: column; gap: 8px; padding: 30px 24px 26px; text-align: center;
+      align-items: center; box-shadow: 0 -10px 30px -18px rgba(16,90,60,0.5); }
+    .hs-compare-row:last-child .hs-c-us { border-radius: 0 0 22px 22px; margin-bottom: -28px;
+      border-bottom: 1.5px solid rgba(232,196,104,0.55); padding-bottom: 30px;
+      box-shadow: 0 30px 50px -28px rgba(16,90,60,0.55); }
+    /* subtle outer side shadow making the band float */
+    .hs-c-us::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+      box-shadow: -22px 0 40px -30px rgba(16,90,60,0.5), 22px 0 40px -30px rgba(16,90,60,0.5); }
+
+    /* featured header content */
+    .hs-best { position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #5b4410; background: linear-gradient(135deg, #f5d987, var(--gold, #e8c468));
+      padding: 6px 16px; border-radius: 999px; white-space: nowrap;
+      box-shadow: 0 8px 18px -4px rgba(180,140,30,0.5); border: 1px solid rgba(255,255,255,0.5); }
+    .hs-brand-lockup { display: flex; align-items: center; gap: 12px; }
+    .hs-brand-emblem { width: 44px; height: 44px; flex: none; display: grid; place-items: center;
+      border-radius: 13px; color: #5b4410;
+      background: linear-gradient(150deg, #f5d987, var(--gold, #e8c468));
+      box-shadow: 0 6px 14px -4px rgba(180,140,30,0.6), inset 0 1px 0 rgba(255,255,255,0.5); }
+    .hs-brand-emblem svg { width: 24px; height: 24px; stroke-width: 2.2; }
+    .hs-brand-lockup .hs-brand-name { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; line-height: 1; }
+    .hs-brand-tag { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
+      font-weight: 600; color: rgba(255,255,255,0.78); }
+
+    /* header labels for side columns */
+    .hs-compare-head { font-weight: 800; }
+    .hs-compare-head > div:first-child, .hs-compare-head .hs-c-them {
+      flex-direction: column; align-items: flex-start; justify-content: center; gap: 10px;
+      color: var(--text-secondary); font-weight: 800; font-size: 0.85rem;
+      letter-spacing: 0.13em; text-transform: uppercase; }
+    .hs-compare-head .hs-c-them { align-items: flex-start; }
+    .hs-head-rule { width: 56px; height: 3px; border-radius: 3px; }
+    .hs-compare-head > div:first-child .hs-head-rule { background: var(--gold, #e8c468); }
+    .hs-compare-head .hs-c-them .hs-head-rule { background: rgba(0,0,0,0.16); }
+
+    /* check / cross badges */
+    .hs-c-them { color: var(--text-secondary); font-weight: 500; }
+    .hs-c-us span, .hs-c-them span { font-weight: inherit; }
+    .hs-c-us { font-weight: 700; }
+    .hs-compare-row .ic { width: 30px; height: 30px; flex: none; padding: 6px;
+      border-radius: 50%; stroke-width: 3.2; }
+    .hs-c-us .ic { color: #fff; background: linear-gradient(135deg, #1aa35b, #0f7d4e);
+      box-shadow: 0 5px 12px -3px rgba(16,120,70,0.55); }
+    .hs-c-them .ic { color: #9aa3a3; background: rgba(120,130,130,0.13); }
+
+    /* Monitoring app */
+    .hs-app-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; }
+    .hs-app-feats { list-style: none; padding: 0; margin: 22px 0 26px; display: grid; gap: 16px; }
+    .hs-app-feats li { display: flex; gap: 12px; align-items: flex-start; }
+    .hs-app-feats svg { width: 24px; height: 24px; color: var(--blue); flex: none; }
+    .hs-app-feats strong { display: block; }
+    .hs-app-feats span { color: var(--text-secondary); font-size: 0.9rem; }
+    .hs-play { display: inline-flex; align-items: center; gap: 10px; background: #111; color: #fff;
+      padding: 10px 18px; border-radius: 12px; font-weight: 600; }
+    .hs-play svg { width: 22px; height: 22px; }
+    .hs-phone { position: relative; justify-self: center; width: 280px; height: 540px; border-radius: 38px;
+      background: linear-gradient(160deg, #0b1220, #1e293b); padding: 14px; box-shadow: 0 30px 70px rgba(0,0,0,0.35); }
+    .hs-phone-screen { width: 100%; height: 100%; border-radius: 26px; background:
+        linear-gradient(180deg, rgba(34,197,94,0.18), rgba(59,130,246,0.10)); display: flex; flex-direction: column;
+        gap: 12px; padding: 22px 18px; color: #e6edf6; }
+    .hs-phone-screen .hs-ps-title { font-size: 0.8rem; opacity: 0.8; }
+    .hs-phone-screen .hs-ps-big { font-size: 2.1rem; font-weight: 800; }
+    .hs-ps-card { background: rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; }
+    .hs-ps-bars { display: flex; align-items: flex-end; gap: 6px; height: 90px; margin-top: 8px; }
+    .hs-ps-bars i { flex: 1; background: linear-gradient(180deg, #34d399, #3b82f6); border-radius: 4px 4px 0 0; }
+
+    /* ===== Premium FAQ accordion (scoped to this page) ===== */
+    .faq-list { display: grid; gap: 14px; }
+    .faq-list .faq-item { position: relative; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.07);
+      background: linear-gradient(180deg, #ffffff, #fbfdfb);
+      box-shadow: 0 10px 24px -20px rgba(16,90,60,0.5);
+      transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease; }
+    .faq-list .faq-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; background: linear-gradient(180deg, var(--green), var(--blue));
+      transform: scaleY(0); transform-origin: top; transition: transform .28s ease; }
+    .faq-list .faq-item:hover { transform: translateY(-2px); border-color: rgba(62,207,142,0.4);
+      box-shadow: 0 18px 34px -20px rgba(16,90,60,0.45); }
+    .faq-list .faq-item.open { border-color: rgba(62,207,142,0.5);
+      box-shadow: 0 22px 44px -24px rgba(16,90,60,0.5);
+      background: linear-gradient(180deg, #f4fbf7, #eef9fb); }
+    .faq-list .faq-item.open::before { transform: scaleY(1); }
+
+    .faq-list .faq-q { width: 100%; background: transparent; border: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 20px 22px; text-align: left;
+      font-size: 1.04rem; font-weight: 700; color: var(--text-primary, #042f22);
+      transition: color .2s ease; }
+    .faq-list .faq-item.open .faq-q { color: #0f7d4e; }
+    .faq-list .faq-q span { flex: none; width: 32px; height: 32px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 1.4rem; line-height: 1; font-weight: 600;
+      background: rgba(62,207,142,0.14); color: var(--green);
+      transition: background .25s ease, color .25s ease, transform .25s ease; }
+    .faq-list .faq-q:hover span { transform: scale(1.1); }
+    .faq-list .faq-item.open .faq-q span { color: #fff;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      box-shadow: 0 6px 14px -4px rgba(16,120,70,0.55); }
+
+    .faq-list .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-list .faq-item.open .faq-a { max-height: 360px; }
+    .faq-list .faq-a p { margin: 0; padding: 0 22px 22px; font-size: 0.95rem; line-height: 1.7;
+      color: var(--text-secondary); }
+
+    /* Reviews */
+    .hs-reviews-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 26px; align-items: stretch; margin-bottom: 28px; }
+    .hs-video { position: relative; border-radius: 18px; overflow: hidden; min-height: 300px; display: grid; place-items: center;
+      background-size: cover; background-position: center; }
+    .hs-video::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.6)); }
+    .hs-video-play { position: relative; z-index: 2; width: 74px; height: 74px; border-radius: 50%; background: rgba(255,255,255,0.95);
+      display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .hs-video-play svg { width: 28px; height: 28px; color: #e11d48; margin-left: 4px; }
+    .hs-video-cap { position: absolute; z-index: 2; left: 22px; bottom: 22px; color: #fff; }
+    .hs-video-cap strong { display: block; font-size: 1.2rem; }
+    .hs-google-card { border-radius: 18px; padding: 30px; display: flex; flex-direction: column; justify-content: center; gap: 8px; text-align: center; }
+    .hs-google-card .g-logo { width: 46px; height: 46px; margin: 0 auto; }
+    .hs-google-card .hs-g-score { font-size: 3.2rem; font-weight: 800; line-height: 1; }
+    .hs-google-card .hs-stars { color: #f5a623; font-size: 1.4rem; letter-spacing: 3px; }
+
+    /* Blog cards */
+    .hs-blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .hs-blog-card { border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .hs-blog-card img { width: 100%; height: 190px; object-fit: cover; }
+    .hs-blog-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .hs-blog-chip { align-self: flex-start; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+      color: var(--green); background: rgba(34,197,94,0.12); padding: 4px 10px; border-radius: 999px; }
+    .hs-blog-body h3 { font-size: 1.02rem; margin: 0; line-height: 1.35; }
+    .hs-blog-body .hs-blog-meta { margin-top: auto; color: var(--text-secondary); font-size: 0.82rem; }
+
+    @media (max-width: 1024px) {
+      .hs-hero-grid, .hs-product-grid, .hs-app-grid, .hs-reviews-grid { grid-template-columns: 1fr; }
+      .hs-journey { grid-template-columns: repeat(2, 1fr); }
+      .hs-stats { grid-template-columns: repeat(2, 1fr); }
+      .hs-benefit-grid { grid-template-columns: 1fr; }
+      .hs-blog-grid { grid-template-columns: 1fr; }
+      .hs-shield { order: -1; }
+    }
+    @media (max-width: 560px) {
+      .hs-journey, .hs-stats { grid-template-columns: 1fr; }
+      .hs-form .form-row, .hs-bill-options { grid-template-columns: 1fr; }
+      .hs-compare { padding: 34px 12px; border-radius: 22px; }
+      .hs-compare-row { grid-template-columns: 1.25fr 0.95fr 0.95fr; font-size: 0.78rem; }
+      .hs-compare-row > div { padding: 14px 8px; gap: 8px; }
+      .hs-compare-row > div:not(:first-child) { flex-direction: column; text-align: center; }
+      .hs-compare-row > div:first-child { gap: 9px; }
+      .hs-row-ic { width: 34px; height: 34px; border-radius: 10px; }
+      .hs-row-ic svg { width: 17px; height: 17px; }
+      .hs-compare-head .hs-c-us { padding: 24px 10px 20px; }
+      .hs-brand-lockup { flex-direction: column; gap: 5px; }
+      .hs-brand-emblem { width: 32px; height: 32px; border-radius: 10px; }
+      .hs-brand-emblem svg { width: 18px; height: 18px; }
+      .hs-brand-lockup .hs-brand-name { font-size: 0.95rem; letter-spacing: 0.03em; }
+      .hs-brand-tag { font-size: 0.52rem; letter-spacing: 0.1em; }
+      .hs-best { font-size: 0.5rem; padding: 4px 10px; top: -11px; }
+      .hs-head-rule { width: 36px; }
+      .hs-compare-row .ic { width: 24px; height: 24px; padding: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo"><img src="../image/clans_logo.png" alt="Clans Machina" class="logo-img" width="113" height="38" decoding="async" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Our Offerings</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="home.html" class="nav-service-link-min">Home Solar</a>
+              <a href="commercial.html" class="nav-service-link-min">Commercial Solar</a>
+              <a href="housing-society.html" class="nav-service-link-min">Housing Society</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Solar Solutions</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="../solar-solutions/Offgrid.html" class="nav-service-link-min">Off-grid Solar</a>
+              <a href="../solar-solutions/Ongrid.html" class="nav-service-link-min">On-grid Solar</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../calculator.html">Solar Calculator</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">More</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="../projects.html" class="nav-service-link-min">Projects</a>
+              <a href="../faq.html" class="nav-service-link-min">FAQ</a>
+              <a href="../blog.php" class="nav-service-link-min">Blog</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#hs-consult" class="btn btn-ghost">Contact</a>
+        <a href="../calculator.html" class="btn btn-neon">Get a Free Quote</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO + CONSULTATION FORM ===================== -->
+  <section class="hs-hero">
+    <div class="container hs-hero-grid">
+      <div class="hs-hero-copy" data-animate>
+        <span class="section-tag">Home Solar</span>
+        <h1>Save up to <span class="gradient-text">90%</span> on your electricity bills.</h1>
+        <p class="hs-hero-lead">Guaranteed solar savings — professionally managed, end to end, by Clans Machina. Design, government subsidy paperwork, installation and 25 years of monitoring, all from one accountable team.</p>
+        <ul class="hs-hero-points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Up to &#8377;1,38,000 government subsidy, handled for you</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 25-year performance warranty &amp; live Forever</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Commissioned in as little as 18 days</li>
+        </ul>
+        <a class="hs-rating" href="https://www.google.com/search?q=Clans+Machina+Solar+reviews" target="_blank" rel="noopener" aria-label="Rated 4.8 on Google from 1000+ ratings">
+          <svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+          <span><span class="hs-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Rated <strong>4.8</strong> on Google &middot; <strong>1000+</strong> ratings</span>
+        </a>
+      </div>
+
+      <!-- Consultation form (Clans Machina contact form) -->
+      <div class="hs-form-card glass-card" id="hs-consult" data-animate>
+        <h3>Book a FREE Consultation</h3>
+        <p class="hs-form-sub">Get a genuine, no-obligation quote &amp; savings estimate. No pressure, book only if you are satisfied.</p>
+        <form class="hs-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="cName">Full Name</label>
+            <input type="text" id="cName" placeholder="Your full name" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cPhone">Phone Number</label>
+              <input type="tel" id="cPhone" placeholder="10-digit mobile number" required />
+            </div>
+            <div class="form-group">
+              <label for="cCity">City</label>
+              <input type="text" id="cCity" placeholder="Your city" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cEmail">Email Address</label>
+            <input type="email" id="cEmail" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="cService">Service Type</label>
+            <select id="cService">
+              <option>Residential (Home)</option>
+              <option>Commercial (Business)</option>
+              <option>Housing Society</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cBill">Avg. Monthly Electricity Bill *</label>
+            <select id="cBill" required>
+              <option value="">Select your monthly bill range</option>
+              <option>Below &#8377;1,000</option>
+              <option>&#8377;1,000 &#8211; &#8377;2,500</option>
+              <option>&#8377;2,500 &#8211; &#8377;5,000</option>
+              <option>&#8377;5,000 &#8211; &#8377;10,000</option>
+              <option>Above &#8377;10,000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cMsg">Message (Optional)</label>
+            <textarea id="cMsg" rows="3" placeholder="Anything specific you would like us to know?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-neon btn-full btn-lg" id="submitBtn">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Book Free Consultation
+          </button>
+          <div class="form-errors" id="formErrors" style="display:none;"></div>
+          <div class="hs-trust-badges" aria-label="Lead form trust indicators">
+            <span>Free site survey</span>
+            <span>No spam guarantee</span>
+            <span>2-hour callback SLA</span>
+          </div>
+          <div class="hs-form-success" id="formSuccess">&#10003; Thank you! Our solar expert will call you within 2 business hours.</div>
+          <p class="hs-consent">I agree to be contacted by Clans Machina regarding my solar enquiry. We respect your privacy and never share your details.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SIMPLIFIED SOLAR JOURNEY ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">How It Works</span>
+        <h2>A Simplified <span class="gradient-text">Solar Journey</span> for You</h2>
+        <p>Four simple steps from your first call to a fully powered, monitored rooftop system — we handle the heavy lifting.</p>
+      </div>
+      <div class="hs-journey">
+        <div class="hs-step glass-card" data-animate>
+          <span class="hs-step-num">1</span>
+          <div class="hs-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+          </div>
+          <h3>Free Visit &amp; Design</h3>
+          <p>Our team visits your home, checks your rooftop and takes measurements so your solar system is designed for maximum power generation.</p>
+        </div>
+        <div class="hs-step glass-card" data-animate>
+          <span class="hs-step-num">2</span>
+          <div class="hs-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          </div>
+          <h3>Free 3D Solar Design</h3>
+          <p>We share a personalised 3D design of your rooftop solar, so you can see exactly how it will look on your home and approve it with confidence.</p>
+        </div>
+        <div class="hs-step glass-card" data-animate>
+          <span class="hs-step-num">3</span>
+          <div class="hs-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>We Install &amp; Handle the Subsidy</h3>
+          <p>Our experts install your system and take care of all government paperwork, including the up to &#8377;1,38,000 subsidy — no follow-ups needed from you.</p>
+        </div>
+        <div class="hs-step glass-card" data-animate>
+          <span class="hs-step-num">4</span>
+          <div class="hs-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          </div>
+          <h3>Solar On. You Save. We Maintain.</h3>
+          <p>Your system is switched on, savings begin, and we handle regular maintenance to ensure smooth performance year after year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== PRODUCT / GUARANTEE BAND ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="hs-product" data-animate>
+        <div class="hs-product-grid">
+          <div>
+            <span class="section-tag">Introducing</span>
+            <h2><span class="gradient-text">ClanSecure&trade;</span></h2>
+            <p class="hs-trade">India&rsquo;s only Guaranteed Solar Savings Plan for homes.</p>
+            <div class="hs-benefit-grid">
+              <div class="hs-benefit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+                <div><strong>Money-back Promise</strong><span>Guaranteed savings or your money back.</span></div>
+              </div>
+              <div class="hs-benefit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <div><strong>Free Repair &amp; Replacement</strong><span>Parts and repair cost covered.</span></div>
+              </div>
+              <div class="hs-benefit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <div><strong>Proactive Maintenance</strong><span>Regular preventive O&amp;M visits.</span></div>
+              </div>
+              <div class="hs-benefit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                <div><strong>Enjoy clean energy</strong><span>maximize your savings without any extra effort</span></div>
+              </div>
+            </div>
+            <a href="/about.html" class="btn btn-neon" style="margin-top:26px;">Know More about ClanMachina</a>
+          </div>
+          <div class="hs-shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z" fill="rgba(34,197,94,0.12)"/><path d="m8.5 12 2.5 2.5L16 9" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== POWERING HOMES STATS ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Our Footprint</span>
+        <h2>Powering Homes <span class="gradient-text">Across India</span></h2>
+        <p>We are present in 29 cities across 9 states, and growing every day.</p>
+      </div>
+      <div class="hs-stats">
+        <div class="hs-stat glass-card" data-animate><strong data-count="1000" data-comma="1" data-suffix="+">0</strong><span>Homes Solarized</span></div>
+        <div class="hs-stat glass-card" data-animate><strong data-count="31" data-suffix="+ MW">0</strong><span>Power Installed</span></div>
+        <div class="hs-stat glass-card" data-animate><strong data-count="25" data-suffix=" Yr">0</strong><span>Performance Warranty</span></div>
+        <div class="hs-stat glass-card" data-animate><strong data-count="29" data-suffix="+">0</strong><span>Cities Served</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ADVANTAGE COMPARISON ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">The Clans Machina Advantage</span>
+        <h2>End-to-end Management. <span class="gradient-text">No Middlemen.</span></h2>
+        <p>See how a fully accountable, single-team solar partner compares to typical local installers.</p>
+      </div>
+      <div class="hs-compare" data-animate>
+        <div class="hs-compare-row hs-compare-head">
+          <div><span>What you get</span><span class="hs-head-rule"></span></div>
+          <div class="hs-c-us">
+            <span class="hs-best">Recommended</span>
+            <span class="hs-brand-lockup">
+              <span class="hs-brand-emblem"><i data-lucide="leaf"></i></span>
+              <span class="hs-brand-name">Clans Machina</span>
+            </span>
+            <span class="hs-brand-tag">Built to deliver. Backed for life.</span>
+          </div>
+          <div class="hs-c-them"><span>Other Brands</span><span class="hs-head-rule"></span></div>
+        </div>
+        <div class="hs-compare-row">
+          <div><span class="hs-row-ic"><i data-lucide="shield-check"></i></span>Structure quality</div>
+          <div class="hs-c-us"><i data-lucide="check" class="ic"></i><span>Storm-proof (170 kmph)</span></div>
+          <div class="hs-c-them"><i data-lucide="x" class="ic"></i><span>Basic wind-prone</span></div>
+        </div>
+        <div class="hs-compare-row">
+          <div><span class="hs-row-ic"><i data-lucide="file-text"></i></span>Subsidy paperwork</div>
+          <div class="hs-c-us"><i data-lucide="check" class="ic"></i><span>Fully handled for you</span></div>
+          <div class="hs-c-them"><i data-lucide="x" class="ic"></i><span>Left to the customer</span></div>
+        </div>
+        <div class="hs-compare-row">
+          <div><span class="hs-row-ic"><i data-lucide="headset"></i></span>Warranty &amp; support</div>
+          <div class="hs-c-us"><i data-lucide="check" class="ic"></i><span>25-year + proactive O&amp;M</span></div>
+          <div class="hs-c-them"><i data-lucide="x" class="ic"></i><span>No support after sale</span></div>
+        </div>
+        <div class="hs-compare-row">
+          <div><span class="hs-row-ic"><i data-lucide="activity"></i></span>Live monitoring</div>
+          <div class="hs-c-us"><i data-lucide="check" class="ic"></i><span>Real-time tracking</span></div>
+          <div class="hs-c-them"><i data-lucide="x" class="ic"></i><span>Not available</span></div>
+        </div>
+        <div class="hs-compare-row">
+          <div><span class="hs-row-ic"><i data-lucide="badge-check"></i></span>Savings commitment</div>
+          <div class="hs-c-us"><i data-lucide="check" class="ic"></i><span>Guaranteed or money-back</span></div>
+          <div class="hs-c-them"><i data-lucide="x" class="ic"></i><span>No guarantee</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Customer Love</span>
+        <h2>90% of Our Customers <span class="gradient-text">Recommend Us</span></h2>
+      </div>
+      <div class="hs-reviews-grid">
+        <a class="hs-video" href="https://www.google.com/search?q=Clans+Machina+Solar+reviews" target="_blank" rel="noopener" style="background-image:url('../image/service-residential.jpg')" data-animate aria-label="Watch customer story">
+          <span class="hs-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3.5v17c0 .8.9 1.3 1.6.8l13-8.5c.6-.4.6-1.3 0-1.7l-13-8.4c-.7-.4-1.6 0-1.6.8z"/></svg></span>
+          <span class="hs-video-cap"><strong>&#8377;16,000 in bills to &#8377;3,000</strong>Rajendra &middot; Homeowner, Bhubaneswar</span>
+        </a>
+        <div class="hs-google-card glass-card" data-animate>
+          <svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+          <div class="hs-g-score gradient-text">4.8</div>
+          <div class="hs-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p style="color:var(--text-secondary);margin:0;">Rated 4.8 on Google from <strong>1000+</strong> ratings</p>
+        </div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">I am extremely satisfied with the service provided by Clans Machina Solar. From the initial consultation to the final installation, the entire process was smooth, professional, and transparent.</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/3.png" alt="Anil Patel" loading="lazy" />
+            <div class="testi-meta"><strong>Anil Patel</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Choosing Clans Machina Solar was one of the best decisions for my home. The installation was completed on schedule, the team was courteous and professional, and the quality of work exceeded my expectations. I am already seeing noticeable savings on my electricity bills.</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/1.png" alt="Abdul Rahman" loading="lazy" />
+            <div class="testi-meta"><strong>Abdul Rahman</strong><span>Homeowner</span></div>
+          </div>
+        </div>
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Excellent service from start to finish! The installation was completed on time, and my electricity bill has reduced significantly. The team was professional and very supportive throughout the process. Highly recommended!</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/5.png" alt="Imran Khan" loading="lazy" />
+            <div class="testi-meta"><strong>Imran Khan</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">All Your Questions, Answered</span>
+        <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+      </div>
+      <div class="faq-list" style="max-width:820px;margin:0 auto;">
+        <div class="faq-item glass-card" data-animate>
+          <button class="faq-q" type="button">Why should I switch to solar?<span>+</span></button>
+          <div class="faq-a"><p>Electricity tariffs rise 8&ndash;10% every year. Rooftop solar locks in a near-zero generation cost for 25 years, cutting your bill by up to 90% while the system pays for itself in about 4&ndash;5 years.</p></div>
+        </div>
+        <div class="faq-item glass-card" data-animate>
+          <button class="faq-q" type="button">How high does my electricity bill need to be for solar to make sense?<span>+</span></button>
+          <div class="faq-a"><p>If your average monthly bill is &#8377;1,500 or more, a rooftop system usually makes strong financial sense. The higher your bill, the faster your payback.</p></div>
+        </div>
+        <div class="faq-item glass-card" data-animate>
+          <button class="faq-q" type="button">How complicated is the subsidy process?<span>+</span></button>
+          <div class="faq-a"><p>You don&rsquo;t have to deal with it at all. Clans Machina prepares and files every document for the PM Surya Ghar scheme so you receive up to &#8377;1,38,000 (&#8377;78,000 central + &#8377;60,000 Odisha state) directly to your bank.</p></div>
+        </div>
+        <div class="faq-item glass-card" data-animate>
+          <button class="faq-q" type="button">How long does it take to set up the system?<span>+</span></button>
+          <div class="faq-a"><p>From site survey to a fully commissioned, grid-connected system typically takes 18&ndash;27 days, including net-metering approvals.</p></div>
+        </div>
+        <div class="faq-item glass-card" data-animate>
+          <button class="faq-q" type="button">What is the lifespan of a rooftop solar system?<span>+</span></button>
+          <div class="faq-a"><p>Panels carry a 25-year performance warranty and typically keep generating well beyond that, with only minor efficiency loss over time.</p></div>
+        </div>
+        <div class="faq-item glass-card" data-animate>
+          <button class="faq-q" type="button">How will I know how much power my system is generating?<span>+</span></button>
+          <div class="faq-a"><p>Our free monitoring app shows your real-time, daily and lifetime generation and savings, with proactive alerts if anything needs attention.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BLOGS ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Solar Knowledge Hub</span>
+        <h2>From Our <span class="gradient-text">Blog</span></h2>
+        <p>Practical guides on pricing, subsidy and savings to help you make a confident solar decision.</p>
+      </div>
+      <div class="hs-blog-grid">
+        <a class="hs-blog-card glass-card" href="../blog.php" data-animate>
+          <img src="../image/blog/blog-cost.jpg" alt="Rooftop solar system cost in India" loading="lazy" />
+          <div class="hs-blog-body">
+            <span class="hs-blog-chip">Cost &amp; Savings</span>
+            <h3>What Is the Price of a 3 kW Rooftop Solar System in India?</h3>
+            <span class="hs-blog-meta">By Clans Machina &middot; 6 min read</span>
+          </div>
+        </a>
+        <a class="hs-blog-card glass-card" href="../blog.php" data-animate>
+          <img src="../image/blog/blog-subsidy.jpg" alt="PM Surya Ghar solar subsidy explained" loading="lazy" />
+          <div class="hs-blog-body">
+            <span class="hs-blog-chip">Subsidy</span>
+            <h3>PM Surya Ghar Subsidy: How to Get Up to &#8377;1,38,000 in Odisha</h3>
+            <span class="hs-blog-meta">By Clans Machina &middot; 5 min read</span>
+          </div>
+        </a>
+        <a class="hs-blog-card glass-card" href="../blog.php" data-animate>
+          <img src="../image/blog/blog-netmetering.jpg" alt="Net metering explained" loading="lazy" />
+          <div class="hs-blog-body">
+            <span class="hs-blog-chip">Net Metering</span>
+            <h3>Net Metering Explained: How Your Solar Meter Runs Backwards</h3>
+            <span class="hs-blog-meta">By Clans Machina &middot; 4 min read</span>
+          </div>
+        </a>
+      </div>
+      <div class="projects-cta" data-animate style="margin-top:34px;text-align:center;">
+        <a href="../blog.php" class="btn btn-neon">Read More on the Blog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="cm-cta">
+    <div class="container">
+      <div class="cm-cta-card glass-card" data-animate>
+        <div>
+          <h2>Ready to Power Your Home With the Sun?</h2>
+          <p>Get a free, no-obligation savings estimate tailored to your roof and electricity usage — with system size, subsidy and payback all worked out for you.</p>
+        </div>
+        <div class="cm-cta-actions">
+          <a href="#hs-consult" class="btn btn-neon btn-lg">Book Free Consultation</a>
+          <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer"></footer>
+
+  <script src="../js/shared-footer.js" defer></script>
+  <script src="../js/subpage.js" defer></script>
+  <script src="../js/lib/lucide.min.js"></script>
+  <script>if (window.lucide) lucide.createIcons();</script>
+
+  <!-- Consultation form handler (self-contained for this subpage) -->
+  <script>
+    (function () {
+      var form = document.getElementById('contactForm');
+      if (!form) return;
+      var submitBtn = document.getElementById('submitBtn');
+      var formSuccess = document.getElementById('formSuccess');
+      var formErrors = document.getElementById('formErrors');
+      var billSelect = document.getElementById('cBill');
+
+      function showError(msg) {
+        if (!formErrors) return;
+        formErrors.innerHTML = '<ul><li>' + msg + '</li></ul>';
+        formErrors.style.display = 'block';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        formErrors.style.display = 'none';
+        formSuccess.style.display = 'none';
+
+        var name = document.getElementById('cName').value.trim();
+        var phone = document.getElementById('cPhone').value.trim();
+        var email = document.getElementById('cEmail').value.trim();
+        var city = document.getElementById('cCity').value.trim();
+        var bill = billSelect.value;
+
+        if (!name || !phone || !email || !city) { showError('Please fill in all required fields.'); return; }
+        if (!/^\d{10}$/.test(phone.replace(/\D/g, '').slice(-10))) { showError('Please enter a valid 10-digit mobile number.'); return; }
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { showError('Please enter a valid email address.'); return; }
+        if (!bill) { showError('Please select your average monthly electricity bill.'); return; }
+
+        var original = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        var payload = {
+          name: name, phone: phone, email: email, city: city,
+          service: document.getElementById('cService').value,
+          bill: bill, message: document.getElementById('cMsg').value.trim()
+        };
+
+        fetch('../submit-contact.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data && data.ok) { formSuccess.style.display = 'block'; form.reset(); }
+            else { showError((data && data.message) || 'Submission failed. Please try again.'); }
+          })
+          .catch(function () { showError('Network error. Please call us at +91 91241 65341.'); })
+          .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = original; });
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var counters = document.querySelectorAll('strong[data-count]');
+      if (!counters.length) return;
+
+      function runCount(el) {
+        var target = parseFloat(el.getAttribute('data-count')) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        var useComma = el.getAttribute('data-comma') === '1';
+        var duration = 1600;
+        var start = null;
+
+        function format(n) {
+          var v = Math.round(n);
+          if (useComma) v = v.toLocaleString('en-IN');
+          return v + suffix;
+        }
+
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+          el.textContent = format(target * eased);
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = format(target);
+        }
+        requestAnimationFrame(step);
+      }
+
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counters.forEach(function (el) {
+          var suffix = el.getAttribute('data-suffix') || '';
+          var v = parseFloat(el.getAttribute('data-count')) || 0;
+          el.textContent = (el.getAttribute('data-comma') === '1' ? v.toLocaleString('en-IN') : v) + suffix;
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            runCount(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>

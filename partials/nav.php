@@ -3,12 +3,37 @@
       <a href="index.html" class="logo"><img src="image/clans_logo.png" alt="Clans Machina" class="logo-img" width="113" height="38" decoding="async" /></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Our Offerings</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Our Offerings</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="our-offering/home.html" class="nav-service-link-min">Home Solar</a>
+              <a href="our-offering/commercial.html" class="nav-service-link-min">Commercial Solar</a>
+              <a href="our-offering/housing-society.html" class="nav-service-link-min">Housing Society</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Solar Solutions</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="solar-solutions/Offgrid.html" class="nav-service-link-min">Off-grid Solar</a>
+              <a href="solar-solutions/Ongrid.html" class="nav-service-link-min">On-grid Solar</a>
+            </li>
+          </ul>
+        </li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
         <li><a href="calculator.html">Solar Calculator</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="blog.php">Blog</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">More</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="projects.html" class="nav-service-link-min">Projects</a>
+              <a href="faq.html" class="nav-service-link-min">FAQ</a>
+              <a href="blog.php" class="nav-service-link-min">Blog</a>
+            </li>
+          </ul>
+        </li>
       </ul>
       <div class="nav-actions">
         <a href="index.html#contact" class="btn btn-ghost">Contact</a>

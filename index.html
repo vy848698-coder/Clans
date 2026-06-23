@@ -18,12 +18,37 @@
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Our Offerings</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Our Offerings</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="our-offering/home.html" class="nav-service-link-min">Home Solar</a>
+              <a href="our-offering/commercial.html" class="nav-service-link-min">Commercial Solar</a>
+              <a href="our-offering/housing-society.html" class="nav-service-link-min">Housing Society</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Solar Solutions</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="solar-solutions/Offgrid.html" class="nav-service-link-min">Off-grid Solar</a>
+              <a href="solar-solutions/Ongrid.html" class="nav-service-link-min">On-grid Solar</a>
+            </li>
+          </ul>
+        </li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
         <li><a href="calculator.html">Solar Calculator</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="blog.php">Blog</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">More</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="projects.html" class="nav-service-link-min">Projects</a>
+              <a href="faq.html" class="nav-service-link-min">FAQ</a>
+              <a href="blog.php" class="nav-service-link-min">Blog</a>
+            </li>
+          </ul>
+        </li>
       </ul>
       <div class="nav-actions">
         <a href="#contact" class="btn btn-ghost">Contact</a>
@@ -46,7 +71,7 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         Premium Rooftop Solar &mdash; 1,000 + Installs Across India
       </div>
-      <h1 class="hero-headline">Cut Your Electricity Bill<br/>to <span class="gradient-text">Near Zero</span> — in 2-4 Weeks</h1>
+      <h1 class="hero-headline">Cut Your Electricity Bill<br/>to <span class="gradient-text">Near Zero</span> — in 18 Days</h1>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-neon btn-lg">
           <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -162,8 +187,8 @@
           <div class="wn-icon-wrap">
             <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="M12 2 21 7H3z"/></svg>
           </div>
-          <h3>Avail Government Subsidy of Up to ₹1,38,000*</h3>
-          <p>Take advantage of the PM Surya Ghar: Muft Bijli Yojana and receive government subsidies of up to ₹1,38,000* (Central Gov. Subsidy &mdash; 78,000 and Odisha Gov. Subsidy 60,000). Since subsidy schemes and benefits may change over time, applying sooner can help you maximize the available support.</p>
+          <h3>Avail Government Subsidy of Up to <span class="wn-price-hi">₹1,38,000</span></h3>
+          <p>Take advantage of the PM Surya Ghar: Muft Bijli Yojana and receive government subsidies of up to <span class="wn-price-hi">₹1,38,000*</span> (Central Gov. Subsidy &mdash; ₹78,000 and Odisha Gov. Subsidy ₹60,000). Since subsidy schemes and benefits may change over time, applying sooner can help you maximize the available support.</p>
           <div class="wn-stat wn-stat--gold">
             <strong>₹1,38,000</strong>
             <span>Direct bank transfer subsidy</span>
@@ -195,7 +220,7 @@
       <div class="section-header" data-animate>
         <span class="section-tag">Why Clans Machina</span>
         <h2>Why Families Across India Trust <span class="gradient-text">Clans Machina</span></h2>
-        <p>More than panels on a roof: expert system design, clean installation, real-time monitoring and proactive service &mdash; all handled by one accountable team.</p>
+        <p>Unlock the power of the sun with expert guidance, seamless installation, subsidy support and financing solutions.</p>
       </div>
       <div class="features-grid">
         <div class="feature-card fc-blue glass-card" data-animate>
@@ -224,11 +249,11 @@
         </div>
         <div class="feature-card fc-blue glass-card" data-animate>
           <div class="feature-icon-wrap icon-blue">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><path d="M14 6a6 6 0 0 1 6 6v3"/></svg>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8.4-3.7 1.2A19 19 0 0 0 12 6c-4.4 0-8 2.7-8 6 0 1.5.8 2.9 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-1h4v1a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3.3c.5-.4.9-.8 1.3-1.3l1.6-.4a1 1 0 0 0 .6-.9V9.5a1 1 0 0 0-.6-.9L20 8.2c-.2-.5-.5-1-.8-1.4V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><path d="M16 11h.01"/></svg>
           </div>
-          <h3>Skilled Installation Team</h3>
-          <p>Trained professionals install your system safely, cleanly and to a high standard.</p>
-          <div class="feature-stat"><span class="stat-val">Skilled</span><span class="stat-label">Installation Team</span></div>
+          <h3>Guaranteed Savings</h3>
+          <p>India&rsquo;s Number 1 solar company that offers a Savings Guarantee with Tata Power Renewable Energy Limited brand trust.</p>
+          <div class="feature-stat"><span class="stat-val">Guaranteed</span><span class="stat-label">Savings</span></div>
         </div>
         <div class="feature-card fc-purple glass-card" data-animate>
           <div class="feature-icon-wrap icon-purple">
@@ -538,66 +563,6 @@
             <ul class="rc-metrics">
               <li><label>Annual generation</label><span>35,100 kWh</span></li>
               <li><label>Payback</label><span>4.1 years</span></li>
-            </ul>
-          </div>
-        </article>
-        <article class="project-card glass-card" data-animate>
-          <div class="rc-top rc-residential">
-            <span class="rc-badge">Residential</span>
-            <span class="rc-size">9.8<small>kW</small></span>
-          </div>
-          <div class="rc-body">
-            <h3 class="rc-loc">Bangalore &middot; Villa + EV</h3>
-            <p class="rc-sys">Hybrid-Ready System</p>
-            <div class="rc-savings">
-              <div class="rc-bill"><span>Before</span><strong>&#8377;8,900</strong></div>
-              <span class="rc-arrow">&rarr;</span>
-              <div class="rc-bill rc-bill-after"><span>After</span><strong>&#8377;2,050</strong></div>
-              <span class="rc-cut">-77%</span>
-            </div>
-            <ul class="rc-metrics">
-              <li><label>Annual generation</label><span>13,900 kWh</span></li>
-              <li><label>Payback</label><span>4.8 years</span></li>
-            </ul>
-          </div>
-        </article>
-        <article class="project-card glass-card" data-animate>
-          <div class="rc-top rc-commercial">
-            <span class="rc-badge">Commercial</span>
-            <span class="rc-size">50<small>kW</small></span>
-          </div>
-          <div class="rc-body">
-            <h3 class="rc-loc">Hyderabad &middot; IT Office Campus</h3>
-            <p class="rc-sys">Net-Metered Plant</p>
-            <div class="rc-savings">
-              <div class="rc-bill"><span>Before</span><strong>&#8377;1.28L</strong></div>
-              <span class="rc-arrow">&rarr;</span>
-              <div class="rc-bill rc-bill-after"><span>After</span><strong>&#8377;46,000</strong></div>
-              <span class="rc-cut">-64%</span>
-            </div>
-            <ul class="rc-metrics">
-              <li><label>Annual generation</label><span>73,400 kWh</span></li>
-              <li><label>Payback</label><span>4.0 years</span></li>
-            </ul>
-          </div>
-        </article>
-        <article class="project-card glass-card" data-animate>
-          <div class="rc-top rc-industrial">
-            <span class="rc-badge">Industrial</span>
-            <span class="rc-size">150<small>kW</small></span>
-          </div>
-          <div class="rc-body">
-            <h3 class="rc-loc">Ahmedabad &middot; Textile Unit</h3>
-            <p class="rc-sys">Rooftop Solar Plant</p>
-            <div class="rc-savings">
-              <div class="rc-bill"><span>Before</span><strong>&#8377;3.6L</strong></div>
-              <span class="rc-arrow">&rarr;</span>
-              <div class="rc-bill rc-bill-after"><span>After</span><strong>&#8377;1.52L</strong></div>
-              <span class="rc-cut">-58%</span>
-            </div>
-            <ul class="rc-metrics">
-              <li><label>Annual generation</label><span>2.08 lakh kWh</span></li>
-              <li><label>Payback</label><span>3.6 years</span></li>
             </ul>
           </div>
         </article>

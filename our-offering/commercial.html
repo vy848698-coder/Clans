@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="mint-fresh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Commercial & industrial solar by Clans Machina — cut operating costs with high-yield rooftop and ground-mount systems, accelerated depreciation benefits and 25-year support. India's growing businesses go solar with us." />
+  <title>Commercial Solar | Clans Machina</title>
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- Page-scoped styles for the Commercial Solar landing layout -->
+  <style id="cs-styles">
+    /* ---- HERO ---- */
+    .cs-hero { position: relative; padding: 96px 0 0; overflow: hidden; background:
+        radial-gradient(900px 460px at 14% 8%, rgba(59,130,246,0.12), transparent 60%),
+        radial-gradient(760px 420px at 88% 12%, rgba(34,197,94,0.10), transparent 62%); }
+    .cs-hero-banner { position: relative; min-height: clamp(460px, 58vw, 640px); overflow: hidden; }
+    .cs-hero-banner-imgs { position: absolute; inset: 0; display: flex; width: 100%; height: 100%; }
+    .cs-hero-banner-imgs img { flex: 1 1 50%; width: 50%; height: 100%; object-fit: cover;
+      object-position: center; display: block; }
+    /* Dark scrim behind the centred text for legibility */
+    .cs-hero-banner::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(120% 85% at 50% 46%, rgba(8,20,40,0.62), rgba(8,20,40,0.30) 60%, rgba(8,20,40,0.12) 100%); }
+
+    /* Centred overlay content */
+    .cs-hero-overlay { position: relative; z-index: 2; max-width: 880px; margin: 0 auto; text-align: center;
+      padding: clamp(60px, 9vw, 110px) 22px; color: #fff; }
+    .cs-hero-overlay .section-tag { background: rgba(255,255,255,0.16); color: #eaf3ff;
+      border-color: rgba(255,255,255,0.3); }
+    .cs-hero-overlay h1 { font-size: clamp(2.1rem, 4.6vw, 3.5rem); line-height: 1.08; margin: 16px 0 18px;
+      color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
+    .cs-hero-overlay h1 .gradient-text {
+      display: inline;
+      background: linear-gradient(135deg, #6ee7b7 0%, #3ecf8e 55%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+    }
+    .cs-hero-lead { color: rgba(255,255,255,0.9); font-size: 1.08rem; max-width: 58ch; margin: 0 auto 26px;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.3); }
+    .cs-hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cs-hero-cta .btn-glass { color: #fff; border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.10); }
+    .cs-hero-cta .btn-glass:hover { color: #6ee7b7; border-color: #6ee7b7; background: rgba(255,255,255,0.14); }
+    .cs-hero-trust { display: flex; gap: 14px 26px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+    .cs-hero-trust span { display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+      font-size: 0.88rem; color: rgba(255,255,255,0.92); }
+    .cs-hero-trust svg { width: 18px; height: 18px; color: #6ee7b7; flex: none; }
+
+    /* ---- TESTIMONIAL QUOTE ---- */
+    .cs-quote-wrap { max-width: 920px; margin: 0 auto; text-align: center; position: relative; }
+    .cs-quote-mark { font-size: 5rem; line-height: 0.6; font-weight: 800; color: var(--green); opacity: 0.35; font-family: Georgia, serif; }
+    .cs-quote-text { font-size: clamp(1.3rem, 2.6vw, 2rem); line-height: 1.4; font-weight: 600; color: var(--text-primary); margin: 6px auto 30px; max-width: 800px; }
+    .cs-quote-text .gradient-text { display: inline; }
+    .cs-quote-author { display: inline-flex; align-items: center; gap: 16px; text-align: left; }
+    .cs-quote-author img { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; border: 3px solid var(--card-border, rgba(0,0,0,0.08)); }
+    .cs-quote-author strong { display: block; font-size: 1.05rem; }
+    .cs-quote-author span { color: var(--text-secondary); font-size: 0.9rem; }
+
+    /* ---- CITYSCAPE ILLUSTRATION BANNER (car.png) ---- */
+    .cs-cityscape { padding: 0; line-height: 0; }
+    .cs-cityscape img { display: block; width: 100%; height: auto; margin: 0; }
+
+    /* ---- PLAN YOUR PROJECT (replaces enquiry form) ---- */
+    .cs-plan { position: relative; overflow: hidden; border-radius: 26px; padding: 54px 50px;
+      background: linear-gradient(135deg, #0b2a55 0%, #0e3a6b 50%, #0b5a39 130%); color: #fff;
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+    .cs-plan::before { content: ''; position: absolute; right: -60px; top: -60px; width: 280px; height: 280px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%); }
+    .cs-plan h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin: 12px 0 12px; color: #fff; }
+    .cs-plan .section-tag { background: rgba(255,255,255,0.14); color: #cfe3ff; }
+    .cs-plan p { color: rgba(255,255,255,0.82); font-size: 1.02rem; margin-bottom: 26px; max-width: 46ch; }
+    .cs-plan-list { list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 14px; }
+    .cs-plan-list li { display: flex; align-items: flex-start; gap: 12px; font-weight: 500; }
+    .cs-plan-list svg { width: 22px; height: 22px; flex: none; color: #6ee7b7; margin-top: 1px; }
+    .cs-plan-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .cs-plan-steps { position: relative; z-index: 1; display: grid; gap: 16px; }
+    .cs-plan-step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; border-radius: 16px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(6px); }
+    .cs-plan-step .cs-step-no { width: 38px; height: 38px; flex: none; border-radius: 11px; display: grid;
+      place-items: center; font-weight: 800; color: #0b2a55;
+      background: linear-gradient(135deg, #6ee7b7, #93c5fd); }
+    .cs-plan-step strong { display: block; font-size: 1rem; margin-bottom: 3px; }
+    .cs-plan-step span { color: rgba(255,255,255,0.78); font-size: 0.88rem; line-height: 1.5; }
+
+    /* ---- INSTALLATION EXPERIENCE IMAGE CARDS ---- */
+    .cs-experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; grid-template-rows: auto auto; }
+    .cs-exp-card { position: relative; border-radius: 20px; overflow: hidden; min-height: 360px;
+      display: flex; align-items: flex-end; color: #fff;
+      box-shadow: 0 28px 60px -28px rgba(11,42,85,0.55); }
+    .cs-exp-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .cs-exp-card::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(11,42,85,0.05) 30%, rgba(11,42,85,0.55) 65%, rgba(8,30,20,0.9)); }
+    .cs-exp-body { position: relative; z-index: 2; padding: 30px; }
+    .cs-exp-body h3 { font-size: 1.4rem; margin: 0 0 10px; color: #fff; }
+    .cs-exp-body p { color: rgba(255,255,255,0.88); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+    /* ---- FULL-WIDTH IMAGE BAND ---- */
+    .cs-imgband { position: relative; height: clamp(360px, 46vw, 560px); overflow: hidden; }
+    .cs-imgband img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; display: block;
+      transform: scale(1.04); transition: transform 8s ease; }
+    .cs-imgband:hover img { transform: scale(1.08); }
+    /* layered overlay: dark left anchor + warm vignette bottom */
+    .cs-imgband::before { content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(4,14,30,0.22) 0%, rgba(4,14,30,0.60) 100%); }
+    .cs-imgband::after { content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(100deg, rgba(4,18,44,0.85) 0%, rgba(6,30,55,0.62) 42%, rgba(4,22,14,0.15) 100%); }
+    .cs-imgband-cap { position: absolute; z-index: 2; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
+    .cs-imgband-cap .container { color: #fff; }
+    .cs-imgband-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 20px; padding: 8px 18px 8px 14px;
+      border-radius: 100px; background: rgba(110,231,183,0.13); border: 1px solid rgba(110,231,183,0.45);
+      backdrop-filter: blur(10px); color: #b6ffd9; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .cs-imgband-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex: none;
+      box-shadow: 0 0 8px 2px rgba(74,222,128,0.7); animation: cs-pulse 2s infinite; }
+    @keyframes cs-pulse { 0% { box-shadow: 0 0 0 0 rgba(110,231,183,0.7); } 70% { box-shadow: 0 0 0 10px rgba(110,231,183,0); } 100% { box-shadow: 0 0 0 0 rgba(110,231,183,0); } }
+    .cs-imgband-cap h2 { color: #fff; font-size: clamp(2.2rem, 4.4vw, 3.6rem); margin: 0 0 16px; max-width: 22ch;
+      line-height: 1.1; font-weight: 900; letter-spacing: -0.03em;
+      text-shadow: 0 2px 32px rgba(0,0,0,0.45); }
+    .cs-imgband-cap h2 .gradient-text {
+      display: inline;
+      background: linear-gradient(120deg, #34d399 0%, #10b981 35%, #38bdf8 75%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 18px rgba(52,211,153,0.55));
+    }
+    .cs-imgband-sub { color: rgba(255,255,255,0.88); font-size: clamp(1rem, 1.5vw, 1.18rem); max-width: 44ch;
+      margin: 0 0 30px; line-height: 1.65; font-weight: 400;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+    .cs-imgband-pill { display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(120deg, rgba(52,211,153,0.18), rgba(56,189,248,0.14));
+      border: 1px solid rgba(52,211,153,0.45); backdrop-filter: blur(12px);
+      border-radius: 100px; padding: 11px 24px; font-size: 0.9rem; font-weight: 700; color: #d1fae5;
+      letter-spacing: 0.02em; box-shadow: 0 0 24px rgba(52,211,153,0.18); }
+    .cs-imgband-pill svg { width: 16px; height: 16px; color: #34d399; flex: none; }
+
+    /* ---- STATS BAND ---- */
+    .cs-stats-band { position: relative; overflow: hidden; border-radius: 26px; padding: 48px 40px;
+      background: linear-gradient(135deg, #0e7490 0%, #0891b2 45%, #06b6d4 110%); color: #fff; }
+    .cs-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; position: relative; z-index: 1; }
+    .cs-stat { text-align: center; }
+    .cs-stat-ic { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 16px; display: grid;
+      place-items: center; background: rgba(255,255,255,0.16); }
+    .cs-stat-ic svg { width: 28px; height: 28px; color: #fff; }
+    .cs-stat strong { display: block; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 800; line-height: 1; color: #fff; }
+    .cs-stat span { display: block; margin-top: 8px; font-size: 0.92rem; color: rgba(255,255,255,0.9); }
+
+    /* ---- BLOG CARDS ---- */
+    .cs-blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .cs-blog-card { border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .cs-blog-card img { width: 100%; height: 190px; object-fit: cover; }
+    .cs-blog-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .cs-blog-chip { align-self: flex-start; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--blue); background: rgba(59,130,246,0.12); padding: 4px 10px; border-radius: 999px; }
+    .cs-blog-body h3 { font-size: 1.02rem; margin: 0; line-height: 1.35; }
+    .cs-blog-body .cs-blog-meta { margin-top: auto; color: var(--text-secondary); font-size: 0.82rem; }
+
+    /* ---- FAQ (same premium accordion as home) ---- */
+    .faq-list { display: grid; gap: 14px; }
+    .faq-list .faq-item { position: relative; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.07); background: linear-gradient(180deg, #ffffff, #fbfdfb);
+      box-shadow: 0 10px 24px -20px rgba(11,42,85,0.5);
+      transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease; }
+    .faq-list .faq-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--blue), var(--green));
+      transform: scaleY(0); transform-origin: top; transition: transform .28s ease; }
+    .faq-list .faq-item:hover { transform: translateY(-2px); border-color: rgba(59,130,246,0.4); }
+    .faq-list .faq-item.open { border-color: rgba(59,130,246,0.5);
+      background: linear-gradient(180deg, #f2f8ff, #eef9fb); }
+    .faq-list .faq-item.open::before { transform: scaleY(1); }
+    .faq-list .faq-q { width: 100%; background: transparent; border: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px;
+      text-align: left; font-size: 1.04rem; font-weight: 700; color: var(--text-primary, #042f22); }
+    .faq-list .faq-item.open .faq-q { color: #0f5fa3; }
+    .faq-list .faq-q span { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid;
+      place-items: center; font-size: 1.4rem; line-height: 1; font-weight: 600;
+      background: rgba(59,130,246,0.14); color: var(--blue);
+      transition: background .25s ease, color .25s ease, transform .25s ease; }
+    .faq-list .faq-item.open .faq-q span { color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--green)); }
+    .faq-list .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-list .faq-item.open .faq-a { max-height: 360px; }
+    .faq-list .faq-a p { margin: 0; padding: 0 22px 22px; font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); }
+
+    /* ---- OUR PROCESS TIMELINE ---- */
+    .cs-process-section { background: var(--inset-surface, rgba(0,0,0,0.03)); }
+    .cs-process-timeline { position: relative; max-width: 820px; margin: 56px auto 0; }
+    .cs-process-timeline::before {
+      content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--green) 0%, var(--blue,#38bdf8) 100%);
+    }
+    .cs-process-step { display: grid; grid-template-columns: 1fr 48px 1fr; align-items: center; gap: 0 20px; margin-bottom: 40px; }
+    .cs-process-left .cs-process-card  { grid-column: 1; text-align: right; }
+    .cs-process-left .cs-process-node  { grid-column: 2; }
+    .cs-process-right .cs-process-node { grid-column: 2; }
+    .cs-process-right .cs-process-card { grid-column: 3; text-align: left; }
+    .cs-process-left  { grid-template-areas: "card node empty"; }
+    .cs-process-right { grid-template-areas: "empty node card"; }
+    .cs-process-left  .cs-process-card  { grid-area: card; }
+    .cs-process-left  .cs-process-node  { grid-area: node; }
+    .cs-process-right .cs-process-node  { grid-area: node; }
+    .cs-process-right .cs-process-card  { grid-area: card; }
+    .cs-process-node { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1;
+      box-shadow: 0 0 0 5px var(--bg-primary), 0 0 16px rgba(62,207,142,0.25); }
+    .cs-process-node svg { width: 20px; height: 20px; color: var(--green); }
+    .cs-process-card { padding: 20px 22px; border-radius: 14px; }
+    .cs-process-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: var(--green); text-transform: uppercase; }
+    .cs-process-card h3 { font-size: 1.05rem; margin: 6px 0 8px; color: var(--text-primary); }
+    .cs-process-card p { font-size: 0.9rem; line-height: 1.6; margin: 0; color: var(--text-secondary); }
+
+    @media (max-width: 1024px) {
+      .cs-plan, .cs-experience-grid { grid-template-columns: 1fr; }
+      .cs-plan { padding: 40px 30px; }
+      .cs-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 22px; }
+      .cs-blog-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .cs-stats-grid { grid-template-columns: 1fr; }
+      .cs-hero-cta, .cs-plan-cta { flex-direction: column; }
+      .cs-process-timeline::before { left: 24px; }
+      .cs-process-step { grid-template-columns: 48px 1fr; grid-template-areas: "node card" !important; gap: 0 16px; }
+      .cs-process-left .cs-process-card,
+      .cs-process-right .cs-process-card { grid-area: card; text-align: left; }
+      .cs-process-left .cs-process-node,
+      .cs-process-right .cs-process-node { grid-area: node; }
+      .cs-hero-trust { gap: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo"><img src="../image/clans_logo.png" alt="Clans Machina" class="logo-img" width="113" height="38" decoding="async" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Our Offerings</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="home.html" class="nav-service-link-min">Home Solar</a>
+              <a href="commercial.html" class="nav-service-link-min">Commercial Solar</a>
+              <a href="housing-society.html" class="nav-service-link-min">Housing Society</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Solar Solutions</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="../solar-solutions/Offgrid.html" class="nav-service-link-min">Off-grid Solar</a>
+              <a href="../solar-solutions/Ongrid.html" class="nav-service-link-min">On-grid Solar</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../calculator.html">Solar Calculator</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false">More</button>
+          <ul class="nav-dropdown-menu">
+            <li class="nav-dropdown-col nav-dropdown-col--services">
+              <a href="../projects.html" class="nav-service-link-min">Projects</a>
+              <a href="../faq.html" class="nav-service-link-min">FAQ</a>
+              <a href="../blog.php" class="nav-service-link-min">Blog</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <a href="../index.html#contact" class="btn btn-ghost">Contact</a>
+        <a href="../calculator.html" class="btn btn-neon">Get a Free Quote</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="cs-hero">
+    <div class="cs-hero-banner" data-animate>
+      <div class="cs-hero-banner-imgs">
+        <img src="../image/commercial/1.jpg" alt="Ground-mount commercial solar farm by Clans Machina" loading="lazy" />
+        <img src="../image/commercial/2.jpg" alt="Commercial rooftop solar installation by Clans Machina" loading="lazy" />
+      </div>
+      <div class="cs-hero-overlay">
+        <span class="section-tag">COMMERCIAL SOLAR</span>
+        <h1>India&rsquo;s growing businesses go solar with <span class="gradient-text">Clans Machina</span></h1>
+        <p class="cs-hero-lead">Turn idle rooftops and land into a high-return asset. We design, build and maintain large-scale solar for factories, warehouses, offices and retail &mdash; backed by bankable performance guarantees and a fast 3&ndash;4 year payback.</p>
+        <div class="cs-hero-cta">
+          <a href="../calculator.html" class="btn btn-neon btn-lg">Get a Free Quote</a>
+          <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+        </div>
+        <div class="google-rating-pill-wrap">
+          <a class="google-rating-pill" href="https://www.google.com/search?q=Clans+Machina+Solar+reviews" target="_blank" rel="noopener" aria-label="Rated 4.8 on Google from 1000+ ratings">
+            <svg class="grp-logo" width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+            <span class="grp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="grp-text">Rated <strong>4.8</strong> on Google &middot; <strong>1000+</strong> ratings</span>
+          </a>
+        </div>
+        <div class="cs-hero-trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 25 Yr Performance Warranty</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1,000+ Installs &amp; Counting</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 29+ Cities Served</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== TESTIMONIAL QUOTE ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="cs-quote-wrap" data-animate>
+        <div class="cs-quote-mark">&ldquo;</div>
+        <p class="cs-quote-text">I am extremely satisfied with the service provided by Clans Machina Solar. From the initial consultation to the final installation, <span class="gradient-text">the entire process was smooth, professional, and transparent.</span></p>
+        <div class="cs-quote-author">
+          <img src="../image/customer Photo/3.png" alt="Anil Patel" loading="lazy" />
+          <div>
+            <strong>Anil Patel</strong>
+            <span>Business Owner</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CITYSCAPE ILLUSTRATION BANNER ===================== -->
+  <section class="cs-cityscape">
+    <img src="../image/commercial/car.png" alt="Clans Machina powering homes and businesses across the city" loading="lazy" />
+  </section>
+
+
+  <!-- ===================== OUR PROCESS ===================== -->
+  <section class="cm-section cs-process-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">OUR PROCESS</span>
+        <h2>Simple, Transparent &amp; <span class="gradient-text">Hassle-Free</span></h2>
+        <p>A clean, guided journey — we handle every step from your first consultation to long-term support.</p>
+      </div>
+      <div class="cs-process-timeline">
+
+        <div class="cs-process-step cs-process-left" data-animate>
+          <div class="cs-process-card glass-card">
+            <span class="cs-process-label">STEP 01</span>
+            <h3>Consultation</h3>
+            <p>Understand your energy requirements and project goals with our expert solar advisors.</p>
+          </div>
+          <div class="cs-process-node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+
+        <div class="cs-process-step cs-process-right" data-animate>
+          <div class="cs-process-node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <div class="cs-process-card glass-card">
+            <span class="cs-process-label">STEP 02</span>
+            <h3>Site Assessment</h3>
+            <p>Evaluate roof space, structural conditions, shadow analysis and energy potential of your property.</p>
+          </div>
+        </div>
+
+        <div class="cs-process-step cs-process-left" data-animate>
+          <div class="cs-process-card glass-card">
+            <span class="cs-process-label">STEP 03</span>
+            <h3>System Design</h3>
+            <p>Create a customised solar solution — 3D layout, BoQ and a generation &amp; savings model tailored to your needs.</p>
+          </div>
+          <div class="cs-process-node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+
+        <div class="cs-process-step cs-process-right" data-animate>
+          <div class="cs-process-node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="cs-process-card glass-card">
+            <span class="cs-process-label">STEP 04</span>
+            <h3>Installation</h3>
+            <p>Professional installation by our certified technicians with clean workmanship and zero disruption.</p>
+          </div>
+        </div>
+
+        <div class="cs-process-step cs-process-left" data-animate>
+          <div class="cs-process-card glass-card">
+            <span class="cs-process-label">STEP 05</span>
+            <h3>Testing &amp; Commissioning</h3>
+            <p>Comprehensive quality checks, performance tests and safety verification before your system goes live.</p>
+          </div>
+          <div class="cs-process-node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+        </div>
+
+        <div class="cs-process-step cs-process-right" data-animate>
+          <div class="cs-process-node">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="cs-process-card glass-card">
+            <span class="cs-process-label">STEP 06</span>
+            <h3>Support &amp; Maintenance</h3>
+            <p>Ongoing monitoring and scheduled maintenance for optimal performance over 25 years.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INSTALLATION EXPERIENCE ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Why Businesses Choose Us</span>
+        <h2>Hassle-free, professional and friendly <span class="gradient-text">installation experience</span></h2>
+        <p>We are committed to making your commercial solar journey easy &mdash; from precise design to a clean, safe install.</p>
+      </div>
+      <div class="cs-experience-grid">
+<div class="cs-exp-card" data-animate>
+          <img src="../image/commercial/3.jpg" alt="Commercial solar installation in progress" loading="lazy" />
+          <div class="cs-exp-body">
+            <h3>Best price challenge</h3>
+            <p>We create premium solar systems using top-quality components, all at competitive prices, to guarantee a lifetime of high performance and savings.</p>
+          </div>
+        </div>
+        <div class="cs-exp-card" data-animate>
+          <img src="../image/commercial/4.jpg" alt="Solar plant commissioned and running" loading="lazy" />
+          <div class="cs-exp-body">
+            <h3>Great solar starts with precision designs</h3>
+            <p>We survey your roof, take measurements, and conduct shadow analysis in our softwares to come up with precise 3D design for your rooftop solar. We consult with you and take approvals on the design before installation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FULL-WIDTH IMAGE BAND ===================== -->
+  <section class="cs-imgband" data-animate>
+    <img src="../image/project/6.jpeg" alt="Commercial rooftop solar plant" loading="lazy" />
+    <div class="cs-imgband-cap">
+      <div class="container">
+        <span class="cs-imgband-eyebrow"><span class="dot"></span>Powering India's businesses</span>
+        <h2>Idle rooftops, turned into <span class="gradient-text">decades of clean power.</span></h2>
+        <p class="cs-imgband-sub">Your roof earns while you work. Zero fuel. Zero downtime. Pure profit.</p>
+        <span class="cs-imgband-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 20 9"/><path d="M11 2H4v20h16v-9"/><path d="M9 15l3 3 6-6"/></svg>
+          Free site assessment &amp; savings report
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS BAND ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="cs-stats-band" data-animate>
+        <div class="cs-stats-grid">
+          <div class="cs-stat">
+            <div class="cs-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <strong data-count="1000" data-suffix="+">0</strong>
+            <span>Installs &amp; Counting</span>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+            <strong data-count="90" data-suffix="%">0</strong>
+            <span>Bill Reduction</span>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <strong data-count="29" data-suffix="+">0</strong>
+            <span>Cities Served</span>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <strong>25 Yr</strong>
+            <span>Performance Warranty</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DELIGHTED CUSTOMERS ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Customer Love</span>
+        <h2>Exceptional quality. End-to-end service. <span class="gradient-text">Delighted customers.</span></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Hamare office ke liye Clans Machina Solar ne rooftop solar install kiya. Installation quality bahut achhi hai aur ab monthly electricity cost me kaafi savings ho rahi hai. Team ka support bhi outstanding hai.</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/2.png" alt="Mohammed Arif Khan" loading="lazy" />
+            <div class="testi-meta"><strong>Mohammed Arif Khan</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">I am extremely satisfied with the service provided by Clans Machina Solar. From the initial consultation to the final installation, the entire process was smooth, professional, and transparent.</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/3.png" alt="Anil Patel" loading="lazy" />
+            <div class="testi-meta"><strong>Anil Patel</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+        <div class="testi-card glass-card" data-animate>
+          <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testi-quote">Excellent service from start to finish! The installation was completed on time, and my electricity bill has reduced significantly. The team was professional and very supportive throughout the process. Highly recommended!</p>
+          <div class="testi-footer">
+            <img class="testi-avatar testi-avatar--photo" src="../image/customer Photo/5.png" alt="Imran Khan" loading="lazy" />
+            <div class="testi-meta"><strong>Imran Khan</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BLOGS ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Solar Knowledge Hub</span>
+        <h2>From Our <span class="gradient-text">Blog</span></h2>
+        <p>Practical guides on commercial pricing, depreciation and savings to help you make a confident decision.</p>
+      </div>
+      <div class="cs-blog-grid">
+        <a class="cs-blog-card glass-card" href="../post.php?id=15" data-animate>
+          <img src="../image/blog/uploads/post_1781370090_a954d149.jpg" alt="Solar myths busted" loading="lazy" />
+          <div class="cs-blog-body">
+            <span class="cs-blog-chip">Solar Myths</span>
+            <h3>Busted: 10 Solar Myths That Could Be Holding You Back</h3>
+            <span class="cs-blog-meta">By Clans Machina &middot; 4 min read</span>
+          </div>
+        </a>
+        <a class="cs-blog-card glass-card" href="../post.php?id=14" data-animate>
+          <img src="../image/blog/uploads/post_1781369563_5c2037c2.jpg" alt="Pros and cons of solar energy" loading="lazy" />
+          <div class="cs-blog-body">
+            <span class="cs-blog-chip">Expert Guide</span>
+            <h3>Pros and Cons of Solar Energy: 2026 Expert Guide</h3>
+            <span class="cs-blog-meta">By Clans Machina &middot; 8 min read</span>
+          </div>
+        </a>
+        <a class="cs-blog-card glass-card" href="../post.php?id=10" data-animate>
+          <img src="../image/blog/uploads/post_1781368144_7a2cce91.png" alt="Solar energy and India's sustainable development goals" loading="lazy" />
+          <div class="cs-blog-body">
+            <span class="cs-blog-chip">Sustainability</span>
+            <h3>How Solar Energy Can Help Achieve India&rsquo;s Sustainable Development Goals</h3>
+            <span class="cs-blog-meta">By Clans Machina &middot; 5 min read</span>
+          </div>
+        </a>
+      </div>
+      <div class="projects-cta" data-animate style="margin-top:34px;text-align:center;">
+        <a href="../blog.php" class="btn btn-neon">Read More on the Blog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="cm-cta">
+    <div class="container">
+      <div class="cm-cta-card glass-card" data-animate>
+        <div>
+          <h2>Cut Your Commercial Energy Bill</h2>
+          <p>Share your monthly consumption and available space, and our engineering team will return a detailed proposal with system size, savings, payback and financing options.</p>
+        </div>
+        <div class="cm-cta-actions">
+          <a href="../calculator.html" class="btn btn-neon btn-lg">Estimate Savings</a>
+          <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer"></footer>
+
+  <script src="../js/shared-footer.js" defer></script>
+  <script src="../js/subpage.js" defer></script>
+  <script src="../js/lib/lucide.min.js"></script>
+  <script>if (window.lucide) lucide.createIcons();</script>
+
+  <!-- Count-up animation for the stats band -->
+  <script>
+    (function () {
+      var counters = document.querySelectorAll('strong[data-count]');
+      if (!counters.length) return;
+
+      function runCount(el) {
+        var target = parseFloat(el.getAttribute('data-count')) || 0;
+        var prefix = el.getAttribute('data-prefix') || '';
+        var suffix = el.getAttribute('data-suffix') || '';
+        var useComma = el.getAttribute('data-comma') === '1';
+        var duration = 1600;
+        var start = null;
+
+        function format(n) {
+          var v = Math.round(n);
+          if (useComma) v = v.toLocaleString('en-IN');
+          return prefix + v + suffix;
+        }
+
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.innerHTML = format(target * eased);
+          if (p < 1) requestAnimationFrame(step);
+          else el.innerHTML = format(target);
+        }
+        requestAnimationFrame(step);
+      }
+
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counters.forEach(function (el) {
+          var prefix = el.getAttribute('data-prefix') || '';
+          var suffix = el.getAttribute('data-suffix') || '';
+          var v = parseFloat(el.getAttribute('data-count')) || 0;
+          el.innerHTML = prefix + (el.getAttribute('data-comma') === '1' ? v.toLocaleString('en-IN') : v) + suffix;
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { runCount(entry.target); observer.unobserve(entry.target); }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>
