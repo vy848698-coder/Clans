@@ -39,7 +39,7 @@
     '      <h5>Company</h5>',
     '      <ul>',
     '        <li><a href="about.html">About Us</a></li>',
-    '        <li><a href="projects.html">Our Projects</a></li>',
+    '        <li><a href="projects.html">Testimonials</a></li>',
     '        <li><a href="calculator.html">Solar Calculator</a></li>',
     '        <li><a href="faq.html">FAQ</a></li>',
     '        <li><a href="blog.php">Blog</a></li>',
