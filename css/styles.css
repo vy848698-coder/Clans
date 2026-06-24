@@ -1338,6 +1338,52 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
    FEATURES
    ============================================================ */
 .features { padding: 100px 0; }
+/* FIND YOUR SOLAR SOLUTION */
+.solar-for { padding: 100px 0; }
+.solar-for-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.solar-for-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  text-decoration: none;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.solar-for-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-bright);
+}
+.sf-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sf-icon i { width: 26px; height: 26px; }
+.sf-body h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 8px;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+.sf-body h3 svg { color: var(--green); transition: transform 0.25s ease; }
+.solar-for-card:hover .sf-body h3 svg { transform: translateX(4px); }
+.sf-body p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3491,6 +3537,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   .page-kpi-strip { grid-template-columns: repeat(2, 1fr); }
   .page-grid-2 { grid-template-columns: 1fr; }
   .features-grid { grid-template-columns: 1fr 1fr; }
+  .solar-for-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
   .services-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
   .timeline { flex-direction: column; align-items: stretch; }
   .timeline-connector { width: 2px; height: 40px; margin: 0 auto; background: linear-gradient(to bottom, var(--green), var(--blue)); }

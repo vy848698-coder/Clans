@@ -3,10 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Partner with Clans Machina — collaborate with an engineering-led rooftop solar company delivering clean, affordable solar energy across India." />
-  <title>Partnership | Clans Machina Solar</title>
+  <meta name="description" content="Partner with Clans Machina — become a solar Channel Partner or Solar Consultant and build a profitable business with India's fast-growing rooftop solar brand. Zero-to-low investment, full training, lifetime payouts." />
+  <title>Become a Partner | Clans Machina Solar</title>
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Page-scoped styles for the Partnership landing layout -->
+  <style id="pp-styles">
+    /* ===== HERO (text-only, branded) ===== */
+    .pp-hero { position: relative; margin-top: 90px; padding: 96px 0 104px; overflow: hidden; text-align: center;
+      background:
+        radial-gradient(1100px 520px at 50% -10%, rgba(34,197,94,0.22) 0%, rgba(34,197,94,0) 60%),
+        radial-gradient(900px 480px at 85% 120%, rgba(59,130,246,0.22) 0%, rgba(59,130,246,0) 60%),
+        linear-gradient(135deg, #06281c 0%, #0b3b3a 52%, #082a44 100%); }
+    /* faint grid + glow accents */
+    .pp-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+      background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 46px 46px; mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 72%);
+      -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 72%); }
+    .pp-hero-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+    .pp-hero .section-tag { background: rgba(255,255,255,0.12); color: #d8fff0; border-color: rgba(255,255,255,0.32);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .pp-hero h1 { color: #fff; font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.05;
+      letter-spacing: -0.5px; margin: 18px 0 20px; text-shadow: 0 6px 30px rgba(0,0,0,0.35); }
+    .pp-hero h1 .gradient-text {
+      background: linear-gradient(110deg, #a7f3d0 0%, #6ee7b7 40%, #7dd3fc 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(110,231,183,0.35)); display: inline; }
+    .pp-hero-lead { color: rgba(255,255,255,0.86); font-size: clamp(1rem, 1.6vw, 1.18rem); line-height: 1.7;
+      max-width: 60ch; margin: 0 auto 30px; }
+    .pp-hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 42px; }
+    .pp-hero .btn-glass { color: #fff; border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); }
+    .pp-hero .btn-glass:hover { background: rgba(255,255,255,0.18); }
+    /* inline highlight pills */
+    .pp-hero-points { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .pp-hero-points li { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 0.92rem; color: #eafff6;
+      padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .pp-hero-points svg { width: 18px; height: 18px; flex: none; color: #6ee7b7; }
+
+    /* ===== Program cards ===== */
+    .pp-programs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .pp-program { position: relative; border-radius: 22px; overflow: hidden; padding: 0;
+      display: flex; flex-direction: column;
+      border: 1px solid var(--card-border, rgba(0,0,0,0.07));
+      background: linear-gradient(180deg, #ffffff, #fbfdfb);
+      box-shadow: 0 24px 60px -36px rgba(16,90,60,0.45);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .pp-program:hover { transform: translateY(-6px); box-shadow: 0 30px 64px -32px rgba(16,90,60,0.5); border-color: rgba(62,207,142,0.4); }
+    .pp-program-head { padding: 28px 28px 22px; color: #fff; position: relative; overflow: hidden; }
+    .pp-program--channel .pp-program-head { background: linear-gradient(135deg, #0b5a39 0%, #0f7d4e 60%, #14507a 130%); }
+    .pp-program--consultant .pp-program-head { background: linear-gradient(135deg, #0b3b5a 0%, #14507a 55%, #0f7d4e 130%); }
+    .pp-program-head::after { content: ""; position: absolute; right: -30px; top: -30px; width: 130px; height: 130px;
+      border-radius: 50%; background: rgba(255,255,255,0.10); }
+    .pp-prog-icon { width: 54px; height: 54px; border-radius: 14px; display: grid; place-items: center;
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); margin-bottom: 14px; }
+    .pp-prog-icon svg { width: 28px; height: 28px; }
+    .pp-program-head h3 { margin: 0 0 4px; font-size: 1.3rem; line-height: 1.2; }
+    .pp-program-head p { margin: 0; font-size: 0.88rem; color: rgba(255,255,255,0.85); }
+    .pp-prog-body { padding: 24px 28px 28px; display: flex; flex-direction: column; flex: 1; }
+    .pp-prog-list { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 12px; }
+    .pp-prog-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.94rem; color: var(--text-primary); }
+    .pp-prog-list svg { width: 19px; height: 19px; flex: none; margin-top: 1px; color: var(--green); }
+    .pp-prog-body .btn { margin-top: auto; }
+
+    /* ===== Benefits band ===== */
+    .pp-benefits-band { position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #06281c 0%, #0b3b3a 55%, #082a44 100%); }
+    .pp-benefits-band .section-header h2,
+    .pp-benefits-band .section-header p { color: #fff; }
+    .pp-benefits-band .section-header p { color: rgba(255,255,255,0.78); }
+    /* Lighten the gradient word so it reads on the dark band */
+    .pp-benefits-band .section-header h2 .gradient-text {
+      background: linear-gradient(110deg, #a7f3d0 0%, #6ee7b7 40%, #7dd3fc 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(110,231,183,0.3)); }
+    .pp-benefits-band .section-tag { background: rgba(255,255,255,0.14); color: #d8fff0; border-color: rgba(255,255,255,0.35); }
+    .pp-benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .pp-benefit-card { position: relative; height: 100%; border-radius: 20px; padding: 32px 30px 30px; overflow: hidden;
+      background: #ffffff; border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 30px 70px -34px rgba(0,0,0,0.55);
+      transition: transform .3s ease, box-shadow .3s ease; }
+    .pp-benefit-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 5px; }
+    .pp-benefit-card--channel::before { background: linear-gradient(90deg, var(--green), #0f7d4e); }
+    .pp-benefit-card--consultant::before { background: linear-gradient(90deg, var(--blue), #14507a); }
+    .pp-benefit-card:hover { transform: translateY(-6px); box-shadow: 0 40px 80px -34px rgba(0,0,0,0.6); }
+    .pp-benefit-card h3 { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; font-size: 1.2rem; color: var(--text-primary); }
+    .pp-benefit-card h3 .pp-b-ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; flex: none; color: #fff; }
+    .pp-benefit-card--channel h3 .pp-b-ic { background: linear-gradient(135deg, var(--green), #0f7d4e); box-shadow: 0 8px 18px -6px rgba(16,120,70,0.6); }
+    .pp-benefit-card--consultant h3 .pp-b-ic { background: linear-gradient(135deg, var(--blue), #14507a); box-shadow: 0 8px 18px -6px rgba(20,80,122,0.6); }
+    .pp-benefit-card h3 .pp-b-ic svg { width: 22px; height: 22px; }
+    .pp-benefit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 13px; }
+    .pp-benefit-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 0.95rem; font-weight: 500; color: #334155; }
+    .pp-benefit-list svg { width: 20px; height: 20px; flex: none; margin-top: 1px; padding: 3px; border-radius: 50%;
+      color: #fff; background: linear-gradient(135deg, #1aa35b, #0f7d4e); }
+
+    /* ===== How it works ===== */
+    .pp-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .pp-step { padding: 30px 24px 28px; border-radius: 20px; position: relative; overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .pp-step::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--blue)); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+    .pp-step:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(34,197,94,0.16); border-color: rgba(34,197,94,0.35); }
+    .pp-step:hover::before { transform: scaleX(1); }
+    .pp-step-icon { width: 58px; height: 58px; border-radius: 16px; display: grid; place-items: center;
+      color: #fff; background: linear-gradient(135deg, var(--green), var(--blue)); margin-bottom: 18px;
+      box-shadow: 0 12px 26px rgba(34,197,94,0.30); }
+    .pp-step-icon svg { width: 28px; height: 28px; }
+    .pp-step-num { position: absolute; top: 18px; right: 20px; font-size: 2.6rem; font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; opacity: 0.16; }
+    .pp-step h3 { font-size: 1.05rem; margin: 0 0 8px; }
+    .pp-step p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.55; }
+
+    /* ===== Footprint ===== */
+    .pp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 36px; }
+    .pp-stat { text-align: center; padding: 26px 18px; border-radius: 16px; }
+    .pp-stat strong { display: block; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800;
+      background: linear-gradient(120deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .pp-stat span { color: var(--text-secondary); font-size: 0.9rem; }
+    .pp-states { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 880px; margin: 0 auto; }
+    .pp-state-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px;
+      font-weight: 600; font-size: 0.92rem; color: var(--text-primary);
+      background: var(--card-bg, rgba(255,255,255,0.6)); border: 1px solid var(--card-border, rgba(0,0,0,0.08)); }
+    .pp-state-chip svg { width: 16px; height: 16px; color: var(--green); flex: none; }
+
+    /* ===== FAQ (matches site pattern) ===== */
+    .faq-list { display: grid; gap: 14px; }
+    .faq-list .faq-item { position: relative; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.07); background: linear-gradient(180deg, #ffffff, #fbfdfb);
+      box-shadow: 0 10px 24px -20px rgba(16,90,60,0.5); transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease; }
+    .faq-list .faq-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--green), var(--blue)); transform: scaleY(0); transform-origin: top; transition: transform .28s ease; }
+    .faq-list .faq-item:hover { transform: translateY(-2px); border-color: rgba(62,207,142,0.4); box-shadow: 0 18px 34px -20px rgba(16,90,60,0.45); }
+    .faq-list .faq-item.open { border-color: rgba(62,207,142,0.5); box-shadow: 0 22px 44px -24px rgba(16,90,60,0.5); background: linear-gradient(180deg, #f4fbf7, #eef9fb); }
+    .faq-list .faq-item.open::before { transform: scaleY(1); }
+    .faq-list .faq-q { width: 100%; background: transparent; border: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px; text-align: left;
+      font-size: 1.04rem; font-weight: 700; color: var(--text-primary, #042f22); transition: color .2s ease; }
+    .faq-list .faq-item.open .faq-q { color: #0f7d4e; }
+    .faq-list .faq-q span { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 1.4rem; line-height: 1; font-weight: 600; background: rgba(62,207,142,0.14); color: var(--green);
+      transition: background .25s ease, color .25s ease, transform .25s ease; }
+    .faq-list .faq-q:hover span { transform: scale(1.1); }
+    .faq-list .faq-item.open .faq-q span { color: #fff; background: linear-gradient(135deg, var(--green), var(--blue)); box-shadow: 0 6px 14px -4px rgba(16,120,70,0.55); }
+    .faq-list .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-list .faq-item.open .faq-a { max-height: 360px; }
+    .faq-list .faq-a p { margin: 0; padding: 0 22px 22px; font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); }
+
+    @media (max-width: 1024px) {
+      .pp-programs, .pp-benefits-grid { grid-template-columns: 1fr; }
+      .pp-steps { grid-template-columns: repeat(2, 1fr); }
+      .pp-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .pp-hero { padding: 72px 0 80px; }
+    }
+    @media (max-width: 560px) {
+      .pp-steps, .pp-stats { grid-template-columns: 1fr; }
+      .pp-hero-actions .btn { width: 100%; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar" id="navbar">
@@ -56,9 +214,271 @@
   </nav>
 
   <main>
-    <section class="cm-section" style="min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:120px;">
+    <!-- ===================== HERO ===================== -->
+    <section class="pp-hero">
       <div class="container">
-        <p style="font-size:1.6rem;font-weight:700;"><strong>This page is yet to be Created</strong></p>
+        <div class="pp-hero-inner" data-animate>
+          <span class="section-tag">Partner Program</span>
+          <h1>Expand Your <span class="gradient-text">Earning Potential</span> with Clans Machina</h1>
+          <p class="pp-hero-lead">Build a profitable business with one of India's fastest-growing rooftop solar brands. Join hands as a Channel Partner or a Solar Consultant — and earn while powering homes, businesses and societies with clean energy.</p>
+          <div class="pp-hero-actions">
+            <a href="index.html#contact" class="btn btn-neon btn-lg">Become a Partner</a>
+            <a href="#pp-programs" class="btn btn-glass btn-lg">Explore Programs</a>
+          </div>
+          <ul class="pp-hero-points">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Zero-to-low investment</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Free training &amp; certification</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Marketing &amp; lead support</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lifetime payouts</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROGRAMS ===================== -->
+    <section class="cm-section" id="pp-programs">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Choose Your Path</span>
+          <h2>Find the Program <span class="gradient-text">That Fits You Best</span></h2>
+          <p>Whether you run an established business or want to start solo, there is a partnership model built for you.</p>
+        </div>
+        <div class="pp-programs">
+          <!-- Channel Partner -->
+          <div class="pp-program pp-program--channel" data-animate>
+            <div class="pp-program-head">
+              <div class="pp-prog-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
+              </div>
+              <h3>Channel Partner</h3>
+              <p>For businesses &amp; entrepreneurs ready to own a solar territory.</p>
+            </div>
+            <div class="pp-prog-body">
+              <ul class="pp-prog-list">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Exclusive sales region rights</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No godown or heavy inventory required</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Company-trained sales &amp; install support</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Aggregated lead generation in your area</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> End-to-end project execution by Clans Machina</li>
+              </ul>
+              <a href="index.html#contact" class="btn btn-neon btn-full">Apply Now</a>
+            </div>
+          </div>
+
+          <!-- Solar Consultant -->
+          <div class="pp-program pp-program--consultant" data-animate>
+            <div class="pp-program-head">
+              <div class="pp-prog-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h3>Solar Consultant</h3>
+              <p>For individuals who want financial freedom on their own schedule.</p>
+            </div>
+            <div class="pp-prog-body">
+              <ul class="pp-prog-list">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Work on your own schedule</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Zero investment to get started</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Attractive commission on every deal</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Free periodic training &amp; certification</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lifetime royalty on referrals</li>
+              </ul>
+              <a href="index.html#contact" class="btn btn-neon btn-full">Apply Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BENEFITS BAND ===================== -->
+    <section class="cm-section pp-benefits-band">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Why Partner With Us</span>
+          <h2>Whatever Be Your Business Needs, <span class="gradient-text">We Are There for You</span></h2>
+          <p>From technology and training to leads and lifetime support — we set our partners up to win.</p>
+        </div>
+        <div class="pp-benefits-grid">
+          <div class="pp-benefit-card pp-benefit-card--channel" data-animate>
+            <h3><span class="pp-b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg></span> Channel Partner Benefits</h3>
+            <ul class="pp-benefit-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Exclusive distribution region</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Dedicated manpower &amp; technical team</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Access to a robust solar technology platform</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Future-ready, ALMM-approved product portfolio</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Additional reach with a trusted brand</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lifetime recurring revenue</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> High return on investment</li>
+            </ul>
+          </div>
+          <div class="pp-benefit-card pp-benefit-card--consultant" data-animate>
+            <h3><span class="pp-b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></span> Solar Consultant Benefits</h3>
+            <ul class="pp-benefit-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Increased earning potential</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Trust of a recognized solar brand</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reach new markets &amp; customer segments</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Learn from solar know-how experts</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full business development support</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Hand-holding at every closing step</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Flexible, independent work life</li>
+            </ul>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:34px;">
+          <a href="index.html#contact" class="btn btn-neon btn-lg">Apply Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW IT WORKS ===================== -->
+    <section class="cm-section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Simple Onboarding</span>
+          <h2>Become a Partner in <span class="gradient-text">4 Easy Steps</span></h2>
+          <p>From your first application to your first payout — we keep it simple and fast.</p>
+        </div>
+        <div class="pp-steps">
+          <div class="pp-step glass-card" data-animate>
+            <span class="pp-step-num">1</span>
+            <div class="pp-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 14l2 2 4-4"/></svg></div>
+            <h3>Apply Online</h3>
+            <p>Fill the partner form in under a minute and tell us your region and goals.</p>
+          </div>
+          <div class="pp-step glass-card" data-animate>
+            <span class="pp-step-num">2</span>
+            <div class="pp-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <h3>Discovery Call</h3>
+            <p>Our partnership team understands your background and recommends the right program.</p>
+          </div>
+          <div class="pp-step glass-card" data-animate>
+            <span class="pp-step-num">3</span>
+            <div class="pp-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <h3>Onboarding &amp; Training</h3>
+            <p>Get certified, equipped with sales tools and access to our solar tech platform.</p>
+          </div>
+          <div class="pp-step glass-card" data-animate>
+            <span class="pp-step-num">4</span>
+            <div class="pp-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+            <h3>Start Earning</h3>
+            <p>Generate leads, close deals and earn commissions while we handle execution.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PARTNER STORIES ===================== -->
+    <section class="cm-section cm-section-alt">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Partner Stories</span>
+          <h2>Our Business Partners &amp; <span class="gradient-text">Their Journey With Us</span></h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testi-card glass-card" data-animate>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-quote">I enrolled in the training and got skilled, which impressed me. It is easy to get started, the commissions are high and the products are genuinely good quality.</p>
+            <div class="testi-footer">
+              <img class="testi-avatar testi-avatar--photo" src="image/customer Photo/6.webp" alt="Vivek Shandilya" loading="lazy" />
+              <div class="testi-meta"><strong>Vivek Shandilya</strong><span>Solar Consultant &middot; Odisha</span></div>
+            </div>
+          </div>
+          <div class="testi-card glass-card" data-animate>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-quote">As a hardware dealer, becoming a Channel Partner added a strong new revenue stream. The team handles installation and subsidy paperwork, so I just focus on selling in my region.</p>
+            <div class="testi-footer">
+              <img class="testi-avatar testi-avatar--photo" src="image/customer Photo/2.webp" alt="Mohammed Arif Khan" loading="lazy" />
+              <div class="testi-meta"><strong>Mohammed Arif Khan</strong><span>Channel Partner &middot; Cuttack</span></div>
+            </div>
+          </div>
+          <div class="testi-card glass-card" data-animate>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-quote">I started part-time with zero investment. The brand trust makes it easy to convince customers, and the lifetime payouts keep adding up every month.</p>
+            <div class="testi-footer">
+              <img class="testi-avatar testi-avatar--photo" src="image/customer Photo/8.webp" alt="Manoj Mishra" loading="lazy" />
+              <div class="testi-meta"><strong>Manoj Mishra</strong><span>Solar Consultant &middot; Bhubaneswar</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTPRINT ===================== -->
+    <section class="cm-section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Our Footprints</span>
+          <h2>Across the <span class="gradient-text">Nation</span></h2>
+          <p>A growing network of partners powering clean energy in 29+ cities across 9 states.</p>
+        </div>
+        <div class="pp-stats">
+          <div class="pp-stat glass-card" data-animate><strong data-count="150" data-suffix="+">0</strong><span>Active Partners</span></div>
+          <div class="pp-stat glass-card" data-animate><strong data-count="1000" data-comma="1" data-suffix="+">0</strong><span>Projects Delivered</span></div>
+          <div class="pp-stat glass-card" data-animate><strong data-count="29" data-suffix="+">0</strong><span>Cities Covered</span></div>
+          <div class="pp-stat glass-card" data-animate><strong data-count="9" data-suffix="">0</strong><span>States Served</span></div>
+        </div>
+        <div class="pp-states">
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Odisha</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> West Bengal</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Jharkhand</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Chhattisgarh</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Bihar</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Madhya Pradesh</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Maharashtra</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Uttar Pradesh</span>
+          <span class="pp-state-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Delhi NCR</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="cm-section cm-section-alt">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Partner FAQs</span>
+          <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+        </div>
+        <div class="faq-list" style="max-width:820px;margin:0 auto;">
+          <div class="faq-item glass-card" data-animate>
+            <button class="faq-q" type="button">Who can become a Clans Machina partner?<span>+</span></button>
+            <div class="faq-a"><p>Anyone with the drive to grow — electrical and hardware dealers, EPC contractors, real-estate professionals, sales and marketing people, and even motivated freshers. Channel Partners are best for established businesses, while the Solar Consultant program suits individuals.</p></div>
+          </div>
+          <div class="faq-item glass-card" data-animate>
+            <button class="faq-q" type="button">Do I need to invest money to start?<span>+</span></button>
+            <div class="faq-a"><p>The Solar Consultant program needs zero investment to begin. The Channel Partner program is low-investment with no large godown or inventory requirement — our team handles execution while you focus on your region.</p></div>
+          </div>
+          <div class="faq-item glass-card" data-animate>
+            <button class="faq-q" type="button">Do I need prior solar experience?<span>+</span></button>
+            <div class="faq-a"><p>No. We provide free training and certification on solar products, subsidy schemes and the sales process, so you can start confidently even without a technical background.</p></div>
+          </div>
+          <div class="faq-item glass-card" data-animate>
+            <button class="faq-q" type="button">How much can I earn as a partner?<span>+</span></button>
+            <div class="faq-a"><p>Your earnings scale with the deals you close. Partners earn attractive commissions on every project, plus lifetime royalty and recurring revenue on referrals — the more you grow your region, the more you earn.</p></div>
+          </div>
+          <div class="faq-item glass-card" data-animate>
+            <button class="faq-q" type="button">What support will I get?<span>+</span></button>
+            <div class="faq-a"><p>Dedicated relationship management, lead support, marketing material, a robust technology platform, and complete back-end execution — design, installation, subsidy paperwork and 25-year service are handled by Clans Machina.</p></div>
+          </div>
+          <div class="faq-item glass-card" data-animate>
+            <button class="faq-q" type="button">How and when do I get paid?<span>+</span></button>
+            <div class="faq-a"><p>Payouts are transparent and tied to clear milestones in each project. Your dedicated partner manager shares the full commission structure during onboarding.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="cm-cta">
+      <div class="container">
+        <div class="cm-cta-card glass-card" data-animate>
+          <div>
+            <h2>Don't Miss Your Chance to Get Ahead of the Rest</h2>
+            <p>Join the Clans Machina partner network today and turn India's solar boom into your business opportunity.</p>
+          </div>
+          <div class="cm-cta-actions">
+            <a href="index.html#contact" class="btn btn-neon btn-lg">Start Earning Now!</a>
+            <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -68,5 +488,58 @@
   <script src="js/subpage.js" defer></script>
   <script src="js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
+
+  <!-- Animated stat counters -->
+  <script>
+    (function () {
+      var counters = document.querySelectorAll('strong[data-count]');
+      if (!counters.length) return;
+
+      function runCount(el) {
+        var target = parseFloat(el.getAttribute('data-count')) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        var useComma = el.getAttribute('data-comma') === '1';
+        var duration = 1600;
+        var start = null;
+
+        function format(n) {
+          var v = Math.round(n);
+          if (useComma) v = v.toLocaleString('en-IN');
+          return v + suffix;
+        }
+
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = format(target * eased);
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = format(target);
+        }
+        requestAnimationFrame(step);
+      }
+
+      if (!('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counters.forEach(function (el) {
+          var suffix = el.getAttribute('data-suffix') || '';
+          var v = parseFloat(el.getAttribute('data-count')) || 0;
+          el.textContent = (el.getAttribute('data-comma') === '1' ? v.toLocaleString('en-IN') : v) + suffix;
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            runCount(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
 </body>
 </html>

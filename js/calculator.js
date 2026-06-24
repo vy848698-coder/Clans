@@ -77,7 +77,7 @@
   if (!estForm) return; // not on the calculator page
 
   /* ---- TWO INTERNAL SCREENS: choose property -> calculator ---- */
-  var TYPE_LABEL = { residential: 'Residential', commercial: 'Commercial', industrial: 'Industrial' };
+  var TYPE_LABEL = { residential: 'Home', commercial: 'Commercial', industrial: 'Housing Society' };
   var consumerType = 'residential';
   var scChoose = $('scChoose');
   var scTool = $('scTool');
