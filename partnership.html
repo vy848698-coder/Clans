@@ -11,37 +11,54 @@
   <!-- Page-scoped styles for the Partnership landing layout -->
   <style id="pp-styles">
     /* ===== HERO (text-only, branded) ===== */
-    .pp-hero { position: relative; margin-top: 90px; padding: 96px 0 104px; overflow: hidden; text-align: center;
+    .pp-hero { position: relative; margin-top: 90px; padding: 84px 0 56px; overflow: hidden; text-align: center;
       background:
-        radial-gradient(1100px 520px at 50% -10%, rgba(34,197,94,0.22) 0%, rgba(34,197,94,0) 60%),
-        radial-gradient(900px 480px at 85% 120%, rgba(59,130,246,0.22) 0%, rgba(59,130,246,0) 60%),
-        linear-gradient(135deg, #06281c 0%, #0b3b3a 52%, #082a44 100%); }
-    /* faint grid + glow accents */
-    .pp-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
-      background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 46px 46px; mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 72%);
-      -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 72%); }
-    .pp-hero-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
-    .pp-hero .section-tag { background: rgba(255,255,255,0.12); color: #d8fff0; border-color: rgba(255,255,255,0.32);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-    .pp-hero h1 { color: #fff; font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.05;
-      letter-spacing: -0.5px; margin: 18px 0 20px; text-shadow: 0 6px 30px rgba(0,0,0,0.35); }
+        radial-gradient(1000px 480px at 50% -12%, rgba(62,207,142,0.22) 0%, rgba(62,207,142,0) 60%),
+        radial-gradient(860px 460px at 90% 118%, rgba(78,168,222,0.20) 0%, rgba(78,168,222,0) 60%),
+        linear-gradient(135deg, #e4f8ef 0%, #eefbf6 36%, #e9f5fd 70%, #ddeefb 100%); }
+    /* faint dotted accents */
+    .pp-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.55;
+      background-image: radial-gradient(rgba(16,90,60,0.10) 1.4px, transparent 1.6px);
+      background-size: 22px 22px;
+      mask-image: radial-gradient(circle at 50% 42%, transparent 0%, #000 76%);
+      -webkit-mask-image: radial-gradient(circle at 50% 42%, transparent 0%, #000 76%); }
+    /* faint corner rings */
+    .pp-hero::after { content: ""; position: absolute; right: -130px; top: -130px; width: 380px; height: 380px;
+      pointer-events: none; border-radius: 50%; opacity: 0.5;
+      background: repeating-radial-gradient(circle, rgba(34,197,94,0.12) 0 1px, transparent 1px 28px); }
+    .pp-hero-inner { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; }
+    .pp-hero .section-tag { display: inline-flex; align-items: center; gap: 8px;
+      background: #eafff3; color: var(--green); border-color: rgba(34,197,94,0.35);
+      font-weight: 700; letter-spacing: 0.6px; }
+    .pp-hero .section-tag svg { width: 16px; height: 16px; }
+    .pp-hero h1 { color: var(--text-primary); font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.05;
+      letter-spacing: -0.5px; margin: 18px 0 20px; }
     .pp-hero h1 .gradient-text {
-      background: linear-gradient(110deg, #a7f3d0 0%, #6ee7b7 40%, #7dd3fc 100%);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 10px rgba(110,231,183,0.35)); display: inline; }
-    .pp-hero-lead { color: rgba(255,255,255,0.86); font-size: clamp(1rem, 1.6vw, 1.18rem); line-height: 1.7;
+      background: linear-gradient(110deg, #16a34a 0%, #22c55e 45%, #3ecf8e 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline; }
+    .pp-hero-lead { color: var(--text-secondary); font-size: clamp(1rem, 1.6vw, 1.18rem); line-height: 1.7;
       max-width: 60ch; margin: 0 auto 30px; }
-    .pp-hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 42px; }
-    .pp-hero .btn-glass { color: #fff; border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); }
-    .pp-hero .btn-glass:hover { background: rgba(255,255,255,0.18); }
-    /* inline highlight pills */
-    .pp-hero-points { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-    .pp-hero-points li { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 0.92rem; color: #eafff6;
-      padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-    .pp-hero-points svg { width: 18px; height: 18px; flex: none; color: #6ee7b7; }
+    .pp-hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 44px; }
+    .pp-hero-actions .btn svg { width: 18px; height: 18px; margin-right: 8px; vertical-align: -3px; }
+    .pp-hero .btn-glass { color: var(--green); border-color: rgba(34,197,94,0.55); background: #ffffff; }
+    .pp-hero .btn-glass:hover { background: rgba(34,197,94,0.08); border-color: var(--green); }
+    /* highlights bar */
+    .pp-hero-points { list-style: none; padding: 18px 10px; margin: 0;
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
+      background: #ffffff; border: 1px solid rgba(16,90,60,0.10); border-radius: 18px;
+      box-shadow: 0 24px 60px -38px rgba(16,90,60,0.45); }
+    .pp-hero-points li { position: relative; flex: 1 1 0; min-width: 162px;
+      display: flex; align-items: center; gap: 12px; text-align: left;
+      padding: 4px 16px; font-weight: 500; font-size: 0.9rem; line-height: 1.3;
+      color: #1f2a26; hyphens: none; }
+    .pp-hero-points li + li::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 1px; background: rgba(16,90,60,0.10); }
+    .pp-hero-points .pp-hl-ic { flex: none; width: 42px; height: 42px; border-radius: 50%;
+      display: grid; place-items: center; color: var(--green);
+      background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.22); }
+    .pp-hero-points .pp-hl-ic svg { width: 20px; height: 20px; }
+    .pp-hero-points li:first-child .pp-hl-ic { color: #fff; border-color: transparent;
+      background: linear-gradient(135deg, var(--green), #16a34a); box-shadow: 0 8px 18px rgba(16,163,74,0.4); }
 
     /* ===== Program cards ===== */
     .pp-programs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -163,6 +180,56 @@
     @media (max-width: 560px) {
       .pp-steps, .pp-stats { grid-template-columns: 1fr; }
       .pp-hero-actions .btn { width: 100%; justify-content: center; }
+      .pp-hero-points { flex-direction: column; align-items: stretch; gap: 4px; }
+      .pp-hero-points li { flex: 1 1 auto; }
+      .pp-hero-points li + li::before { display: none; }
+    }
+
+    /* ===== Benefits showcase card ===== */
+    .pp-perks { padding: 64px 0 72px; }
+    .pp-perks-card { position: relative; background: #ffffff; border: 1px solid rgba(16,90,60,0.08);
+      border-radius: 30px; padding: 30px 26px; box-shadow: 0 50px 110px -56px rgba(16,90,60,0.55); }
+    .pp-perks-grid { display: grid; grid-template-columns: repeat(5, 1fr); align-items: stretch; }
+    .pp-perk { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 26px 20px 22px; }
+    .pp-perk + .pp-perk::before { content: ""; position: absolute; left: 0; top: 22px; bottom: 22px;
+      width: 1px; background: rgba(16,90,60,0.10); }
+    .pp-perk-ic { position: relative; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center;
+      margin-bottom: 24px; color: var(--green);
+      background: radial-gradient(circle at 50% 36%, #f3fbf5 0%, #e6f6ec 100%);
+      border: 1px solid rgba(62,207,142,0.28);
+      box-shadow: inset 0 2px 5px rgba(255,255,255,0.9), 0 14px 28px -16px rgba(16,120,70,0.55); }
+    .pp-perk-ic svg { width: 44px; height: 44px; }
+    .pp-perk-ic .pp-spark { position: absolute; top: -2px; right: -8px; width: 26px; height: 26px; color: #34c97b; }
+    .pp-perk-ic .pp-spark svg { width: 26px; height: 26px; }
+    .pp-perk h3 { font-size: 1.16rem; font-weight: 800; line-height: 1.24; color: #15321f; margin: 0 0 14px; }
+    .pp-perk-rule { width: 36px; height: 3px; border-radius: 3px; margin: 0 0 16px;
+      background: linear-gradient(90deg, var(--green), #16a34a); }
+    .pp-perk p { font-size: 0.92rem; line-height: 1.6; color: #5b6b62; margin: 0; max-width: 22ch; }
+    .pp-perk-bar { margin-top: auto; width: 66px; height: 6px; border-radius: 6px; margin-top: 26px;
+      background: linear-gradient(90deg, #16a34a 0%, #6ee7b7 100%); }
+    /* highlighted "best benefit" column */
+    .pp-perk--best { margin: -14px 0; border-radius: 24px; padding: 34px 22px 34px; color: #fff;
+      justify-content: center;
+      background: linear-gradient(165deg, #2fb877 0%, #1f9d5f 56%, #178a4e 100%);
+      box-shadow: 0 30px 56px -26px rgba(16,120,70,0.75); }
+    .pp-perk--best::before, .pp-perk--best + .pp-perk::before { display: none; }
+    .pp-best-ribbon { position: absolute; top: 0; left: 0; font-size: 0.62rem; font-weight: 800; letter-spacing: 1.2px;
+      color: #fff; background: rgba(0,0,0,0.20); padding: 7px 16px; border-radius: 24px 0 16px 0; }
+    .pp-perk--best .pp-perk-ic { margin-top: 14px; background: #ffffff; border: none;
+      box-shadow: 0 16px 30px -12px rgba(0,0,0,0.32); }
+    .pp-perk--best .pp-perk-ic svg { color: var(--green); }
+    .pp-perk--best h3 { color: #ffffff; }
+    .pp-perk--best .pp-perk-rule { background: rgba(255,255,255,0.75); }
+    .pp-perk--best p { color: rgba(255,255,255,0.92); }
+    @media (max-width: 980px) {
+      .pp-perks-grid { grid-template-columns: repeat(2, 1fr); gap: 12px 0; }
+      .pp-perk + .pp-perk::before { display: none; }
+      .pp-perk--best { margin: 8px 0; }
+    }
+    @media (max-width: 560px) {
+      .pp-perks-grid { grid-template-columns: 1fr; }
+      .pp-perk--best { margin: 6px 0; }
     }
   </style>
 </head>
@@ -219,19 +286,75 @@
     <section class="pp-hero">
       <div class="container">
         <div class="pp-hero-inner" data-animate>
-          <span class="section-tag">Partner Program</span>
+          <span class="section-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 1.5 0l3-3"/><path d="m14 16 2.5 2.5a1 1 0 0 0 1.5 0l1-1a1 1 0 0 0 0-1.4L15 11"/><path d="m18 12 1.5-1.5a1 1 0 0 0 0-1.4l-3.6-3.6a1 1 0 0 0-1.4 0L12 8H8l-4 4 3 3"/><path d="m9 11 2 2"/></svg> Partner Program</span>
           <h1>Expand Your <span class="gradient-text">Earning Potential</span> with Clans Machina</h1>
           <p class="pp-hero-lead">Build a profitable business with one of India's fastest-growing rooftop solar brands. Join hands as a Channel Partner or a Solar Consultant — and earn while powering homes, businesses and societies with clean energy.</p>
           <div class="pp-hero-actions">
-            <a href="index.html#contact" class="btn btn-neon btn-lg">Become a Partner</a>
-            <a href="#pp-programs" class="btn btn-glass btn-lg">Explore Programs</a>
+            <a href="index.html#contact" class="btn btn-neon btn-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5 3 21l4.5-1.5"/><path d="M14 5c4 1.5 5.5 5 5 11-6 .5-9.5-1-11-5"/><path d="M9 15c-1-3 0-6 3-9s6-3 9-3c0 3 0 6-3 9s-6 4-9 3z"/></svg>Become a Partner</a>
+            <a href="#pp-programs" class="btn btn-glass btn-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Explore Programs</a>
           </div>
-          <ul class="pp-hero-points">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Zero-to-low investment</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Free training &amp; certification</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Marketing &amp; lead support</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lifetime payouts</li>
-          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BENEFITS SHOWCASE ===================== -->
+    <section class="pp-perks">
+      <div class="container">
+        <div class="pp-perks-card" data-animate>
+          <div class="pp-perks-grid">
+            <!-- Best benefit (highlighted) -->
+            <div class="pp-perk pp-perk--best">
+              <span class="pp-best-ribbon">BEST BENEFIT</span>
+              <div class="pp-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h5l-1.2 2.4a1 1 0 0 1-.9.6h-.8a1 1 0 0 1-.9-.6L9.5 3z"/><path d="M12 6c-3.6 1.8-6 4.7-6 8.4A5.6 5.6 0 0 0 12 20a5.6 5.6 0 0 0 6-5.6c0-3.7-2.4-6.6-6-8.4z"/><path d="M10.4 11.2h3.2M10.4 13.2h3.2M12.6 11.2c1 0 1 2.6-.6 2.6l1.6 2"/></svg></div>
+              <h3>Zero-to-low<br>investment</h3>
+              <div class="pp-perk-rule"></div>
+              <p>Start your solar business with minimal investment.</p>
+            </div>
+            <!-- Free training -->
+            <div class="pp-perk">
+              <div class="pp-perk-ic">
+                <span class="pp-spark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9 8 6M11 9l2.5-2.5M6.5 13 9 11"/></svg></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m22 10-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg>
+              </div>
+              <h3>Free training &amp;<br>certification</h3>
+              <div class="pp-perk-rule"></div>
+              <p>Get expert training and certification at no cost.</p>
+              <div class="pp-perk-bar"></div>
+            </div>
+            <!-- Marketing -->
+            <div class="pp-perk">
+              <div class="pp-perk-ic">
+                <span class="pp-spark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9 8 6M11 9l2.5-2.5M6.5 13 9 11"/></svg></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 16-6v14L3 13z"/><path d="M3 11v2a2 2 0 0 0 2 2h1"/><path d="M7 15.5a3 3 0 0 0 5.5 1.5"/></svg>
+              </div>
+              <h3>Marketing &amp;<br>lead support</h3>
+              <div class="pp-perk-rule"></div>
+              <p>We provide leads, marketing materials &amp; on-ground support.</p>
+              <div class="pp-perk-bar"></div>
+            </div>
+            <!-- Dedicated support -->
+            <div class="pp-perk">
+              <div class="pp-perk-ic">
+                <span class="pp-spark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9 8 6M11 9l2.5-2.5M6.5 13 9 11"/></svg></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M20 16a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2zM4 16a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 2z"/></svg>
+              </div>
+              <h3>Dedicated<br>support</h3>
+              <div class="pp-perk-rule"></div>
+              <p>Personalized assistance from our partner success team.</p>
+              <div class="pp-perk-bar"></div>
+            </div>
+            <!-- Lifetime payouts -->
+            <div class="pp-perk">
+              <div class="pp-perk-ic">
+                <span class="pp-spark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9 8 6M11 9l2.5-2.5M6.5 13 9 11"/></svg></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13"/><path d="M12 8C12 8 11 3 8 3a2.5 2.5 0 0 0 0 5zM12 8s1-5 4-5a2.5 2.5 0 0 1 0 5z"/></svg>
+              </div>
+              <h3>Lifetime<br>payouts</h3>
+              <div class="pp-perk-rule"></div>
+              <p>Earn recurring commissions for lifetime.</p>
+              <div class="pp-perk-bar"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -20,11 +20,11 @@
     @keyframes hsoc-kenburns { from { transform: scale(1.04); } to { transform: scale(1.12) translateY(-2%); } }
     /* legibility overlay — dark anchored left, fading right so copy stays readable over the panels */
     .hsoc-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background:
-      linear-gradient(100deg, rgba(4,16,34,0.94) 0%, rgba(5,22,46,0.82) 42%, rgba(6,28,22,0.46) 70%, rgba(6,28,22,0.10) 100%); }
+      linear-gradient(100deg, rgba(4,16,34,0.94) 0%, rgba(5,22,46,0.84) 46%, rgba(6,28,22,0.58) 74%, rgba(6,28,22,0.22) 100%); }
     /* subtle bottom fade so section melts into page below */
     .hsoc-hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; z-index: -1; pointer-events: none;
       background: linear-gradient(180deg, transparent, rgba(0,0,0,0.18)); }
-    .hsoc-hero-inner { position: relative; z-index: 1; max-width: 880px; padding: 0; color: #fff; }
+    .hsoc-hero-inner { position: relative; z-index: 1; max-width: 1080px; padding: 0; color: #fff; }
     .hsoc-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 7px 16px 7px 12px;
       border-radius: 100px; background: rgba(110,231,183,0.13); border: 1px solid rgba(110,231,183,0.40);
       backdrop-filter: blur(10px); color: #b6ffd9; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -38,7 +38,7 @@
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 2px 10px rgba(52,211,153,0.5)); }
     .hsoc-hero-lead { color: rgba(255,255,255,0.88); font-size: clamp(0.96rem, 1.3vw, 1.08rem); line-height: 1.65;
-      max-width: 60ch; margin: 0 0 24px; text-shadow: 0 1px 10px rgba(0,0,0,0.35); }
+      max-width: 74ch; margin: 0 0 24px; text-shadow: 0 1px 10px rgba(0,0,0,0.35); }
     .hsoc-hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
     .hsoc-hero-cta .btn-glass { color: #fff; border-color: rgba(255,255,255,0.40); background: rgba(255,255,255,0.10); }
     .hsoc-hero-cta .btn-glass:hover { color: #6ee7b7; border-color: #6ee7b7; background: rgba(255,255,255,0.16); }

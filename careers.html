@@ -3,10 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About Clans Machina — an engineering-led rooftop solar company helping homes, businesses and societies across India switch to clean, affordable solar energy." />
-  <title>About Us | Clans Machina Solar</title>
+  <meta name="description" content="Careers at Clans Machina — power your career with renewable energy. Explore full-time roles in solar sales, design, installation, marketing and support, or become a solar partner. Apply online today." />
+  <title>Careers | Clans Machina Solar</title>
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Page-scoped styles for the Careers page -->
+  <style id="cr-styles">
+    /* ============ Shared tokens ============ */
+    .cr-glass { background: rgba(255,255,255,0.66); border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 30px 70px -44px rgba(4,47,34,0.55); }
+    .cr-eyebrow { display: inline-flex; align-items: center; gap: 8px; }
+
+    /* ============ Cinematic hero ============ */
+    .cr-hero { position: relative; margin-top: 90px; padding: 76px 0 80px; overflow: hidden;
+      background:
+        radial-gradient(1100px 520px at 8% -10%, rgba(5,150,105,0.18) 0%, rgba(5,150,105,0) 58%),
+        radial-gradient(900px 520px at 100% 110%, rgba(2,132,199,0.16) 0%, rgba(2,132,199,0) 60%),
+        linear-gradient(135deg, #eafaf2 0%, #f1fbf6 40%, #eaf4fd 75%, #e1eefb 100%); }
+    .cr-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+      background-image: radial-gradient(rgba(4,47,34,0.10) 1.3px, transparent 1.5px); background-size: 24px 24px;
+      mask-image: radial-gradient(circle at 30% 40%, transparent 0%, #000 80%);
+      -webkit-mask-image: radial-gradient(circle at 30% 40%, transparent 0%, #000 80%); }
+    .cr-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 52px; align-items: center; }
+    .cr-hero .section-tag { background: #eafff3; color: var(--green); border-color: rgba(5,150,105,0.32); font-weight: 700; letter-spacing: 0.6px; }
+    .cr-hero h1 { color: var(--text-primary); font-size: clamp(2.3rem, 4.6vw, 3.7rem); line-height: 1.06; letter-spacing: -0.6px; margin: 18px 0 18px; }
+    .cr-hero h1 .gradient-text { background: linear-gradient(110deg, #059669 0%, #10b981 45%, #0284c7 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline; }
+    .cr-hero-lead { color: var(--text-secondary); font-size: clamp(1.02rem, 1.5vw, 1.18rem); line-height: 1.7; max-width: 52ch; margin: 0 0 30px; }
+    .cr-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+    .cr-hero .btn-glass { color: var(--green); border-color: rgba(5,150,105,0.5); background: rgba(255,255,255,0.7); }
+    .cr-hero .btn-glass:hover { background: rgba(5,150,105,0.08); border-color: var(--green); }
+    .cr-hero-trust { display: flex; align-items: center; gap: 10px; font-size: 0.86rem; color: var(--text-secondary); font-weight: 600; }
+    .cr-hero-trust svg { width: 18px; height: 18px; color: var(--green); }
+
+    /* hero image collage */
+    .cr-hero-collage { position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.25fr 1fr;
+      gap: 16px; height: 460px; }
+    .cr-shot { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 60px -34px rgba(4,47,34,0.6);
+      border: 4px solid rgba(255,255,255,0.85); }
+    .cr-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+    .cr-shot:hover img { transform: scale(1.06); }
+    .cr-shot--main { grid-row: 1 / span 2; }
+    .cr-shot-cap { position: absolute; left: 12px; bottom: 12px; right: 12px; color: #fff; font-size: 0.78rem; font-weight: 600;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6); display: flex; align-items: center; gap: 7px; }
+    .cr-shot-cap svg { width: 15px; height: 15px; flex: none; }
+    .cr-hero-float { position: absolute; right: -12px; top: 18px; z-index: 2; padding: 12px 16px; border-radius: 14px;
+      display: flex; align-items: center; gap: 11px; }
+    .cr-hero-float .cr-float-ic { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; color: #fff;
+      background: linear-gradient(135deg, var(--green), #0f7d4e); flex: none; }
+    .cr-hero-float strong { display: block; font-size: 1.05rem; color: var(--text-primary); line-height: 1; }
+    .cr-hero-float span { font-size: 0.72rem; color: var(--text-secondary); }
+
+    /* ============ Stats band ============ */
+    .cr-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .cr-stat { text-align: center; padding: 26px 18px; border-radius: 18px; }
+    .cr-stat strong { display: block; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; line-height: 1;
+      background: linear-gradient(120deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .cr-stat span { display: block; margin-top: 8px; font-size: 0.86rem; color: var(--text-secondary); font-weight: 600; }
+
+    /* ============ Two paths (career vs partner) ============ */
+    .cr-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .cr-path { position: relative; padding: 36px 32px; border-radius: 24px; overflow: hidden; color: #fff;
+      display: flex; flex-direction: column; box-shadow: 0 36px 80px -44px rgba(4,47,34,0.7); }
+    .cr-path--pro { background: linear-gradient(150deg, #0b6b45 0%, #088a52 55%, #0f7d4e 120%); }
+    .cr-path--partner { background: linear-gradient(150deg, #0b3b5a 0%, #0e6b8f 55%, #0284c7 130%); }
+    .cr-path::after { content: ""; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(255,255,255,0.10); }
+    .cr-path-tag { display: inline-flex; width: max-content; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.6px; padding: 6px 13px; border-radius: 999px; background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.32); margin-bottom: 16px; }
+    .cr-path-ic { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin-bottom: 14px;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3); }
+    .cr-path-ic svg { width: 30px; height: 30px; }
+    .cr-path h3 { font-size: 1.5rem; margin: 0 0 6px; color: #fff; }
+    .cr-path > p { color: rgba(255,255,255,0.85); margin: 0 0 20px; font-size: 0.96rem; line-height: 1.6; }
+    .cr-path-list { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 12px; }
+    .cr-path-list li { display: flex; align-items: center; gap: 11px; font-weight: 600; font-size: 0.96rem; color: #f3fff9; }
+    .cr-path-list svg { width: 20px; height: 20px; flex: none; padding: 3px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .cr-path .btn { margin-top: auto; align-self: flex-start; }
+    .cr-path .btn-white { background: #fff; color: #0b5a39; border: none; }
+    .cr-path--partner .btn-white { color: #0b3b5a; }
+    .cr-path .btn-white:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(0,0,0,0.4); }
+
+    /* ============ Benefits / perks ============ */
+    .cr-perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .cr-perk { padding: 28px 26px; border-radius: 20px; transition: transform .3s ease, box-shadow .3s ease; }
+    .cr-perk:hover { transform: translateY(-6px); box-shadow: 0 40px 80px -40px rgba(4,47,34,0.6); }
+    .cr-perk-ic { width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center; margin-bottom: 16px;
+      color: #fff; background: linear-gradient(135deg, var(--green), #0f7d4e); box-shadow: 0 12px 24px -10px rgba(5,150,105,0.7); }
+    .cr-perk-ic svg { width: 26px; height: 26px; }
+    .cr-perk h3 { font-size: 1.12rem; margin: 0 0 8px; color: var(--text-primary); }
+    .cr-perk p { font-size: 0.94rem; line-height: 1.65; color: var(--text-secondary); margin: 0; }
+
+    /* ============ Job cards ============ */
+    .cr-roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .cr-role { position: relative; display: flex; flex-direction: column; padding: 26px 24px 24px; border-radius: 20px; overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .cr-role::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--green), var(--blue));
+      transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+    .cr-role:hover { transform: translateY(-6px); box-shadow: 0 44px 86px -42px rgba(4,47,34,0.62); }
+    .cr-role:hover::before { transform: scaleX(1); }
+    .cr-role-ic { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px; color: var(--green);
+      background: var(--green-dim, rgba(5,150,105,0.1)); border: 1px solid rgba(5,150,105,0.22); }
+    .cr-role-ic svg { width: 26px; height: 26px; }
+    .cr-role h3 { font-size: 1.18rem; margin: 0 0 14px; color: var(--text-primary); }
+    .cr-role-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; }
+    .cr-role-meta span { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); }
+    .cr-role-meta svg { width: 15px; height: 15px; color: var(--green); }
+    .cr-role p.cr-role-desc { font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); margin: 0 0 20px; }
+    .cr-role .cr-apply-btn { margin-top: auto; align-self: flex-start; }
+    .cr-roles-note { margin-top: 24px; text-align: center; font-size: 0.96rem; color: var(--text-secondary); }
+    .cr-roles-note a { color: var(--green); font-weight: 700; }
+
+    /* ============ Life at Clans gallery ============ */
+    .cr-gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 16px; }
+    .cr-gal { position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 26px 56px -38px rgba(4,47,34,0.6); }
+    .cr-gal img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+    .cr-gal:hover img { transform: scale(1.07); }
+    .cr-gal::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(4,30,20,0.72) 100%); }
+    .cr-gal-cap { position: absolute; z-index: 1; left: 14px; bottom: 12px; right: 14px; color: #fff; font-size: 0.84rem; font-weight: 700;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+    .cr-gal--wide { grid-column: span 2; }
+    .cr-life-quote { margin-top: 26px; text-align: center; font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 700; color: var(--text-primary); }
+    .cr-life-quote span { background: linear-gradient(120deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* ============ Reviews ============ */
+    .cr-reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .cr-review { padding: 30px 28px; border-radius: 20px; display: flex; flex-direction: column; }
+    .cr-stars { display: flex; gap: 3px; margin-bottom: 14px; color: #f59e0b; }
+    .cr-stars svg { width: 18px; height: 18px; }
+    .cr-review p { font-size: 0.98rem; line-height: 1.7; color: var(--text-primary); margin: 0 0 22px; font-style: italic; }
+    .cr-review-by { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .cr-review-av { width: 46px; height: 46px; border-radius: 50%; flex: none; display: grid; place-items: center; color: #fff; font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--blue)); }
+    .cr-review-by strong { display: block; font-size: 0.95rem; color: var(--text-primary); }
+    .cr-review-by span { font-size: 0.8rem; color: var(--text-secondary); }
+
+    /* ============ Hiring steps ============ */
+    .cr-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; }
+    .cr-step { position: relative; padding: 28px 22px 24px; border-radius: 18px; }
+    .cr-step::before { counter-increment: step; content: counter(step); position: absolute; top: -16px; left: 24px;
+      width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--green), #0f7d4e); box-shadow: 0 10px 20px -8px rgba(5,150,105,0.7); }
+    .cr-step h4 { margin: 18px 0 6px; font-size: 1.05rem; color: var(--text-primary); }
+    .cr-step p { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); }
+
+    /* ============ Application form ============ */
+    .cr-apply-band { position: relative; overflow: hidden; background:
+        radial-gradient(900px 460px at 10% -10%, rgba(5,150,105,0.12) 0%, rgba(5,150,105,0) 60%),
+        radial-gradient(900px 460px at 95% 120%, rgba(2,132,199,0.12) 0%, rgba(2,132,199,0) 60%),
+        var(--bg-secondary, #e6faf2); }
+    .cr-apply-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 44px; align-items: start; }
+    .cr-apply-copy h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin: 12px 0 14px; }
+    .cr-apply-copy > p { color: var(--text-secondary); line-height: 1.7; margin: 0 0 22px; }
+    .cr-apply-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 13px; }
+    .cr-apply-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 0.96rem; color: var(--text-secondary); }
+    .cr-apply-list svg { width: 20px; height: 20px; flex: none; color: var(--green); margin-top: 1px; }
+    .cr-form { padding: 30px; border-radius: 22px; }
+    .cr-form .form-group { margin-bottom: 14px; display: flex; flex-direction: column; }
+    .cr-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cr-form label { font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
+    .cr-form input, .cr-form select, .cr-form textarea { padding: 12px 14px; border-radius: 11px;
+      border: 1px solid rgba(0,0,0,0.12); background: #fff; color: var(--text-primary); font: inherit; width: 100%; }
+    .cr-form textarea { resize: vertical; min-height: 96px; }
+    .cr-form input:focus, .cr-form select:focus, .cr-form textarea:focus { outline: 2px solid var(--green); border-color: var(--green); }
+    .cr-form-errors { display: none; margin-top: 12px; padding: 11px 14px; border-radius: 11px; font-size: 0.9rem; font-weight: 600;
+      background: rgba(220,38,38,0.1); color: #b91c1c; }
+    .cr-form-errors ul { margin: 0; padding-left: 18px; }
+    .cr-form-success { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 11px; font-weight: 600;
+      background: rgba(5,150,105,0.14); color: var(--green); }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 960px) {
+      .cr-hero-grid { grid-template-columns: 1fr; gap: 36px; }
+      .cr-hero-collage { height: 380px; max-width: 560px; }
+      .cr-stats { grid-template-columns: repeat(2, 1fr); }
+      .cr-paths { grid-template-columns: 1fr; }
+      .cr-perks-grid, .cr-roles-grid, .cr-reviews-grid { grid-template-columns: 1fr 1fr; }
+      .cr-steps { grid-template-columns: 1fr 1fr; gap: 30px 22px; }
+      .cr-gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+      .cr-gal--wide { grid-column: span 2; }
+      .cr-apply-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 620px) {
+      .cr-hero-collage { height: 330px; }
+      .cr-stats, .cr-perks-grid, .cr-roles-grid, .cr-reviews-grid, .cr-steps { grid-template-columns: 1fr; }
+      .cr-gallery { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+      .cr-gal--wide { grid-column: span 1; }
+      .cr-form .form-row { grid-template-columns: 1fr; }
+      .cr-hero-actions .btn { width: 100%; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar" id="navbar">
@@ -57,9 +246,364 @@
   </nav>
 
   <main>
-    <section class="cm-section" style="min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:120px;">
+    <!-- ===================== HERO ===================== -->
+    <section class="cr-hero">
+      <div class="container cr-hero-grid">
+        <div class="cr-hero-copy" data-animate>
+          <span class="section-tag">Careers at Clans Machina</span>
+          <h1>Power Your Career With <span class="gradient-text">Renewable Energy</span></h1>
+          <p class="cr-hero-lead">Join a team building India's clean energy future — from solar innovation to customer impact. Whether you want to grow a career or launch your own solar business, there is a place for you here.</p>
+          <div class="cr-hero-actions">
+            <a href="#cr-roles" class="btn btn-neon btn-lg">Join Our Team</a>
+            <a href="partnership.html" class="btn btn-glass btn-lg">Become A Solar Partner</a>
+          </div>
+          <div class="cr-hero-trust">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+            Engineering-led · Mission-driven · Pan-India projects
+          </div>
+        </div>
+
+        <div class="cr-hero-collage" data-animate>
+          <div class="cr-shot cr-shot--main">
+            <img src="image/project/installation-1.webp" alt="Solar engineer checking rooftop panels" loading="lazy" />
+          </div>
+          <div class="cr-shot">
+            <img src="image/commercial/3.webp" alt="Team working in a solar field" loading="lazy" />
+          </div>
+          <div class="cr-shot">
+            <img src="image/project/installation-8.webp" alt="Solar installation team at work" loading="lazy" />
+          </div>
+          <div class="cr-hero-float cr-glass">
+            <div class="cr-float-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg></div>
+            <div><strong>We're hiring</strong><span>Across India</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== STATS ===================== -->
+    <section class="cm-section" style="padding-top:48px;">
       <div class="container">
-        <p style="font-size:1.6rem;font-weight:700;"><strong>This page is yet to be Created</strong></p>
+        <div class="cr-stats" data-animate>
+          <div class="cr-stat cr-glass"><strong>1000+</strong><span>Projects delivered</span></div>
+          <div class="cr-stat cr-glass"><strong>4.9&#9733;</strong><span>Customer rating</span></div>
+          <div class="cr-stat cr-glass"><strong>29+</strong><span>Cities served</span></div>
+          <div class="cr-stat cr-glass"><strong>25&nbsp;yr</strong><span>Warranty backed</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TWO PATHS ===================== -->
+    <section class="cm-section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Two Ways to Grow With Us</span>
+          <h2>Choose Your <span class="gradient-text">Journey</span></h2>
+          <p>Build a career on our team, or partner with us to start your own solar business — both come with full support.</p>
+        </div>
+        <div class="cr-paths">
+          <div class="cr-path cr-path--pro" data-animate>
+            <span class="cr-path-tag">For Professionals</span>
+            <div class="cr-path-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3>Build your career with us</h3>
+            <p>Full-time roles where you learn fast, own real work and grow alongside India's renewable energy boom.</p>
+            <ul class="cr-path-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full-time opportunities</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Structured training</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Clear growth path</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Real industry experience</li>
+            </ul>
+            <a href="#cr-roles" class="btn btn-white btn-lg">View Jobs</a>
+          </div>
+
+          <div class="cr-path cr-path--partner" data-animate>
+            <span class="cr-path-tag">For Entrepreneurs</span>
+            <div class="cr-path-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01"/></svg></div>
+            <h3>Start your solar business</h3>
+            <p>Become a Clans Machina partner and earn while powering homes and businesses — we hand you the playbook.</p>
+            <ul class="cr-path-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Low investment</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Marketing support</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Solar training</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lifetime commissions</li>
+            </ul>
+            <a href="partnership.html" class="btn btn-white btn-lg">Become Partner</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EMPLOYEE BENEFITS ===================== -->
+    <section class="cm-section cm-section-alt">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Employee Benefits</span>
+          <h2>We Invest in <span class="gradient-text">Our People</span></h2>
+          <p>The same care we put into engineering, we put into the people who make it happen.</p>
+        </div>
+        <div class="cr-perks-grid">
+          <div class="cr-perk cr-glass" data-animate>
+            <div class="cr-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+            <h3>Real Growth &amp; Ownership</h3>
+            <p>A flat, fast-moving team where good work gets noticed and rewarded with bigger responsibility, early.</p>
+          </div>
+          <div class="cr-perk cr-glass" data-animate>
+            <div class="cr-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3>Meaningful Climate Impact</h3>
+            <p>Every system you help deliver cuts bills and carbon — your work powers India's clean energy switch.</p>
+          </div>
+          <div class="cr-perk cr-glass" data-animate>
+            <div class="cr-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <h3>Competitive Pay &amp; Incentives</h3>
+            <p>Market-aligned salaries plus performance incentives for sales and field roles — effort is rewarded.</p>
+          </div>
+          <div class="cr-perk cr-glass" data-animate>
+            <div class="cr-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 10-10-5L2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></div>
+            <h3>Training &amp; Upskilling</h3>
+            <p>Structured onboarding and continuous learning in solar design, sales and installation best practices.</p>
+          </div>
+          <div class="cr-perk cr-glass" data-animate>
+            <div class="cr-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3>Supportive Culture</h3>
+            <p>Collaborative, no-ego teammates who have your back — from the sales floor to the rooftop.</p>
+          </div>
+          <div class="cr-perk cr-glass" data-animate>
+            <div class="cr-perk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+            <h3>Well-being &amp; Balance</h3>
+            <p>Reasonable hours, paid leave and a workplace that respects your life outside work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OPEN ROLES ===================== -->
+    <section class="cm-section" id="cr-roles">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Open Roles</span>
+          <h2>Find Your Place on the <span class="gradient-text">Team</span></h2>
+          <p>Driven people across sales, engineering, operations and support. Found a fit? Apply in two minutes.</p>
+        </div>
+        <div class="cr-roles-grid">
+          <div class="cr-role cr-glass" data-animate>
+            <div class="cr-role-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 2 4-6"/></svg></div>
+            <h3>Solar Sales Executive</h3>
+            <div class="cr-role-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Field</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> Full Time</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg> Sales</span>
+            </div>
+            <p class="cr-role-desc">Generate and close solar leads, run site consultations and guide customers from enquiry to signed order.</p>
+            <button type="button" class="btn btn-neon cr-apply-btn" data-role="Solar Sales Executive">Apply Now</button>
+          </div>
+
+          <div class="cr-role cr-glass" data-animate>
+            <div class="cr-role-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <h3>Solar Design Engineer</h3>
+            <div class="cr-role-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> On-site</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> Full Time</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg> Engineering</span>
+            </div>
+            <p class="cr-role-desc">Design on-grid, off-grid and hybrid systems — size components, prepare proposals and support installations.</p>
+            <button type="button" class="btn btn-neon cr-apply-btn" data-role="Solar Design Engineer">Apply Now</button>
+          </div>
+
+          <div class="cr-role cr-glass" data-animate>
+            <div class="cr-role-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-7 7 2 2 7-7a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3z"/></svg></div>
+            <h3>Installation Technician</h3>
+            <div class="cr-role-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Field</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> Full Time</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg> Operations</span>
+            </div>
+            <p class="cr-role-desc">Install structures, panels, inverters and wiring on site — safely and to spec — and commission for handover.</p>
+            <button type="button" class="btn btn-neon cr-apply-btn" data-role="Solar Installation Technician">Apply Now</button>
+          </div>
+
+          <div class="cr-role cr-glass" data-animate>
+            <div class="cr-role-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v16"/></svg></div>
+            <h3>Project Coordinator</h3>
+            <div class="cr-role-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> On-site</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> Full Time</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg> Operations</span>
+            </div>
+            <p class="cr-role-desc">Own project timelines end to end — coordinate teams, materials and net-metering paperwork on schedule.</p>
+            <button type="button" class="btn btn-neon cr-apply-btn" data-role="Project Coordinator / Site Supervisor">Apply Now</button>
+          </div>
+
+          <div class="cr-role cr-glass" data-animate>
+            <div class="cr-role-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 16-6v14L3 13z"/><path d="M3 11v2a2 2 0 0 0 2 2h1"/><path d="M7 15.5a3 3 0 0 0 5.5 1.5"/></svg></div>
+            <h3>Digital Marketing Executive</h3>
+            <div class="cr-role-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Hybrid</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> Full Time</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg> Marketing</span>
+            </div>
+            <p class="cr-role-desc">Run campaigns, content and social channels that generate quality enquiries and grow the brand online.</p>
+            <button type="button" class="btn btn-neon cr-apply-btn" data-role="Digital Marketing Executive">Apply Now</button>
+          </div>
+
+          <div class="cr-role cr-glass" data-animate>
+            <div class="cr-role-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M20 16a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2zM4 16a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 2z"/></svg></div>
+            <h3>Customer Success Associate</h3>
+            <div class="cr-role-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> On-site</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> Full Time</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg> Support</span>
+            </div>
+            <p class="cr-role-desc">Be the friendly voice after the sale — handle queries, coordinate service visits and keep customers delighted.</p>
+            <button type="button" class="btn btn-neon cr-apply-btn" data-role="Customer Success Associate">Apply Now</button>
+          </div>
+        </div>
+        <p class="cr-roles-note">Don't see the perfect role? We still want to hear from you — <a href="#cr-apply">send a general application</a>.</p>
+      </div>
+    </section>
+
+    <!-- ===================== REVIEWS ===================== -->
+    <section class="cm-section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">People Behind the Mission</span>
+          <h2>What Our Team &amp; <span class="gradient-text">Partners Say</span></h2>
+          <p>Real voices from the people building clean energy with us every day.</p>
+        </div>
+        <div class="cr-reviews-grid">
+          <div class="cr-review cr-glass" data-animate>
+            <div class="cr-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+            </div>
+            <p>"Clans Machina gave me the opportunity to grow in India's renewable energy sector. The learning curve here is incredible and the team genuinely supports you."</p>
+            <div class="cr-review-by"><span class="cr-review-av">A</span><div><strong>Team Member</strong><span>Solar Design Engineer</span></div></div>
+          </div>
+          <div class="cr-review cr-glass" data-animate>
+            <div class="cr-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+            </div>
+            <p>"I started as a partner with a small investment and the marketing support helped me close deals from the very first month. It changed my career."</p>
+            <div class="cr-review-by"><span class="cr-review-av">S</span><div><strong>Solar Partner</strong><span>Channel Partner</span></div></div>
+          </div>
+          <div class="cr-review cr-glass" data-animate>
+            <div class="cr-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+            </div>
+            <p>"Every rooftop we finish feels like real impact. Great people, a clear mission and the freedom to do my best work on site."</p>
+            <div class="cr-review-by"><span class="cr-review-av">R</span><div><strong>Team Member</strong><span>Installation Lead</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HIRING PROCESS ===================== -->
+    <section class="cm-section cm-section-alt">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">How Hiring Works</span>
+          <h2>A Simple, <span class="gradient-text">Respectful Process</span></h2>
+          <p>No endless rounds. Here is exactly what to expect after you hit submit.</p>
+        </div>
+        <div class="cr-steps">
+          <div class="cr-step cr-glass" data-animate><h4>Apply Online</h4><p>Fill the short form below with your details and preferred role. It takes under two minutes.</p></div>
+          <div class="cr-step cr-glass" data-animate><h4>Screening Call</h4><p>If there is a fit, our team reaches out for a quick call to learn about you and answer questions.</p></div>
+          <div class="cr-step cr-glass" data-animate><h4>Interview</h4><p>A focused conversation (and a small task for some roles) with the team you would work with.</p></div>
+          <div class="cr-step cr-glass" data-animate><h4>Offer &amp; Onboarding</h4><p>A clear offer, then structured onboarding so you succeed from week one.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== APPLICATION FORM ===================== -->
+    <section class="cm-section cr-apply-band" id="cr-apply">
+      <div class="container">
+        <div class="cr-apply-grid">
+          <div class="cr-apply-copy" data-animate>
+            <span class="section-tag">Apply Now</span>
+            <h2>Send Us Your <span class="gradient-text">Application</span></h2>
+            <p>Tell us about yourself and the role you are excited about. We review every application and respond to shortlisted candidates within a few working days.</p>
+            <ul class="cr-apply-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Freshers and experienced professionals both welcome</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Add a portfolio, resume or LinkedIn link in your message</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Prefer email? Write to us at <strong>careers@clansmachina.com</strong></li>
+            </ul>
+          </div>
+
+          <form class="contact-form glass-card" id="careerForm" novalidate data-animate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="crName">Full Name *</label>
+                <input type="text" id="crName" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label for="crPhone">Phone Number *</label>
+                <input type="tel" id="crPhone" placeholder="10-digit mobile number" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="crEmail">Email Address *</label>
+                <input type="email" id="crEmail" placeholder="your@email.com" required />
+              </div>
+              <div class="form-group">
+                <label for="crCity">City *</label>
+                <input type="text" id="crCity" placeholder="Your city" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="crRole">Role You're Applying For *</label>
+                <select id="crRole" required>
+                  <option value="">Select a role</option>
+                  <option>Solar Sales Executive</option>
+                  <option>Solar Design Engineer</option>
+                  <option>Solar Installation Technician</option>
+                  <option>Project Coordinator / Site Supervisor</option>
+                  <option>Digital Marketing Executive</option>
+                  <option>Customer Success Associate</option>
+                  <option>General / Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="crExp">Experience *</label>
+                <select id="crExp" required>
+                  <option value="">Select experience</option>
+                  <option>Fresher</option>
+                  <option>0&ndash;2 years</option>
+                  <option>2&ndash;5 years</option>
+                  <option>5+ years</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="crMsg">Message / Cover Note (Optional)</label>
+              <textarea id="crMsg" rows="3" placeholder="Tell us why you'd be a great fit, and paste a link to your resume, portfolio or LinkedIn."></textarea>
+            </div>
+            <button type="submit" class="btn btn-neon btn-full btn-lg" id="crSubmitBtn">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Submit Application
+            </button>
+            <div class="form-errors" id="crFormErrors" style="display:none;"></div>
+            <div class="form-trust-badges" aria-label="Application trust indicators">
+              <span>Every application reviewed</span>
+              <span>No spam guarantee</span>
+              <span>Quick response</span>
+            </div>
+            <div class="form-success" id="crFormSuccess" style="display:none;">
+              <span>&#10003;</span> Thank you! Your application has been received — we'll be in touch soon.
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>
@@ -69,5 +613,81 @@
   <script src="js/subpage.js" defer></script>
   <script src="js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
+
+  <!-- Careers application form handler -->
+  <script>
+    (function () {
+      var roleSelect = document.getElementById('crRole');
+      document.querySelectorAll('.cr-apply-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var role = btn.getAttribute('data-role');
+          if (roleSelect) {
+            for (var i = 0; i < roleSelect.options.length; i++) {
+              if (roleSelect.options[i].value === role) { roleSelect.selectedIndex = i; break; }
+            }
+          }
+          document.getElementById('cr-apply').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      var form = document.getElementById('careerForm');
+      if (!form) return;
+      var btn = document.getElementById('crSubmitBtn');
+      var errBox = document.getElementById('crFormErrors');
+      var okBox = document.getElementById('crFormSuccess');
+      var val = function (id) { return (document.getElementById(id).value || '').trim(); };
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errBox.style.display = 'none'; okBox.style.display = 'none';
+
+        var errors = [];
+        if (!val('crName')) errors.push('Name is required.');
+        if (!/^[0-9]{10}$/.test(val('crPhone').replace(/\D/g, ''))) errors.push('A valid 10-digit phone number is required.');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('crEmail'))) errors.push('A valid email is required.');
+        if (!val('crCity')) errors.push('City is required.');
+        if (!val('crRole')) errors.push('Please select a role.');
+        if (!val('crExp')) errors.push('Please select your experience.');
+
+        if (errors.length) {
+          errBox.innerHTML = '<ul><li>' + errors.join('</li><li>') + '</li></ul>';
+          errBox.style.display = 'block';
+          return;
+        }
+
+        var original = btn.innerHTML;
+        btn.disabled = true; btn.textContent = 'Sending...';
+
+        var payload = {
+          name: val('crName'),
+          phone: val('crPhone'),
+          email: val('crEmail'),
+          city: val('crCity'),
+          service: 'Career Application — ' + val('crRole'),
+          bill: 'Experience: ' + val('crExp'),
+          message: val('crMsg')
+        };
+
+        fetch('submit-contact.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) { return res.text().then(function (text) {
+            try { return JSON.parse(text); }
+            catch (err) { throw new Error('Bad server response (HTTP ' + res.status + '). If you opened this page via Live Server or as a file, open it through http://localhost/ instead so PHP can run.'); }
+          }); })
+          .then(function (data) {
+            if (data.ok) { okBox.style.display = 'flex'; form.reset(); }
+            else { errBox.innerHTML = '<ul><li>' + (data.message || 'Submission failed.') + '</li></ul>'; errBox.style.display = 'block'; }
+          })
+          .catch(function (err) {
+            errBox.innerHTML = '<ul><li>' + (err && err.message ? err.message : 'Network error. Please try again.') + '</li></ul>';
+            errBox.style.display = 'block';
+          })
+          .finally(function () { btn.disabled = false; btn.innerHTML = original; });
+      });
+    })();
+  </script>
 </body>
 </html>
