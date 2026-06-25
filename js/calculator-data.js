@@ -9,9 +9,21 @@
 window.CALC_DATA = {
 
   /* ---- Solar generation ---- */
-  // 1 kW of rooftop solar generates ~4 units (kWh) per day in India.
-  perKwDailyGen: 4,            // kWh per kW per day
-  daysPerMonth: 30,           // → ~120 units / kW / month
+  // Real-world yield (Clans Machina product sheet, 2026):
+  //   2kW → 7–9 u/day, 3kW → 12–13, 4kW → 16–18, 5kW → 22–24 (max ~5 u/kW/day).
+  // Average works out to ~4.2 units (kWh) per kW per day.
+  perKwDailyGen: 4.2,          // kWh per kW per day (nominal — used for sizing)
+  daysPerMonth: 30,           // → ~126 units / kW / month
+
+  // Per-size daily generation (kWh/kW/day), matching the product sheet midpoints:
+  //   2kW→8/day (4.0/kW), 3kW→12.5 (4.17), 4kW→17 (4.25), 5kW→23 (4.6).
+  // Larger yield per kW for bigger systems; interpolated for in-between sizes.
+  genTiers: [
+    { kw: 2, perKwDaily: 4.0  },
+    { kw: 3, perKwDaily: 4.17 },
+    { kw: 4, perKwDaily: 4.25 },
+    { kw: 5, perKwDaily: 4.6  }
+  ],
 
   /* ---- Panel sizing ---- */
   panelKw: 0.54,              // 540 Wp per panel (mono-PERC / TOPCon standard)
@@ -37,16 +49,23 @@ window.CALC_DATA = {
   billOffsetRate: 0.90,       // solar offsets ~90% of the bill (rest = fixed/night)
   annualDegradation: 0.005,   // 0.5% panel output loss per year (optional)
 
-  /* ---- Subsidy: PM Surya Ghar Muft Bijli Yojana (residential only) ---- */
+  /* ---- Subsidy: PM Surya Ghar + state top-up (residential only) ----
+     Calibrated to the Clans Machina product sheet (2026):
+       2 kW → ₹1,10,000   3 kW → ₹1,38,000   4 kW → ₹1,38,000   5 kW → ₹1,38,000
+     = central (PM Surya Ghar) ₹60k/₹78k  +  state top-up ₹50k/₹60k. */
   subsidy: {
     enabled: true,
     appliesTo: 'RESIDENTIAL',
-    perKwFirst2Kw: 30000,     // ₹30,000 / kW for first 2 kW
-    perKw3rdKw: 18000,        // ₹18,000 for the 3rd kW
+    perKwFirst2Kw: 30000,     // central: ₹30,000 / kW for first 2 kW
+    perKw3rdKw: 18000,        // central: ₹18,000 for the 3rd kW
     cap: 78000,               // central subsidy capped at ₹78,000 (systems ≥ 3 kW)
-    // Optional state top-up (Odisha) — homepage advertises up to ₹60,000.
-    // Set stateSubsidy to 0 to disable, or confirm the exact slab with the user.
-    stateSubsidy: 0           // e.g. 60000 if Odisha top-up is to be included
+    // State top-up (slab-based) so totals match the product sheet exactly.
+    //   2 kW → ₹50,000 (25k×2),  ≥3 kW → ₹60,000 (capped)
+    state: {
+      perKwFirst2Kw: 25000,   // ₹25,000 / kW for first 2 kW
+      perKw3rdKw: 10000,      // ₹10,000 for the 3rd kW
+      cap: 60000              // state top-up capped at ₹60,000
+    }
   },
 
   /* ---- Consumer categories ---- */

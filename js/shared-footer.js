@@ -33,6 +33,7 @@
     '        <li><a href="our-offering/housing-society.html">Housing Societies</a></li>',
     '        <li><a href="solar-solutions/Ongrid.html">On-Grid Systems</a></li>',
     '        <li><a href="solar-solutions/Offgrid.html">Off-Grid Systems</a></li>',
+    '        <li><a href="solar-solutions/hybrid.html">Hybrid Systems</a></li>',
     '      </ul>',
     '    </div>',
     '    <div class="footer-links-group">',

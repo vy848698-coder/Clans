@@ -24,6 +24,23 @@
   var LIFE_YRS    = CD.systemLifeYears || 25;
   var CO2_FAC     = CD.co2FactorKgPerKwh || 0.82;
   var SQFT_PER_KW = CD.sqftPerKw || 100;
+  var GEN_TIERS   = CD.genTiers || null;
+
+  /* Per-size daily generation (kWh/kW/day). Bigger systems yield slightly more
+     per kW; interpolate between product-sheet anchors, fall back to flat rate. */
+  function genPerKw(kw) {
+    var t = GEN_TIERS;
+    if (!t || !t.length) return GEN_PER_KW;
+    if (kw <= t[0].kw) return t[0].perKwDaily;
+    if (kw >= t[t.length - 1].kw) return t[t.length - 1].perKwDaily;
+    for (var i = 0; i < t.length - 1; i++) {
+      if (kw >= t[i].kw && kw <= t[i + 1].kw) {
+        var f = (kw - t[i].kw) / (t[i + 1].kw - t[i].kw);
+        return t[i].perKwDaily + f * (t[i + 1].perKwDaily - t[i].perKwDaily);
+      }
+    }
+    return GEN_PER_KW;
+  }
 
   /* Aerem cost-per-kW tiers (₹67k ≤5kW, ₹55k 5–10kW). */
   var COST_TIERS = CD.costPerKwTiers || [
@@ -50,16 +67,26 @@
     if (CD.categories.INDUSTRIAL)  CATEGORY.industrial.mult  = CD.categories.INDUSTRIAL.costMultiplier;
   }
 
-  /* PM Surya Ghar subsidy (residential) — read slabs/cap from CALC_DATA. */
+  /* PM Surya Ghar + state top-up subsidy (residential) — slabs/caps from CALC_DATA. */
+  function slabAmount(kw, perKwFirst2, per3rd, cap) {
+    var amt = Math.min(kw, 2) * perKwFirst2 + (kw > 2 ? Math.min(kw - 2, 1) * per3rd : 0);
+    return Math.min(amt, cap);
+  }
   function residentialSubsidy(kw) {
     var s = CD.subsidy;
     if (!s || !s.enabled) {
-      var a = Math.min(kw, 2) * 30000 + (kw > 2 ? Math.min(kw - 2, 1) * 18000 : 0);
-      return Math.min(Math.round(a), 78000);
+      return Math.round(slabAmount(kw, 30000, 18000, 78000));
     }
-    var amt = Math.min(kw, 2) * s.perKwFirst2Kw + (kw > 2 ? Math.min(kw - 2, 1) * s.perKw3rdKw : 0);
-    amt = Math.min(amt, s.cap) + (s.stateSubsidy || 0);
-    return Math.round(amt);
+    // Central (PM Surya Ghar)
+    var central = slabAmount(kw, s.perKwFirst2Kw, s.perKw3rdKw, s.cap);
+    // State top-up: slab-based if provided, else legacy flat stateSubsidy.
+    var state = 0;
+    if (s.state) {
+      state = slabAmount(kw, s.state.perKwFirst2Kw, s.state.perKw3rdKw, s.state.cap);
+    } else if (s.stateSubsidy) {
+      state = s.stateSubsidy;
+    }
+    return Math.round(central + state);
   }
 
   /* ---------- shared state fed from estimator into EMI ---------- */
@@ -91,7 +118,7 @@
   var TYPE_HINTS = {
     residential: [
       { label: 'System size',    value: '1–10 kW'         },
-      { label: 'Govt. subsidy',  value: 'Up to ₹78,000'  },
+      { label: 'Govt. subsidy',  value: 'Up to ₹1,38,000' },
       { label: 'Avg. payback',   value: '4–6 years'       },
       { label: 'Monthly saving', value: '₹1,500–4,000'   }
     ],
@@ -227,8 +254,8 @@
     var systemSize = Math.max(1, Math.min(sizeFromRoof, sizeFromBill));
     systemSize = parseFloat(systemSize.toFixed(1));
 
-    // Generation, panels, CO2
-    var monthlyGen = Math.round(systemSize * GEN_PER_KW * DAYS);
+    // Generation, panels, CO2 (yield per kW scales with system size)
+    var monthlyGen = Math.round(systemSize * genPerKw(systemSize) * DAYS);
     var panels = Math.ceil(systemSize / PANEL_KW);    // 540 Wp panels
     var co2 = parseFloat((monthlyGen * 12 * CO2_FAC / 1000).toFixed(1)); // tonnes/yr
 

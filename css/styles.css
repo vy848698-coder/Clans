@@ -1413,6 +1413,42 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 .feature-card:hover::before { opacity: 1; }
 .feature-card p { flex: 1; }
 
+/* Card header image — full-bleed top banner.
+   If the image file is missing it gracefully shows an "Add image" placeholder. */
+.feature-img {
+  position: relative;
+  margin: -32px -28px 22px;
+  height: 160px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-img::after {
+  content: 'Add image';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  opacity: 0.45;
+}
+.feature-img img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.feature-card:hover .feature-img img { transform: scale(1.05); }
+
 /* ============================================================
    PREMIUM ENHANCEMENTS — hero sun, certifications, icons
    ============================================================ */
