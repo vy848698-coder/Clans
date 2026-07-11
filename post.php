@@ -57,6 +57,24 @@ if ($post) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
   <title><?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina</title>
+  <link rel="canonical" href="https://www.clansmachina.in/post.php?id=<?= (int)$id ?>" />
+  <meta name="robots" content="<?= $post ? 'index, follow' : 'noindex, follow' ?>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Clans Machina Solar" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:title" content="<?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina" />
+  <meta property="og:description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
+  <meta property="og:url" content="https://www.clansmachina.in/post.php?id=<?= (int)$id ?>" />
+<?php $ogImg = ($post && !empty($post['image'])) ? (preg_match('#^https?://#', $post['image']) ? $post['image'] : 'https://www.clansmachina.in/' . ltrim($post['image'], '/')) : 'https://www.clansmachina.in/image/service-residential.webp'; ?>
+  <meta property="og:image" content="<?= v($ogImg) ?>" />
+<?php if ($post): ?>
+  <meta property="article:published_time" content="<?= v($post['created_at']) ?>" />
+  <meta property="article:author" content="<?= v($post['author']) ?>" />
+<?php endif; ?>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina" />
+  <meta name="twitter:description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
+  <meta name="twitter:image" content="<?= v($ogImg) ?>" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>

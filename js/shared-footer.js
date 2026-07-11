@@ -6,7 +6,7 @@
     '      <a href="index.html" class="logo">',
     '        <img src="image/clans_logo.webp" alt="Clans Machina" class="logo-img logo-img--footer" width="95" height="32" loading="lazy" decoding="async" fetchpriority="low" />',
     '      </a>',
-    '      <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>',
+    '      <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 1200+ homes across India.</p>',
     '      <div class="social-links">',
     '        <a href="https://www.instagram.com/clansmachinaofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">',
     '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',

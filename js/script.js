@@ -420,7 +420,7 @@
         animateCounter(el);
         counterObs.unobserve(el);
       }
-    }, { threshold: 0.5 });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
     counterObs.observe(el);
   });
 

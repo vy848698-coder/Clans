@@ -44,6 +44,49 @@ if ($errors) {
     exit;
 }
 
+// Handle optional resume / file uploads (e.g. from the careers form).
+// Files are stored under uploads/resumes/ and their links appended to $message.
+if (!empty($_FILES['resume']) && is_array($_FILES['resume']['name'])) {
+    $allowedExt  = ['pdf', 'doc', 'docx', 'rtf', 'txt', 'png', 'jpg', 'jpeg', 'webp'];
+    $maxBytes    = 5 * 1024 * 1024; // 5 MB
+    $uploadDir   = __DIR__ . '/uploads/resumes';
+    if (!is_dir($uploadDir)) {
+        @mkdir($uploadDir, 0755, true);
+    }
+
+    $savedLinks = [];
+    $count = count($_FILES['resume']['name']);
+    for ($i = 0; $i < $count && $i < 5; $i++) {
+        if (($_FILES['resume']['error'][$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+            continue;
+        }
+        if (($_FILES['resume']['size'][$i] ?? 0) > $maxBytes) {
+            http_response_code(422);
+            echo json_encode(['ok' => false, 'message' => 'Each file must be 5 MB or smaller.']);
+            exit;
+        }
+        $origName = $_FILES['resume']['name'][$i];
+        $ext      = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
+        if (!in_array($ext, $allowedExt, true)) {
+            http_response_code(422);
+            echo json_encode(['ok' => false, 'message' => 'Unsupported file type. Allowed: ' . implode(', ', $allowedExt) . '.']);
+            exit;
+        }
+        // Safe, unique filename; keep a readable slug of the original name.
+        $slug     = preg_replace('/[^a-zA-Z0-9_-]+/', '-', pathinfo($origName, PATHINFO_FILENAME));
+        $slug     = trim(substr($slug, 0, 60), '-') ?: 'file';
+        $newName  = $slug . '_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+        $dest     = $uploadDir . '/' . $newName;
+        if (move_uploaded_file($_FILES['resume']['tmp_name'][$i], $dest)) {
+            $savedLinks[] = 'uploads/resumes/' . $newName;
+        }
+    }
+
+    if ($savedLinks) {
+        $message = trim($message . "\n\nAttachments:\n" . implode("\n", $savedLinks));
+    }
+}
+
 try {
     $stmt = $pdo->prepare(
         'INSERT INTO leads (name, phone, email, city, service, bill, message, created_at)

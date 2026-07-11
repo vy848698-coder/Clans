@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Careers at Clans Machina — power your career with renewable energy. Explore full-time roles in solar sales, design, installation, marketing and support, or become a solar partner. Apply online today." />
   <title>Careers | Clans Machina Solar</title>
+  <link rel="canonical" href="https://www.clansmachina.in/careers.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clans Machina Solar" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:title" content="Careers | Clans Machina Solar" />
+  <meta property="og:description" content="Power your career with renewable energy. Explore full-time roles in solar sales, design, installation, marketing and support — apply online today." />
+  <meta property="og:url" content="https://www.clansmachina.in/careers.html" />
+  <meta property="og:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Careers | Clans Machina Solar" />
+  <meta name="twitter:description" content="Power your career with renewable energy — full-time roles in solar sales, design, installation, marketing and support. Apply online today." />
+  <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
 
@@ -286,7 +299,7 @@
       <div class="container">
         <div class="cr-stats" data-animate>
           <div class="cr-stat cr-glass"><strong>1000+</strong><span>Projects delivered</span></div>
-          <div class="cr-stat cr-glass"><strong>4.9&#9733;</strong><span>Customer rating</span></div>
+          <div class="cr-stat cr-glass"><strong>4.8&#9733;</strong><span>Customer rating</span></div>
           <div class="cr-stat cr-glass"><strong>29+</strong><span>Cities served</span></div>
           <div class="cr-stat cr-glass"><strong>25&nbsp;yr</strong><span>Warranty backed</span></div>
         </div>
@@ -535,7 +548,7 @@
             <ul class="cr-apply-list">
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Freshers and experienced professionals both welcome</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Add a portfolio, resume or LinkedIn link in your message</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Prefer email? Write to us at <strong>careers@clansmachina.com</strong></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Prefer email? Write to us at <strong>info@clansmachina.in</strong></li>
             </ul>
           </div>
 
@@ -588,6 +601,14 @@
             <div class="form-group">
               <label for="crMsg">Message / Cover Note (Optional)</label>
               <textarea id="crMsg" rows="3" placeholder="Tell us why you'd be a great fit, and paste a link to your resume, portfolio or LinkedIn."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="crResume">Resume &amp; Files (Optional)</label>
+              <input type="file" id="crResume" name="resume[]" multiple
+                     accept=".pdf,.doc,.docx,.rtf,.txt,.png,.jpg,.jpeg,.webp" />
+              <small style="margin-top:6px;font-size:0.78rem;color:var(--text-secondary);">
+                Upload your CV / portfolio. PDF, DOC, DOCX, RTF, TXT or images — up to 5&nbsp;MB each, 5 files max.
+              </small>
             </div>
             <button type="submit" class="btn btn-neon btn-full btn-lg" id="crSubmitBtn">
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -655,23 +676,40 @@
           return;
         }
 
+        // Validate uploaded files (size/count) before sending.
+        var fileInput = document.getElementById('crResume');
+        var files = fileInput ? fileInput.files : [];
+        if (files.length > 5) {
+          errBox.innerHTML = '<ul><li>Please upload no more than 5 files.</li></ul>';
+          errBox.style.display = 'block';
+          return;
+        }
+        for (var f = 0; f < files.length; f++) {
+          if (files[f].size > 5 * 1024 * 1024) {
+            errBox.innerHTML = '<ul><li>"' + files[f].name + '" is larger than 5 MB.</li></ul>';
+            errBox.style.display = 'block';
+            return;
+          }
+        }
+
         var original = btn.innerHTML;
         btn.disabled = true; btn.textContent = 'Sending...';
 
-        var payload = {
-          name: val('crName'),
-          phone: val('crPhone'),
-          email: val('crEmail'),
-          city: val('crCity'),
-          service: 'Career Application — ' + val('crRole'),
-          bill: 'Experience: ' + val('crExp'),
-          message: val('crMsg')
-        };
+        var payload = new FormData();
+        payload.append('name', val('crName'));
+        payload.append('phone', val('crPhone'));
+        payload.append('email', val('crEmail'));
+        payload.append('city', val('crCity'));
+        payload.append('service', 'Career Application — ' + val('crRole'));
+        payload.append('bill', 'Experience: ' + val('crExp'));
+        payload.append('message', val('crMsg'));
+        for (var k = 0; k < files.length; k++) {
+          payload.append('resume[]', files[k]);
+        }
 
         fetch('submit-contact.php', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: payload
         })
           .then(function (res) { return res.text().then(function (text) {
             try { return JSON.parse(text); }

@@ -103,6 +103,85 @@
   var estForm = $('estForm');
   if (!estForm) return; // not on the calculator page
 
+  /* ---- AUTO-DETECT LOCATION -> nearest region option ---- */
+  (function initDetect() {
+    var btn = $('estDetect');
+    var sel = $('estLocation');
+    if (!btn || !sel) return;
+
+    var msg = $('estDetectMsg');
+    var label = $('estDetectLabel');
+
+    function say(text, cls) {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.className = 'sc-detect-msg' + (cls ? ' ' + cls : '');
+      msg.hidden = !text;
+    }
+    function busy(on) {
+      btn.disabled = on;
+      btn.classList.toggle('is-loading', on);
+      if (label) label.textContent = on ? 'Detecting…' : 'Detect';
+    }
+
+    // Great-circle distance (km) between two lat/lng points.
+    function distKm(aLat, aLng, bLat, bLng) {
+      var R = 6371, toRad = Math.PI / 180;
+      var dLat = (bLat - aLat) * toRad, dLng = (bLng - aLng) * toRad;
+      var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(aLat * toRad) * Math.cos(bLat * toRad) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      return 2 * R * Math.asin(Math.sqrt(s));
+    }
+
+    // Each option lists one or more anchor cities ("lat,lng;lat,lng").
+    // Match on the closest anchor of any region so large states (e.g. all
+    // of Rajasthan/Gujarat) aren't misjudged by a single centroid.
+    function pickNearest(lat, lng) {
+      var opts = sel.options, best = -1, bestD = Infinity;
+      for (var i = 0; i < opts.length; i++) {
+        var geo = opts[i].getAttribute('data-geo');
+        if (!geo) continue;
+        var pairs = geo.split(';');
+        for (var j = 0; j < pairs.length; j++) {
+          var c = pairs[j].split(',');
+          var oLat = parseFloat(c[0]), oLng = parseFloat(c[1]);
+          if (isNaN(oLat) || isNaN(oLng)) continue;
+          var d = distKm(lat, lng, oLat, oLng);
+          if (d < bestD) { bestD = d; best = i; }
+        }
+      }
+      return best;
+    }
+
+    btn.addEventListener('click', function () {
+      if (!navigator.geolocation) {
+        say('Location not supported on this device — please pick manually.', 'is-err');
+        return;
+      }
+      busy(true);
+      say('Getting your location…', '');
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          busy(false);
+          var idx = pickNearest(pos.coords.latitude, pos.coords.longitude);
+          if (idx < 0) { say('Couldn\'t match a region — please pick manually.', 'is-err'); return; }
+          sel.selectedIndex = idx;
+          sel.dispatchEvent(new Event('change', { bubbles: true }));
+          say('Nearest region set to ' + sel.options[idx].text + '.', 'is-ok');
+        },
+        function (err) {
+          busy(false);
+          var m = err.code === err.PERMISSION_DENIED
+            ? 'Location permission denied — please pick manually.'
+            : 'Couldn\'t detect location — please pick manually.';
+          say(m, 'is-err');
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
+      );
+    });
+  })();
+
   /* ---- TWO INTERNAL SCREENS: choose property -> calculator ---- */
   var TYPE_LABEL = { residential: 'Home', commercial: 'Commercial', industrial: 'Housing Society' };
   var consumerType = 'residential';

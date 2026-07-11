@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Commercial & industrial solar by Clans Machina — cut operating costs with high-yield rooftop and ground-mount systems, accelerated depreciation benefits and 25-year support. India's growing businesses go solar with us." />
   <title>Commercial Solar | Clans Machina</title>
+  <link rel="canonical" href="https://www.clansmachina.in/our-offering/commercial.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clans Machina Solar" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:title" content="Commercial Solar | Clans Machina" />
+  <meta property="og:description" content="Commercial &amp; industrial solar — cut operating costs with high-yield rooftop and ground-mount systems, accelerated depreciation benefits and 25-year support." />
+  <meta property="og:url" content="https://www.clansmachina.in/our-offering/commercial.html" />
+  <meta property="og:image" content="https://www.clansmachina.in/image/service-commercial.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Commercial Solar | Clans Machina" />
+  <meta name="twitter:description" content="Commercial &amp; industrial solar — cut operating costs with high-yield systems, accelerated depreciation benefits and 25-year support." />
+  <meta name="twitter:image" content="https://www.clansmachina.in/image/service-commercial.webp" />
   <link rel="stylesheet" href="../css/fonts.css" />
   <link rel="stylesheet" href="../css/styles.css" />
 
@@ -86,15 +99,31 @@
 
     /* ---- INSTALLATION EXPERIENCE IMAGE CARDS ---- */
     .cs-experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; grid-template-rows: auto auto; }
-    .cs-exp-card { position: relative; border-radius: 20px; overflow: hidden; min-height: 360px;
+    .cs-exp-card { position: relative; border-radius: 20px; overflow: hidden; min-height: 380px;
       display: flex; align-items: flex-end; color: #fff;
-      box-shadow: 0 28px 60px -28px rgba(11,42,85,0.55); }
-    .cs-exp-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      box-shadow: 0 28px 60px -28px rgba(11,42,85,0.55);
+      transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; }
+    .cs-exp-card:hover { transform: translateY(-6px); box-shadow: 0 40px 80px -30px rgba(11,42,85,0.65); }
+    .cs-exp-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+    .cs-exp-card:hover img { transform: scale(1.06); }
     .cs-exp-card::after { content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(11,42,85,0.05) 30%, rgba(11,42,85,0.55) 65%, rgba(8,30,20,0.9)); }
-    .cs-exp-body { position: relative; z-index: 2; padding: 30px; }
-    .cs-exp-body h3 { font-size: 1.4rem; margin: 0 0 10px; color: #fff; }
-    .cs-exp-body p { color: rgba(255,255,255,0.88); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+      background: linear-gradient(180deg, rgba(8,24,46,0) 25%, rgba(8,24,46,0.45) 55%, rgba(6,20,38,0.92) 100%); }
+    .cs-exp-body { position: relative; z-index: 2; padding: 32px 30px 34px; }
+    .cs-exp-tag { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 14px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: #fff; padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.22); }
+    .cs-exp-tag .dot { width: 7px; height: 7px; border-radius: 50%;
+      background: linear-gradient(135deg, #34d399, #22d3ee); box-shadow: 0 0 10px rgba(52,211,153,.8); }
+    .cs-exp-body h3 { font-size: 1.55rem; line-height: 1.2; margin: 0 0 12px; color: #fff;
+      font-weight: 700; letter-spacing: -0.01em; max-width: 22ch; }
+    .cs-exp-body h3::after { content: ''; display: block; width: 46px; height: 3px; margin-top: 14px;
+      border-radius: 2px; background: linear-gradient(90deg, #34d399, #22d3ee); }
+    .cs-exp-body p { color: rgba(255,255,255,0.9); font-size: 0.98rem; line-height: 1.65; margin: 12px 0 0;
+      max-width: 46ch; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+    .cs-exp-body p strong { color: #fff; font-weight: 700; }
 
     /* ---- FULL-WIDTH IMAGE BAND ---- */
     .cs-imgband { position: relative; height: clamp(360px, 46vw, 560px); overflow: hidden; }
@@ -425,15 +454,17 @@
 <div class="cs-exp-card" data-animate>
           <img src="../image/commercial/3.webp" alt="Commercial solar installation in progress" loading="lazy" />
           <div class="cs-exp-body">
-            <h3>Best price challenge</h3>
-            <p>We create premium solar systems using top-quality components, all at competitive prices, to guarantee a lifetime of high performance and savings.</p>
+            <span class="cs-exp-tag"><span class="dot"></span>Best Price Challenge</span>
+            <h3>Premium components, without the premium price tag</h3>
+            <p>We build every system from <strong>tier-1, top-quality components</strong> &mdash; then back it with the most competitive price in the market. The result: decades of high performance and <strong>real, compounding savings</strong> you can bank on.</p>
           </div>
         </div>
         <div class="cs-exp-card" data-animate>
           <img src="../image/commercial/4.webp" alt="Solar plant commissioned and running" loading="lazy" />
           <div class="cs-exp-body">
-            <h3>Great solar starts with precision designs</h3>
-            <p>We survey your roof, take measurements, and conduct shadow analysis in our softwares to come up with precise 3D design for your rooftop solar. We consult with you and take approvals on the design before installation.</p>
+            <span class="cs-exp-tag"><span class="dot"></span>Engineered to the Inch</span>
+            <h3>Great solar starts with precision design</h3>
+            <p>Our engineers survey your roof, capture exact measurements and run <strong>shadow analysis in 3D software</strong> to map every panel for maximum yield. You review and <strong>approve the final design</strong> before a single bolt is fixed.</p>
           </div>
         </div>
       </div>

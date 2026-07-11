@@ -17,8 +17,21 @@ function initials($name) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Clans Machina Solar Blog" />
+  <meta name="description" content="Clans Machina Solar blog — practical guides on rooftop solar costs, PM Surya Ghar subsidy, savings, net metering and maintenance for Indian homes and businesses." />
   <title>Blog and Insights | Clans Machina</title>
+  <link rel="canonical" href="https://www.clansmachina.in/blog.php" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clans Machina Solar" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:title" content="Blog and Insights | Clans Machina" />
+  <meta property="og:description" content="Practical guides on rooftop solar costs, PM Surya Ghar subsidy, savings, net metering and maintenance for Indian homes and businesses." />
+  <meta property="og:url" content="https://www.clansmachina.in/blog.php" />
+  <meta property="og:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog and Insights | Clans Machina" />
+  <meta name="twitter:description" content="Practical guides on rooftop solar costs, subsidy, savings, net metering and maintenance for Indian homes and businesses." />
+  <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>

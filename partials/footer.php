@@ -5,7 +5,7 @@
           <a href="index.html" class="logo">
             <img src="image/clans_logo.webp" alt="Clans Machina" class="logo-img logo-img--footer" width="95" height="32" loading="lazy" decoding="async" fetchpriority="low" />
           </a>
-          <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 12,000+ homes across India.</p>
+          <p>Rooftop solar done right &mdash; transparent savings and dependable service. Trusted by 1200+ homes across India.</p>
           <div class="social-links">
             <a href="https://www.instagram.com/clansmachinaofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IN</a>
             <a href="https://in.linkedin.com/company/clansmachinaofficial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LI</a>

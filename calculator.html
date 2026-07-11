@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Clans Machina Solar Savings Calculator" />
+  <meta name="description" content="Free interactive solar calculator by Clans Machina — estimate your system size, generation, PM Surya Ghar subsidy, 25-year savings and monthly loan EMI in under a minute." />
   <title>Solar Savings Calculator | Clans Machina</title>
+  <link rel="canonical" href="https://www.clansmachina.in/calculator.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clans Machina Solar" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:title" content="Solar Savings Calculator | Clans Machina" />
+  <meta property="og:description" content="Estimate your system size, generation, PM Surya Ghar subsidy, 25-year savings and monthly loan EMI with Clans Machina's free interactive solar calculator." />
+  <meta property="og:url" content="https://www.clansmachina.in/calculator.html" />
+  <meta property="og:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Solar Savings Calculator | Clans Machina" />
+  <meta name="twitter:description" content="Estimate your system size, generation, subsidy, 25-year savings and monthly loan EMI with our free interactive solar calculator." />
+  <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css?v=2" />
 </head>
@@ -192,15 +205,22 @@
         <form id="estForm">
           <div class="sc-inputrow">
             <div class="sc-field">
-              <label for="estLocation">Search your location</label>
+              <label for="estLocation" class="sc-label-row">
+                <span>Search your location</span>
+                <button type="button" id="estDetect" class="sc-detect" aria-label="Auto-detect my location">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>
+                  <span id="estDetectLabel">Detect</span>
+                </button>
+              </label>
               <select id="estLocation">
-                <option data-sun="4.1" data-tariff="9.5">Mumbai / Pune</option>
-                <option data-sun="4.6" data-tariff="8.0">Delhi / NCR</option>
-                <option data-sun="5.0" data-tariff="7.5">Rajasthan / Gujarat</option>
-                <option data-sun="4.5" data-tariff="8.5">Bengaluru / Chennai</option>
-                <option data-sun="4.7" data-tariff="8.0">Hyderabad / Telangana</option>
-                <option data-sun="4.0" data-tariff="7.8">Kolkata / East India</option>
+                <option data-sun="4.1" data-tariff="9.5" data-geo="19.08,72.88;18.52,73.86">Mumbai / Pune</option>
+                <option data-sun="4.6" data-tariff="8.0" data-geo="28.61,77.21;28.46,77.03">Delhi / NCR</option>
+                <option data-sun="5.0" data-tariff="7.5" data-geo="26.91,75.79;26.24,73.02;24.58,73.71;23.02,72.57;21.17,72.83">Rajasthan / Gujarat</option>
+                <option data-sun="4.5" data-tariff="8.5" data-geo="12.97,77.59;13.08,80.27;11.02,76.96">Bengaluru / Chennai</option>
+                <option data-sun="4.7" data-tariff="8.0" data-geo="17.39,78.49;17.97,79.59">Hyderabad / Telangana</option>
+                <option data-sun="4.0" data-tariff="7.8" data-geo="22.57,88.36;25.59,85.14;20.30,85.82">Kolkata / East India</option>
               </select>
+              <span id="estDetectMsg" class="sc-detect-msg" hidden></span>
             </div>
 
             <div class="sc-field">
