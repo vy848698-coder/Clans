@@ -38,6 +38,8 @@
               <a href="our-offering/home.html" class="nav-service-link-min">Home Solar</a>
               <a href="our-offering/commercial.html" class="nav-service-link-min">Commercial Solar</a>
               <a href="our-offering/housing-society.html" class="nav-service-link-min">Housing Society</a>
+              <a href="index.html#services" class="nav-service-link-min">EV Charging</a>
+              <a href="index.html#services" class="nav-service-link-min">Solar AMC</a>
             </li>
           </ul>
         </li>
@@ -263,7 +265,7 @@
           <div class="feature-stat"><span class="stat-val">Delivery</span><span class="stat-label">On Time</span></div>
         </div>
         <div class="feature-card fc-amber glass-card" data-animate>
-          <div class="feature-img"><img src="image/trust/247%20Support.png" alt="24/7 solar support team" loading="lazy" onerror="this.remove()" /></div>
+          <div class="feature-img feature-img--support"><img src="image/trust/247%20Support.png" alt="24/7 solar support team" loading="lazy" onerror="this.remove()" /></div>
           <div class="feature-icon-wrap icon-green">
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
           </div>
@@ -327,6 +329,54 @@
       <div class="why-now-disclaimer" data-animate>
         <svg class="wn-disc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
         <p><strong>Disclaimer:</strong> Subsidy amount, eligibility, EMI approval, interest rates, and payback period depend on system size, customer profile, lender terms, electricity consumption, and applicable government policies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BILL SLIDER HOOK -->
+  <section class="bill-hook" id="bill-hook">
+    <div class="container">
+      <div class="bill-hook-card glass-card" data-animate>
+        <div class="bill-hook-intro">
+          <span class="section-tag">Instant Estimate</span>
+          <h2>How much can <span class="gradient-text">you save?</span></h2>
+          <p>Slide to your monthly electricity bill and see your solar savings straight away &mdash; no sign-up needed.</p>
+        </div>
+
+        <div class="bill-hook-tool">
+          <div class="bill-hook-control">
+            <div class="sc-slider-head">
+              <label for="bhSlider">Your monthly electricity bill</label>
+              <div class="bill-hook-inputwrap">
+                <span class="bill-hook-cur">&#8377;</span>
+                <input type="number" id="bhInput" value="6500" min="500" max="50000" step="100" inputmode="numeric" aria-label="Monthly electricity bill in rupees" />
+              </div>
+            </div>
+            <input type="range" id="bhSlider" class="sc-range" min="500" max="50000" step="500" value="6500" aria-label="Monthly electricity bill slider" />
+            <div class="sc-range-scale"><span>&#8377;500</span><span>&#8377;50,000</span></div>
+          </div>
+
+          <div class="bill-hook-readout">
+            <div class="bill-hook-stat">
+              <span class="bill-hook-stat-label">Recommended system</span>
+              <strong id="bhSystem">4.5 kW</strong>
+            </div>
+            <div class="bill-hook-stat bill-hook-stat--hi">
+              <span class="bill-hook-stat-label">You save about</span>
+              <strong id="bhMonthly">&#8377;5,850</strong>
+              <span class="bill-hook-stat-sub">every month</span>
+            </div>
+            <div class="bill-hook-stat">
+              <span class="bill-hook-stat-label">Over 25 years</span>
+              <strong id="bhLifetime">&#8377;25,00,000</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="bill-hook-foot">
+          <a href="calculator.html?bill=6500" id="bhCta" class="btn btn-neon">See full savings breakdown &rarr;</a>
+          <span class="bill-hook-note">*Indicative estimate at ~&#8377;8/unit with ~90% bill offset. Your exact savings depend on roof area, location and consumption.</span>
+        </div>
       </div>
     </div>
   </section>
@@ -482,6 +532,103 @@
               <span class="svc-stat-label">Common-Area Bill Reduction in 90 Days</span>
             </div>
             <a href="our-offering/housing-society.html" class="btn btn-outline svc-btn">Explore Societies <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+
+        <!-- EV Charging -->
+        <div class="service-card service-card--ev glass-card" data-animate>
+          <div class="service-img svc-ev">
+            <img class="svc-photo" src="image/trust/ev.jfif" alt="EV charger installed alongside rooftop solar" loading="lazy" onerror="this.remove()" />
+            <svg class="svc-art" viewBox="0 0 280 180" fill="none" aria-hidden="true">
+              <circle class="sun" cx="52" cy="46" r="13"/>
+              <g class="ray"><line x1="52" y1="23" x2="52" y2="13"/><line x1="77" y1="46" x2="87" y2="46"/><line x1="70" y1="28" x2="77" y2="21"/><line x1="34" y1="28" x2="27" y2="21"/></g>
+              <g class="panel"><rect x="182" y="66" width="44" height="84" rx="5"/></g>
+              <path class="ln" d="M194 80 h20 M194 94 h20" stroke-width="1"/>
+              <path class="ln" d="M206 106 l-8 15 h10 l-8 15" stroke-width="1.4"/>
+              <path class="ln" d="M182 122 q-24 8 -34 -12"/>
+              <path class="ln" d="M42 150 l11 -24 h42 l17 24"/>
+              <path class="ln" d="M30 150 h94"/>
+              <circle class="ln" cx="58" cy="150" r="9"/>
+              <circle class="ln" cx="104" cy="150" r="9"/>
+              <path class="ln" d="M14 168 H266"/>
+            </svg>
+            <div class="svc-label">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M13 2L4 14h7v8l9-12h-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              EV Charging
+            </div>
+          </div>
+          <div class="service-body">
+            <span class="service-tag">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M5 17h14M6 17l1-6a2 2 0 0 1 2-1.5h6A2 2 0 0 1 17 11l1 6M3 17v2m18-2v2M6 13h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              For EV Owners
+            </span>
+            <h3>Charge on Sunshine.<br/><span class="svc-h3-accent">Not the Grid.</span></h3>
+            <p>Home and commercial EV charger supply &amp; installation. Pair it with rooftop solar and fuel your vehicle on near-free daytime power instead of costly grid units.</p>
+            <ul class="service-perks">
+              <li>
+                <svg class="perk-check" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                AC &amp; DC chargers sized to your car and load
+              </li>
+              <li>
+                <svg class="perk-check" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Solar-linked charging for near-zero running cost
+              </li>
+              <li>
+                <svg class="perk-check" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Safe wiring, load balancing and certified install
+              </li>
+            </ul>
+            <div class="service-stat service-stat--purple">
+              <span class="svc-stat-num">₹0 Fuel</span>
+              <span class="svc-stat-label">Charge Your EV on Rooftop Solar</span>
+            </div>
+            <a href="#contact" class="btn btn-outline svc-btn">Enquire Now <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Solar AMC -->
+        <div class="service-card service-card--amc glass-card" data-animate>
+          <div class="service-img svc-amc">
+            <img class="svc-photo" src="image/trust/amc.jfif" alt="Technician performing solar panel maintenance" loading="lazy" onerror="this.remove()" />
+            <svg class="svc-art" viewBox="0 0 280 180" fill="none" aria-hidden="true">
+              <circle class="sun" cx="52" cy="44" r="12"/>
+              <g class="ray"><line x1="52" y1="22" x2="52" y2="12"/><line x1="76" y1="44" x2="86" y2="44"/><line x1="69" y1="27" x2="76" y2="20"/><line x1="35" y1="27" x2="28" y2="20"/></g>
+              <g class="panel"><rect x="150" y="58" width="90" height="66" rx="3"/></g>
+              <path class="ln" d="M150 80 h90 M150 102 h90 M172 58 v66 M195 58 v66 M218 58 v66" stroke-width="1"/>
+              <path class="ln" d="M58 96 l15 15 30 -34" stroke-width="2.4"/>
+              <path class="ln" d="M14 150 H266"/>
+            </svg>
+            <div class="svc-label">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M14.7 6.3a3.5 3.5 0 0 0-4.95 4.95L4 17v3h3l5.75-5.75a3.5 3.5 0 0 0 4.95-4.95l-2.3 2.3-2.12-2.12 2.3-2.3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Solar AMC
+            </div>
+          </div>
+          <div class="service-body">
+            <span class="service-tag">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M14.7 6.3a3.5 3.5 0 0 0-4.95 4.95L4 17v3h3l5.75-5.75a3.5 3.5 0 0 0 4.95-4.95l-2.3 2.3-2.12-2.12 2.3-2.3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              For Every System
+            </span>
+            <h3>Peak Output.<br/><span class="svc-h3-accent">Year After Year.</span></h3>
+            <p>Annual Maintenance Contracts that keep your plant generating at its best — proactive cleaning, inspections, live monitoring and priority repairs that protect both output and warranty.</p>
+            <ul class="service-perks">
+              <li>
+                <svg class="perk-check" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Scheduled panel cleaning and performance checks
+              </li>
+              <li>
+                <svg class="perk-check" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Remote generation monitoring with drop alerts
+              </li>
+              <li>
+                <svg class="perk-check" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Priority breakdown response backed by an SLA
+              </li>
+            </ul>
+            <div class="service-stat service-stat--amber">
+              <span class="svc-stat-num">Up to 25%</span>
+              <span class="svc-stat-label">More Yield vs. an Unmaintained System</span>
+            </div>
+            <a href="#contact" class="btn btn-outline svc-btn">Enquire Now <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
 
@@ -723,30 +870,44 @@
     </div>
   </section>
 
-  <!-- SUSTAINABILITY -->
-  <section class="sustainability" id="sustainability">
-    <div class="sustain-bg"></div>
+  <!-- ===================== INLINE SAVINGS CALCULATOR ===================== -->
+  <section class="home-calc" id="estimate">
     <div class="container">
       <div class="section-header" data-animate>
-        <span class="section-tag">Our Planet</span>
-        <h2>The <span class="gradient-text">Green Impact</span> of Every Install</h2>
-        <p>Operational data from commissioned projects translated into climate impact at portfolio level.</p>
+        <span class="section-tag">Instant Estimate</span>
+        <h2>See How Much You Could <span class="gradient-text">Save</span></h2>
+        <p>Slide to your average monthly electricity bill &mdash; we'll size your ideal system and estimate savings instantly.</p>
       </div>
-      <div class="impact-grid">
-        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="leaf"></i></div><div class="impact-num" data-target="45000">0</div><span class="impact-unit">Tonnes</span><p>CO2 Prevented</p></div>
-        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="sun"></i></div><div class="impact-num" data-target="180">0</div><span class="impact-unit">GWh</span><p>Clean Energy Generated</p></div>
-        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="trees"></i></div><div class="impact-num" data-target="220000">0</div><span class="impact-unit">Trees</span><p>Equivalent Trees Planted</p></div>
-        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="droplets"></i></div><div class="impact-num" data-target="3200">0</div><span class="impact-unit">Cr Litres</span><p>Water Saved vs Thermal</p></div>
-      </div>
-      <div class="mission-box glass-card" data-animate>
-        <div class="mission-icon">
-          <svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path d="M2.5 2v6h6M21.5 22v-6h-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5A10 10 0 0 0 20.8 16.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="hc-grid">
+        <div class="hc-input glass-card" data-animate>
+          <label class="hc-field-label" for="hcBill">Your average monthly electricity bill</label>
+          <div class="hc-bill-display"><span class="hc-cur">&#8377;</span><output id="hcBillVal">5,000</output><span class="hc-per">/mo</span></div>
+          <input type="range" id="hcBill" min="500" max="50000" step="500" value="5000" aria-label="Monthly electricity bill in rupees" />
+          <div class="hc-range-ends"><span>&#8377;500</span><span>&#8377;50,000+</span></div>
+          <label class="hc-field-label" for="hcRegion">Your region</label>
+          <select id="hcRegion">
+            <option data-tariff="9.5">Mumbai / Pune</option>
+            <option data-tariff="8.0" selected>Delhi / NCR</option>
+            <option data-tariff="7.5">Rajasthan / Gujarat</option>
+            <option data-tariff="8.5">Bengaluru / Chennai</option>
+            <option data-tariff="8.0">Hyderabad / Telangana</option>
+            <option data-tariff="7.8">Kolkata / East India</option>
+          </select>
+          <a href="calculator.html" class="btn btn-neon btn-full hc-cta">Get Detailed Estimate + EMI Plan <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
-        <div>
-          <h3>Our Mission: Carbon Net Zero by 2040</h3>
-          <p>Clans Machina is committed to accelerating India's transition to clean energy. Every system we install is a step toward a world powered entirely by clean, renewable solar energy.</p>
+        <div class="hc-results glass-card" data-animate>
+          <div class="hc-result-main">
+            <span class="hc-result-label">Estimated 25-year savings</span>
+            <strong id="hcSave25">&#8377;19,68,800</strong>
+          </div>
+          <div class="hc-result-grid">
+            <div><span>Ideal system</span><strong id="hcSystem">5 kW</strong></div>
+            <div><span>Monthly savings</span><strong id="hcMonthly">&#8377;4,500</strong></div>
+            <div><span>Payback period</span><strong id="hcPayback">~4 yrs</strong></div>
+            <div><span>CO&#8322; cut / year</span><strong id="hcCo2">6.8 T</strong></div>
+          </div>
+          <p class="hc-disclaimer">Indicative estimate. Final figures depend on your roof, shading and DISCOM tariff &mdash; get an exact quote in the full calculator.</p>
         </div>
-        <a href="#contact" class="btn btn-neon">Join the Mission</a>
       </div>
     </div>
   </section>
@@ -863,6 +1024,166 @@
     </div>
   </section>
 
+  <!-- ===================== FOOTPRINT / PROJECT MAP ===================== -->
+  <section class="footprint" id="footprint">
+    <div class="footprint-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Our Footprint</span>
+        <h2>Solar Installed <span class="gradient-text">Across India</span></h2>
+        <p>From our Bhubaneswar headquarters to rooftops nationwide &mdash; tap a city to see what Clans Machina delivers there.</p>
+      </div>
+      <div class="footprint-grid">
+        <div class="map-stage-wrap glass-card" data-animate>
+          <div class="map-stage">
+            <svg class="india-map" viewBox="0 0 560 566" role="img" aria-label="Map of India showing cities served by Clans Machina">
+              <defs>
+                <linearGradient id="cmMapFill" x1="0" y1="0" x2="0.3" y2="1">
+                  <stop offset="0" stop-color="rgba(62,207,142,0.22)"/>
+                  <stop offset="0.6" stop-color="rgba(62,207,142,0.10)"/>
+                  <stop offset="1" stop-color="rgba(78,168,222,0.12)"/>
+                </linearGradient>
+                <radialGradient id="cmMapGlow" cx="0.6" cy="0.55" r="0.5">
+                  <stop offset="0" stop-color="rgba(62,207,142,0.28)"/>
+                  <stop offset="1" stop-color="rgba(62,207,142,0)"/>
+                </radialGradient>
+              </defs>
+              <path class="india-outline" d="M16 242.9 L19.9 241 L26.1 240.8 L26.2 234.9 L27.2 234 L28 234.9 L41.2 234.8 L45.7 236.9 L49.6 236.4 L51 234.5 L58.1 232.1 L59.1 231.9 L59.7 234.7 L62.2 235.5 L68.1 232.3 L66.8 230.6 L66.8 228.9 L68.2 226.7 L61 212.4 L61 207.6 L59.5 206.8 L54 206.8 L51 202.9 L50.6 199.7 L51.6 196.9 L51.9 191.2 L50.3 189.8 L44.4 188.9 L40.3 186.6 L39.6 185.4 L40.8 179.2 L47.3 172.4 L51.8 165.1 L56.5 161.6 L60.6 163.3 L61.7 166.6 L63.7 167.8 L83.1 162.8 L84.5 158.7 L87.7 155.4 L91.6 147.5 L101.8 142.1 L107.7 131.9 L110.4 124.4 L118.2 121.3 L120.4 118.8 L119.8 114.6 L127.8 105.7 L133.1 103 L131 100 L132.4 94.6 L130.8 89.7 L131.7 87.7 L135 85.1 L144.3 81.4 L145.6 79.9 L145.8 78.7 L143.9 76.9 L139.5 75.1 L134 74.5 L133.3 72.3 L133.6 69.4 L128 69.2 L127.1 68.3 L127.1 64.8 L121.7 61 L121.5 59.9 L123.7 57.2 L124.3 54.8 L121.7 52.3 L121.2 50.6 L121.6 49.3 L125.5 47.4 L126.2 46.2 L126.1 45.4 L120.7 44.8 L119.9 43.7 L121.1 40.5 L118.2 38.8 L117.9 37.8 L120.9 32.4 L127.1 30.2 L143.1 32.7 L147.9 34.7 L152.6 35.4 L158.6 32.1 L166.1 30.4 L168.6 30.8 L172 27.6 L175.9 25.8 L176.8 23.5 L190.4 16 L192.1 16.9 L194.8 16.3 L194.2 20.8 L199.9 33.3 L206.2 35.1 L211.6 39.3 L211.6 40.7 L207.7 43.5 L207.2 44.9 L208.5 54.9 L214.6 61.3 L214 63.6 L215.8 65.7 L216.1 74.4 L214.4 74.9 L213.3 76.6 L210.7 77.2 L208 75 L206.7 72.5 L201.5 73.3 L201.1 74 L203 79.9 L207.3 85 L206.6 89.2 L208.6 91.6 L207.2 94.4 L207.5 97.3 L208.3 97.9 L211.6 97.2 L212.3 95.6 L214.1 95.8 L218.3 101.6 L221 103.8 L222.4 104.6 L226.5 104.3 L231.7 107.9 L232.9 107.7 L233.7 108.3 L233.7 112.1 L242.6 115 L248.1 118.5 L248.5 119.9 L245.6 120.4 L237.5 128.4 L234.8 134.4 L234.4 138.8 L231.8 142.7 L231.5 145.9 L237.8 150.2 L238.9 150.3 L239.6 149.2 L240.8 149.5 L251.4 155.6 L253.9 158.7 L263.8 164.7 L266.2 163.8 L274.6 168.5 L278.7 168.5 L279.7 171.5 L289.8 174.4 L292.6 172.5 L299.5 174.2 L304.3 172 L313.7 175.8 L315 180.8 L323 184.3 L325.1 186.5 L331 184.7 L333.4 185.9 L334.1 188.6 L335.1 189.3 L339 188.4 L345.5 189.9 L351.5 192.6 L357.2 190.3 L358.5 192.7 L362.1 194.1 L364.4 192.9 L368.4 193.3 L372.3 192.6 L374.9 193.7 L376 192.7 L378 187 L377 183 L374.7 179 L375.5 173.6 L377.7 167 L377.7 165.2 L376.8 164 L377.6 163.1 L385.5 160.3 L389.6 162 L390.4 164.7 L388.6 171.4 L388.9 173.2 L391.2 175.5 L388.4 178.2 L390.1 180.3 L390.6 182.4 L395.8 185.2 L399.1 184.6 L403.7 185.9 L404.2 187.1 L407 187.4 L413.5 186.4 L415 184.6 L417.5 183.7 L424.6 186.1 L434.5 185.7 L437.1 184.2 L438.7 185.4 L441.5 185.5 L447.4 184.4 L448.8 183.3 L447.3 179.7 L448.9 175.9 L447.3 172.8 L442.8 173 L440.1 170.7 L440.8 166.8 L447 167.4 L449.3 165.9 L454.9 165.5 L457.3 164.5 L459.9 162.3 L459.1 160.9 L460.1 159.3 L466.2 155.7 L470.1 149.8 L479.3 147.9 L483.2 145.3 L484 143.4 L485.6 143.1 L488.9 139.8 L494.9 136.5 L496.9 137.7 L497.6 139.2 L508.8 141.9 L511.1 139.7 L511.1 138.6 L520.5 133.9 L524.1 137.8 L526.3 137.8 L522 141 L522.3 144.1 L527.7 141.6 L530.3 147.2 L527 150.3 L524.9 154.1 L526.9 154.9 L530.7 153.2 L533.9 155 L537.6 155.5 L539.3 154.9 L543.8 157.9 L544 163.3 L537.3 168 L535.7 170.2 L536.2 173 L539.8 179.4 L537.1 179 L533.1 175.1 L523.3 176.5 L520.9 177.4 L518.1 180.7 L510.1 186.4 L504.1 189.5 L502.7 194.3 L504.1 200.3 L502 202.8 L500.7 206.9 L497.9 210.5 L495.7 211.7 L494.1 214.4 L493.6 216.4 L495.9 217.9 L496.4 219.6 L494.2 225.1 L488.9 233.8 L485.9 242.5 L477.9 240 L474.5 240.6 L471.4 238.8 L473 246.3 L472.2 257 L471.1 259 L468.5 259 L468.5 261.4 L467 265.1 L468.3 274.6 L466.3 275.5 L464.9 279 L463.9 279.3 L460.5 276.5 L457.8 279.5 L456.3 265.7 L454 261 L453.5 253.3 L451.9 246.3 L450.2 245.5 L446.2 246.2 L446.3 249.7 L443 254 L442.9 258.5 L440.5 260 L438.6 258.9 L437.2 255.7 L436 255.7 L436 258.1 L435 257.5 L432.3 248.3 L433.5 241.6 L436 238.3 L438.9 238.3 L442.5 236.1 L445.2 236.3 L446.6 233.1 L449.3 232.1 L451.6 222.9 L455.5 223.5 L455.9 221.7 L448.3 217.3 L419.2 217.5 L408.2 214.9 L407.5 213.3 L408 202.2 L405.3 196.9 L403.7 197.5 L403.1 201 L399.8 201 L396.5 199 L393.5 193.1 L391.8 193.8 L392.6 196.2 L390 196.2 L387.4 195.4 L386.3 192.7 L381.7 190.1 L381.4 191.7 L382.9 192.6 L383 193.9 L377.8 199.4 L376.6 203.3 L381.6 207 L384.1 210.1 L388.9 211 L389.9 213.5 L392.3 215.5 L389.8 217.2 L383.3 216.9 L380.7 222.9 L377.7 222.3 L375.5 227.9 L377.7 230.6 L380.2 230.7 L382.2 232.5 L388.1 234.7 L387.7 240 L385.3 246.4 L388.4 251.1 L388.1 254.6 L391.8 255.9 L390.4 258.8 L391.7 266.8 L394 273.7 L393.6 280.3 L392.2 280.3 L393.5 282.3 L394.1 285.8 L391.5 285.8 L390.5 284.1 L388.5 287.2 L387.5 284.3 L388.4 279 L386.6 276.7 L385.3 282.3 L385.6 285.7 L383.1 286.6 L380.2 283.8 L379.6 286.4 L377.2 286.2 L376.1 285 L378.6 276.4 L374.9 273.9 L374 271.8 L374.3 274.1 L377.9 276.7 L374.1 282.5 L369.2 285.8 L358.7 288.8 L354.4 294 L354.1 296.5 L356.5 304.4 L352.6 309.9 L352.4 312 L347.9 314.7 L345.6 317.9 L343.3 317 L344.5 318.3 L342.7 320.1 L331.1 324 L329.7 324 L330.9 322.9 L330.8 320.7 L329.8 320.3 L325.2 322.8 L324 326 L327.4 324.3 L328.7 325.3 L324.8 327.6 L316.6 335.1 L315.1 338.2 L304.5 351.3 L296.4 355.7 L288.1 364.7 L272.9 374.7 L271.5 377.8 L272.9 380.8 L271.1 385.1 L262.1 389.6 L255.6 388.9 L253.5 389.5 L250.7 396.8 L248.9 398.3 L247.9 400.7 L245.2 400.6 L244.4 398.6 L241.9 398.1 L237.2 400.1 L235.5 401.7 L232.1 409.2 L231.2 414.1 L233.5 425.7 L232.2 430.9 L235.8 445.1 L233 440.6 L231.3 442.7 L236.4 447.5 L234.4 460.6 L232.8 465.2 L227.7 474.2 L225.8 482.3 L226.5 484.8 L224.7 487.4 L226.6 486.9 L227.5 489.7 L227.3 506.7 L221.7 506.6 L217.8 508 L216.7 509.6 L216.8 512.3 L211 521.5 L210.7 523.7 L212.5 526 L217.1 526.9 L219.6 528.7 L211.8 527.3 L201.6 530.4 L197.5 534.6 L196.3 542 L195.1 544.5 L185.3 550.5 L181.4 549.1 L177.1 545.8 L167.8 534.4 L163.7 523.7 L162.2 514.4 L164 516.4 L164.6 522 L166.1 522 L164.1 514.5 L161.4 511.3 L161.5 509.1 L156.4 497.7 L152.8 486.4 L149.2 479.8 L143.3 472.9 L138.7 463 L135.6 453 L133.8 441.5 L130.6 434.1 L128.5 425.4 L120.7 414.1 L119.5 409.6 L118 407.8 L120.4 407.8 L117.5 404.4 L118.6 402.7 L116.8 402.7 L115.8 401.7 L112.1 395 L109.6 387.1 L106.3 364.4 L103.4 355.1 L101.3 344.5 L103.6 337.1 L103 334.6 L100.5 338 L100 336 L100.1 331.7 L103.3 332.1 L99.7 330.5 L99.1 328.8 L99.9 327.4 L98.6 326.3 L97.5 321.4 L101.6 304.9 L100.1 296.3 L97.9 295.1 L96.7 291.3 L98.7 289.4 L96.5 289.6 L100.1 286.5 L105.6 283.9 L100.6 285.2 L95.2 285 L96.1 281.5 L98.1 279.6 L94.9 279.5 L95.4 276 L100.1 274.5 L96.1 273.7 L88.7 273.8 L91 275.4 L90.4 277.3 L86.1 282.5 L89.2 284.4 L90.1 285.7 L90 288.2 L85.7 295.5 L67.8 303.7 L62.2 303.6 L58 301.7 L49.8 295.1 L44.7 288.7 L34.6 279.2 L30.6 273.4 L30.8 271.6 L32 270.6 L36.1 273.5 L41.1 271.1 L43 271.2 L44.3 270 L45.9 270.3 L49.3 268.4 L52.4 267.9 L57.2 260.2 L58.5 259.5 L58.1 257.8 L55.4 260.8 L51.4 260.6 L43.1 264.3 L35.4 262.5 L27.8 258.5 L24.6 255.9 L20.6 248.4 L27.1 243 L17.3 247.9 L16 242.9Z" pathLength="1"/>
+              <g class="map-lines">
+              <line class="map-link" data-city="Rourkela" x1="335.6" y1="312.2" x2="318" y2="274" pathLength="1" style="transition-delay:0ms"/>
+              <line class="map-link" data-city="Kolkata" x1="335.6" y1="312.2" x2="381.5" y2="268" pathLength="1" style="transition-delay:28ms"/>
+              <line class="map-link" data-city="Patna" x1="335.6" y1="312.2" x2="323.3" y2="209.1" pathLength="1" style="transition-delay:56ms"/>
+              <line class="map-link" data-city="Ranchi" x1="335.6" y1="312.2" x2="326.3" y2="253" pathLength="1" style="transition-delay:84ms"/>
+              <line class="map-link" data-city="Guwahati" x1="335.6" y1="312.2" x2="442.7" y2="198.4" pathLength="1" style="transition-delay:112ms"/>
+              <line class="map-link" data-city="Delhi NCR" x1="335.6" y1="312.2" x2="179.7" y2="150.2" pathLength="1" style="transition-delay:140ms"/>
+              <line class="map-link" data-city="Jaipur" x1="335.6" y1="312.2" x2="154" y2="183.4" pathLength="1" style="transition-delay:168ms"/>
+              <line class="map-link" data-city="Lucknow" x1="335.6" y1="312.2" x2="247.4" y2="184.5" pathLength="1" style="transition-delay:196ms"/>
+              <line class="map-link" data-city="Chandigarh" x1="335.6" y1="312.2" x2="171.9" y2="108.9" pathLength="1" style="transition-delay:224ms"/>
+              <line class="map-link" data-city="Ahmedabad" x1="335.6" y1="312.2" x2="95.7" y2="259.2" pathLength="1" style="transition-delay:252ms"/>
+              <line class="map-link" data-city="Indore" x1="335.6" y1="312.2" x2="155.3" y2="265" pathLength="1" style="transition-delay:280ms"/>
+              <line class="map-link" data-city="Nagpur" x1="335.6" y1="312.2" x2="213.7" y2="295.6" pathLength="1" style="transition-delay:308ms"/>
+              <line class="map-link" data-city="Mumbai" x1="335.6" y1="312.2" x2="101.3" y2="336" pathLength="1" style="transition-delay:336ms"/>
+              <line class="map-link" data-city="Pune" x1="335.6" y1="312.2" x2="119.1" y2="346.9" pathLength="1" style="transition-delay:364ms"/>
+              <line class="map-link" data-city="Hyderabad" x1="335.6" y1="312.2" x2="202.9" y2="368.9" pathLength="1" style="transition-delay:392ms"/>
+              <line class="map-link" data-city="Visakhapatnam" x1="335.6" y1="312.2" x2="288.5" y2="363.1" pathLength="1" style="transition-delay:420ms"/>
+              <line class="map-link" data-city="Bengaluru" x1="335.6" y1="312.2" x2="186.6" y2="455.1" pathLength="1" style="transition-delay:448ms"/>
+              <line class="map-link" data-city="Chennai" x1="335.6" y1="312.2" x2="235.1" y2="453" pathLength="1" style="transition-delay:476ms"/>
+              <line class="map-link" data-city="Kochi" x1="335.6" y1="312.2" x2="162.7" y2="514.4" pathLength="1" style="transition-delay:504ms"/>
+              </g>
+            </svg>
+            <div class="map-pins">
+          <button class="map-pin map-pin--hq" style="left:59.93%;top:55.16%;transition-delay:0ms" data-hq="1" data-city="Bhubaneswar" data-info="Our headquarters — flagship rooftop, society and commercial installs across Odisha." aria-label="Bhubaneswar — head office"><span class="pin-dot"></span><span class="pin-label">Bhubaneswar &middot; HQ</span></button>
+          <button class="map-pin" style="left:56.79%;top:48.41%;transition-delay:32ms" data-city="Rourkela" data-info="Industrial-belt rooftop and captive solar plants." aria-label="Rourkela"><span class="pin-dot"></span><span class="pin-label">Rourkela</span></button>
+          <button class="map-pin" style="left:68.13%;top:47.35%;transition-delay:64ms" data-city="Kolkata" data-info="East-India rooftop and housing-society solar." aria-label="Kolkata"><span class="pin-dot"></span><span class="pin-label">Kolkata</span></button>
+          <button class="map-pin" style="left:57.73%;top:36.94%;transition-delay:96ms" data-city="Patna" data-info="Residential solar with full PM Surya Ghar subsidy support." aria-label="Patna"><span class="pin-dot"></span><span class="pin-label">Patna</span></button>
+          <button class="map-pin" style="left:58.27%;top:44.7%;transition-delay:128ms" data-city="Ranchi" data-info="Homes and institutions going solar across Jharkhand." aria-label="Ranchi"><span class="pin-dot"></span><span class="pin-label">Ranchi</span></button>
+          <button class="map-pin" style="left:79.05%;top:35.05%;transition-delay:160ms" data-city="Guwahati" data-info="Rooftop solar built for the Northeast's climate." aria-label="Guwahati"><span class="pin-dot"></span><span class="pin-label">Guwahati</span></button>
+          <button class="map-pin" style="left:32.09%;top:26.54%;transition-delay:192ms" data-city="Delhi NCR" data-info="Commercial and industrial captive plants with net metering." aria-label="Delhi NCR"><span class="pin-dot"></span><span class="pin-label">Delhi NCR</span></button>
+          <button class="map-pin" style="left:27.5%;top:32.4%;transition-delay:224ms" data-city="Jaipur" data-info="High-yield residential solar in India's sunniest belt." aria-label="Jaipur"><span class="pin-dot"></span><span class="pin-label">Jaipur</span></button>
+          <button class="map-pin" style="left:44.18%;top:32.6%;transition-delay:256ms" data-city="Lucknow" data-info="Homes and businesses cutting bills across Uttar Pradesh." aria-label="Lucknow"><span class="pin-dot"></span><span class="pin-label">Lucknow</span></button>
+          <button class="map-pin" style="left:30.7%;top:19.24%;transition-delay:288ms" data-city="Chandigarh" data-info="Premium rooftop solar for homes and offices." aria-label="Chandigarh"><span class="pin-dot"></span><span class="pin-label">Chandigarh</span></button>
+          <button class="map-pin" style="left:17.09%;top:45.8%;transition-delay:320ms" data-city="Ahmedabad" data-info="Commercial rooftop and ground-mount installations." aria-label="Ahmedabad"><span class="pin-dot"></span><span class="pin-label">Ahmedabad</span></button>
+          <button class="map-pin" style="left:27.73%;top:46.82%;transition-delay:352ms" data-city="Indore" data-info="Residential and SME rooftop solar." aria-label="Indore"><span class="pin-dot"></span><span class="pin-label">Indore</span></button>
+          <button class="map-pin" style="left:38.16%;top:52.23%;transition-delay:384ms" data-city="Nagpur" data-info="Central-India rooftop and commercial systems." aria-label="Nagpur"><span class="pin-dot"></span><span class="pin-label">Nagpur</span></button>
+          <button class="map-pin" style="left:18.09%;top:59.36%;transition-delay:416ms" data-city="Mumbai" data-info="Residential and commercial rooftops across the metro." aria-label="Mumbai"><span class="pin-dot"></span><span class="pin-label">Mumbai</span></button>
+          <button class="map-pin" style="left:21.27%;top:61.29%;transition-delay:448ms" data-city="Pune" data-info="Homes and housing societies switching to near-zero bills." aria-label="Pune"><span class="pin-dot"></span><span class="pin-label">Pune</span></button>
+          <button class="map-pin" style="left:36.23%;top:65.18%;transition-delay:480ms" data-city="Hyderabad" data-info="Business and residential solar with 25-year support." aria-label="Hyderabad"><span class="pin-dot"></span><span class="pin-label">Hyderabad</span></button>
+          <button class="map-pin" style="left:51.52%;top:64.15%;transition-delay:512ms" data-city="Visakhapatnam" data-info="Coastal rooftop and industrial solar." aria-label="Visakhapatnam"><span class="pin-dot"></span><span class="pin-label">Visakhapatnam</span></button>
+          <button class="map-pin" style="left:33.32%;top:80.41%;transition-delay:544ms" data-city="Bengaluru" data-info="Rooftop solar for homes and tech-park campuses." aria-label="Bengaluru"><span class="pin-dot"></span><span class="pin-label">Bengaluru</span></button>
+          <button class="map-pin" style="left:41.98%;top:80.04%;transition-delay:576ms" data-city="Chennai" data-info="Coastal residential and commercial installations." aria-label="Chennai"><span class="pin-dot"></span><span class="pin-label">Chennai</span></button>
+          <button class="map-pin" style="left:29.05%;top:90.88%;transition-delay:608ms" data-city="Kochi" data-info="Rooftop solar tuned for Kerala's monsoon climate." aria-label="Kochi"><span class="pin-dot"></span><span class="pin-label">Kochi</span></button>
+            </div>
+          </div>
+          <div class="map-legend">
+            <span><i class="lg-dot lg-hq"></i> Head office</span>
+            <span><i class="lg-dot"></i> Service city</span>
+            <span class="map-legend-count">20+ cities shown &middot; 29 served</span>
+          </div>
+        </div>
+
+        <aside class="map-info glass-card" id="mapInfo" data-animate aria-live="polite">
+          <span class="map-info-tag" id="miTag">Nationwide</span>
+          <h3 id="miCity">Serving 29 Cities</h3>
+          <p id="miDesc">Tap any city pin to see what we deliver there. From our Bhubaneswar HQ, we install and service rooftop solar for homes, businesses and housing societies right across India.</p>
+          <div class="map-info-stats">
+            <div><strong>1,000+</strong><span>Installations</span></div>
+            <div><strong>29</strong><span>Cities served</span></div>
+            <div><strong>25 yr</strong><span>Warranty</span></div>
+          </div>
+          <a href="#contact" class="btn btn-neon btn-full">Check Availability in Your City</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOMEPAGE FAQ ===================== -->
+  <section class="home-faq" id="home-faq">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Questions?</span>
+        <h2>Solar, <span class="gradient-text">Answered</span></h2>
+        <p>The essentials before you switch. Explore the full list on our FAQ page.</p>
+      </div>
+      <div class="hfaq-list" data-animate>
+        <div class="hfaq-item">
+          <button class="hfaq-q" type="button" aria-expanded="false">What does a rooftop solar system cost in India?<span class="hfaq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="hfaq-a"><p>Residential systems run roughly &#8377;55,000&ndash;70,000 per kW before subsidy (a 3 kW system is about &#8377;1.7&ndash;2.1 lakh). Larger plants cost less per kW, and government subsidy brings the net price down further.</p></div>
+        </div>
+        <div class="hfaq-item">
+          <button class="hfaq-q" type="button" aria-expanded="false">How much can I actually save?<span class="hfaq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="hfaq-a"><p>A well-sized on-grid system with net metering can cut your electricity bill by up to 90%. Most homes save several lakhs over the 25-year life of the system.</p></div>
+        </div>
+        <div class="hfaq-item">
+          <button class="hfaq-q" type="button" aria-expanded="false">How much government subsidy can I get?<span class="hfaq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="hfaq-a"><p>Under PM Surya Ghar: up to &#8377;30,000 for 1 kW, &#8377;60,000 for 2 kW, &#8377;78,000 for 3 kW, and up to &#8377;1,38,000 for larger residential systems (with state top-ups). We handle the entire paperwork for you.</p></div>
+        </div>
+        <div class="hfaq-item">
+          <button class="hfaq-q" type="button" aria-expanded="false">What is the payback period?<span class="hfaq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="hfaq-a"><p>Typically 4&ndash;5 years for homes after subsidy, and 3.5&ndash;5 years for commercial plants. After that, the power is effectively free for the remaining 20+ years.</p></div>
+        </div>
+        <div class="hfaq-item">
+          <button class="hfaq-q" type="button" aria-expanded="false">How long does installation take?<span class="hfaq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="hfaq-a"><p>Most projects go from site survey to commissioning in 18&ndash;27 days. The physical installation itself usually takes just 1&ndash;3 days.</p></div>
+        </div>
+        <div class="hfaq-item">
+          <button class="hfaq-q" type="button" aria-expanded="false">Is financing or EMI available?<span class="hfaq-chev"><svg fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="hfaq-a"><p>Yes. We offer solar loans through partner institutions &mdash; often your monthly EMI is lower than your electricity savings, so you're cash-positive from day one.</p></div>
+        </div>
+      </div>
+      <div class="hfaq-cta" data-animate>
+        <a href="faq.html" class="btn btn-outline">View All FAQs <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUSTAINABILITY -->
+  <section class="sustainability" id="sustainability">
+    <div class="sustain-bg"></div>
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Our Planet</span>
+        <h2>The <span class="gradient-text">Green Impact</span> of Every Install</h2>
+        <p>Operational data from commissioned projects translated into climate impact at portfolio level.</p>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="leaf"></i></div><div class="impact-num" data-target="45000">0</div><span class="impact-unit">Tonnes</span><p>CO2 Prevented</p></div>
+        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="sun"></i></div><div class="impact-num" data-target="180">0</div><span class="impact-unit">GWh</span><p>Clean Energy Generated</p></div>
+        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="trees"></i></div><div class="impact-num" data-target="220000">0</div><span class="impact-unit">Trees</span><p>Equivalent Trees Planted</p></div>
+        <div class="impact-card glass-card" data-animate><div class="impact-icon"><i data-lucide="droplets"></i></div><div class="impact-num" data-target="3200">0</div><span class="impact-unit">Cr Litres</span><p>Water Saved vs Thermal</p></div>
+      </div>
+      <div class="mission-box glass-card" data-animate>
+        <div class="mission-icon">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path d="M2.5 2v6h6M21.5 22v-6h-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5A10 10 0 0 0 20.8 16.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <h3>Our Mission: Carbon Net Zero by 2040</h3>
+          <p>Clans Machina is committed to accelerating India's transition to clean energy. Every system we install is a step toward a world powered entirely by clean, renewable solar energy.</p>
+        </div>
+        <a href="#contact" class="btn btn-neon">Join the Mission</a>
+      </div>
+    </div>
+  </section>
+
   <div class="mobile-sticky-cta" id="mobileStickyCta" aria-label="Quick consultation actions">
     <a href="#contact" class="btn btn-neon">Get Free Consultation</a>
     <a href="tel:+919830003000" class="btn btn-ghost">Call Now</a>
@@ -901,10 +1222,207 @@
   </div>
 
 
+  <script src="js/calculator-data.js"></script>
   <script src="js/shared-footer.js" defer></script>
   <script src="js/script.js" defer></script>
   <!-- Lucide icon library -->
   <script src="js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
+
+  <!-- Bill-slider hook: instant savings estimate that deep-links into the calculator -->
+  <script>
+    (function () {
+      var slider = document.getElementById('bhSlider');
+      var input  = document.getElementById('bhInput');
+      if (!slider || !input) return;
+
+      // Same assumptions as the full calculator (js/calculator-data.js defaults)
+      var TARIFF = 8, GEN = 4, DAYS = 30, OFFSET = 0.90, ESCAL = 0.03, YEARS = 25;
+      var MIN = 500, MAX = 50000;
+
+      var elSystem = document.getElementById('bhSystem');
+      var elMonthly = document.getElementById('bhMonthly');
+      var elLife = document.getElementById('bhLifetime');
+      var cta = document.getElementById('bhCta');
+
+      function inr(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+
+      function paintFill() {
+        var pct = ((slider.value - MIN) / (MAX - MIN)) * 100;
+        slider.style.setProperty('--fill', pct + '%');
+      }
+
+      function render(bill) {
+        var units = bill / TARIFF;
+        var size = Math.max(1, (units / DAYS) / GEN);          // kW to cover usage
+        var monthlyGen = size * GEN * DAYS;
+        var offsetUnits = Math.min(units * OFFSET, monthlyGen);
+        var monthly = offsetUnits * TARIFF;
+        var annual = monthly * 12, life = 0, y = annual;
+        for (var i = 0; i < YEARS; i++) { life += y; y *= (1 + ESCAL); }
+
+        if (elSystem)  elSystem.textContent  = (Math.round(size * 10) / 10) + ' kW';
+        if (elMonthly) elMonthly.textContent = inr(monthly);
+        if (elLife)    elLife.textContent    = inr(life);
+        if (cta)       cta.href = 'calculator.html?bill=' + Math.round(bill);
+      }
+
+      function clampInt(v, fallback) {
+        v = parseInt(v, 10);
+        if (isNaN(v)) v = fallback;
+        return Math.max(MIN, Math.min(MAX, v));
+      }
+
+      slider.addEventListener('input', function () {
+        input.value = slider.value;
+        paintFill();
+        render(+slider.value);
+      });
+      input.addEventListener('input', function () {
+        var v = parseInt(input.value, 10);
+        if (isNaN(v)) return;                 // let the user finish typing
+        v = Math.max(MIN, Math.min(MAX, v));
+        slider.value = v;
+        paintFill();
+        render(v);
+      });
+      input.addEventListener('blur', function () {
+        var v = clampInt(input.value, MIN);
+        input.value = v;
+        slider.value = v;
+        paintFill();
+        render(v);
+      });
+
+      paintFill();
+      render(+slider.value);
+    })();
+  </script>
+
+  <!-- Footprint map: pin interaction, connection-line highlight, scroll reveal -->
+  <script>
+    (function () {
+      var footprint = document.getElementById('footprint');
+      if (!footprint) return;
+      var pins = footprint.querySelectorAll('.map-pin');
+      var links = footprint.querySelectorAll('.map-link');
+      var stage = footprint.querySelector('.map-stage-wrap');
+      var miTag = document.getElementById('miTag');
+      var miCity = document.getElementById('miCity');
+      var miDesc = document.getElementById('miDesc');
+      if (!pins.length || !miCity) return;
+
+      function activate(pin) {
+        var city = pin.getAttribute('data-city');
+        var hq = !!pin.getAttribute('data-hq');
+        pins.forEach(function (p) { p.classList.toggle('is-active', p === pin); });
+        links.forEach(function (l) { l.classList.toggle('is-active', l.getAttribute('data-city') === city); });
+        miTag.textContent = hq ? 'Head Office' : 'Service City';
+        miTag.classList.toggle('is-hq', hq);
+        miCity.textContent = city;
+        miDesc.textContent = pin.getAttribute('data-info');
+      }
+      pins.forEach(function (pin) {
+        pin.addEventListener('click', function () { activate(pin); });
+        pin.addEventListener('mouseenter', function () { activate(pin); });
+        pin.addEventListener('focus', function () { activate(pin); });
+      });
+
+      // Reveal (draw outline + lines, pop pins in) when scrolled into view
+      if (stage) {
+        if (!('IntersectionObserver' in window)) {
+          stage.classList.add('is-revealed');
+        } else {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { stage.classList.add('is-revealed'); io.disconnect(); }
+            });
+          }, { threshold: 0.2 });
+          io.observe(stage);
+        }
+      }
+    })();
+  </script>
+
+  <!-- Inline savings calculator (uses the same CALC_DATA constants as the full calculator) -->
+  <script>
+    (function () {
+      var slider = document.getElementById('hcBill');
+      var region = document.getElementById('hcRegion');
+      if (!slider || !region) return;
+      var CD = window.CALC_DATA || {};
+      var GEN = CD.perKwDailyGen || 4.2, DAYS = CD.daysPerMonth || 30;
+      var TARIFF_DEF = CD.tariffPerUnit || 8, ESCAL = (CD.tariffEscalation != null ? CD.tariffEscalation : 0.03);
+      var LIFE = CD.systemLifeYears || 25, CO2 = CD.co2FactorKgPerKwh || 0.82;
+      var OFFSET = CD.billOffsetRate || 0.90, GEN_TIERS = CD.genTiers || null;
+      var COST_TIERS = CD.costPerKwTiers || [{ uptoKw: 5, ratePerKw: 67000 }, { uptoKw: 10, ratePerKw: 55000 }, { uptoKw: Infinity, ratePerKw: 55000 }];
+
+      function genPerKw(kw) {
+        var t = GEN_TIERS; if (!t || !t.length) return GEN;
+        if (kw <= t[0].kw) return t[0].perKwDaily;
+        if (kw >= t[t.length - 1].kw) return t[t.length - 1].perKwDaily;
+        for (var i = 0; i < t.length - 1; i++) {
+          if (kw >= t[i].kw && kw <= t[i + 1].kw) {
+            var f = (kw - t[i].kw) / (t[i + 1].kw - t[i].kw);
+            return t[i].perKwDaily + f * (t[i + 1].perKwDaily - t[i].perKwDaily);
+          }
+        }
+        return GEN;
+      }
+      function costPerKw(kw) { for (var i = 0; i < COST_TIERS.length; i++) { if (kw <= COST_TIERS[i].uptoKw) return COST_TIERS[i].ratePerKw; } return 55000; }
+      function slab(k, a, b, cap) { return Math.min(Math.min(k, 2) * a + (k > 2 ? Math.min(k - 2, 1) * b : 0), cap); }
+      function subsidy(kw) {
+        var s = CD.subsidy;
+        if (!s || !s.enabled) return slab(kw, 30000, 18000, 78000);
+        var c = slab(kw, s.perKwFirst2Kw, s.perKw3rdKw, s.cap);
+        var st = s.state ? slab(kw, s.state.perKwFirst2Kw, s.state.perKw3rdKw, s.state.cap) : (s.stateSubsidy || 0);
+        return c + st;
+      }
+      function inr(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+      function setText(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+
+      function calc() {
+        var bill = +slider.value;
+        var tariff = parseFloat(region.selectedOptions[0].getAttribute('data-tariff')) || TARIFF_DEF;
+        var monthlyUnits = bill / tariff;
+        var size = Math.max(1, (monthlyUnits / DAYS) / GEN);
+        size = Math.round(size * 10) / 10;
+        var monthlyGen = size * genPerKw(size) * DAYS;
+        var offsetUnits = Math.min(monthlyUnits * OFFSET, monthlyGen);
+        var monthlySave = offsetUnits * tariff;
+        var annual = monthlySave * 12;
+        var s25 = 0, y = annual; for (var i = 0; i < LIFE; i++) { s25 += y; y *= (1 + ESCAL); }
+        var co2 = monthlyGen * 12 * CO2 / 1000;
+        var net = Math.max(size * costPerKw(size) - subsidy(size), 0);
+        var payback = annual > 0 ? net / annual : 0;
+
+        setText('hcBillVal', (+slider.value).toLocaleString('en-IN'));
+        setText('hcSave25', inr(s25));
+        setText('hcSystem', size + ' kW');
+        setText('hcMonthly', inr(monthlySave));
+        setText('hcPayback', '~' + payback.toFixed(1) + ' yrs');
+        setText('hcCo2', co2.toFixed(1) + ' T');
+      }
+      slider.addEventListener('input', calc);
+      region.addEventListener('change', calc);
+      calc();
+    })();
+  </script>
+
+  <!-- Homepage FAQ accordion -->
+  <script>
+    (function () {
+      var items = document.querySelectorAll('#home-faq .hfaq-item');
+      if (!items.length) return;
+      items.forEach(function (item) {
+        var q = item.querySelector('.hfaq-q');
+        q.addEventListener('click', function () {
+          var open = item.classList.contains('open');
+          items.forEach(function (it) { it.classList.remove('open'); it.querySelector('.hfaq-q').setAttribute('aria-expanded', 'false'); });
+          if (!open) { item.classList.add('open'); q.setAttribute('aria-expanded', 'true'); }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

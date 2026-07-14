@@ -272,6 +272,8 @@
               <a href="home.html" class="nav-service-link-min">Home Solar</a>
               <a href="commercial.html" class="nav-service-link-min">Commercial Solar</a>
               <a href="housing-society.html" class="nav-service-link-min">Housing Society</a>
+              <a href="../index.html#services" class="nav-service-link-min">EV Charging</a>
+              <a href="../index.html#services" class="nav-service-link-min">Solar AMC</a>
             </li>
           </ul>
         </li>
@@ -667,6 +669,31 @@
 
       counters.forEach(function (el) { observer.observe(el); });
     })();
+  </script>
+  <!-- Service + Breadcrumb structured data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Commercial & Industrial Solar",
+        "serviceType": "Commercial solar installation",
+        "url": "https://www.clansmachina.in/our-offering/commercial.html",
+        "description": "High-yield rooftop and ground-mount solar for businesses — cut operating costs with accelerated depreciation benefits and 25-year support.",
+        "provider": { "@id": "https://www.clansmachina.in/#organization" },
+        "areaServed": { "@type": "Country", "name": "India" },
+        "audience": { "@type": "Audience", "audienceType": "Businesses" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clansmachina.in/" },
+          { "@type": "ListItem", "position": 2, "name": "Commercial Solar", "item": "https://www.clansmachina.in/our-offering/commercial.html" }
+        ]
+      }
+    ]
+  }
   </script>
 </body>
 </html>

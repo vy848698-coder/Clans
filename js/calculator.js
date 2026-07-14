@@ -289,6 +289,15 @@
     applyType(initialType && TYPE_LABEL[initialType] ? initialType : 'residential');
   }
 
+  // Deep-link via ?bill= (from the homepage bill slider) pre-fills the bill field
+  try {
+    var initialBill = new URLSearchParams(window.location.search).get('bill');
+    if (initialBill && $('estBill')) {
+      var b = parseInt(initialBill, 10);
+      if (!isNaN(b) && b > 0) $('estBill').value = b;
+    }
+  } catch (e) {}
+
   var roof = $('estRoof');
   var roofUnit = $('estRoofUnit');
   function paintRange(el) {

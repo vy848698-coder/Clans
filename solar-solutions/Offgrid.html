@@ -260,6 +260,8 @@
               <a href="../our-offering/home.html" class="nav-service-link-min">Home Solar</a>
               <a href="../our-offering/commercial.html" class="nav-service-link-min">Commercial Solar</a>
               <a href="../our-offering/housing-society.html" class="nav-service-link-min">Housing Society</a>
+              <a href="../index.html#services" class="nav-service-link-min">EV Charging</a>
+              <a href="../index.html#services" class="nav-service-link-min">Solar AMC</a>
             </li>
           </ul>
         </li>
@@ -767,6 +769,30 @@
           .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = original; });
       });
     })();
+  </script>
+  <!-- Service + Breadcrumb structured data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Off-Grid Solar Systems",
+        "serviceType": "Off-grid solar installation",
+        "url": "https://www.clansmachina.in/solar-solutions/Offgrid.html",
+        "description": "Battery-backed solar for full energy independence in areas with unreliable or no grid supply, sized for Indian homes and businesses.",
+        "provider": { "@id": "https://www.clansmachina.in/#organization" },
+        "areaServed": { "@type": "Country", "name": "India" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clansmachina.in/" },
+          { "@type": "ListItem", "position": 2, "name": "Off-Grid Systems", "item": "https://www.clansmachina.in/solar-solutions/Offgrid.html" }
+        ]
+      }
+    ]
+  }
   </script>
 </body>
 </html>

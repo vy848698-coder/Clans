@@ -82,23 +82,21 @@
   /* ---- NAV ACTIVE LINK ---- */
   function setActiveNavLink() {
     const currentFile = getCurrentFile();
-    let dropdownHasActive = false;
     document.querySelectorAll('.nav-links a').forEach(link => {
       const href = (link.getAttribute('href') || '').trim();
-      if (!href || href.startsWith('#')) return;
-      const targetFile = href.split('#')[0].toLowerCase();
+      // Skip empty links and in-page section anchors (e.g. "#hero" or "index.html#services")
+      if (!href || href.startsWith('#') || href.includes('#')) return;
+      const targetFile = href.toLowerCase();
       if (targetFile === currentFile) {
         link.classList.add('active');
+        // Only highlight the dropdown that actually contains the active link
         const dropdown = link.closest('.nav-dropdown');
-        if (dropdown) dropdownHasActive = true;
+        if (dropdown) {
+          const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+          if (toggle) toggle.classList.add('active');
+        }
       }
     });
-    if (dropdownHasActive) {
-      document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
-        const toggle = dropdown.querySelector('.nav-dropdown-toggle');
-        if (toggle) toggle.classList.add('active');
-      });
-    }
   }
   setActiveNavLink();
   setServiceQuickLinks();

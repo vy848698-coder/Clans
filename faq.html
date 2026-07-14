@@ -321,6 +321,8 @@
               <a href="our-offering/home.html" class="nav-service-link-min">Home Solar</a>
               <a href="our-offering/commercial.html" class="nav-service-link-min">Commercial Solar</a>
               <a href="our-offering/housing-society.html" class="nav-service-link-min">Housing Society</a>
+              <a href="index.html#services" class="nav-service-link-min">EV Charging</a>
+              <a href="index.html#services" class="nav-service-link-min">Solar AMC</a>
             </li>
           </ul>
         </li>
@@ -742,6 +744,37 @@
       }
 
     });
+  </script>
+
+  <!-- FAQPage structured data (JSON-LD) — built from the Q&A on this page so it always matches -->
+  <script>
+    (function () {
+      var items = document.querySelectorAll('.fq-item');
+      if (!items.length) return;
+      var faqs = [];
+      items.forEach(function (item) {
+        var qEl = item.querySelector('.fq-q');
+        var aEl = item.querySelector('.fq-a');
+        if (!qEl || !aEl) return;
+        // Question text = button label without the chevron icon
+        var chev = qEl.querySelector('.fq-chev');
+        var question = (chev ? qEl.textContent.replace(chev.textContent, '') : qEl.textContent).trim();
+        var answer = (aEl.textContent || '').trim().replace(/\s+/g, ' ');
+        if (!question || !answer) return;
+        faqs.push({
+          '@type': 'Question',
+          'name': question,
+          'acceptedAnswer': { '@type': 'Answer', 'text': answer }
+        });
+      });
+      if (!faqs.length) return;
+      var data = { '@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': faqs };
+      var s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id = 'cm-faq-schema';
+      s.textContent = JSON.stringify(data);
+      document.head.appendChild(s);
+    })();
   </script>
 </body>
 </html>
