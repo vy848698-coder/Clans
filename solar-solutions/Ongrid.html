@@ -102,6 +102,11 @@
     .og-prose ul li::after { content: ''; position: absolute; left: 6px; top: 9px; width: 6px; height: 6px;
       border-radius: 50%; background: var(--green); }
     .og-lead { font-size: 1.12rem !important; color: var(--text-primary) !important; font-weight: 500; }
+    .og-prose .og-hl, .section-header .og-hl { font-weight: 600; white-space: nowrap;
+      background: linear-gradient(120deg, var(--green), var(--blue));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .og-def { max-width: 720px; margin: 0 auto 34px !important; text-align: center;
+      font-size: 1.08rem !important; line-height: 1.9 !important; text-wrap: pretty; }
 
     /* ---------- Catchy intro block ---------- */
     .og-intro { max-width: 960px; margin: 0 auto; }
@@ -143,7 +148,10 @@
       box-shadow: 0 12px 26px rgba(34,197,94,0.30); }
     .og-comp-icon svg { width: 28px; height: 28px; }
     .og-comp h3 { font-size: 1.06rem; margin: 0 0 8px; }
-    .og-comp p { color: var(--text-secondary); font-size: 0.92rem; margin: 0; line-height: 1.6; }
+    .og-comp p { color: var(--text-secondary); font-size: 0.92rem; margin: 0; line-height: 1.65; }
+    .og-comp-num { position: absolute; top: 22px; right: 24px; font-size: 2.6rem; font-weight: 800;
+      line-height: 1; letter-spacing: -0.04em; color: rgba(34,197,94,0.13); }
+    .og-comp-wide { grid-column: 1 / -1; width: calc(50% - 11px); margin: 0 auto; }
 
     /* ---------- Inverter feature highlights ---------- */
     .og-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 860px; margin: 26px auto 0; }
@@ -229,13 +237,59 @@
     .faq-list .faq-item.open .faq-a { max-height: 420px; }
     .faq-list .faq-a p { margin: 0; padding: 0 22px 22px; font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); }
 
+    /* ---------- Step-by-step flow cards ---------- */
+    .og-flow { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 960px; margin: 0 auto; }
+    .og-flow-card { position: relative; overflow: hidden; padding: 28px 26px 24px; border-radius: 18px;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .og-flow-card:hover { transform: translateY(-5px); box-shadow: 0 22px 46px rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.35); }
+    .og-flow-card .ogf-step { position: absolute; top: 20px; right: 22px; font-size: 2.4rem; font-weight: 800;
+      line-height: 1; color: rgba(34,197,94,0.14); letter-spacing: -0.03em; }
+    .og-flow-card .ogf-ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
+      color: #fff; background: linear-gradient(135deg, var(--green), var(--blue)); margin-bottom: 16px;
+      box-shadow: 0 12px 24px rgba(34,197,94,0.30); }
+    .og-flow-card .ogf-ic svg { width: 27px; height: 27px; }
+    .og-flow-card h3 { margin: 0 0 9px; font-size: 1.06rem; color: var(--text-primary); }
+    .og-flow-card p { margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
+    .og-flow-card strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ---------- Core advantages ---------- */
+    .og-adv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1080px; margin: 0 auto; }
+    .og-adv-card { position: relative; overflow: hidden; padding: 32px 26px 28px; border-radius: 20px;
+      transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease, border-color .35s ease; }
+    .og-adv-card::after { content: ''; position: absolute; top: -60%; left: -70%; width: 40%; height: 220%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transform: rotate(18deg); opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+    .og-adv-card:hover { transform: translateY(-8px); box-shadow: 0 26px 54px rgba(34,197,94,0.18); border-color: rgba(34,197,94,0.40); }
+    .og-adv-card:hover::after { opacity: 1; animation: ogSheen .85s ease forwards; }
+    @keyframes ogSheen { to { left: 130%; } }
+    .og-adv-card .oga-ic { position: relative; width: 58px; height: 58px; border-radius: 16px; display: grid;
+      place-items: center; color: #fff; margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      box-shadow: 0 12px 26px rgba(34,197,94,0.32); transition: transform .35s cubic-bezier(.2,.7,.3,1); }
+    .og-adv-card:hover .oga-ic { transform: translateY(-3px) scale(1.07) rotate(-4deg); }
+    .og-adv-card .oga-ic::before { content: ''; position: absolute; inset: -6px; border-radius: 20px;
+      border: 1.5px solid rgba(34,197,94,0.35); opacity: 0; transition: opacity .35s ease; }
+    .og-adv-card:hover .oga-ic::before { opacity: 1; animation: ogPulse 1.6s ease-out infinite; }
+    @keyframes ogPulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.28); opacity: 0; } }
+    .og-adv-card h3 { margin: 0 0 10px; font-size: 1.08rem; color: var(--text-primary); }
+    .og-adv-card p { margin: 0; color: var(--text-secondary); font-size: 0.94rem; line-height: 1.7; }
+    .og-adv-card strong { color: var(--text-primary); font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .og-adv-card, .og-adv-card .oga-ic { transition: none; }
+      .og-adv-card:hover::after, .og-adv-card:hover .oga-ic::before { animation: none; }
+    }
+
     @media (max-width: 1024px) {
+      .og-adv { grid-template-columns: 1fr; }
       .hs-hero-grid { grid-template-columns: 1fr; }
       .og-components, .og-feats, .og-sizing, .og-pc { grid-template-columns: 1fr; }
+      .og-comp-wide { width: 100%; }
     }
     @media (max-width: 640px) {
       .hs-form .form-row { grid-template-columns: 1fr; }
       .og-stepr { grid-template-columns: 1fr; gap: 12px; }
+      .og-flow { grid-template-columns: 1fr; }
       .og-table th, .og-table td, .og-vs th, .og-vs td { padding: 12px 14px; font-size: 0.85rem; }
     }
   </style>
@@ -331,7 +385,7 @@
   <section class="cm-section">
     <div class="container og-intro">
       <div class="og-intro-lead" data-animate>
-        <p>An on-grid solar system &mdash; a <span class="og-hl">grid-tied setup</span> &mdash; works hand in hand with the utility grid: it powers your home by day, <span class="og-hl">exports the surplus</span> for credits and quietly pulls from the grid when you need more.</p>
+        <p>An <span class="og-hl">On-Grid (or Grid-Tied) Solar System</span> is the most popular, cost-effective, and widely used solar setup for residential homes and commercial buildings.</p>
       </div>
       <div class="og-intro-grid">
         <div class="og-intro-card glass-card" data-animate>
@@ -350,24 +404,38 @@
     </div>
   </section>
 
-  <!-- ===================== WHAT IS ON-GRID ===================== -->
-  <section class="cm-section cm-section-alt">
+  <!-- ===================== STEP-BY-STEP FLOW ===================== -->
+  <section class="cm-section">
     <div class="container">
       <div class="section-header" data-animate>
-        <span class="section-tag">The Basics</span>
-        <h2>What Is an <span class="gradient-text">On-Grid Solar System?</span></h2>
-        <p>A grid-connected set-up that generates electricity from sunlight and runs in sync with the utility grid &mdash; using the grid as a virtual battery for the surplus it produces.</p>
+        <span class="section-tag">Step-by-Step</span>
+        <h2>How It <span class="gradient-text">Works</span></h2>
       </div>
-      <div class="og-prose" data-animate>
-        <p>When your panels produce more than your home is using, the extra power flows back into the grid and you earn credits for it. When they produce less &mdash; at night or on cloudy days &mdash; you simply draw what you need from the grid. There are no batteries to buy, maintain or replace, which keeps the system affordable. Every grid-tied system is built from the same core building blocks:</p>
-        <ul>
-          <li><strong>Solar panels (modules)</strong> &mdash; capture sunlight and convert it to DC electricity</li>
-          <li><strong>Grid-tie solar inverter</strong> &mdash; converts DC to grid-synchronised AC</li>
-          <li><strong>Mounting structure</strong> &mdash; holds the panels at the right tilt and orientation</li>
-          <li><strong>Bi-directional (net) meter</strong> &mdash; measures both imported and exported units</li>
-          <li><strong>Balance of system</strong> &mdash; AC/DC cables, combiner boxes and protection</li>
-          <li><strong>Solar accessories</strong> &mdash; earthing, conduits and a lightning arrester</li>
-        </ul>
+      <div class="og-flow">
+        <div class="og-flow-card glass-card" data-animate>
+          <span class="ogf-step">1</span>
+          <div class="ogf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
+          <h3>Solar Energy Generation</h3>
+          <p>High-efficiency rooftop solar panels absorb daylight photons and instantly convert them into <strong>Direct Current (DC)</strong> electricity.</p>
+        </div>
+        <div class="og-flow-card glass-card" data-animate>
+          <span class="ogf-step">2</span>
+          <div class="ogf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg></div>
+          <h3>Power Inversion</h3>
+          <p>The standard DC electricity travels into a smart <strong>On-Grid Inverter</strong>, which smoothly converts it into <strong>Alternating Current (AC)</strong> electricity to safely power your appliances.</p>
+        </div>
+        <div class="og-flow-card glass-card" data-animate>
+          <span class="ogf-step">3</span>
+          <div class="ogf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></div>
+          <h3>Immediate Home Consumption</h3>
+          <p>Your home automatically utilizes this solar-generated AC power first. If your house needs more power than the panels are generating, the system silently pulls the balance from the regular grid.</p>
+        </div>
+        <div class="og-flow-card glass-card" data-animate>
+          <span class="ogf-step">4</span>
+          <div class="ogf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 6.7 3"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-6.7-3"/><path d="M3 21v-5h5"/></svg></div>
+          <h3>Net-Metering &amp; Credit Banking</h3>
+          <p>When your solar panels generate more power than your home is using, the excess electricity flows back through a special <strong>Bidirectional Net-Meter</strong> to the utility grid. Your DISCOM tracks this surplus and deducts it from your monthly power statement.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -376,40 +444,40 @@
   <section class="cm-section">
     <div class="container">
       <div class="section-header" data-animate>
-        <span class="section-tag">Under the Hood</span>
-        <h2>The Components of an <span class="gradient-text">On-Grid Solar System</span></h2>
-        <p>Let&rsquo;s break the system down component by component so you understand the role each one plays.</p>
+        <span class="section-tag">System Components</span>
+        <h2><span class="gradient-text">What We Install</span></h2>
+        <p class="og-def">Unlike off-grid systems, it operates in sync with your local electricity distribution company (<span class="og-hl">DISCOM grid</span>). It does not require expensive battery banks. Instead, it uses a mechanism called <span class="og-hl">Net-Metering</span> to send any excess power your panels generate back to the main electricity grid, earning you credits that actively reduce your monthly utility bill.</p>
       </div>
       <div class="og-components">
         <div class="og-comp glass-card" data-animate>
+          <span class="og-comp-num">01</span>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="1"/><path d="M2 9h20M2 14h20M8 4v14M16 4v14"/></svg></div>
-          <h3>1. Solar Panels</h3>
-          <p>Made of solar cells &mdash; <strong>monocrystalline</strong>, <strong>polycrystalline</strong> or <strong>bifacial</strong> (cells on front and rear). They convert sunlight into DC power; the key during installation is making sure no shadows fall on them.</p>
+          <h3>Tier-1 Solar Modules</h3>
+          <p>Ultra-efficient <strong>Mono-PERC</strong> or <strong>Bifacial TOPCon</strong> solar panels built to maximize daytime unit generation.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
+          <span class="og-comp-num">02</span>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h4M7 13h6"/><path d="m16 9 2 4-2 2"/></svg></div>
-          <h3>2. Grid-Tie Solar Inverter</h3>
-          <p>The brain of the system. It converts panel DC into clean AC that is <strong>perfectly synchronised</strong> with the grid&rsquo;s voltage and frequency, and shuts down safely during a grid outage (anti-islanding) to protect line workers.</p>
+          <h3>On-Grid String Inverter</h3>
+          <p>A highly reliable, <strong>transformerless</strong> inverter equipped with digital synchronization and real-time generation tracking.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
+          <span class="og-comp-num">03</span>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/></svg></div>
-          <h3>3. Bi-directional Meter</h3>
-          <p>A net meter records electricity flowing both ways &mdash; the units you export to the grid and the units you import. Your bill is calculated on the <strong>net</strong> of the two, the heart of net metering.</p>
+          <h3>Bidirectional Net-Meter</h3>
+          <p>The smart tracking meter installed in coordination with your local <strong>DISCOM</strong> to monitor incoming and outgoing electricity.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
+          <span class="og-comp-num">04</span>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="m5 21 3-9h8l3 9"/><path d="M8 12 12 4l4 8"/></svg></div>
-          <h3>4. Mounting Structure</h3>
-          <p>Holds everything in place. A good structure keeps panels at the right tilt &mdash; near-perpendicular to the sun for as long as possible &mdash; and is engineered to survive local wind and weather conditions.</p>
+          <h3>Storm-Proof Mounting Structures</h3>
+          <p>Heavy-duty, <strong>hot-dip galvanized</strong> structures engineered to withstand <strong>170 kmph</strong> high-velocity winds.</p>
         </div>
-        <div class="og-comp glass-card" data-animate>
-          <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
-          <h3>5. Solar Cables &amp; Balance of System</h3>
-          <p>Specialised DC &amp; AC cables, combiner boxes and MC4 connectors carry power safely and with minimal loss from the panels through the inverter and out to your distribution board.</p>
-        </div>
-        <div class="og-comp glass-card" data-animate>
+        <div class="og-comp glass-card og-comp-wide" data-animate>
+          <span class="og-comp-num">05</span>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <h3>6. Solar Accessories</h3>
-          <p>The safety essentials that protect the system and your home: earthing strips, conduit trays, surge protection devices and a lightning arrester.</p>
+          <h3>AC/DC Distribution Boxes</h3>
+          <p>Fully integrated safety switchgear featuring built-in <strong>surge protection devices (SPDs)</strong> and fuses.</p>
         </div>
       </div>
 
@@ -442,38 +510,28 @@
     </div>
   </section>
 
-  <!-- ===================== HOW IT WORKS ===================== -->
+  <!-- ===================== CORE ADVANTAGES ===================== -->
   <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
-        <span class="section-tag">How It Works</span>
-        <h2>How Does an <span class="gradient-text">On-Grid Solar System Work?</span></h2>
-        <p>From a photon hitting a panel to credits on your electricity bill &mdash; here is the full journey.</p>
+        <span class="section-tag">Why On-Grid</span>
+        <h2>Core Advantages of <span class="gradient-text">Going On-Grid</span></h2>
       </div>
-      <div class="og-steps">
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">1</div>
-          <div><h3>Solar Energy Capture &amp; DC Generation</h3><p>Photovoltaic cells in the panels absorb sunlight and convert it directly into direct current (DC) electricity throughout the day.</p></div>
+      <div class="og-adv">
+        <div class="og-adv-card glass-card" data-animate>
+          <div class="oga-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5c0-2-2.2-3.5-5-3.5s-5 1.3-5 3.2c0 4.6 10 2.3 10 6.9 0 2-2.2 3.4-5 3.4s-5-1.4-5-3.4"/></svg></div>
+          <h3>Lowest Initial Investment</h3>
+          <p>By cutting out expensive battery arrays, you save <strong>thousands</strong> on upfront system capital costs.</p>
         </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">2</div>
-          <div><h3>DC-to-AC Conversion via the Inverter</h3><p>The grid-tie inverter converts that DC into clean 230V AC, perfectly synchronised with the grid&rsquo;s voltage and frequency.</p></div>
+        <div class="og-adv-card glass-card" data-animate style="transition-delay:.1s;">
+          <div class="oga-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7"/><path d="M15 7h6v6"/></svg></div>
+          <h3>Maximum Financial Return</h3>
+          <p>Earn actual <strong>power credits</strong> during sunny summer months when your generation heavily outpaces home consumption.</p>
         </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">3</div>
-          <div><h3>Household Consumption First</h3><p>The solar AC powers your appliances, lights and devices instantly &mdash; your home always uses its own free solar power before anything else.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">4</div>
-          <div><h3>Exporting the Surplus to the Grid</h3><p>When you generate more than you use, the bi-directional meter sends the extra units to the grid and records them as export credits.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">5</div>
-          <div><h3>Importing Grid Power When Needed</h3><p>At night or under heavy load, your home seamlessly draws from the grid &mdash; offset by the credits you banked earlier in the day.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">6</div>
-          <div><h3>Net Billing at Month End</h3><p>The discom bills you only on the net difference between units imported and exported &mdash; which is how your bill drops to near zero.</p></div>
+        <div class="og-adv-card glass-card" data-animate style="transition-delay:.2s;">
+          <div class="oga-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="m4.5 4.5 15 15"/></svg></div>
+          <h3>Zero Long-Term Component Friction</h3>
+          <p>Since there are no batteries to degrade, you have <strong>zero battery replacement costs</strong> over the 25-year lifetime.</p>
         </div>
       </div>
     </div>
@@ -724,20 +782,6 @@
   <script src="../js/subpage.js" defer></script>
   <script src="../js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
-
-  <!-- FAQ accordion -->
-  <script>
-    (function () {
-      document.querySelectorAll('.faq-list .faq-q').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var item = btn.closest('.faq-item');
-          var isOpen = item.classList.contains('open');
-          document.querySelectorAll('.faq-list .faq-item.open').forEach(function (o) { o.classList.remove('open'); o.querySelector('.faq-q span').textContent = '+'; });
-          if (!isOpen) { item.classList.add('open'); btn.querySelector('span').textContent = '–'; }
-        });
-      });
-    })();
-  </script>
 
   <!-- Consultation form handler (Clans Machina contact form) -->
   <script>
