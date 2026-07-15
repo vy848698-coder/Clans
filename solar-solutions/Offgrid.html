@@ -96,6 +96,24 @@
       background: rgba(34,197,94,0.14); color: var(--green); font-weight: 600; }
 
     /* ---------- Long-form prose content ---------- */
+    /* Definition lead card — opens the "What is off-grid" section */
+    .og-lead { position: relative; max-width: 860px; margin: 0 auto 36px;
+      padding: 32px 36px 30px 40px; background: var(--inset-tile);
+      border: 1px solid var(--border); border-left: 3px solid var(--green);
+      border-radius: var(--radius); }
+    .og-lead::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius);
+      background: linear-gradient(120deg, var(--green-dim) 0%, transparent 55%);
+      pointer-events: none; }
+    .og-lead > * { position: relative; }
+    .og-lead .og-lead-key { font-family: var(--font-display); color: var(--text-primary);
+      font-size: 1.2rem; font-weight: 600; line-height: 1.5; margin: 0 0 14px;
+      letter-spacing: -0.01em; }
+    .og-lead p { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.8; margin: 0; }
+    @media (max-width: 640px) {
+      .og-lead { padding: 24px 22px 22px 24px; }
+      .og-lead .og-lead-key { font-size: 1.08rem; }
+    }
+
     .og-prose { max-width: 860px; margin: 0 auto; }
     .og-prose p { color: var(--text-secondary); font-size: 1rem; line-height: 1.78; margin: 0 0 18px; }
     .og-prose h3 { font-size: 1.25rem; margin: 30px 0 12px; color: var(--text-primary); }
@@ -112,33 +130,19 @@
 
     /* ---------- Catchy intro block ---------- */
     .og-intro { max-width: 960px; margin: 0 auto; }
-    .og-intro-lead { position: relative; padding: 6px 0 6px 28px; margin: 0 0 30px; }
+    .og-intro-lead { position: relative; padding: 6px 0 6px 28px; margin: 0; }
     .og-intro-lead::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 5px;
       border-radius: 6px; background: linear-gradient(180deg, var(--green), var(--blue)); }
     .og-intro-lead p { margin: 0; font-size: clamp(1.2rem, 2.2vw, 1.55rem); line-height: 1.45; font-weight: 700;
       color: var(--text-primary); }
     .og-intro-lead .og-hl { background: linear-gradient(120deg, var(--green), var(--blue));
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .og-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .og-intro-card { position: relative; overflow: hidden; padding: 26px 26px 24px; border-radius: 18px;
-      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
-    .og-intro-card:hover { transform: translateY(-5px); box-shadow: 0 22px 46px rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.35); }
-    .og-intro-card .og-ic { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center;
-      color: #fff; background: linear-gradient(135deg, var(--green), var(--blue)); margin-bottom: 16px;
-      box-shadow: 0 12px 24px rgba(34,197,94,0.30); }
-    .og-intro-card .og-ic svg { width: 26px; height: 26px; }
-    .og-intro-card h4 { margin: 0 0 8px; font-size: 1.05rem; color: var(--text-primary); }
-    .og-intro-card p { margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65; }
-    .og-intro-card .og-big { font-weight: 800; font-size: 1.05rem;
-      background: linear-gradient(120deg, var(--green), var(--blue));
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .og-intro-card .og-tag { position: absolute; top: 18px; right: 20px; font-size: 0.7rem; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--green);
-      background: rgba(34,197,94,0.12); padding: 5px 11px; border-radius: 999px; }
-    @media (max-width: 720px) { .og-intro-grid { grid-template-columns: 1fr; } }
 
     /* ---------- Component cards ---------- */
     .og-components { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    /* odd card left over on the last row — centre it across both columns */
+    .og-comp:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center;
+      width: 100%; max-width: calc(50% - 11px); }
     .og-comp { padding: 28px 26px; border-radius: 20px; position: relative; overflow: hidden;
       transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
     .og-comp::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px;
@@ -159,15 +163,33 @@
     .og-feat strong { display: block; font-size: 0.98rem; margin-bottom: 3px; }
     .og-feat span { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.55; }
 
-    /* ---------- Steps (how it works) ---------- */
-    .og-steps { display: grid; gap: 18px; max-width: 880px; margin: 0 auto; }
-    .og-stepr { display: grid; grid-template-columns: 64px 1fr; gap: 20px; align-items: flex-start;
-      padding: 24px 26px; border-radius: 18px; }
-    .og-stepr .og-num { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
-      font-size: 1.5rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--green), var(--blue));
-      box-shadow: 0 12px 26px rgba(34,197,94,0.3); }
-    .og-stepr h3 { margin: 4px 0 6px; font-size: 1.1rem; }
-    .og-stepr p { margin: 0; color: var(--text-secondary); font-size: 0.94rem; line-height: 1.65; }
+    /* ---------- Steps (how it works) — horizontal flow ---------- */
+    .og-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+      max-width: 1140px; margin: 0 auto; }
+    .og-stepr { position: relative; display: flex; flex-direction: column;
+      padding: 26px 22px 24px; border-radius: 18px; overflow: visible;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .og-stepr:hover { transform: translateY(-5px);
+      box-shadow: 0 22px 46px rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.35); }
+    /* icon + number row */
+    .og-stepr .og-step-top { display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 18px; }
+    .og-stepr .og-step-ic { width: 52px; height: 52px; border-radius: 15px; display: grid;
+      place-items: center; color: #fff; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      box-shadow: 0 12px 26px rgba(34,197,94,0.30); }
+    .og-stepr .og-step-ic svg { width: 26px; height: 26px; }
+    .og-stepr .og-num { width: 30px; height: 30px; border-radius: 50%; display: grid;
+      place-items: center; font-size: 0.85rem; font-weight: 800; flex-shrink: 0;
+      color: var(--green); background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.32); }
+    .og-stepr h3 { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.35; }
+    .og-stepr p { margin: 0; color: var(--text-secondary); font-size: 0.89rem; line-height: 1.65; }
+    /* flow connector between cards */
+    .og-stepr::after { content: ''; position: absolute; top: 51px; right: -14px; width: 8px; height: 8px;
+      border-top: 2px solid rgba(34,197,94,0.5); border-right: 2px solid rgba(34,197,94,0.5);
+      transform: rotate(45deg); }
+    .og-stepr:last-child::after { display: none; }
 
     /* ---------- Price table ---------- */
     .og-table-wrap { max-width: 860px; margin: 0 auto; border-radius: 20px; overflow: hidden;
@@ -239,10 +261,15 @@
     @media (max-width: 1024px) {
       .hs-hero-grid { grid-template-columns: 1fr; }
       .og-components, .og-feats, .og-sizing, .og-pc { grid-template-columns: 1fr; }
+      .og-comp:last-child:nth-child(odd) { max-width: 100%; }
+      /* 2x2 — keep the connector only on the first card of each row */
+      .og-steps { grid-template-columns: repeat(2, 1fr); }
+      .og-stepr:nth-child(even)::after { display: none; }
     }
     @media (max-width: 640px) {
       .hs-form .form-row { grid-template-columns: 1fr; }
-      .og-stepr { grid-template-columns: 1fr; gap: 12px; }
+      .og-steps { grid-template-columns: 1fr; }
+      .og-stepr::after { display: none; }
       .og-table th, .og-table td, .og-vs th, .og-vs td { padding: 12px 14px; font-size: 0.85rem; }
     }
   </style>
@@ -302,8 +329,8 @@
     <div class="container hs-hero-grid">
       <div class="hs-hero-copy" data-animate>
         <div class="hs-hero-tagrow"><span class="section-tag">Buying Guide</span></div>
-        <h1>Off-grid <span class="gradient-text">Solar System</span> Buying Guide</h1>
-        <p class="hs-hero-lead">Everything you need to go fully energy-independent — components, 2026 prices, battery sizing, how off-grid solar actually works, designed and installed end to end by Clans Machina.</p>
+        <h1>Complete Energy Independence with <span class="gradient-text">Standalone Off-Grid</span> Solar Systems</h1>
+        <p class="hs-hero-lead">Produce, store, and consume your own clean electricity without any dependency on the public utility grid. Ideal for areas with frequent power cuts or no grid connectivity.</p>
         <ul class="hs-hero-points">
           <li>
             <span class="hs-point-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l0-8z"/></svg></span>
@@ -328,7 +355,7 @@
         </ul>
         <div class="hs-hero-cta">
           <a href="../calculator.html" class="btn btn-neon btn-lg">Get a Free Quote</a>
-          <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+          <a href="../index.html#contact" class="btn btn-glass btn-lg">Book a Rooftop Survey</a>
         </div>
       </div>
     </div>
@@ -336,23 +363,9 @@
 
   <!-- ===================== INTRO ===================== -->
   <section class="cm-section">
-    <div class="container og-intro">
-      <div class="og-intro-lead" data-animate>
+    <div class="container">
+      <div class="og-intro-lead og-intro" data-animate>
         <p>An off-grid solar system &mdash; a true <span class="og-hl">standalone setup</span> &mdash; is built for remote and rural areas where the grid is absent or so unreliable that power is available for just <span class="og-hl">2&ndash;3 hours a day</span>.</p>
-      </div>
-      <div class="og-intro-grid">
-        <div class="og-intro-card glass-card" data-animate>
-          <span class="og-tag">No grid? No problem</span>
-          <div class="og-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 22v-3"/><path d="M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2"/><circle cx="12" cy="12" r="3"/><path d="M2 12h3M19 12h3"/></svg></div>
-          <h4>Designed for complete autonomy</h4>
-          <p>With no grid to fall back on, the system stands entirely on its own. <span class="og-big">Autonomy</span> is the number of days it can run your home on stored energy alone &mdash; no sun, no grid, no worries.</p>
-        </div>
-        <div class="og-intro-card glass-card" data-animate>
-          <span class="og-tag">Built for bad weather</span>
-          <div class="og-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6-1.5A4 4 0 0 0 6 19z"/><path d="M8 21v1M12 21v2M16 21v1"/></svg></div>
-          <h4>Output can drop to <span class="og-big">10&ndash;30%</span></h4>
-          <p>On a hilly or cloudy day generation is hard to predict. That&rsquo;s why off-grid systems are deliberately oversized &mdash; extra panels and extra storage &mdash; so your home keeps running through every bad-weather stretch.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -363,85 +376,121 @@
       <div class="section-header" data-animate>
         <span class="section-tag">The Basics</span>
         <h2>What Is an <span class="gradient-text">Off-Grid Solar System?</span></h2>
-        <p>A standalone set-up that is not connected to the utility grid &mdash; it produces electricity from sunlight, stores it in batteries, and powers your home day and night.</p>
       </div>
-      <div class="og-prose" data-animate>
-        <p>Every off-grid system is built from the same core building blocks. Here is what goes into one:</p>
-        <ul>
-          <li><strong>Solar panels (modules)</strong> &mdash; capture sunlight and convert it to DC electricity</li>
-          <li><strong>Mounting structure</strong> &mdash; holds the panels at the right tilt and orientation</li>
-          <li><strong>Batteries</strong> &mdash; store energy for use at night and on cloudy days</li>
-          <li><strong>Off-grid / hybrid inverter (PCU)</strong> &mdash; converts and manages power flow</li>
-          <li><strong>Charge controller</strong> &mdash; regulates how the batteries are charged</li>
-          <li><strong>Balance of system</strong> &mdash; cables, combiner boxes, connectors and protection</li>
-          <li><strong>Solar accessories</strong> &mdash; earthing, conduits and a lightning arrester</li>
-        </ul>
+      <div class="og-lead" data-animate>
+        <p class="og-lead-key">An off-grid solar system is a completely independent, standalone set-up that is not connected to the government or local utility grid.</p>
+        <p>It generates electricity using solar panels during daytime sunshine hours to run your home or business appliances directly. Any excess energy produced is stored in a dedicated high-efficiency battery bank, which keeps your property fully powered throughout the night or on overcast days.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== WHEN TO USE ===================== -->
-  <section class="cm-section">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <span class="section-tag">Is It Right For You?</span>
-        <h2>When to Use an <span class="gradient-text">Off-Grid Solar Panel System</span></h2>
-      </div>
-      <div class="og-prose" data-animate>
-        <p>Going off-grid makes the most sense where the grid supply is unreliable or simply unavailable. In both cases, your home relies on battery backup for round-the-clock power. The most common use cases are:</p>
-        <ul>
-          <li><strong>Remote and rural areas</strong> with no utility grid connection at all</li>
-          <li><strong>Urban and semi-urban areas</strong> that face extreme, frequent power cuts that make the grid effectively unusable</li>
-        </ul>
-        <p>On the flip side, if you live in an area with a reliable grid connection, an <a href="Ongrid.html">on-grid solar system</a> is usually the better choice &mdash; it is cheaper because it does not need batteries.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== COMPONENTS ===================== -->
-  <section class="cm-section cm-section-alt">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <span class="section-tag">Under the Hood</span>
-        <h2>The Components of an <span class="gradient-text">Off-Grid Solar System</span></h2>
-        <p>Let&rsquo;s break the system down component by component so you understand the role each one plays.</p>
-      </div>
-      <div class="og-components">
+      <div class="og-components" style="margin-top:36px;">
         <div class="og-comp glass-card" data-animate>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="1"/><path d="M2 9h20M2 14h20M8 4v14M16 4v14"/></svg></div>
-          <h3>1. Solar Panels</h3>
-          <p>Made of solar cells &mdash; <strong>monocrystalline</strong> (one silicon crystal), <strong>polycrystalline</strong> (multiple crystals) or <strong>bifacial</strong> (cells on front and rear). They convert sunlight to DC power; the key during installation is making sure no shadows fall on them.</p>
+          <h3>1. Solar PV Modules</h3>
+          <p>High-efficiency panels (<strong>Mono-PERC</strong> or <strong>Bifacial TOPCon</strong>) built to maximize output even in low light.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h4M7 13h6"/><path d="m16 9 2 4-2 2"/></svg></div>
-          <h3>2. Off-grid PV Inverter</h3>
-          <p>The brain of the system. It converts DC from panels and battery into usable AC, and manages how efficiently every unit reaches your appliances. We use <strong>grid-connected (hybrid) inverters</strong> &mdash; newer tech that handles lithium batteries and lets you connect to the grid later without swapping equipment.</p>
+          <h3>2. Off-Grid Solar Inverter</h3>
+          <p>Built-in smart features to <strong>monitor thermal levels, loads</strong>, and prevent battery overheating.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 11v2M10 11v2"/></svg></div>
-          <h3>3. Batteries</h3>
-          <p>An off-grid system lives on its batteries. During the day, panels run the house and the surplus charges the battery bank. After dark, that stored power keeps your home running. Batteries are typically 50&ndash;60% of the total system cost.</p>
+          <h3>3. Lithium Battery Storage</h3>
+          <p>Provides <strong>maximum depth of discharge</strong> and rapid charging compared to traditional lead-acid batteries.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 2 9 5M12 2l3 3"/><rect x="5" y="8" width="14" height="13" rx="2"/><path d="M9 13h6"/></svg></div>
-          <h3>4. Charge Controller</h3>
-          <p>Sits between the panels and the battery, feeding power in at the right rate and using surplus units to top up the bank. In modern systems it is usually built right into the inverter rather than being a separate box.</p>
+          <h3>4. Solar Charge Controller</h3>
+          <p>Protects batteries from <strong>overcharging and deep discharging</strong>.</p>
         </div>
         <div class="og-comp glass-card" data-animate>
           <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="m5 21 3-9h8l3 9"/><path d="M8 12 12 4l4 8"/></svg></div>
-          <h3>5. Mounting Structure</h3>
-          <p>Holds everything in place. A good structure keeps panels at the right tilt &mdash; near-perpendicular to the sun for as long as possible &mdash; and is engineered to survive local wind and weather conditions.</p>
-        </div>
-        <div class="og-comp glass-card" data-animate>
-          <div class="og-comp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <h3>6. Balance of System</h3>
-          <p>The accessories that keep the system safe: DC &amp; AC cables and combiner boxes, MC4 connectors, earthing strips, conduit trays and a lightning arrester.</p>
+          <h3>5. Heavy-Duty Mounting Structure</h3>
+          <p><strong>Wind-tested</strong> structures designed to withstand harsh weather conditions.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Inverter feature highlights -->
-      <div class="section-header" data-animate style="margin-top:56px;">
-        <h2 style="font-size:clamp(1.4rem,2.4vw,1.9rem);">Why We Use <span class="gradient-text">Hybrid Inverters</span></h2>
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">How It Works</span>
+        <h2>How Does <span class="gradient-text">Off-Grid Solar Work?</span></h2>
+        <p>From a photon hitting a panel to the light switching on in your home &mdash; here is the full journey.</p>
+      </div>
+      <div class="og-steps">
+        <div class="og-stepr glass-card" data-animate>
+          <div class="og-step-top">
+            <div class="og-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg></div>
+            <span class="og-num">1</span>
+          </div>
+          <h3>Sunlight Absorption</h3>
+          <p>Premium rooftop solar panels trap solar radiation and convert the photons into Direct Current (DC) electricity.</p>
+        </div>
+        <div class="og-stepr glass-card" data-animate>
+          <div class="og-step-top">
+            <div class="og-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1 14h6M9 8h6M17 16h6"/></svg></div>
+            <span class="og-num">2</span>
+          </div>
+          <h3>Charge Management</h3>
+          <p>The generated DC electricity goes directly into a Solar Charge Controller, which intelligently regulates the voltage and current flowing to the system.</p>
+        </div>
+        <div class="og-stepr glass-card" data-animate>
+          <div class="og-step-top">
+            <div class="og-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2"/><path d="m11 9-2 3h3l-2 3"/></svg></div>
+            <span class="og-num">3</span>
+          </div>
+          <h3>Battery Bank Charging</h3>
+          <p>The charge controller feeds the necessary power into a high-capacity Lithium-ion (LFP) battery bank, storing the excess energy for later use.</p>
+        </div>
+        <div class="og-stepr glass-card" data-animate>
+          <div class="og-step-top">
+            <div class="og-step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9h4l2 6h3"/><path d="M11 15c2.6 0 2.6-6 5.2-6 1.9 0 3 2 3.8 4.5"/></svg></div>
+            <span class="og-num">4</span>
+          </div>
+          <h3>DC to AC Conversion</h3>
+          <p>An intelligent Off-Grid Solar Inverter converts the stored DC power into Alternating Current (AC) electricity, making it perfectly safe to run all standard household and industrial appliances.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROS / CONS ===================== -->
+  <section class="cm-section cm-section-alt">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Weigh Both Sides</span>
+        <h2>Pros &amp; Cons of <span class="gradient-text">Off-Grid Solar</span></h2>
+        <p>Going off-grid buys you true energy independence &mdash; but it is worth weighing both sides before you commit.</p>
+      </div>
+      <div class="og-pc">
+        <div class="og-pc-col pros glass-card" data-animate>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>The Advantages</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>100% Energy Autonomy.</strong> Total independence from the government utility grid and power companies.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Zero Outages.</strong> Provides an uninterrupted power supply as long as your battery capacity handles the load requirements.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Remote Accessibility.</strong> The best and often only viable solution for rural areas, farmhouses, and places with minimal or no grid infrastructure.</span></li>
+          </ul>
+        </div>
+        <div class="og-pc-col cons glass-card" data-animate>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></svg>The Trade-offs</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><strong>Higher Upfront Cost.</strong> Batteries account for roughly 50&ndash;60% of the entire setup cost, making initial deployment more expensive.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><strong>Future Replacements.</strong> Even high-grade Lithium-ion batteries will require replacement after their operational cycle life is exhausted.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><strong>No Subsidy Benefits.</strong> Does not qualify for government net-metering solar subsidies.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HYBRID INVERTERS ===================== -->
+  <section class="cm-section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <span class="section-tag">Under the Hood</span>
+        <h2>Why We Use <span class="gradient-text">Hybrid Inverters</span></h2>
         <p>Grid-compatible inverters are simply the better fit for an off-grid power pack.</p>
       </div>
       <div class="og-feats">
@@ -469,7 +518,7 @@
   </section>
 
   <!-- ===================== PRICE ===================== -->
-  <section class="cm-section">
+  <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">Pricing</span>
@@ -496,43 +545,6 @@
       <div class="og-prose" data-animate style="margin-top:34px;">
         <h3>What about an off-grid solar subsidy?</h3>
         <p>To set the record straight: the Indian government <strong>does not offer a subsidy on off-grid solar systems with battery storage</strong>. The PM Surya Ghar: Muft Bijli Yojana subsidy (up to &#8377;78,000 central) applies only to <strong>grid-connected</strong> systems. To claim it, you would need to install an on-grid or hybrid system instead.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== HOW IT WORKS ===================== -->
-  <section class="cm-section cm-section-alt">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <span class="section-tag">How It Works</span>
-        <h2>How Does <span class="gradient-text">Off-Grid Solar Work?</span></h2>
-        <p>From a photon hitting a panel to the light switching on in your home &mdash; here is the full journey.</p>
-      </div>
-      <div class="og-steps">
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">1</div>
-          <div><h3>Sunlight Absorption &amp; Electron Excitation</h3><p>Photovoltaic cells in the solar panels absorb sunlight, knocking electrons loose and generating direct current (DC) electricity.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">2</div>
-          <div><h3>String Aggregation &amp; Safety Protection</h3><p>A combiner box gathers the output of multiple panel strings into a single feed and adds fuses and surge protection to keep the system safe.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">3</div>
-          <div><h3>Battery Bank Charging</h3><p>The charge controller routes power into the battery bank at the right voltage and current, storing the day&rsquo;s surplus for use after dark.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">4</div>
-          <div><h3>Intelligent Coordination of Controller &amp; Inverter</h3><p>The system constantly balances live generation, battery state of charge and household demand to draw power from the most efficient source.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">5</div>
-          <div><h3>DC-to-AC Conversion via the Inverter</h3><p>The off-grid inverter converts stored and freshly generated DC into clean 230V AC at the right frequency for your appliances.</p></div>
-        </div>
-        <div class="og-stepr glass-card" data-animate>
-          <div class="og-num">6</div>
-          <div><h3>Household Power Delivery</h3><p>AC power flows to your distribution board and out to every socket and light &mdash; completely independent of the grid, day and night.</p></div>
-        </div>
       </div>
     </div>
   </section>
@@ -573,37 +585,8 @@
     </div>
   </section>
 
-  <!-- ===================== PROS / CONS ===================== -->
-  <section class="cm-section cm-section-alt">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <span class="section-tag">The Trade-offs</span>
-        <h2>Advantages &amp; Disadvantages of <span class="gradient-text">Off-Grid Solar</span></h2>
-        <p>Going off-grid buys you true energy independence &mdash; but it is worth weighing both sides before you commit.</p>
-      </div>
-      <div class="og-pc">
-        <div class="og-pc-col pros glass-card" data-animate>
-          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Advantages</h3>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Power where you need it.</strong> Run your home anywhere, even with no grid connection at all.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Total energy independence.</strong> No bills, no power cuts and no dependence on the utility.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Zero-emission power.</strong> Clean, silent generation with no diesel and no fuel cost.</span></li>
-          </ul>
-        </div>
-        <div class="og-pc-col cons glass-card" data-animate>
-          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></svg>Disadvantages</h3>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><strong>Longer payback.</strong> Off-grid breaks even in roughly 5&ndash;7 years vs 3&ndash;4 years for on-grid, because of the battery cost.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><strong>Battery replacement.</strong> Batteries are a recurring investment that must be replaced once they reach end of life.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><strong>No subsidy.</strong> Government subsidies do not apply to off-grid battery systems.</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== OFF-GRID VS ON-GRID ===================== -->
-  <section class="cm-section">
+  <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">Compare</span>
@@ -630,7 +613,7 @@
   </section>
 
   <!-- ===================== CONCLUSION ===================== -->
-  <section class="cm-section cm-section-alt">
+  <section class="cm-section">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">In Short</span>
@@ -644,7 +627,7 @@
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section class="cm-section">
+  <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">All Your Questions, Answered</span>
@@ -698,20 +681,6 @@
   <script src="../js/subpage.js" defer></script>
   <script src="../js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
-
-  <!-- FAQ accordion -->
-  <script>
-    (function () {
-      document.querySelectorAll('.faq-list .faq-q').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var item = btn.closest('.faq-item');
-          var isOpen = item.classList.contains('open');
-          document.querySelectorAll('.faq-list .faq-item.open').forEach(function (o) { o.classList.remove('open'); o.querySelector('.faq-q span').textContent = '+'; });
-          if (!isOpen) { item.classList.add('open'); btn.querySelector('span').textContent = '–'; }
-        });
-      });
-    })();
-  </script>
 
   <!-- Consultation form handler (Clans Machina contact form) -->
   <script>

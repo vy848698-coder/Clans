@@ -725,20 +725,6 @@
   <script src="../js/lib/lucide.min.js"></script>
   <script>if (window.lucide) lucide.createIcons();</script>
 
-  <!-- FAQ accordion -->
-  <script>
-    (function () {
-      document.querySelectorAll('.faq-list .faq-q').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var item = btn.closest('.faq-item');
-          var isOpen = item.classList.contains('open');
-          document.querySelectorAll('.faq-list .faq-item.open').forEach(function (o) { o.classList.remove('open'); o.querySelector('.faq-q span').textContent = '+'; });
-          if (!isOpen) { item.classList.add('open'); btn.querySelector('span').textContent = '–'; }
-        });
-      });
-    })();
-  </script>
-
   <!-- Consultation form handler (Clans Machina contact form) -->
   <script>
     (function () {
