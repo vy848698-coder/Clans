@@ -21,6 +21,7 @@
   var PANEL_KW    = CD.panelKw || 0.54;
   var TARIFF_DEF  = CD.tariffPerUnit || 8;
   var ESCAL       = (CD.tariffEscalation != null ? CD.tariffEscalation : 0.03);
+  var DEGRADE     = (CD.annualDegradation != null ? CD.annualDegradation : 0.005);
   var LIFE_YRS    = CD.systemLifeYears || 25;
   var CO2_FAC     = CD.co2FactorKgPerKwh || 0.82;
   var SQFT_PER_KW = CD.sqftPerKw || 100;
@@ -354,9 +355,14 @@
     var reduction = Math.round((bill - newBill) / bill * 100);
     var annualSaving = monthlySaving * 12;
 
-    // 25-year savings with annual tariff escalation
-    var savings25 = 0, yearSave = annualSaving;
-    for (var y = 0; y < LIFE_YRS; y++) { savings25 += yearSave; yearSave *= (1 + ESCAL); }
+    // 25-year savings: the tariff escalates each year while panel output
+    // degrades, so year 1 runs at full yield and each later year is derated.
+    var savings25 = 0, yearSave = annualSaving, output = 1;
+    for (var y = 0; y < LIFE_YRS; y++) {
+      savings25 += yearSave * output;
+      yearSave *= (1 + ESCAL);
+      output *= (1 - DEGRADE);
+    }
     savings25 = Math.round(savings25);
 
     // Cost and subsidy

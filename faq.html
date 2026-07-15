@@ -205,6 +205,8 @@
     .fq-card {
       background: var(--fq-card); border: 1px solid var(--fq-line);
       border-radius: 18px; padding: 1.6rem 1.5rem; position: relative; overflow: hidden;
+      /* Clears the fixed navbar when the topic chips jump to a card. */
+      scroll-margin-top: 110px;
       transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s;
     }
     .fq-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.7,.2,1); }

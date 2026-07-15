@@ -71,32 +71,9 @@
     .cs-quote-author strong { display: block; font-size: 1.05rem; }
     .cs-quote-author span { color: var(--text-secondary); font-size: 0.9rem; }
 
-    /* ---- CITYSCAPE ILLUSTRATION BANNER (car.png) ---- */
+    /* ---- CITYSCAPE ILLUSTRATION BANNER ---- */
     .cs-cityscape { padding: 0; line-height: 0; }
     .cs-cityscape img { display: block; width: 100%; height: auto; margin: 0; }
-
-    /* ---- PLAN YOUR PROJECT (replaces enquiry form) ---- */
-    .cs-plan { position: relative; overflow: hidden; border-radius: 26px; padding: 54px 50px;
-      background: linear-gradient(135deg, #0b2a55 0%, #0e3a6b 50%, #0b5a39 130%); color: #fff;
-      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
-    .cs-plan::before { content: ''; position: absolute; right: -60px; top: -60px; width: 280px; height: 280px;
-      border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%); }
-    .cs-plan h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin: 12px 0 12px; color: #fff; }
-    .cs-plan .section-tag { background: rgba(255,255,255,0.14); color: #cfe3ff; }
-    .cs-plan p { color: rgba(255,255,255,0.82); font-size: 1.02rem; margin-bottom: 26px; max-width: 46ch; }
-    .cs-plan-list { list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 14px; }
-    .cs-plan-list li { display: flex; align-items: flex-start; gap: 12px; font-weight: 500; }
-    .cs-plan-list svg { width: 22px; height: 22px; flex: none; color: #6ee7b7; margin-top: 1px; }
-    .cs-plan-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-    .cs-plan-steps { position: relative; z-index: 1; display: grid; gap: 16px; }
-    .cs-plan-step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; border-radius: 16px;
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(6px); }
-    .cs-plan-step .cs-step-no { width: 38px; height: 38px; flex: none; border-radius: 11px; display: grid;
-      place-items: center; font-weight: 800; color: #0b2a55;
-      background: linear-gradient(135deg, #6ee7b7, #93c5fd); }
-    .cs-plan-step strong { display: block; font-size: 1rem; margin-bottom: 3px; }
-    .cs-plan-step span { color: rgba(255,255,255,0.78); font-size: 0.88rem; line-height: 1.5; }
 
     /* ---- INSTALLATION EXPERIENCE IMAGE CARDS ---- */
     .cs-experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; grid-template-rows: auto auto; }
@@ -186,33 +163,6 @@
     .cs-blog-body h3 { font-size: 1.02rem; margin: 0; line-height: 1.35; }
     .cs-blog-body .cs-blog-meta { margin-top: auto; color: var(--text-secondary); font-size: 0.82rem; }
 
-    /* ---- FAQ (same premium accordion as home) ---- */
-    .faq-list { display: grid; gap: 14px; }
-    .faq-list .faq-item { position: relative; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.07); background: linear-gradient(180deg, #ffffff, #fbfdfb);
-      box-shadow: 0 10px 24px -20px rgba(11,42,85,0.5);
-      transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease; }
-    .faq-list .faq-item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-      background: linear-gradient(180deg, var(--blue), var(--green));
-      transform: scaleY(0); transform-origin: top; transition: transform .28s ease; }
-    .faq-list .faq-item:hover { transform: translateY(-2px); border-color: rgba(59,130,246,0.4); }
-    .faq-list .faq-item.open { border-color: rgba(59,130,246,0.5);
-      background: linear-gradient(180deg, #f2f8ff, #eef9fb); }
-    .faq-list .faq-item.open::before { transform: scaleY(1); }
-    .faq-list .faq-q { width: 100%; background: transparent; border: none; cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px;
-      text-align: left; font-size: 1.04rem; font-weight: 700; color: var(--text-primary, #042f22); }
-    .faq-list .faq-item.open .faq-q { color: #0f5fa3; }
-    .faq-list .faq-q span { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid;
-      place-items: center; font-size: 1.4rem; line-height: 1; font-weight: 600;
-      background: rgba(59,130,246,0.14); color: var(--blue);
-      transition: background .25s ease, color .25s ease, transform .25s ease; }
-    .faq-list .faq-item.open .faq-q span { color: #fff;
-      background: linear-gradient(135deg, var(--blue), var(--green)); }
-    .faq-list .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
-    .faq-list .faq-item.open .faq-a { max-height: 360px; }
-    .faq-list .faq-a p { margin: 0; padding: 0 22px 22px; font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); }
-
     /* ---- OUR PROCESS TIMELINE ---- */
     .cs-process-section { background: var(--inset-surface, rgba(0,0,0,0.03)); }
     .cs-process-timeline { position: relative; max-width: 820px; margin: 56px auto 0; }
@@ -242,14 +192,13 @@
     .cs-process-card p { font-size: 0.9rem; line-height: 1.6; margin: 0; color: var(--text-secondary); }
 
     @media (max-width: 1024px) {
-      .cs-plan, .cs-experience-grid { grid-template-columns: 1fr; }
-      .cs-plan { padding: 40px 30px; }
+      .cs-experience-grid { grid-template-columns: 1fr; }
       .cs-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 22px; }
       .cs-blog-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .cs-stats-grid { grid-template-columns: 1fr; }
-      .cs-hero-cta, .cs-plan-cta { flex-direction: column; }
+      .cs-hero-cta { flex-direction: column; }
       .cs-process-timeline::before { left: 24px; }
       .cs-process-step { grid-template-columns: 48px 1fr; grid-template-areas: "node card" !important; gap: 0 16px; }
       .cs-process-left .cs-process-card,
@@ -521,7 +470,7 @@
   </section>
 
   <!-- ===================== DELIGHTED CUSTOMERS ===================== -->
-  <section class="cm-section">
+  <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">Customer Love</span>
@@ -617,8 +566,6 @@
 
   <script src="../js/shared-footer.js" defer></script>
   <script src="../js/subpage.js" defer></script>
-  <script src="../js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
 
   <!-- Count-up animation for the stats band -->
   <script>

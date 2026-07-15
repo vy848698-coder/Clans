@@ -27,7 +27,6 @@
     .cr-glass { background: rgba(255,255,255,0.66); border: 1px solid rgba(255,255,255,0.7);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       box-shadow: 0 30px 70px -44px rgba(4,47,34,0.55); }
-    .cr-eyebrow { display: inline-flex; align-items: center; gap: 8px; }
 
     /* ============ Cinematic hero ============ */
     .cr-hero { position: relative; margin-top: 90px; padding: 76px 0 80px; overflow: hidden;
@@ -59,9 +58,6 @@
     .cr-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
     .cr-shot:hover img { transform: scale(1.06); }
     .cr-shot--main { grid-row: 1 / span 2; }
-    .cr-shot-cap { position: absolute; left: 12px; bottom: 12px; right: 12px; color: #fff; font-size: 0.78rem; font-weight: 600;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.6); display: flex; align-items: center; gap: 7px; }
-    .cr-shot-cap svg { width: 15px; height: 15px; flex: none; }
     .cr-hero-float { position: absolute; right: -12px; top: 18px; z-index: 2; padding: 12px 16px; border-radius: 14px;
       display: flex; align-items: center; gap: 11px; }
     .cr-hero-float .cr-float-ic { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; color: #fff;
@@ -130,18 +126,6 @@
     .cr-roles-note { margin-top: 24px; text-align: center; font-size: 0.96rem; color: var(--text-secondary); }
     .cr-roles-note a { color: var(--green); font-weight: 700; }
 
-    /* ============ Life at Clans gallery ============ */
-    .cr-gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 16px; }
-    .cr-gal { position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 26px 56px -38px rgba(4,47,34,0.6); }
-    .cr-gal img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
-    .cr-gal:hover img { transform: scale(1.07); }
-    .cr-gal::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(4,30,20,0.72) 100%); }
-    .cr-gal-cap { position: absolute; z-index: 1; left: 14px; bottom: 12px; right: 14px; color: #fff; font-size: 0.84rem; font-weight: 700;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
-    .cr-gal--wide { grid-column: span 2; }
-    .cr-life-quote { margin-top: 26px; text-align: center; font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 700; color: var(--text-primary); }
-    .cr-life-quote span { background: linear-gradient(120deg, var(--green), var(--blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-
     /* ============ Reviews ============ */
     .cr-reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .cr-review { padding: 30px 28px; border-radius: 20px; display: flex; flex-direction: column; }
@@ -174,20 +158,6 @@
     .cr-apply-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 13px; }
     .cr-apply-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 0.96rem; color: var(--text-secondary); }
     .cr-apply-list svg { width: 20px; height: 20px; flex: none; color: var(--green); margin-top: 1px; }
-    .cr-form { padding: 30px; border-radius: 22px; }
-    .cr-form .form-group { margin-bottom: 14px; display: flex; flex-direction: column; }
-    .cr-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .cr-form label { font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
-    .cr-form input, .cr-form select, .cr-form textarea { padding: 12px 14px; border-radius: 11px;
-      border: 1px solid rgba(0,0,0,0.12); background: #fff; color: var(--text-primary); font: inherit; width: 100%; }
-    .cr-form textarea { resize: vertical; min-height: 96px; }
-    .cr-form input:focus, .cr-form select:focus, .cr-form textarea:focus { outline: 2px solid var(--green); border-color: var(--green); }
-    .cr-form-errors { display: none; margin-top: 12px; padding: 11px 14px; border-radius: 11px; font-size: 0.9rem; font-weight: 600;
-      background: rgba(220,38,38,0.1); color: #b91c1c; }
-    .cr-form-errors ul { margin: 0; padding-left: 18px; }
-    .cr-form-success { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 11px; font-weight: 600;
-      background: rgba(5,150,105,0.14); color: var(--green); }
-
     /* ============ Responsive ============ */
     @media (max-width: 960px) {
       .cr-hero-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -196,16 +166,11 @@
       .cr-paths { grid-template-columns: 1fr; }
       .cr-perks-grid, .cr-roles-grid, .cr-reviews-grid { grid-template-columns: 1fr 1fr; }
       .cr-steps { grid-template-columns: 1fr 1fr; gap: 30px 22px; }
-      .cr-gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
-      .cr-gal--wide { grid-column: span 2; }
       .cr-apply-grid { grid-template-columns: 1fr; gap: 28px; }
     }
     @media (max-width: 620px) {
       .cr-hero-collage { height: 330px; }
       .cr-stats, .cr-perks-grid, .cr-roles-grid, .cr-reviews-grid, .cr-steps { grid-template-columns: 1fr; }
-      .cr-gallery { grid-template-columns: 1fr; grid-auto-rows: 200px; }
-      .cr-gal--wide { grid-column: span 1; }
-      .cr-form .form-row { grid-template-columns: 1fr; }
       .cr-hero-actions .btn { width: 100%; justify-content: center; }
     }
   </style>
@@ -297,7 +262,7 @@
     </section>
 
     <!-- ===================== STATS ===================== -->
-    <section class="cm-section" style="padding-top:48px;">
+    <section class="cm-section cm-section-alt" style="padding-top:48px;">
       <div class="container">
         <div class="cr-stats" data-animate>
           <div class="cr-stat cr-glass"><strong>1000+</strong><span>Projects delivered</span></div>
@@ -477,7 +442,7 @@
     </section>
 
     <!-- ===================== REVIEWS ===================== -->
-    <section class="cm-section">
+    <section class="cm-section cm-section-alt">
       <div class="container">
         <div class="section-header" data-animate>
           <span class="section-tag">People Behind the Mission</span>
@@ -523,7 +488,7 @@
     </section>
 
     <!-- ===================== HIRING PROCESS ===================== -->
-    <section class="cm-section cm-section-alt">
+    <section class="cm-section">
       <div class="container">
         <div class="section-header" data-animate>
           <span class="section-tag">How Hiring Works</span>
@@ -634,8 +599,6 @@
   <footer class="footer"></footer>
   <script src="js/shared-footer.js" defer></script>
   <script src="js/subpage.js" defer></script>
-  <script src="js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
 
   <!-- Careers application form handler -->
   <script>

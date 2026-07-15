@@ -23,7 +23,7 @@
 
   <!-- Page-scoped styles for the Off-grid Solar buying guide -->
   <style id="og-styles">
-    /* ---------- Hero + consultation form (shared look with Home Solar) ---------- */
+    /* ---------- Hero (shared look with Home Solar) ---------- */
     .hs-hero { position: relative; margin-top: 90px; padding: 56px 0 70px; overflow: hidden; background:
         linear-gradient(95deg, rgba(6,18,14,0.80) 0%, rgba(6,18,14,0.55) 45%, rgba(6,18,14,0.22) 78%, rgba(6,18,14,0) 100%),
         linear-gradient(0deg, rgba(6,18,14,0.60) 0%, rgba(6,18,14,0.22) 30%, rgba(6,18,14,0) 55%),
@@ -73,27 +73,6 @@
       .hs-hero-points li { max-width: 280px; }
       .hs-hero-points li + li::before { display: none; }
     }
-
-    .hs-form-card { padding: 26px; border-radius: 18px;
-      background: rgba(255,255,255,0.94); border: 1px solid rgba(255,255,255,0.7);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 30px 70px -30px rgba(11,42,85,0.45); }
-    .hs-form-card h3 { margin: 0 0 4px; font-size: 1.25rem; }
-    .hs-form-card .hs-form-sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 18px; }
-    .hs-form .form-group { margin-bottom: 13px; display: flex; flex-direction: column; }
-    .hs-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-    .hs-form label { font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
-    .hs-form input, .hs-form select, .hs-form textarea {
-      padding: 11px 13px; border-radius: 10px; border: 1px solid var(--input-border, rgba(0,0,0,0.12));
-      background: var(--input-bg, rgba(255,255,255,0.7)); color: var(--text-primary); font: inherit; width: 100%; }
-    .hs-form textarea { resize: vertical; min-height: 76px; }
-    .hs-form input:focus, .hs-form select:focus, .hs-form textarea:focus { outline: 2px solid var(--green); border-color: var(--green); }
-    .hs-trust-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .hs-trust-badges span { font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
-      padding: 5px 11px; border-radius: 999px; border: 1px solid var(--card-border, rgba(0,0,0,0.10));
-      background: var(--card-bg, rgba(255,255,255,0.45)); }
-    .hs-form-success { display: none; margin-top: 12px; padding: 10px 14px; border-radius: 10px;
-      background: rgba(34,197,94,0.14); color: var(--green); font-weight: 600; }
 
     /* ---------- Long-form prose content ---------- */
     /* Definition lead card — opens the "What is off-grid" section */
@@ -267,7 +246,6 @@
       .og-stepr:nth-child(even)::after { display: none; }
     }
     @media (max-width: 640px) {
-      .hs-form .form-row { grid-template-columns: 1fr; }
       .og-steps { grid-template-columns: 1fr; }
       .og-stepr::after { display: none; }
       .og-table th, .og-table td, .og-vs th, .og-vs td { padding: 12px 14px; font-size: 0.85rem; }
@@ -324,7 +302,7 @@
     </div>
   </nav>
 
-  <!-- ===================== HERO + CONSULTATION FORM ===================== -->
+  <!-- ===================== HERO ===================== -->
   <section class="hs-hero">
     <div class="container hs-hero-grid">
       <div class="hs-hero-copy" data-animate>
@@ -679,66 +657,7 @@
 
   <script src="../js/shared-footer.js" defer></script>
   <script src="../js/subpage.js" defer></script>
-  <script src="../js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
 
-  <!-- Consultation form handler (Clans Machina contact form) -->
-  <script>
-    (function () {
-      var form = document.getElementById('contactForm');
-      if (!form) return;
-      var submitBtn = document.getElementById('submitBtn');
-      var formSuccess = document.getElementById('formSuccess');
-      var formErrors = document.getElementById('formErrors');
-      var billSelect = document.getElementById('cBill');
-
-      function showError(msg) {
-        if (!formErrors) return;
-        formErrors.innerHTML = '<ul><li>' + msg + '</li></ul>';
-        formErrors.style.display = 'block';
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        formErrors.style.display = 'none';
-        formSuccess.style.display = 'none';
-
-        var name = document.getElementById('cName').value.trim();
-        var phone = document.getElementById('cPhone').value.trim();
-        var email = document.getElementById('cEmail').value.trim();
-        var city = document.getElementById('cCity').value.trim();
-        var bill = billSelect.value;
-
-        if (!name || !phone || !email || !city) { showError('Please fill in all required fields.'); return; }
-        if (!/^\d{10}$/.test(phone.replace(/\D/g, '').slice(-10))) { showError('Please enter a valid 10-digit mobile number.'); return; }
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { showError('Please enter a valid email address.'); return; }
-        if (!bill) { showError('Please select your average monthly electricity bill.'); return; }
-
-        var original = submitBtn.innerHTML;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-
-        var payload = {
-          name: name, phone: phone, email: email, city: city,
-          service: document.getElementById('cService').value,
-          bill: bill, message: document.getElementById('cMsg').value.trim()
-        };
-
-        fetch('../submit-contact.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        })
-          .then(function (res) { return res.json(); })
-          .then(function (data) {
-            if (data && data.ok) { formSuccess.style.display = 'block'; form.reset(); }
-            else { showError((data && data.message) || 'Submission failed. Please try again.'); }
-          })
-          .catch(function () { showError('Network error. Please call us at +91 91241 65341.'); })
-          .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = original; });
-      });
-    })();
-  </script>
   <!-- Service + Breadcrumb structured data (JSON-LD) -->
   <script type="application/ld+json">
   {
@@ -758,6 +677,51 @@
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clansmachina.in/" },
           { "@type": "ListItem", "position": 2, "name": "Off-Grid Systems", "item": "https://www.clansmachina.in/solar-solutions/Offgrid.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does an off-grid solar system cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In 2026, an off-grid system with a lithium battery starts at around ₹95,000 for 1 kW and rises with capacity — roughly ₹2,65,000 for 3 kW and ₹8,50,000 for 10 kW. The final price depends on your battery sizing, panel and inverter type, and site conditions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a subsidy for off-grid solar systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The PM Surya Ghar: Muft Bijli Yojana subsidy applies only to grid-connected (on-grid) systems. Off-grid systems with battery storage are not eligible for any government subsidy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many batteries are required for an off-grid solar system?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It depends on your daily energy use and how much autonomy you want. The bank is sized to cover a full 24-hour load with reserve — which is why an off-grid battery is typically 2 to 4 times larger than a hybrid system of the same size."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I run an AC on an off-grid solar system?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — provided the system and battery bank are sized for it. Air conditioners are heavy loads, so we factor in their running hours when designing the panels, inverter and battery capacity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which is better, off-grid or on-grid solar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If your grid is reliable, on-grid is cheaper, qualifies for subsidy and pays back faster. If your grid is absent or very unreliable, off-grid is the better choice because it delivers true 24/7 independent power."
+            }
+          }
         ]
       }
     ]

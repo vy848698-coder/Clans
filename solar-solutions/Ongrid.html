@@ -23,7 +23,7 @@
 
   <!-- Page-scoped styles for the On-grid Solar guide (shared look with Off-grid + Home Solar) -->
   <style id="og-styles">
-    /* ---------- Hero + consultation form (shared look with Home Solar) ---------- */
+    /* ---------- Hero (shared look with Home Solar) ---------- */
     .hs-hero { position: relative; margin-top: 90px; padding: 56px 0 70px; overflow: hidden; background:
         linear-gradient(95deg, rgba(6,18,14,0.80) 0%, rgba(6,18,14,0.55) 45%, rgba(6,18,14,0.22) 78%, rgba(6,18,14,0) 100%),
         linear-gradient(0deg, rgba(6,18,14,0.60) 0%, rgba(6,18,14,0.22) 30%, rgba(6,18,14,0) 55%),
@@ -67,27 +67,6 @@
       .hs-hero-points li + li::before { display: none; }
     }
 
-    .hs-form-card { padding: 26px; border-radius: 18px;
-      background: rgba(255,255,255,0.94); border: 1px solid rgba(255,255,255,0.7);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 30px 70px -30px rgba(11,42,85,0.45); }
-    .hs-form-card h3 { margin: 0 0 4px; font-size: 1.25rem; }
-    .hs-form-card .hs-form-sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 18px; }
-    .hs-form .form-group { margin-bottom: 13px; display: flex; flex-direction: column; }
-    .hs-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-    .hs-form label { font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
-    .hs-form input, .hs-form select, .hs-form textarea {
-      padding: 11px 13px; border-radius: 10px; border: 1px solid var(--input-border, rgba(0,0,0,0.12));
-      background: var(--input-bg, rgba(255,255,255,0.7)); color: var(--text-primary); font: inherit; width: 100%; }
-    .hs-form textarea { resize: vertical; min-height: 76px; }
-    .hs-form input:focus, .hs-form select:focus, .hs-form textarea:focus { outline: 2px solid var(--green); border-color: var(--green); }
-    .hs-trust-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .hs-trust-badges span { font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
-      padding: 5px 11px; border-radius: 999px; border: 1px solid var(--card-border, rgba(0,0,0,0.10));
-      background: var(--card-bg, rgba(255,255,255,0.45)); }
-    .hs-form-success { display: none; margin-top: 12px; padding: 10px 14px; border-radius: 10px;
-      background: rgba(34,197,94,0.14); color: var(--green); font-weight: 600; }
-
     /* ---------- Long-form prose content ---------- */
     .og-prose { max-width: 860px; margin: 0 auto; }
     .og-prose p { color: var(--text-secondary); font-size: 1rem; line-height: 1.78; margin: 0 0 18px; }
@@ -101,7 +80,6 @@
       box-shadow: inset 0 0 0 1.5px rgba(34,197,94,0.4); }
     .og-prose ul li::after { content: ''; position: absolute; left: 6px; top: 9px; width: 6px; height: 6px;
       border-radius: 50%; background: var(--green); }
-    .og-lead { font-size: 1.12rem !important; color: var(--text-primary) !important; font-weight: 500; }
     .og-prose .og-hl, .section-header .og-hl { font-weight: 600; white-space: nowrap;
       background: linear-gradient(120deg, var(--green), var(--blue));
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
@@ -287,7 +265,6 @@
       .og-comp-wide { width: 100%; }
     }
     @media (max-width: 640px) {
-      .hs-form .form-row { grid-template-columns: 1fr; }
       .og-stepr { grid-template-columns: 1fr; gap: 12px; }
       .og-flow { grid-template-columns: 1fr; }
       .og-table th, .og-table td, .og-vs th, .og-vs td { padding: 12px 14px; font-size: 0.85rem; }
@@ -344,7 +321,7 @@
     </div>
   </nav>
 
-  <!-- ===================== HERO + CONSULTATION FORM ===================== -->
+  <!-- ===================== HERO ===================== -->
   <section class="hs-hero">
     <div class="container hs-hero-grid">
       <div class="hs-hero-copy" data-animate>
@@ -405,7 +382,7 @@
   </section>
 
   <!-- ===================== STEP-BY-STEP FLOW ===================== -->
-  <section class="cm-section">
+  <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">Step-by-Step</span>
@@ -780,66 +757,7 @@
 
   <script src="../js/shared-footer.js" defer></script>
   <script src="../js/subpage.js" defer></script>
-  <script src="../js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
 
-  <!-- Consultation form handler (Clans Machina contact form) -->
-  <script>
-    (function () {
-      var form = document.getElementById('contactForm');
-      if (!form) return;
-      var submitBtn = document.getElementById('submitBtn');
-      var formSuccess = document.getElementById('formSuccess');
-      var formErrors = document.getElementById('formErrors');
-      var billSelect = document.getElementById('cBill');
-
-      function showError(msg) {
-        if (!formErrors) return;
-        formErrors.innerHTML = '<ul><li>' + msg + '</li></ul>';
-        formErrors.style.display = 'block';
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        formErrors.style.display = 'none';
-        formSuccess.style.display = 'none';
-
-        var name = document.getElementById('cName').value.trim();
-        var phone = document.getElementById('cPhone').value.trim();
-        var email = document.getElementById('cEmail').value.trim();
-        var city = document.getElementById('cCity').value.trim();
-        var bill = billSelect.value;
-
-        if (!name || !phone || !email || !city) { showError('Please fill in all required fields.'); return; }
-        if (!/^\d{10}$/.test(phone.replace(/\D/g, '').slice(-10))) { showError('Please enter a valid 10-digit mobile number.'); return; }
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { showError('Please enter a valid email address.'); return; }
-        if (!bill) { showError('Please select your average monthly electricity bill.'); return; }
-
-        var original = submitBtn.innerHTML;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-
-        var payload = {
-          name: name, phone: phone, email: email, city: city,
-          service: document.getElementById('cService').value,
-          bill: bill, message: document.getElementById('cMsg').value.trim()
-        };
-
-        fetch('../submit-contact.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        })
-          .then(function (res) { return res.json(); })
-          .then(function (data) {
-            if (data && data.ok) { formSuccess.style.display = 'block'; form.reset(); }
-            else { showError((data && data.message) || 'Submission failed. Please try again.'); }
-          })
-          .catch(function () { showError('Network error. Please call us at +91 91241 65341.'); })
-          .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = original; });
-      });
-    })();
-  </script>
   <!-- Service + Breadcrumb structured data (JSON-LD) -->
   <script type="application/ld+json">
   {
@@ -859,6 +777,51 @@
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clansmachina.in/" },
           { "@type": "ListItem", "position": 2, "name": "On-Grid Systems", "item": "https://www.clansmachina.in/solar-solutions/Ongrid.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does an on-grid solar system cost in 2026?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Before subsidy, on-grid systems start at around ₹65,000 for 1 kW and rise with capacity — roughly ₹1,75,000 for 3 kW and ₹5,50,000 for 10 kW. After the PM Surya Ghar subsidy (up to ₹78,000) your net cost is considerably lower."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a subsidy for on-grid solar systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Grid-connected residential rooftop systems qualify for the PM Surya Ghar: Muft Bijli Yojana subsidy — ₹30,000 for 1 kW, ₹60,000 for 2 kW and ₹78,000 for 3 kW and above, with several states adding their own top-up."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does an on-grid system work during a power cut?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. For the safety of utility line workers, a standard on-grid inverter shuts down during a grid outage (anti-islanding). If you need backup during outages, we can fit a hybrid inverter with a battery."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is net metering and how does it save money?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A bi-directional meter records the units you export to the grid and the units you import. You are billed only on the net difference, so the surplus your panels generate during the day offsets the power you draw at night — cutting bills by up to 90%."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which is better, on-grid or off-grid solar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If your grid is reliable, on-grid is cheaper, qualifies for subsidy and pays back faster — it is the better choice for most homes. If your grid is absent or very unreliable, off-grid delivers true 24/7 independent power with battery backup."
+            }
+          }
         ]
       }
     ]

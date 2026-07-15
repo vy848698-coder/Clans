@@ -27,16 +27,15 @@
         linear-gradient(95deg, rgba(6,18,14,0.78) 0%, rgba(6,18,14,0.50) 45%, rgba(6,18,14,0.18) 78%, rgba(6,18,14,0) 100%),
         linear-gradient(0deg, rgba(6,18,14,0.58) 0%, rgba(6,18,14,0.20) 30%, rgba(6,18,14,0) 55%),
         url('../image/commercial/7.webp') center / cover no-repeat; }
-    .hs-hero-grid { position: relative; z-index: 1; }
     /* Light copy over a dark photographic scrim — crisp, not dull */
     .hs-hero-copy h1 { color: #ffffff; text-shadow: 0 2px 12px rgba(0,0,0,0.45); }
     .hs-hero-copy h1 .gradient-text {
       background: linear-gradient(120deg, #a7f3d0 0%, #6ee7b7 45%, #5eead4 100%);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
-    .hs-hero-points svg { color: #6ee7b7; }
     .hs-hero .section-tag { background: rgba(255,255,255,0.16); color: #eafff4; border-color: rgba(255,255,255,0.4); }
-    .hs-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
+    .hs-hero-grid { position: relative; z-index: 1; display: grid;
+      grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
     .hs-hero-copy { padding-top: 6px; }
     .hs-hero-copy h1 { font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; margin: 14px 0 18px; }
     .hs-hero-copy .gradient-text { display: inline; }
@@ -45,7 +44,8 @@
     .hs-hero-points li { display: flex; align-items: flex-start; gap: 10px; font-weight: 500; color: #ffffff;
       text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 12px rgba(0,0,0,0.6); }
     .hs-hero-points li strong { font-weight: 700; }
-    .hs-hero-points svg { width: 20px; height: 20px; flex: none; color: var(--green); margin-top: 2px; }
+    /* Mint, not --green: the icons sit on a dark photo scrim. */
+    .hs-hero-points svg { width: 20px; height: 20px; flex: none; color: #6ee7b7; margin-top: 2px; }
     .hs-rating { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px;
       background: rgba(255,255,255,0.92); border: 1px solid rgba(0,0,0,0.08);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -55,6 +55,8 @@
     .hs-rating .hs-stars { color: #f5a623; letter-spacing: 1px; }
 
     /* Hero consultation form */
+    /* Clears the fixed navbar when the #hs-consult buttons jump here. */
+    #hs-consult { scroll-margin-top: 110px; }
     .hs-form-card { padding: 26px; border-radius: 18px;
       background: rgba(255,255,255,0.94); border: 1px solid rgba(255,255,255,0.7);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
@@ -73,16 +75,8 @@
     .hs-trust-badges span { font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
       padding: 5px 11px; border-radius: 999px; border: 1px solid var(--card-border, rgba(0,0,0,0.10));
       background: var(--card-bg, rgba(255,255,255,0.45)); }
-    .hs-bill-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .hs-bill-options label { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;
-      padding: 9px 6px; border-radius: 10px; border: 1px solid var(--input-border, rgba(0,0,0,0.12));
-      font-size: 0.82rem; font-weight: 600; margin: 0; color: var(--text-primary); transition: all .18s; text-align: center; }
-    .hs-bill-options input { display: none; }
-    .hs-bill-options input:checked + span { color: #fff; }
-    .hs-bill-options label:has(input:checked) { background: var(--green); border-color: var(--green); color: #fff; }
     .hs-form-success { display: none; margin-top: 12px; padding: 10px 14px; border-radius: 10px;
       background: rgba(34,197,94,0.14); color: var(--green); font-weight: 600; }
-    .hs-consent { font-size: 0.72rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.5; }
 
     /* Journey steps */
     .hs-journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
@@ -172,13 +166,13 @@
     /* featured header content */
     .hs-best { position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
       font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-      color: #5b4410; background: linear-gradient(135deg, #f5d987, var(--gold, #e8c468));
+      color: #5b4410; background: linear-gradient(135deg, #f5d987, #e8c468);
       padding: 6px 16px; border-radius: 999px; white-space: nowrap;
       box-shadow: 0 8px 18px -4px rgba(180,140,30,0.5); border: 1px solid rgba(255,255,255,0.5); }
     .hs-brand-lockup { display: flex; align-items: center; gap: 12px; }
     .hs-brand-emblem { width: 44px; height: 44px; flex: none; display: grid; place-items: center;
       border-radius: 13px; color: #5b4410;
-      background: linear-gradient(150deg, #f5d987, var(--gold, #e8c468));
+      background: linear-gradient(150deg, #f5d987, #e8c468);
       box-shadow: 0 6px 14px -4px rgba(180,140,30,0.6), inset 0 1px 0 rgba(255,255,255,0.5); }
     .hs-brand-emblem svg { width: 24px; height: 24px; stroke-width: 2.2; }
     .hs-brand-lockup .hs-brand-name { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.06em;
@@ -194,7 +188,7 @@
       letter-spacing: 0.13em; text-transform: uppercase; }
     .hs-compare-head .hs-c-them { align-items: flex-start; }
     .hs-head-rule { width: 56px; height: 3px; border-radius: 3px; }
-    .hs-compare-head > div:first-child .hs-head-rule { background: var(--gold, #e8c468); }
+    .hs-compare-head > div:first-child .hs-head-rule { background: #e8c468; }
     .hs-compare-head .hs-c-them .hs-head-rule { background: rgba(0,0,0,0.16); }
 
     /* check / cross badges */
@@ -206,27 +200,6 @@
     .hs-c-us .ic { color: #fff; background: linear-gradient(135deg, #1aa35b, #0f7d4e);
       box-shadow: 0 5px 12px -3px rgba(16,120,70,0.55); }
     .hs-c-them .ic { color: #9aa3a3; background: rgba(120,130,130,0.13); }
-
-    /* Monitoring app */
-    .hs-app-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; }
-    .hs-app-feats { list-style: none; padding: 0; margin: 22px 0 26px; display: grid; gap: 16px; }
-    .hs-app-feats li { display: flex; gap: 12px; align-items: flex-start; }
-    .hs-app-feats svg { width: 24px; height: 24px; color: var(--blue); flex: none; }
-    .hs-app-feats strong { display: block; }
-    .hs-app-feats span { color: var(--text-secondary); font-size: 0.9rem; }
-    .hs-play { display: inline-flex; align-items: center; gap: 10px; background: #111; color: #fff;
-      padding: 10px 18px; border-radius: 12px; font-weight: 600; }
-    .hs-play svg { width: 22px; height: 22px; }
-    .hs-phone { position: relative; justify-self: center; width: 280px; height: 540px; border-radius: 38px;
-      background: linear-gradient(160deg, #0b1220, #1e293b); padding: 14px; box-shadow: 0 30px 70px rgba(0,0,0,0.35); }
-    .hs-phone-screen { width: 100%; height: 100%; border-radius: 26px; background:
-        linear-gradient(180deg, rgba(34,197,94,0.18), rgba(59,130,246,0.10)); display: flex; flex-direction: column;
-        gap: 12px; padding: 22px 18px; color: #e6edf6; }
-    .hs-phone-screen .hs-ps-title { font-size: 0.8rem; opacity: 0.8; }
-    .hs-phone-screen .hs-ps-big { font-size: 2.1rem; font-weight: 800; }
-    .hs-ps-card { background: rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; }
-    .hs-ps-bars { display: flex; align-items: flex-end; gap: 6px; height: 90px; margin-top: 8px; }
-    .hs-ps-bars i { flex: 1; background: linear-gradient(180deg, #34d399, #3b82f6); border-radius: 4px 4px 0 0; }
 
     /* ===== Premium FAQ accordion (scoped to this page) ===== */
     .faq-list { display: grid; gap: 14px; }
@@ -291,7 +264,7 @@
     .hs-blog-body .hs-blog-meta { margin-top: auto; color: var(--text-secondary); font-size: 0.82rem; }
 
     @media (max-width: 1024px) {
-      .hs-hero-grid, .hs-product-grid, .hs-app-grid, .hs-reviews-grid { grid-template-columns: 1fr; }
+      .hs-hero-grid, .hs-product-grid, .hs-reviews-grid { grid-template-columns: 1fr; }
       .hs-journey { grid-template-columns: repeat(2, 1fr); }
       .hs-stats { grid-template-columns: repeat(2, 1fr); }
       .hs-benefit-grid { grid-template-columns: 1fr; }
@@ -300,7 +273,7 @@
     }
     @media (max-width: 560px) {
       .hs-journey, .hs-stats { grid-template-columns: 1fr; }
-      .hs-form .form-row, .hs-bill-options { grid-template-columns: 1fr; }
+      .hs-form .form-row { grid-template-columns: 1fr; }
       .hs-compare { padding: 34px 12px; border-radius: 22px; }
       .hs-compare-row { grid-template-columns: 1.25fr 0.95fr 0.95fr; font-size: 0.78rem; }
       .hs-compare-row > div { padding: 14px 8px; gap: 8px; }
@@ -497,7 +470,7 @@
 
 
   <!-- ===================== PRODUCT / GUARANTEE BAND ===================== -->
-  <section class="cm-section cm-section-alt">
+  <section class="cm-section">
     <div class="container">
       <div class="hs-product" data-animate>
         <div class="hs-product-grid">
@@ -534,7 +507,7 @@
   </section>
 
   <!-- ===================== POWERING HOMES STATS ===================== -->
-  <section class="cm-section">
+  <section class="cm-section cm-section-alt">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">Our Footprint</span>
@@ -552,7 +525,7 @@
   </section>
 
   <!-- ===================== ADVANTAGE COMPARISON ===================== -->
-  <section class="cm-section cm-section-alt">
+  <section class="cm-section">
     <div class="container">
       <div class="section-header" data-animate>
         <span class="section-tag">The Clans Machina Advantage</span>
@@ -695,28 +668,28 @@
         <p>Practical guides on pricing, subsidy and savings to help you make a confident solar decision.</p>
       </div>
       <div class="hs-blog-grid">
-        <a class="hs-blog-card glass-card" href="../blog.php" data-animate>
-          <img src="../image/blog/blog-cost.webp" alt="Rooftop solar system cost in India" loading="lazy" />
+        <a class="hs-blog-card glass-card" href="../post.php?id=11" data-animate>
+          <img src="../image/blog/uploads/post_1781368541_fd188786.webp" alt="How many kWh a house uses" loading="lazy" />
           <div class="hs-blog-body">
-            <span class="hs-blog-chip">Cost &amp; Savings</span>
-            <h3>What Is the Price of a 3 kW Rooftop Solar System in India?</h3>
-            <span class="hs-blog-meta">By Clans Machina &middot; 6 min read</span>
-          </div>
-        </a>
-        <a class="hs-blog-card glass-card" href="../blog.php" data-animate>
-          <img src="../image/blog/blog-subsidy.webp" alt="PM Surya Ghar solar subsidy explained" loading="lazy" />
-          <div class="hs-blog-body">
-            <span class="hs-blog-chip">Subsidy</span>
-            <h3>PM Surya Ghar Subsidy: How to Get Up to &#8377;1,38,000 in Odisha</h3>
+            <span class="hs-blog-chip">Solar Basics</span>
+            <h3>How Many kWh Does a House Use? 2026 Data</h3>
             <span class="hs-blog-meta">By Clans Machina &middot; 5 min read</span>
           </div>
         </a>
-        <a class="hs-blog-card glass-card" href="../blog.php" data-animate>
-          <img src="../image/blog/blog-netmetering.webp" alt="Net metering explained" loading="lazy" />
+        <a class="hs-blog-card glass-card" href="../post.php?id=3" data-animate>
+          <img src="../image/blog/uploads/post_1781365926_a2175f49.webp" alt="Solar panel maintenance guide" loading="lazy" />
           <div class="hs-blog-body">
-            <span class="hs-blog-chip">Net Metering</span>
-            <h3>Net Metering Explained: How Your Solar Meter Runs Backwards</h3>
-            <span class="hs-blog-meta">By Clans Machina &middot; 4 min read</span>
+            <span class="hs-blog-chip">Maintenance</span>
+            <h3>Solar Panel Maintenance Guide</h3>
+            <span class="hs-blog-meta">By Clans Machina &middot; 3 min read</span>
+          </div>
+        </a>
+        <a class="hs-blog-card glass-card" href="../post.php?id=14" data-animate>
+          <img src="../image/blog/uploads/post_1781369563_5c2037c2.webp" alt="Pros and cons of solar energy" loading="lazy" />
+          <div class="hs-blog-body">
+            <span class="hs-blog-chip">Expert Guide</span>
+            <h3>Pros and Cons of Solar Energy: 2026 Expert Guide</h3>
+            <span class="hs-blog-meta">By Clans Machina &middot; 8 min read</span>
           </div>
         </a>
       </div>
@@ -879,6 +852,59 @@
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clansmachina.in/" },
           { "@type": "ListItem", "position": 2, "name": "Residential Solar", "item": "https://www.clansmachina.in/our-offering/home.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why should I switch to solar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Electricity tariffs rise 8–10% every year. Rooftop solar locks in a near-zero generation cost for 25 years, cutting your bill by up to 90% while the system pays for itself in about 4–5 years."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How high does my electricity bill need to be for solar to make sense?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If your average monthly bill is ₹1,500 or more, a rooftop system usually makes strong financial sense. The higher your bill, the faster your payback."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How complicated is the subsidy process?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You don’t have to deal with it at all. Clans Machina prepares and files every document for the PM Surya Ghar scheme so you receive up to ₹1,38,000 (₹78,000 central + ₹60,000 Odisha state) directly to your bank."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does it take to set up the system?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "From site survey to a fully commissioned, grid-connected system typically takes 18–27 days, including net-metering approvals."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the lifespan of a rooftop solar system?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Panels carry a 25-year performance warranty and typically keep generating well beyond that, with only minor efficiency loss over time."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How will I know how much power my system is generating?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our free monitoring app shows your real-time, daily and lifetime generation and savings, with proactive alerts if anything needs attention."
+            }
+          }
         ]
       }
     ]

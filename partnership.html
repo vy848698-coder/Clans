@@ -55,23 +55,6 @@
     .pp-hero-actions .btn svg { width: 18px; height: 18px; margin-right: 8px; vertical-align: -3px; }
     .pp-hero .btn-glass { color: var(--green); border-color: rgba(34,197,94,0.55); background: #ffffff; }
     .pp-hero .btn-glass:hover { background: rgba(34,197,94,0.08); border-color: var(--green); }
-    /* highlights bar */
-    .pp-hero-points { list-style: none; padding: 18px 10px; margin: 0;
-      display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
-      background: #ffffff; border: 1px solid rgba(16,90,60,0.10); border-radius: 18px;
-      box-shadow: 0 24px 60px -38px rgba(16,90,60,0.45); }
-    .pp-hero-points li { position: relative; flex: 1 1 0; min-width: 162px;
-      display: flex; align-items: center; gap: 12px; text-align: left;
-      padding: 4px 16px; font-weight: 500; font-size: 0.9rem; line-height: 1.3;
-      color: #1f2a26; hyphens: none; }
-    .pp-hero-points li + li::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px;
-      width: 1px; background: rgba(16,90,60,0.10); }
-    .pp-hero-points .pp-hl-ic { flex: none; width: 42px; height: 42px; border-radius: 50%;
-      display: grid; place-items: center; color: var(--green);
-      background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.22); }
-    .pp-hero-points .pp-hl-ic svg { width: 20px; height: 20px; }
-    .pp-hero-points li:first-child .pp-hl-ic { color: #fff; border-color: transparent;
-      background: linear-gradient(135deg, var(--green), #16a34a); box-shadow: 0 8px 18px rgba(16,163,74,0.4); }
 
     /* ===== Program cards ===== */
     .pp-programs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -193,9 +176,6 @@
     @media (max-width: 560px) {
       .pp-steps, .pp-stats { grid-template-columns: 1fr; }
       .pp-hero-actions .btn { width: 100%; justify-content: center; }
-      .pp-hero-points { flex-direction: column; align-items: stretch; gap: 4px; }
-      .pp-hero-points li { flex: 1 1 auto; }
-      .pp-hero-points li + li::before { display: none; }
     }
 
     /* ===== Benefits showcase card ===== */
@@ -625,8 +605,6 @@
   <footer class="footer"></footer>
   <script src="js/shared-footer.js" defer></script>
   <script src="js/subpage.js" defer></script>
-  <script src="js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
 
   <!-- Animated stat counters -->
   <script>
@@ -679,6 +657,63 @@
 
       counters.forEach(function (el) { observer.observe(el); });
     })();
+  </script>
+  <!-- FAQPage structured data (JSON-LD) — mirrors the Q&A rendered on this page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who can become a Clans Machina partner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Anyone with the drive to grow — electrical and hardware dealers, EPC contractors, real-estate professionals, sales and marketing people, and even motivated freshers. Channel Partners are best for established businesses, while the Solar Consultant program suits individuals."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to invest money to start?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Solar Consultant program needs zero investment to begin. The Channel Partner program is low-investment with no large godown or inventory requirement — our team handles execution while you focus on your region."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need prior solar experience?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. We provide free training and certification on solar products, subsidy schemes and the sales process, so you can start confidently even without a technical background."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I earn as a partner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your earnings scale with the deals you close. Partners earn attractive commissions on every project, plus lifetime royalty and recurring revenue on referrals — the more you grow your region, the more you earn."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What support will I get?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dedicated relationship management, lead support, marketing material, a robust technology platform, and complete back-end execution — design, installation, subsidy paperwork and 25-year service are handled by Clans Machina."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How and when do I get paid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Payouts are transparent and tied to clear milestones in each project. Your dedicated partner manager shares the full commission structure during onboarding."
+        }
+      }
+    ]
+  }
   </script>
 </body>
 </html>
