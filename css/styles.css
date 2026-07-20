@@ -1824,6 +1824,23 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 }
 .sc-field select option { background: var(--bg-secondary); color: var(--text-primary); }
 
+/* Polished estimator input row (State · District · Roof · Bill + CTA) */
+.sc-inputrow .sc-field > label {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; opacity: 0.7;
+}
+.sc-inputrow .sc-field input[type="number"],
+.sc-inputrow .sc-field input[type="text"],
+.sc-inputrow .sc-field select { padding-top: 14px; padding-bottom: 14px; font-weight: 500; }
+.sc-inputrow .sc-field input:hover,
+.sc-inputrow .sc-field select:hover { border-color: var(--border-bright); background: rgba(255,255,255,0.07); }
+/* Custom chevron on the State / District selects for a consistent, crisp look */
+.sc-field > select {
+  appearance: none; -webkit-appearance: none; -moz-appearance: none; cursor: pointer; padding-right: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239fb0b8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; background-size: 14px;
+}
+.sc-field > select:disabled { opacity: 0.5; cursor: not-allowed; }
+
 /* City autocomplete (pan-India location combobox) */
 .sc-ac-wrap { position: relative; }
 .sc-ac-list { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; margin: 0; padding: 5px;
@@ -2082,11 +2099,16 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 .sc-tool-type-tag { display: inline-block; margin-left: 10px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--green); background: var(--green-dim); border: 1px solid var(--border-bright); padding: 4px 10px; border-radius: 999px; vertical-align: middle; }
 
 /* --- top input row --- */
-.sc-inputrow { display: grid; grid-template-columns: 1.3fr 1fr 1fr auto; gap: 16px; align-items: end; }
+.sc-inputrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 16px; align-items: end; }
 .sc-input-combo { display: flex; }
 .sc-input-combo input[type="number"] { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .sc-input-combo select { width: auto; min-width: 84px; border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; background: rgba(255,255,255,0.07); }
-.sc-inputrow .btn { height: 48px; white-space: nowrap; }
+.sc-inputrow .btn {
+  grid-column: 1 / -1; justify-self: stretch; width: 100%; height: 54px; margin-top: 6px;
+  justify-content: center; font-size: 1.02rem; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap;
+  border-radius: var(--radius-sm); box-shadow: 0 12px 28px -14px rgba(62,207,142,0.7);
+}
+.sc-inputrow .btn:hover { transform: translateY(-1px); box-shadow: 0 16px 34px -14px rgba(62,207,142,0.85); }
 .sc-inputrow-note { font-size: 0.8rem; color: var(--gold); margin: 14px 0 0; }
 
 /* --- tool body: visual panel left, results right --- */
@@ -2198,6 +2220,14 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   font-size: 0.9rem; font-family: inherit; }
 .sc-lead-grid input::placeholder { color: var(--text-muted); }
 .sc-lead-grid input:focus { outline: none; border-color: var(--blue); background: rgba(78,168,222,0.08); }
+/* District is auto-fetched (read-only) from the estimator selection above */
+.sc-lead-grid input.is-autofilled {
+  cursor: default; color: var(--text-primary); font-weight: 600;
+  border-color: rgba(62,207,142,0.4); background: rgba(62,207,142,0.09); padding-right: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%233ecf8e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 11px center; background-size: 15px;
+}
+.sc-lead-grid input.is-autofilled:focus { border-color: rgba(62,207,142,0.55); background-color: rgba(62,207,142,0.12); }
 .sc-lead-err { margin: 0 0 10px; font-size: 0.8rem; color: #f87171; }
 .sc-lead-err[hidden] { display: none; }
 .sc-lead-note { margin: 9px 0 0; font-size: 0.74rem; line-height: 1.5; color: var(--text-muted); text-align: center; }

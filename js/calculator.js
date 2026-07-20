@@ -25,25 +25,12 @@
   };
 
   /* ------------------------------------------------------------
-     LOCATION → STATE resolution (pan-India). The FRD subsidy table's
-     `state` amounts are the Odisha figures, so the state top-up only
-     applies to Odisha; everywhere else shows central subsidy only.
-     Resolves a typed/detected location string to its state via the
-     CITIES_INDIA list, or directly if the string is a state name.
+     STATE / DISTRICT — the user picks State then District from real
+     cascading dropdowns (js/india-states-districts.js). The FRD subsidy
+     table's `state` amounts are the Odisha figures, so the state top-up
+     applies to Odisha only; everywhere else shows central subsidy only.
+     The selected state is read straight off the dropdown at submit time.
      ------------------------------------------------------------ */
-  function resolveState(locStr) {
-    if (!locStr) return '';
-    var q = String(locStr).trim().toLowerCase();
-    if (!q) return '';
-    if (q.indexOf('odisha') >= 0 || q.indexOf('orissa') >= 0) return 'Odisha';
-    var cities = window.CITIES_INDIA || [];
-    for (var i = 0; i < cities.length; i++) {
-      if (cities[i].name.toLowerCase() === q || cities[i].state.toLowerCase() === q) {
-        return cities[i].state;
-      }
-    }
-    return '';   // unknown / free-typed → treated as non-Odisha (central-only)
-  }
 
   /* ---------- shared state fed from estimator into EMI ---------- */
   var assetCost = 300000;   // financeable system cost (net of subsidy)
@@ -61,132 +48,48 @@
   var estForm = $('estForm');
   if (!estForm) return; // not on the calculator page
 
-  /* ---- AUTO-DETECT LOCATION -> reverse-geocode GPS to a city name ---- */
-  (function initDetect() {
-    var btn = $('estDetect');
-    var input = $('estLocation');
-    if (!btn || !input) return;
+  /* ---- STATE → DISTRICT CASCADING DROPDOWNS (all India) ---- */
+  (function initStateDistrict() {
+    var stateSel = $('estState');
+    var distSel = $('estDistrict');
+    var data = window.INDIA_STATES_DISTRICTS;
+    if (!stateSel || !distSel || !data) return;
 
-    var msg = $('estDetectMsg');
-    var label = $('estDetectLabel');
-
-    function say(text, cls) {
-      if (!msg) return;
-      msg.textContent = text;
-      msg.className = 'sc-detect-msg' + (cls ? ' ' + cls : '');
-      msg.hidden = !text;
-    }
-    function busy(on) {
-      btn.disabled = on;
-      btn.classList.toggle('is-loading', on);
-      if (label) label.textContent = on ? 'Detecting…' : 'Detect';
+    function opt(value, label, disabled, selected) {
+      var o = document.createElement('option');
+      o.value = value;
+      o.textContent = label;
+      if (disabled) o.disabled = true;
+      if (selected) o.selected = true;
+      return o;
     }
 
-    // Turn GPS coordinates into the nearest town/city name via BigDataCloud's
-    // free, key-less client endpoint (CORS-enabled). Prefer city, then locality.
-    function lookupCity(lat, lng) {
-      var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' +
-        encodeURIComponent(lat) + '&longitude=' + encodeURIComponent(lng) + '&localityLanguage=en';
-      return fetch(url)
-        .then(function (r) { if (!r.ok) throw new Error('geocode'); return r.json(); })
-        .then(function (d) { return (d.city || d.locality || d.principalSubdivision || '').trim(); });
-    }
+    // Populate states alphabetically.
+    Object.keys(data).sort().forEach(function (st) {
+      stateSel.appendChild(opt(st, st, false, false));
+    });
 
-    btn.addEventListener('click', function () {
-      if (!navigator.geolocation) {
-        say('Location not supported on this device — please type your city.', 'is-err');
+    // Fill districts for the chosen state (already sorted in the data file).
+    function fillDistricts(state, keep) {
+      distSel.innerHTML = '';
+      var list = data[state] || [];
+      if (!list.length) {
+        distSel.appendChild(opt('', 'Select state first', true, true));
+        distSel.disabled = true;
         return;
       }
-      busy(true);
-      say('Getting your location…', '');
-      navigator.geolocation.getCurrentPosition(
-        function (pos) {
-          lookupCity(pos.coords.latitude, pos.coords.longitude)
-            .then(function (city) {
-              busy(false);
-              if (!city) { say('Couldn\'t read your city — please type it in.', 'is-err'); return; }
-              input.value = city;   // fills the field directly (no dropdown re-trigger)
-              say('Location set to ' + city + '.', 'is-ok');
-            })
-            .catch(function () {
-              busy(false);
-              say('Couldn\'t look up your city — please type it in.', 'is-err');
-            });
-        },
-        function (err) {
-          busy(false);
-          var m = err.code === err.PERMISSION_DENIED
-            ? 'Location permission denied — please type your city.'
-            : 'Couldn\'t detect location — please type your city.';
-          say(m, 'is-err');
-        },
-        { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
-      );
-    });
-  })();
-
-  /* ---- CITY AUTOCOMPLETE (pan-India combobox) ---- */
-  (function initCityAutocomplete() {
-    var input = $('estLocation');
-    var list = $('estCityList');
-    var cities = window.CITIES_INDIA;
-    if (!input || !list || !cities || !cities.length) return;
-
-    var matches = [];
-    var activeIdx = -1;
-
-    function esc(s) {
-      return String(s).replace(/[&<>"]/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      distSel.appendChild(opt('', 'Select district', true, !keep));
+      list.forEach(function (d) {
+        distSel.appendChild(opt(d, d, false, keep && d === keep));
       });
-    }
-    function close() { list.hidden = true; input.setAttribute('aria-expanded', 'false'); activeIdx = -1; }
-    function render() {
-      if (!matches.length) { close(); return; }
-      list.innerHTML = matches.map(function (c, i) {
-        return '<li class="sc-ac-item" role="option" data-i="' + i + '">' +
-          '<strong>' + esc(c.name) + '</strong><span>' + esc(c.state) + '</span></li>';
-      }).join('');
-      list.hidden = false;
-      input.setAttribute('aria-expanded', 'true');
-    }
-    function filter() {
-      var q = input.value.trim().toLowerCase();
-      if (q.length < 2) { close(); return; }
-      var starts = [], contains = [];
-      for (var i = 0; i < cities.length; i++) {
-        var p = cities[i].name.toLowerCase().indexOf(q);
-        if (p === 0) starts.push(cities[i]);
-        else if (p > 0) contains.push(cities[i]);
-      }
-      matches = starts.concat(contains).slice(0, 8);
-      activeIdx = -1;
-      render();
-    }
-    function choose(i) { var c = matches[i]; if (c) { input.value = c.name; close(); } }
-    function highlight(idx) {
-      var items = list.querySelectorAll('.sc-ac-item');
-      for (var i = 0; i < items.length; i++) items[i].classList.toggle('is-active', i === idx);
-      activeIdx = idx;
+      distSel.disabled = false;
     }
 
-    input.addEventListener('input', filter);
-    input.addEventListener('focus', function () { if (input.value.trim().length >= 2) filter(); });
-    input.addEventListener('keydown', function (e) {
-      if (list.hidden) return;
-      if (e.key === 'ArrowDown') { e.preventDefault(); highlight(Math.min(activeIdx + 1, matches.length - 1)); }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(Math.max(activeIdx - 1, 0)); }
-      else if (e.key === 'Enter' && activeIdx >= 0) { e.preventDefault(); choose(activeIdx); }
-      else if (e.key === 'Escape') { close(); }
+    stateSel.addEventListener('change', function () {
+      fillDistricts(stateSel.value, null);
     });
-    // mousedown (not click) so selection lands before the input loses focus
-    list.addEventListener('mousedown', function (e) {
-      var li = e.target.closest('.sc-ac-item');
-      if (li) { e.preventDefault(); choose(parseInt(li.getAttribute('data-i'), 10)); }
-    });
-    document.addEventListener('click', function (e) {
-      if (e.target !== input && !list.contains(e.target)) close();
-    });
+    // No default state — the user must pick, so the state subsidy is never
+    // applied to the wrong location.
   })();
 
   /* ---- TWO INTERNAL SCREENS: choose property -> calculator ---- */
@@ -320,13 +223,18 @@
 
     var tariff = TARIFF;  // ₹/unit (FRD flat rate)
 
-    // Validate mandatory inputs
+    // Validate mandatory inputs (State, District, Bill, Roof)
+    var stateSel = $('estState');
+    var distSel = $('estDistrict');
+    var stateVal = stateSel ? stateSel.value : '';
+    var districtVal = distSel ? distSel.value : '';
     var billInput = parseFloat($('estBill').value) || 0;
     var roofInput = parseFloat(roof.value) || 0;
     var err = $('estError');
-    if (billInput <= 0 || roofInput <= 0) {
+    if (!stateVal || !districtVal || billInput <= 0 || roofInput <= 0) {
       if (err) err.hidden = false;
-      (billInput <= 0 ? $('estBill') : roof).focus();
+      var focusEl = !stateVal ? stateSel : (!districtVal ? distSel : (billInput <= 0 ? $('estBill') : roof));
+      if (focusEl) focusEl.focus();
       return;
     }
     if (err) err.hidden = true;
@@ -340,9 +248,9 @@
     // Roof area normalised to sq ft (~100 sq ft per kW)
     var roofArea = (roofUnit && roofUnit.value === 'sqm') ? roofInput * 10.7639 : roofInput;
 
-    // Location → state: the state subsidy top-up applies to Odisha only.
-    var locInput = $('estLocation') ? $('estLocation').value : '';
-    var resolvedState = resolveState(locInput);
+    // State → subsidy: the state top-up applies to Odisha only.
+    var resolvedState = stateVal;
+    var locInput = districtVal + ', ' + stateVal;   // display string for the PDF
     var stateEligible = resolvedState === 'Odisha';
 
     // --- Run the FRD engine (shared with the homepage teaser) ---
@@ -462,6 +370,7 @@
       propertyType: TYPE_LABEL[consumerType] || 'Home',
       location: locInput || '',
       state: resolvedState || '',
+      district: districtVal || '',
       bill: bill, monthlyUnits: est.monthlyUnits,
       systemSize: systemSize, roofRequired: est.roofRequired, panels: panels,
       monthlyGen: monthlyGen, gen25: gen25,
@@ -477,6 +386,12 @@
     var scLead = $('scLead');
     if (scLead) scLead.hidden = false;
     if (typeof window.__resetLeadForm === 'function') window.__resetLeadForm();
+    // Auto-fetch the lead form's District (and State) from the estimator
+    // selection — always in sync, so the proposal matches what was chosen.
+    var leadDistrictEl = $('leadDistrict');
+    if (leadDistrictEl) leadDistrictEl.value = districtVal;
+    var leadStateEl = $('leadState');
+    if (leadStateEl) leadStateEl.value = stateVal;
 
     // Feed EMI calculator
     hasEstimate = true;
@@ -552,7 +467,6 @@
       var brandMark = logoDataUri
         ? '<img class="logo" src="' + logoDataUri + '" alt="Clans Machina" />'
         : '<div class="brand">Clans Machina <span>Solar</span></div>';
-      var where = esc(s.location || '');
       var emiSection = (emi && emi.monthly) ?
         ('<h2>Loan / EMI plan</h2><table>' +
           row('Loan amount', esc(emi.loan)) +
@@ -564,21 +478,31 @@
       var usps = ['Premium Solar Solutions', 'MNRE-Compliant Installation', 'Government Subsidy Assistance',
         'Bank Loan Support', 'Net Metering Assistance', 'Comprehensive Warranty',
         'Professional Installation', 'Dedicated After-Sales Service'];
-      // "Prepared for" line — populated from the captured lead details.
+      // Inline SVGs (self-contained — no external assets in the print doc).
+      var checkSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#3ecf8e"/><path d="M8 12.4l2.6 2.6 5-5.6" stroke="#0b3b28" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var icoPhone = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h3l1.5 4-2 1.4a11 11 0 0 0 5 5l1.4-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5a2 2 0 0 1 2-2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+      var icoMail = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="1.6"/><path d="m3.5 7 8.5 6 8.5-6" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+      var icoGlobe = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><path d="M3 12h18M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9Z" stroke="#fff" stroke-width="1.6"/></svg>';
+      var ctaItem = function (ico, k, v) {
+        return '<div class="cta-item"><span class="cta-ico">' + ico + '</span>' +
+          '<div><div class="ci-k">' + k + '</div><div class="ci-v">' + v + '</div></div></div>';
+      };
+      // Contact + site line — the name/date/proposal-no already show in the band above.
       var top = [];
-      if (lead && lead.name) top.push('Prepared for <b>' + esc(lead.name) + '</b>');
-      if (lead && lead.phone) top.push(esc(lead.phone));
-      if (lead && lead.email) top.push(esc(lead.email));
+      if (lead && lead.phone) top.push('Mobile: <b>' + esc(lead.phone) + '</b>');
+      if (lead && lead.email) top.push('Email: <b>' + esc(lead.email) + '</b>');
       var bottom = [];
-      if (lead && lead.district) bottom.push('District: <b>' + esc(lead.district) + '</b>');
-      if (where) bottom.push('Location: <b>' + where + '</b>');
+      var district = (lead && lead.district) || s.district || '';
+      if (district) bottom.push('District: <b>' + esc(district) + '</b>');
+      if (s.state) bottom.push('State: <b>' + esc(s.state) + '</b>');
       bottom.push('Property: <b>' + esc(s.propertyType) + '</b>');
       bottom.push('Monthly bill: <b>' + rupeeInr(s.bill) + '</b>');
       var whoLine = (top.length ? top.join(' · ') + '<br>' : '') + bottom.join(' · ');
       return '' +
 '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clans Machina — Solar Proposal</title><style>' +
 '*{box-sizing:border-box;margin:0;padding:0}' +
-'body{font-family:"Segoe UI",Arial,sans-serif;color:#12241c;padding:30px 34px;font-size:13px;line-height:1.5}' +
+'html{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+'body{font-family:"Segoe UI",Arial,sans-serif;color:#12241c;padding:30px 34px;font-size:13px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
 '.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #3ecf8e;padding-bottom:14px;margin-bottom:18px}' +
 '.logo{height:40px;width:auto}' +
 '.brand{font-size:22px;font-weight:800;color:#0f6f47;letter-spacing:-.5px}' +
@@ -601,48 +525,49 @@
 'td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}' +
 'td.num.hl{color:#0f6f47;font-size:15px}' +
 'tr.total td{border-top:2px solid #cdeede;border-bottom:none;padding-top:9px;font-size:15px;font-weight:800;color:#0f6f47}' +
-'.why{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:4px;padding:0;list-style:none}' +
-'.why li{flex:1 1 40%;font-size:12px;color:#3a5248;padding-left:16px;position:relative}' +
-'.why li:before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;border-radius:50%;background:#3ecf8e}' +
-'.cta{margin-top:18px;background:#0f6f47;color:#fff;border-radius:10px;padding:16px 18px}' +
-'.cta h3{color:#fff;font-size:14px;margin-bottom:6px}' +
-'.cta p{color:#e9fbf3;font-size:12px;margin:2px 0}' +
-'.cta b{color:#fff}' +
+'.why{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;padding:0;list-style:none}' +
+'.why li{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#12241c;' +
+'background:linear-gradient(135deg,#f1fbf6,#f7fcfa);border:1px solid #dcefe6;border-radius:9px;padding:9px 12px}' +
+'.why li svg{flex:none}' +
+'.cta{margin-top:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b3b28,#0f6f47 68%,#12805a);' +
+'color:#fff;border-radius:14px;padding:22px 24px}' +
+'.cta:after{content:"";position:absolute;right:-70px;top:-70px;width:210px;height:210px;border-radius:50%;' +
+'background:radial-gradient(circle,rgba(62,207,142,.45),transparent 70%)}' +
+'.cta-inner{position:relative;z-index:1}' +
+'.cta-badge{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;' +
+'background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:30px;padding:4px 12px;color:#d6f5e6;margin-bottom:11px}' +
+'.cta h3{color:#fff;font-size:19px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px}' +
+'.cta .lead{color:#cdeede;font-size:12px;margin-bottom:15px}' +
+'.cta .lead b{color:#8ef2c4}' +
+'.cta-row{display:flex;flex-wrap:wrap;gap:10px}' +
+'.cta-item{flex:1 1 28%;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);' +
+'border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 12px}' +
+'.cta-ico{flex:none;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;' +
+'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22)}' +
+'.cta-item .ci-k{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:#a8e6cd;margin-bottom:1px}' +
+'.cta-item .ci-v{font-size:11.5px;font-weight:700;color:#fff}' +
 '.foot{margin-top:18px;border-top:1px solid #e0e8e4;padding-top:12px;font-size:10.5px;color:#8a978f;line-height:1.6}' +
-/* --- Cover page --- */
-'.cover{min-height:96vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;' +
-'background:linear-gradient(135deg,#0b3b28,#0f6f47 55%,#12805a);color:#fff;border-radius:14px;padding:48px 40px;page-break-after:always}' +
-'.cover-logo{height:70px;width:auto;margin-bottom:8px;filter:brightness(0) invert(1)}' +
-'.cover-brand{font-size:30px;font-weight:800;letter-spacing:-.5px;color:#fff}' +
-'.cover-brand span{color:#8ef2c4}' +
-'.cover-kicker{margin-top:34px;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:#a8e6cd}' +
-'.cover-title{font-size:40px;font-weight:800;line-height:1.1;margin:6px 0 4px;color:#fff}' +
-'.cover-sub{font-size:14px;color:#cdeede;margin-bottom:40px}' +
-'.cover-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:12px;' +
-'padding:22px 26px;min-width:340px}' +
-'.cover-card .cline{display:flex;justify-content:space-between;gap:24px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:13px}' +
-'.cover-card .cline:last-child{border-bottom:none}' +
-'.cover-card .ck{color:#a8e6cd;text-transform:uppercase;letter-spacing:.06em;font-size:11px}' +
-'.cover-card .cv{font-weight:700;color:#fff;text-align:right}' +
-'.cover-foot{margin-top:40px;font-size:11px;color:#a8e6cd}' +
-'@media print{body{padding:0}.cover{border-radius:0;min-height:100vh}}' +
+/* --- Branded cover band (compact, flows into the report) --- */
+'.cover-band{background:linear-gradient(135deg,#0b3b28,#0f6f47 60%,#12805a);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px}' +
+'.cb-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#a8e6cd}' +
+'.cb-title{font-size:24px;font-weight:800;line-height:1.12;margin:3px 0 15px;color:#fff}' +
+'.cb-grid{display:flex;flex-wrap:wrap;gap:26px;border-top:1px solid rgba(255,255,255,.2);padding-top:13px}' +
+'.cb-grid>div{display:flex;flex-direction:column;gap:2px}' +
+'.cb-grid span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#a8e6cd}' +
+'.cb-grid b{font-size:14px;color:#fff}' +
+'@media print{body{padding:0}}' +
 '</style></head><body>' +
-'<section class="cover">' +
-  (logoDataUri
-    ? '<img class="cover-logo" src="' + logoDataUri + '" alt="Clans Machina" />'
-    : '<div class="cover-brand">Clans Machina <span>Solar</span></div>') +
-  '<div class="cover-kicker">Solar Savings Proposal</div>' +
-  '<div class="cover-title">Your Solar Journey<br>Starts Here</div>' +
-  '<div class="cover-sub">A personalised rooftop solar estimate prepared by Clans Machina</div>' +
-  '<div class="cover-card">' +
-    '<div class="cline"><span class="ck">Prepared for</span><span class="cv">' + esc((lead && lead.name) || s.propertyType) + '</span></div>' +
-    '<div class="cline"><span class="ck">Date</span><span class="cv">' + esc(dateStr) + '</span></div>' +
-    '<div class="cline"><span class="ck">Proposal No.</span><span class="cv">' + esc(proposalNo) + '</span></div>' +
-  '</div>' +
-  '<div class="cover-foot">www.clansmachina.in&nbsp; ·&nbsp; +91 91241 65341</div>' +
-'</section>' +
 '<div class="head">' + brandMark +
 '<div class="meta"><b>Solar Proposal</b><br>No. ' + esc(proposalNo) + '<br>' + esc(dateStr) + '</div></div>' +
+'<div class="cover-band">' +
+  '<div class="cb-kicker">Solar Savings Proposal</div>' +
+  '<div class="cb-title">Your Solar Journey Starts Here</div>' +
+  '<div class="cb-grid">' +
+    '<div><span>Prepared for</span><b>' + esc((lead && lead.name) || s.propertyType) + '</b></div>' +
+    '<div><span>Date</span><b>' + esc(dateStr) + '</b></div>' +
+    '<div><span>Proposal No.</span><b>' + esc(proposalNo) + '</b></div>' +
+  '</div>' +
+'</div>' +
 '<div class="who">' + whoLine + '</div>' +
 '<div class="hero"><div class="lbl">Estimated 25-year savings</div>' +
 '<div class="big">' + rupeeInr(s.savings25) + '</div>' +
@@ -670,12 +595,18 @@ row('CO₂ avoided (per year)', Math.round(s.co2Yr).toLocaleString('en-IN') + ' 
 row('CO₂ avoided (25 years)', s.co2Life.toFixed(1) + ' tonnes') +
 '</table>' +
 '<h2>Why choose Clans Machina</h2><ul class="why">' +
-usps.map(function (u) { return '<li>' + u + '</li>'; }).join('') +
+usps.map(function (u) { return '<li>' + checkSvg + '<span>' + u + '</span></li>'; }).join('') +
 '</ul>' +
-'<div class="cta"><h3>Ready for the next step?</h3>' +
-'<p>Book a <b>free site survey</b> and talk to a solar expert.</p>' +
-'<p>Call / WhatsApp: <b>+91 91241 65341</b> · Email: <b>info@clansmachina.in</b></p>' +
-'<p>Website: <b>www.clansmachina.in</b></p></div>' +
+'<div class="cta"><div class="cta-inner">' +
+'<span class="cta-badge">Get Started Today</span>' +
+'<h3>Ready for the next step?</h3>' +
+'<p class="lead">Book a <b>FREE site survey</b> and talk to a Clans Machina solar expert — no obligation.</p>' +
+'<div class="cta-row">' +
+  ctaItem(icoPhone, 'Call / WhatsApp', '+91 91241 65341') +
+  ctaItem(icoMail, 'Email', 'info@clansmachina.in') +
+  ctaItem(icoGlobe, 'Website', 'www.clansmachina.in') +
+'</div>' +
+'</div></div>' +
 '<div class="foot">Indicative estimate generated by the Clans Machina solar calculator per the standard tariff, generation and PM Surya Ghar subsidy assumptions. ' +
 'Final figures depend on your roof, shading, DISCOM tariff and site survey. Subsidy eligibility is subject to prevailing government policy. ' +
 'This document is a savings estimate, not a contract or a guarantee.</div>' +
@@ -729,7 +660,8 @@ usps.map(function (u) { return '<li>' + u + '</li>'; }).join('') +
             city: lead.district, service: 'Solar Calculator Proposal',
             bill: Math.round(s.bill),
             message: 'Proposal ' + lead.proposalNo + ' · ' + s.propertyType +
-              ' · ' + s.systemSize + ' kW · District: ' + lead.district
+              ' · ' + s.systemSize + ' kW · District: ' + lead.district +
+              (lead.state ? ' · State: ' + lead.state : '')
           })
         }).catch(function () {});
       } catch (e) { /* offline / fetch unsupported — PDF still generated */ }
