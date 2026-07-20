@@ -472,9 +472,11 @@
       co2Mo: est.co2MonthlyKg, co2Yr: est.co2AnnualKg, co2Life: est.co2LifeT
     };
 
-    // Reveal the PDF-download card for this fresh estimate.
+    // Reveal the PDF-download card for this fresh estimate and reset it back
+    // to the lead form (a new estimate warrants a new proposal number).
     var scLead = $('scLead');
     if (scLead) scLead.hidden = false;
+    if (typeof window.__resetLeadForm === 'function') window.__resetLeadForm();
 
     // Feed EMI calculator
     hasEstimate = true;
@@ -529,9 +531,19 @@
       };
     }
 
+    // Auto-generate a unique proposal number: CM-YYYYMMDD-XXXX.
+    function makeProposalNo(d) {
+      var y = d.getFullYear();
+      var m = ('0' + (d.getMonth() + 1)).slice(-2);
+      var day = ('0' + d.getDate()).slice(-2);
+      var rand = Math.floor(1000 + Math.random() * 9000);
+      return 'CM-' + y + m + day + '-' + rand;
+    }
+
     function proposalHTML(s, lead, emi) {
       var d = s.generatedAt instanceof Date ? s.generatedAt : new Date();
       var dateStr = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+      var proposalNo = (lead && lead.proposalNo) || makeProposalNo(d);
       var row = function (label, val, strong) {
         return '<tr><td>' + esc(label) + '</td><td class="num' + (strong ? ' hl' : '') + '">' + val + '</td></tr>';
       };
@@ -552,12 +564,13 @@
       var usps = ['Premium Solar Solutions', 'MNRE-Compliant Installation', 'Government Subsidy Assistance',
         'Bank Loan Support', 'Net Metering Assistance', 'Comprehensive Warranty',
         'Professional Installation', 'Dedicated After-Sales Service'];
-      // "Prepared for" line — customer details are optional (no lead form).
+      // "Prepared for" line — populated from the captured lead details.
       var top = [];
       if (lead && lead.name) top.push('Prepared for <b>' + esc(lead.name) + '</b>');
       if (lead && lead.phone) top.push(esc(lead.phone));
       if (lead && lead.email) top.push(esc(lead.email));
       var bottom = [];
+      if (lead && lead.district) bottom.push('District: <b>' + esc(lead.district) + '</b>');
       if (where) bottom.push('Location: <b>' + where + '</b>');
       bottom.push('Property: <b>' + esc(s.propertyType) + '</b>');
       bottom.push('Monthly bill: <b>' + rupeeInr(s.bill) + '</b>');
@@ -596,10 +609,40 @@
 '.cta p{color:#e9fbf3;font-size:12px;margin:2px 0}' +
 '.cta b{color:#fff}' +
 '.foot{margin-top:18px;border-top:1px solid #e0e8e4;padding-top:12px;font-size:10.5px;color:#8a978f;line-height:1.6}' +
-'@media print{body{padding:0}}' +
+/* --- Cover page --- */
+'.cover{min-height:96vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;' +
+'background:linear-gradient(135deg,#0b3b28,#0f6f47 55%,#12805a);color:#fff;border-radius:14px;padding:48px 40px;page-break-after:always}' +
+'.cover-logo{height:70px;width:auto;margin-bottom:8px;filter:brightness(0) invert(1)}' +
+'.cover-brand{font-size:30px;font-weight:800;letter-spacing:-.5px;color:#fff}' +
+'.cover-brand span{color:#8ef2c4}' +
+'.cover-kicker{margin-top:34px;font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:#a8e6cd}' +
+'.cover-title{font-size:40px;font-weight:800;line-height:1.1;margin:6px 0 4px;color:#fff}' +
+'.cover-sub{font-size:14px;color:#cdeede;margin-bottom:40px}' +
+'.cover-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:12px;' +
+'padding:22px 26px;min-width:340px}' +
+'.cover-card .cline{display:flex;justify-content:space-between;gap:24px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:13px}' +
+'.cover-card .cline:last-child{border-bottom:none}' +
+'.cover-card .ck{color:#a8e6cd;text-transform:uppercase;letter-spacing:.06em;font-size:11px}' +
+'.cover-card .cv{font-weight:700;color:#fff;text-align:right}' +
+'.cover-foot{margin-top:40px;font-size:11px;color:#a8e6cd}' +
+'@media print{body{padding:0}.cover{border-radius:0;min-height:100vh}}' +
 '</style></head><body>' +
+'<section class="cover">' +
+  (logoDataUri
+    ? '<img class="cover-logo" src="' + logoDataUri + '" alt="Clans Machina" />'
+    : '<div class="cover-brand">Clans Machina <span>Solar</span></div>') +
+  '<div class="cover-kicker">Solar Savings Proposal</div>' +
+  '<div class="cover-title">Your Solar Journey<br>Starts Here</div>' +
+  '<div class="cover-sub">A personalised rooftop solar estimate prepared by Clans Machina</div>' +
+  '<div class="cover-card">' +
+    '<div class="cline"><span class="ck">Prepared for</span><span class="cv">' + esc((lead && lead.name) || s.propertyType) + '</span></div>' +
+    '<div class="cline"><span class="ck">Date</span><span class="cv">' + esc(dateStr) + '</span></div>' +
+    '<div class="cline"><span class="ck">Proposal No.</span><span class="cv">' + esc(proposalNo) + '</span></div>' +
+  '</div>' +
+  '<div class="cover-foot">www.clansmachina.in&nbsp; ·&nbsp; +91 91241 65341</div>' +
+'</section>' +
 '<div class="head">' + brandMark +
-'<div class="meta"><b>Solar Proposal</b><br>' + esc(dateStr) + '</div></div>' +
+'<div class="meta"><b>Solar Proposal</b><br>No. ' + esc(proposalNo) + '<br>' + esc(dateStr) + '</div></div>' +
 '<div class="who">' + whoLine + '</div>' +
 '<div class="hero"><div class="lbl">Estimated 25-year savings</div>' +
 '<div class="big">' + rupeeInr(s.savings25) + '</div>' +
@@ -664,10 +707,83 @@ usps.map(function (u) { return '<li>' + u + '</li>'; }).join('') +
       else frame.onload = function () { setTimeout(go, 150); };
     }
 
-    pdfBtn.addEventListener('click', function () {
-      if (!lastSnapshot) return;   // no estimate yet — button is hidden until then
-      downloadPdf(lastSnapshot, { state: lastSnapshot.state, propertyType: lastSnapshot.propertyType });
-    });
+    /* ---- Lead capture: gate the PDF behind Name / Mobile / Email / District ---- */
+    var leadForm = $('leadForm');
+    var leadDone = $('leadDone');
+    var leadErr = $('leadError');
+    var currentLead = null;   // the validated lead for the current proposal (re-download)
+
+    function showErr(msg, focusEl) {
+      if (leadErr) { leadErr.textContent = msg; leadErr.hidden = false; }
+      if (focusEl) focusEl.focus();
+    }
+
+    // Fire-and-forget: store the captured lead alongside the site's other leads.
+    function postLead(lead, s) {
+      try {
+        fetch('submit-contact.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: lead.name, phone: lead.phone, email: lead.email,
+            city: lead.district, service: 'Solar Calculator Proposal',
+            bill: Math.round(s.bill),
+            message: 'Proposal ' + lead.proposalNo + ' · ' + s.propertyType +
+              ' · ' + s.systemSize + ' kW · District: ' + lead.district
+          })
+        }).catch(function () {});
+      } catch (e) { /* offline / fetch unsupported — PDF still generated */ }
+    }
+
+    if (leadForm) {
+      leadForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!lastSnapshot) return;   // no estimate yet — section is hidden until then
+
+        var name = ($('leadName').value || '').trim();
+        var phoneRaw = ($('leadPhone').value || '').trim();
+        var phone = phoneRaw.replace(/\D/g, '');
+        var email = ($('leadEmail').value || '').trim();
+        var district = ($('leadDistrict').value || '').trim();
+
+        if (!name) return showErr('Please enter your name.', $('leadName'));
+        if (phone.length !== 10) return showErr('Please enter a valid 10-digit mobile number.', $('leadPhone'));
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('Please enter a valid email address.', $('leadEmail'));
+        if (!district) return showErr('Please enter your district.', $('leadDistrict'));
+        if (leadErr) leadErr.hidden = true;
+
+        currentLead = {
+          name: name, phone: phone, email: email, district: district,
+          state: lastSnapshot.state, propertyType: lastSnapshot.propertyType,
+          proposalNo: makeProposalNo(lastSnapshot.generatedAt instanceof Date ? lastSnapshot.generatedAt : new Date())
+        };
+
+        postLead(currentLead, lastSnapshot);
+        downloadPdf(lastSnapshot, currentLead);
+
+        // Swap the form for the "ready / download again" state.
+        if (leadForm) leadForm.hidden = true;
+        if (leadDone) {
+          setText('leadDoneNo', currentLead.proposalNo);
+          leadDone.hidden = false;
+        }
+      });
+    }
+
+    var pdfAgainBtn = $('pdfAgainBtn');
+    if (pdfAgainBtn) {
+      pdfAgainBtn.addEventListener('click', function () {
+        if (lastSnapshot && currentLead) downloadPdf(lastSnapshot, currentLead);
+      });
+    }
+
+    // Let the estimator reset this card back to the form for a fresh estimate.
+    window.__resetLeadForm = function () {
+      currentLead = null;
+      if (leadErr) leadErr.hidden = true;
+      if (leadDone) leadDone.hidden = true;
+      if (leadForm) leadForm.hidden = false;
+    };
   })();
 
   /* ============================================================
@@ -677,6 +793,9 @@ usps.map(function (u) { return '<li>' + u + '</li>'; }).join('') +
   var dpEl = $('emiDp');
   var tenureEl = $('emiTenure');
   var RATE = (CD.emi && CD.emi.interestRate) || 6.5;   // fixed p.a. (FRD Step 8)
+  // FRD Input 6 — the tenure slider snaps to these discrete years only.
+  // The range input holds the index (0..n-1); this maps it to the year value.
+  var TENURES = (CD.emi && CD.emi.tenures) || [3, 5, 7, 10];
   var syncing = false;
 
   /* Re-base the sliders when a fresh estimate comes in. */
@@ -708,7 +827,9 @@ usps.map(function (u) { return '<li>' + u + '</li>'; }).join('') +
     var loan = parseFloat(loanEl.value) || 0;
     var dp = cost - loan;
     var dpPct = cost > 0 ? Math.round(dp / cost * 100) : 0;
-    var tenure = parseFloat(tenureEl.value) || 5;
+    var tIdx = parseInt(tenureEl.value, 10);
+    if (isNaN(tIdx) || tIdx < 0) tIdx = 1;
+    var tenure = TENURES[tIdx] != null ? TENURES[tIdx] : 5;   // 3 / 5 / 7 / 10 yrs (FRD)
     var rate = RATE;   // fixed 6.5% p.a. per FRD
 
     var res = emiFor(loan, tenure, rate);
