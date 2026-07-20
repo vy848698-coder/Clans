@@ -214,14 +214,11 @@
                   <span id="estDetectLabel">Detect</span>
                 </button>
               </label>
-              <select id="estLocation">
-                <option data-sun="4.1" data-tariff="9.5" data-geo="19.08,72.88;18.52,73.86">Mumbai / Pune</option>
-                <option data-sun="4.6" data-tariff="8.0" data-geo="28.61,77.21;28.46,77.03">Delhi / NCR</option>
-                <option data-sun="5.0" data-tariff="7.5" data-geo="26.91,75.79;26.24,73.02;24.58,73.71;23.02,72.57;21.17,72.83">Rajasthan / Gujarat</option>
-                <option data-sun="4.5" data-tariff="8.5" data-geo="12.97,77.59;13.08,80.27;11.02,76.96">Bengaluru / Chennai</option>
-                <option data-sun="4.7" data-tariff="8.0" data-geo="17.39,78.49;17.97,79.59">Hyderabad / Telangana</option>
-                <option data-sun="4.0" data-tariff="7.8" data-geo="22.57,88.36;25.59,85.14;20.30,85.82">Kolkata / East India</option>
-              </select>
+              <div class="sc-ac-wrap">
+                <input type="text" id="estLocation" placeholder="Type your city (e.g. Bhubaneswar)" autocomplete="off"
+                       role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="estCityList" />
+                <ul class="sc-ac-list" id="estCityList" role="listbox" hidden></ul>
+              </div>
               <span id="estDetectMsg" class="sc-detect-msg" hidden></span>
             </div>
 
@@ -304,6 +301,11 @@
             </div>
 
             <div class="sc-report" id="scReport" hidden>
+              <div class="sc-roofwarn" id="rRoofWarn" hidden>
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <p id="rRoofWarnMsg"></p>
+              </div>
+
               <div class="sc-hero-result">
                 <span class="sc-hero-label">Estimated 25 year savings</span>
                 <span class="sc-hero-value" id="rSavings25">&#8377;0</span>
@@ -311,10 +313,12 @@
               </div>
 
               <div class="sc-stat-grid" style="grid-template-columns:repeat(2,1fr);">
-                <div class="sc-stat sc-stat-green"><span class="sc-stat-label">Solar Plant Capacity</span><span class="sc-stat-value" id="rSystem">0 kW</span></div>
-                <div class="sc-stat sc-stat-blue"><span class="sc-stat-label">Monthly Solar Generation</span><span class="sc-stat-value" id="rGen">0</span><span class="sc-stat-unit">kWh / month</span></div>
-                <div class="sc-stat sc-stat-purple"><span class="sc-stat-label">Solar Panels Required</span><span class="sc-stat-value" id="rPanels">0</span></div>
-                <div class="sc-stat sc-stat-cyan"><span class="sc-stat-label">CO&#8322; Emission Reduced</span><span class="sc-stat-value" id="rCo2">0 T</span><span class="sc-stat-unit">per year</span></div>
+                <div class="sc-stat sc-stat-green"><span class="sc-stat-label">Recommended Capacity</span><span class="sc-stat-value" id="rSystem">0 kW</span></div>
+                <div class="sc-stat sc-stat-blue"><span class="sc-stat-label">Roof Area Required</span><span class="sc-stat-value" id="rRoofReq">0</span><span class="sc-stat-unit">sq ft</span></div>
+                <div class="sc-stat sc-stat-purple"><span class="sc-stat-label">Monthly Consumption</span><span class="sc-stat-value" id="rConsumption">0</span><span class="sc-stat-unit">units / month</span></div>
+                <div class="sc-stat sc-stat-cyan"><span class="sc-stat-label">Monthly Generation</span><span class="sc-stat-value" id="rGen">0</span><span class="sc-stat-unit">units / month</span></div>
+                <div class="sc-stat sc-stat-green"><span class="sc-stat-label">Monthly Savings</span><span class="sc-stat-value" id="rSaveMo">&#8377;0</span><span class="sc-stat-unit">saved / month</span></div>
+                <div class="sc-stat sc-stat-orange"><span class="sc-stat-label">Energy Generated</span><span class="sc-stat-value" id="rGen25">0</span><span class="sc-stat-unit">units over 25 yrs</span></div>
               </div>
 
               <div class="sc-bill-compare">
@@ -333,9 +337,42 @@
 
               <div class="sc-price-card">
                 <div class="sc-price-row"><span>Project cost</span><strong id="rGross">&#8377;0</strong></div>
-                <div class="sc-price-row sc-cost-minus"><span>Subsidy</span><strong id="rSubsidy2">&#8722; &#8377;0</strong></div>
+                <div class="sc-price-row sc-cost-minus"><span>Central subsidy</span><strong id="rSubCentral">&#8722; &#8377;0</strong></div>
+                <div class="sc-price-row sc-cost-minus" id="rSubStateRow"><span id="rSubStateLabel">State subsidy</span><strong id="rSubState">&#8722; &#8377;0</strong></div>
+                <div class="sc-price-row sc-price-rule"><span>Total subsidy</span><strong id="rSubsidy2">&#8722; &#8377;0</strong></div>
                 <div class="sc-price-row"><span>Payback period</span><strong id="rPayback">0 yrs</strong></div>
-                <div class="sc-price-main"><span>Price of system</span><strong id="rNet">&#8377;0</strong></div>
+                <div class="sc-price-main"><span>Customer investment</span><strong id="rNet">&#8377;0</strong></div>
+                <div class="sc-price-row sc-price-benefit"><span>Net financial benefit (25 yrs)</span><strong id="rNetBenefit">&#8377;0</strong></div>
+              </div>
+
+              <div class="sc-co2">
+                <div class="sc-co2-head">
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 21c0-3 1.85-5.36 5.08-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Carbon impact</span>
+                </div>
+                <div class="sc-co2-grid">
+                  <div><span class="sc-co2-label">Monthly</span><strong id="rCo2Mo">0 kg</strong></div>
+                  <div><span class="sc-co2-label">Yearly</span><strong id="rCo2Yr">0 kg</strong></div>
+                  <div><span class="sc-co2-label">25 years</span><strong id="rCo2Life">0 t</strong></div>
+                </div>
+                <p class="sc-co2-msg" id="rCo2Msg"></p>
+              </div>
+
+              <div class="sc-lead" id="scLead" hidden>
+                <div class="sc-lead-head">
+                  <span class="sc-lead-badge">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 2v6h6M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <div>
+                    <h3>Get this estimate as a PDF</h3>
+                    <p>Download your personalised solar proposal.</p>
+                  </div>
+                </div>
+
+                <button type="button" class="btn btn-neon btn-full" id="pdfBtn">
+                  Download PDF proposal
+                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
               </div>
 
               <p class="sc-jump-hint">&#128071; Now plan your EMI for this system below</p>
@@ -350,7 +387,7 @@
           <span class="sc-step sc-step-blue">Loan EMI</span>
           <div>
             <h2>Solar Loan <span class="gradient-text-blue">EMI Calculator</span></h2>
-            <p>Adjust loan amount, down payment, tenure and interest to plan your monthly outgo.</p>
+            <p>Adjust loan amount, down payment and tenure to plan your monthly outgo. Interest is fixed at 6.5% p.a.</p>
           </div>
         </div>
 
@@ -379,15 +416,15 @@
                 <label for="emiTenure">Loan tenure</label>
                 <span class="sc-slider-val" id="emiTenureVal">5 years</span>
               </div>
-              <input type="range" id="emiTenure" min="1" max="7" value="5" step="0.5" class="sc-range sc-range-blue" />
+              <input type="range" id="emiTenure" min="1" max="10" value="5" step="0.5" class="sc-range sc-range-blue" />
             </div>
 
             <div class="sc-field">
               <div class="sc-slider-head">
-                <label for="emiInterest">Interest rate</label>
-                <span class="sc-slider-val" id="emiInterestVal">9.5% p.a.</span>
+                <label>Interest rate</label>
+                <span class="sc-slider-val" id="emiInterestVal">6.5% p.a.</span>
               </div>
-              <input type="range" id="emiInterest" min="7" max="15" value="9.5" step="0.1" class="sc-range sc-range-blue" />
+              <p class="sc-note">Fixed at 6.5% p.a. — the standard PM Surya Ghar solar-loan rate.</p>
             </div>
           </div>
 
@@ -434,6 +471,8 @@
   <script src="js/shared-footer.js" defer></script>
   <script src="js/subpage.js" defer></script>
   <script src="js/calculator-data.js" defer></script>
+  <script src="js/cities-india.js" defer></script>
+  <script src="js/solar-engine.js" defer></script>
   <script src="js/calculator.js" defer></script>
 </body>
 </html>

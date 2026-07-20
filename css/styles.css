@@ -1811,16 +1811,32 @@ p { color:var(--text-secondary); font-size:1rem; line-height:1.7; }
 .sc-field { display: flex; flex-direction: column; gap: 9px; position: relative; }
 .sc-field > label { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); opacity: 0.85; }
 .sc-field input[type="number"],
+.sc-field input[type="text"],
 .sc-field select {
   padding: 13px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
   border-radius: var(--radius-sm); color: var(--text-primary); font-size: 0.95rem;
   transition: all 0.2s; outline: none; width: 100%;
 }
 .sc-field input[type="number"]:focus,
+.sc-field input[type="text"]:focus,
 .sc-field select:focus {
   border-color: var(--green); background: rgba(62,207,142,0.05); box-shadow: 0 0 0 3px rgba(62,207,142,0.1);
 }
 .sc-field select option { background: var(--bg-secondary); color: var(--text-primary); }
+
+/* City autocomplete (pan-India location combobox) */
+.sc-ac-wrap { position: relative; }
+.sc-ac-list { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; margin: 0; padding: 5px;
+  list-style: none; max-height: 260px; overflow-y: auto;
+  background: var(--bg-secondary); border: 1px solid var(--border-bright); border-radius: var(--radius-sm);
+  box-shadow: 0 20px 44px -20px rgba(0,0,0,0.45); }
+.sc-ac-list[hidden] { display: none; }
+.sc-ac-item { display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  padding: 9px 11px; border-radius: 8px; cursor: pointer; }
+.sc-ac-item strong { font-weight: 600; color: var(--text-primary); font-size: 0.92rem; }
+.sc-ac-item span { font-size: 0.76rem; color: var(--text-muted); }
+.sc-ac-item:hover, .sc-ac-item.is-active { background: rgba(62,207,142,0.12); }
+.sc-ac-item.is-active strong { color: var(--green); }
 
 /* auto-detect location */
 .sc-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -2143,6 +2159,51 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 .sc-price-main { border-top: 1px dashed var(--border); padding-top: 10px; }
 .sc-price-main span { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; }
 .sc-price-main strong { display: block; font-size: 1.7rem; color: var(--green); }
+.sc-price-rule { border-top: 1px dashed var(--border); padding-top: 8px; }
+.sc-price-rule strong { color: var(--green); }
+.sc-price-benefit { margin-top: 6px; padding-top: 9px; border-top: 1px solid var(--border-bright); }
+.sc-price-benefit span { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); }
+.sc-price-benefit strong { color: var(--green); font-size: 1.05rem; }
+
+/* Roof-shortfall notice (FRD Step 3) */
+.sc-roofwarn { display: flex; gap: 11px; align-items: flex-start; padding: 13px 15px; border-radius: var(--radius-sm);
+  background: rgba(234,179,8,0.10); border: 1px solid rgba(234,179,8,0.35); color: #92610a; }
+.sc-roofwarn[hidden] { display: none; }
+.sc-roofwarn svg { flex: none; color: #b8860b; margin-top: 1px; }
+.sc-roofwarn p { margin: 0; font-size: 0.86rem; line-height: 1.5; color: var(--text-primary); }
+
+/* Carbon-impact block (FRD Step 13) */
+.sc-co2 { border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px;
+  background: linear-gradient(135deg, rgba(62,207,142,0.08), transparent 70%); display: flex; flex-direction: column; gap: 12px; }
+.sc-co2-head { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--green); }
+.sc-co2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+.sc-co2-grid > div { display: flex; flex-direction: column; gap: 3px; }
+.sc-co2-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.sc-co2-grid strong { font-family: var(--font-display); font-size: 1.15rem; color: var(--text-primary); }
+.sc-co2-msg { margin: 0; font-size: 0.82rem; line-height: 1.55; color: var(--text-secondary); }
+
+/* Lead capture + PDF proposal */
+.sc-lead { border-radius: var(--radius); border: 1px solid var(--border-bright);
+  background: linear-gradient(135deg, var(--blue-dim), transparent 72%); padding: 18px 20px; }
+.sc-lead[hidden] { display: none; }
+.sc-lead-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.sc-lead-badge { flex: none; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
+  background: var(--blue-dim); color: var(--blue); border: 1px solid var(--border-bright); }
+.sc-lead-head h3 { font-size: 1.02rem; margin: 0 0 2px; color: var(--text-primary); }
+.sc-lead-head p { margin: 0; font-size: 0.83rem; line-height: 1.5; color: var(--text-secondary); }
+.sc-lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.sc-lead-grid input { width: 100%; padding: 11px 13px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--text-primary);
+  font-size: 0.9rem; font-family: inherit; }
+.sc-lead-grid input::placeholder { color: var(--text-muted); }
+.sc-lead-grid input:focus { outline: none; border-color: var(--blue); background: rgba(78,168,222,0.08); }
+.sc-lead-err { margin: 0 0 10px; font-size: 0.8rem; color: #f87171; }
+.sc-lead-err[hidden] { display: none; }
+.sc-lead-note { margin: 9px 0 0; font-size: 0.74rem; line-height: 1.5; color: var(--text-muted); text-align: center; }
+.sc-lead-done { text-align: center; }
+.sc-lead-done[hidden] { display: none; }
+.sc-lead-done-msg { margin: 0 0 12px; font-size: 0.88rem; line-height: 1.55; color: var(--text-primary); }
 
 @media (max-width: 900px) {
   .sc-choose-grid { grid-template-columns: 1fr; }
@@ -2153,6 +2214,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 }
 @media (max-width: 520px) {
   .sc-inputrow { grid-template-columns: 1fr; }
+  .sc-lead-grid { grid-template-columns: 1fr; }
 }
 
 /* ============================================================

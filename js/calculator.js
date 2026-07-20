@@ -13,87 +13,44 @@
 
   /* ------------------------------------------------------------
      All tunable constants live in js/calculator-data.js
-     (window.CALC_DATA). Fall back to sane defaults if it didn't load.
+     (window.CALC_DATA). The FRD estimate math lives in the shared
+     engine js/solar-engine.js (window.SolarEngine) so the homepage
+     teaser and this calculator can never silently diverge.
      ------------------------------------------------------------ */
   var CD = window.CALC_DATA || {};
-  var GEN_PER_KW  = CD.perKwDailyGen || 4;   // kWh per kW per day
-  var DAYS        = CD.daysPerMonth || 30;
-  var PANEL_KW    = CD.panelKw || 0.54;
-  var TARIFF_DEF  = CD.tariffPerUnit || 8;
-  var ESCAL       = (CD.tariffEscalation != null ? CD.tariffEscalation : 0.03);
-  var DEGRADE     = (CD.annualDegradation != null ? CD.annualDegradation : 0.005);
-  var LIFE_YRS    = CD.systemLifeYears || 25;
-  var CO2_FAC     = CD.co2FactorKgPerKwh || 0.82;
-  var SQFT_PER_KW = CD.sqftPerKw || 100;
-  var GEN_TIERS   = CD.genTiers || null;
+  var TARIFF = CD.tariffPerUnit || 5;   // ₹/unit — used for the bill<->units input toggle
 
-  /* Per-size daily generation (kWh/kW/day). Bigger systems yield slightly more
-     per kW; interpolate between product-sheet anchors, fall back to flat rate. */
-  function genPerKw(kw) {
-    var t = GEN_TIERS;
-    if (!t || !t.length) return GEN_PER_KW;
-    if (kw <= t[0].kw) return t[0].perKwDaily;
-    if (kw >= t[t.length - 1].kw) return t[t.length - 1].perKwDaily;
-    for (var i = 0; i < t.length - 1; i++) {
-      if (kw >= t[i].kw && kw <= t[i + 1].kw) {
-        var f = (kw - t[i].kw) / (t[i + 1].kw - t[i].kw);
-        return t[i].perKwDaily + f * (t[i + 1].perKwDaily - t[i].perKwDaily);
+  var computeEstimate = (window.SolarEngine && window.SolarEngine.computeEstimate) || function () {
+    return {}; // engine failed to load — guarded below so the page doesn't throw
+  };
+
+  /* ------------------------------------------------------------
+     LOCATION → STATE resolution (pan-India). The FRD subsidy table's
+     `state` amounts are the Odisha figures, so the state top-up only
+     applies to Odisha; everywhere else shows central subsidy only.
+     Resolves a typed/detected location string to its state via the
+     CITIES_INDIA list, or directly if the string is a state name.
+     ------------------------------------------------------------ */
+  function resolveState(locStr) {
+    if (!locStr) return '';
+    var q = String(locStr).trim().toLowerCase();
+    if (!q) return '';
+    if (q.indexOf('odisha') >= 0 || q.indexOf('orissa') >= 0) return 'Odisha';
+    var cities = window.CITIES_INDIA || [];
+    for (var i = 0; i < cities.length; i++) {
+      if (cities[i].name.toLowerCase() === q || cities[i].state.toLowerCase() === q) {
+        return cities[i].state;
       }
     }
-    return GEN_PER_KW;
-  }
-
-  /* Aerem cost-per-kW tiers (₹67k ≤5kW, ₹55k 5–10kW). */
-  var COST_TIERS = CD.costPerKwTiers || [
-    { uptoKw: 5,        ratePerKw: 67000 },
-    { uptoKw: 10,       ratePerKw: 55000 },
-    { uptoKw: Infinity, ratePerKw: 55000 }
-  ];
-  function baseCostPerKw(kw) {
-    for (var i = 0; i < COST_TIERS.length; i++) {
-      if (kw <= COST_TIERS[i].uptoKw) return COST_TIERS[i].ratePerKw;
-    }
-    return COST_TIERS[COST_TIERS.length - 1].ratePerKw;
-  }
-
-  /* Category: subsidy eligibility, bill-offset cap, cost multiplier vs base. */
-  var CATEGORY = {
-    residential: { subsidy: true,  offsetCap: CD.billOffsetRate || 0.90, mult: 1.00 },
-    commercial:  { subsidy: false, offsetCap: 0.85, mult: 0.95 },
-    industrial:  { subsidy: false, offsetCap: 0.82, mult: 0.92 }
-  };
-  if (CD.categories) {
-    if (CD.categories.RESIDENTIAL) CATEGORY.residential.mult = CD.categories.RESIDENTIAL.costMultiplier;
-    if (CD.categories.COMMERCIAL)  CATEGORY.commercial.mult  = CD.categories.COMMERCIAL.costMultiplier;
-    if (CD.categories.INDUSTRIAL)  CATEGORY.industrial.mult  = CD.categories.INDUSTRIAL.costMultiplier;
-  }
-
-  /* PM Surya Ghar + state top-up subsidy (residential) — slabs/caps from CALC_DATA. */
-  function slabAmount(kw, perKwFirst2, per3rd, cap) {
-    var amt = Math.min(kw, 2) * perKwFirst2 + (kw > 2 ? Math.min(kw - 2, 1) * per3rd : 0);
-    return Math.min(amt, cap);
-  }
-  function residentialSubsidy(kw) {
-    var s = CD.subsidy;
-    if (!s || !s.enabled) {
-      return Math.round(slabAmount(kw, 30000, 18000, 78000));
-    }
-    // Central (PM Surya Ghar)
-    var central = slabAmount(kw, s.perKwFirst2Kw, s.perKw3rdKw, s.cap);
-    // State top-up: slab-based if provided, else legacy flat stateSubsidy.
-    var state = 0;
-    if (s.state) {
-      state = slabAmount(kw, s.state.perKwFirst2Kw, s.state.perKw3rdKw, s.state.cap);
-    } else if (s.stateSubsidy) {
-      state = s.stateSubsidy;
-    }
-    return Math.round(central + state);
+    return '';   // unknown / free-typed → treated as non-Odisha (central-only)
   }
 
   /* ---------- shared state fed from estimator into EMI ---------- */
   var assetCost = 300000;   // financeable system cost (net of subsidy)
   var monthlySaving = 0;    // monthly bill saving, for the cashflow insight
   var hasEstimate = false;
+  var lastEstimate = null;  // full FRD result of the most recent calculation
+  var lastSnapshot = null;  // flattened, display-ready values for the lead PDF
 
   var $ = function (id) { return document.getElementById(id); };
   function setText(id, val) { var e = $(id); if (e) e.textContent = val; }
@@ -104,11 +61,11 @@
   var estForm = $('estForm');
   if (!estForm) return; // not on the calculator page
 
-  /* ---- AUTO-DETECT LOCATION -> nearest region option ---- */
+  /* ---- AUTO-DETECT LOCATION -> reverse-geocode GPS to a city name ---- */
   (function initDetect() {
     var btn = $('estDetect');
-    var sel = $('estLocation');
-    if (!btn || !sel) return;
+    var input = $('estLocation');
+    if (!btn || !input) return;
 
     var msg = $('estDetectMsg');
     var label = $('estDetectLabel');
@@ -125,61 +82,110 @@
       if (label) label.textContent = on ? 'Detecting…' : 'Detect';
     }
 
-    // Great-circle distance (km) between two lat/lng points.
-    function distKm(aLat, aLng, bLat, bLng) {
-      var R = 6371, toRad = Math.PI / 180;
-      var dLat = (bLat - aLat) * toRad, dLng = (bLng - aLng) * toRad;
-      var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(aLat * toRad) * Math.cos(bLat * toRad) *
-        Math.sin(dLng / 2) * Math.sin(dLng / 2);
-      return 2 * R * Math.asin(Math.sqrt(s));
-    }
-
-    // Each option lists one or more anchor cities ("lat,lng;lat,lng").
-    // Match on the closest anchor of any region so large states (e.g. all
-    // of Rajasthan/Gujarat) aren't misjudged by a single centroid.
-    function pickNearest(lat, lng) {
-      var opts = sel.options, best = -1, bestD = Infinity;
-      for (var i = 0; i < opts.length; i++) {
-        var geo = opts[i].getAttribute('data-geo');
-        if (!geo) continue;
-        var pairs = geo.split(';');
-        for (var j = 0; j < pairs.length; j++) {
-          var c = pairs[j].split(',');
-          var oLat = parseFloat(c[0]), oLng = parseFloat(c[1]);
-          if (isNaN(oLat) || isNaN(oLng)) continue;
-          var d = distKm(lat, lng, oLat, oLng);
-          if (d < bestD) { bestD = d; best = i; }
-        }
-      }
-      return best;
+    // Turn GPS coordinates into the nearest town/city name via BigDataCloud's
+    // free, key-less client endpoint (CORS-enabled). Prefer city, then locality.
+    function lookupCity(lat, lng) {
+      var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' +
+        encodeURIComponent(lat) + '&longitude=' + encodeURIComponent(lng) + '&localityLanguage=en';
+      return fetch(url)
+        .then(function (r) { if (!r.ok) throw new Error('geocode'); return r.json(); })
+        .then(function (d) { return (d.city || d.locality || d.principalSubdivision || '').trim(); });
     }
 
     btn.addEventListener('click', function () {
       if (!navigator.geolocation) {
-        say('Location not supported on this device — please pick manually.', 'is-err');
+        say('Location not supported on this device — please type your city.', 'is-err');
         return;
       }
       busy(true);
       say('Getting your location…', '');
       navigator.geolocation.getCurrentPosition(
         function (pos) {
-          busy(false);
-          var idx = pickNearest(pos.coords.latitude, pos.coords.longitude);
-          if (idx < 0) { say('Couldn\'t match a region — please pick manually.', 'is-err'); return; }
-          sel.selectedIndex = idx;
-          sel.dispatchEvent(new Event('change', { bubbles: true }));
-          say('Nearest region set to ' + sel.options[idx].text + '.', 'is-ok');
+          lookupCity(pos.coords.latitude, pos.coords.longitude)
+            .then(function (city) {
+              busy(false);
+              if (!city) { say('Couldn\'t read your city — please type it in.', 'is-err'); return; }
+              input.value = city;   // fills the field directly (no dropdown re-trigger)
+              say('Location set to ' + city + '.', 'is-ok');
+            })
+            .catch(function () {
+              busy(false);
+              say('Couldn\'t look up your city — please type it in.', 'is-err');
+            });
         },
         function (err) {
           busy(false);
           var m = err.code === err.PERMISSION_DENIED
-            ? 'Location permission denied — please pick manually.'
-            : 'Couldn\'t detect location — please pick manually.';
+            ? 'Location permission denied — please type your city.'
+            : 'Couldn\'t detect location — please type your city.';
           say(m, 'is-err');
         },
         { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
       );
+    });
+  })();
+
+  /* ---- CITY AUTOCOMPLETE (pan-India combobox) ---- */
+  (function initCityAutocomplete() {
+    var input = $('estLocation');
+    var list = $('estCityList');
+    var cities = window.CITIES_INDIA;
+    if (!input || !list || !cities || !cities.length) return;
+
+    var matches = [];
+    var activeIdx = -1;
+
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function close() { list.hidden = true; input.setAttribute('aria-expanded', 'false'); activeIdx = -1; }
+    function render() {
+      if (!matches.length) { close(); return; }
+      list.innerHTML = matches.map(function (c, i) {
+        return '<li class="sc-ac-item" role="option" data-i="' + i + '">' +
+          '<strong>' + esc(c.name) + '</strong><span>' + esc(c.state) + '</span></li>';
+      }).join('');
+      list.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+    function filter() {
+      var q = input.value.trim().toLowerCase();
+      if (q.length < 2) { close(); return; }
+      var starts = [], contains = [];
+      for (var i = 0; i < cities.length; i++) {
+        var p = cities[i].name.toLowerCase().indexOf(q);
+        if (p === 0) starts.push(cities[i]);
+        else if (p > 0) contains.push(cities[i]);
+      }
+      matches = starts.concat(contains).slice(0, 8);
+      activeIdx = -1;
+      render();
+    }
+    function choose(i) { var c = matches[i]; if (c) { input.value = c.name; close(); } }
+    function highlight(idx) {
+      var items = list.querySelectorAll('.sc-ac-item');
+      for (var i = 0; i < items.length; i++) items[i].classList.toggle('is-active', i === idx);
+      activeIdx = idx;
+    }
+
+    input.addEventListener('input', filter);
+    input.addEventListener('focus', function () { if (input.value.trim().length >= 2) filter(); });
+    input.addEventListener('keydown', function (e) {
+      if (list.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); highlight(Math.min(activeIdx + 1, matches.length - 1)); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(Math.max(activeIdx - 1, 0)); }
+      else if (e.key === 'Enter' && activeIdx >= 0) { e.preventDefault(); choose(activeIdx); }
+      else if (e.key === 'Escape') { close(); }
+    });
+    // mousedown (not click) so selection lands before the input loses focus
+    list.addEventListener('mousedown', function (e) {
+      var li = e.target.closest('.sc-ac-item');
+      if (li) { e.preventDefault(); choose(parseInt(li.getAttribute('data-i'), 10)); }
+    });
+    document.addEventListener('click', function (e) {
+      if (e.target !== input && !list.contains(e.target)) close();
     });
   })();
 
@@ -312,8 +318,7 @@
   estForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    var opt = $('estLocation').selectedOptions[0];
-    var tariff = parseFloat(opt.getAttribute('data-tariff')) || TARIFF_DEF;  // Rs per unit
+    var tariff = TARIFF;  // ₹/unit (FRD flat rate)
 
     // Validate mandatory inputs
     var billInput = parseFloat($('estBill').value) || 0;
@@ -334,60 +339,92 @@
 
     // Roof area normalised to sq ft (~100 sq ft per kW)
     var roofArea = (roofUnit && roofUnit.value === 'sqm') ? roofInput * 10.7639 : roofInput;
-    var cat = CATEGORY[consumerType];
 
-    // Consumption and sizing (generation = flat kWh/kW/day from CALC_DATA)
-    var dailyUnits = monthlyUnits / DAYS;
-    var sizeFromBill = dailyUnits / GEN_PER_KW;   // kW needed to cover usage
-    var sizeFromRoof = roofArea / SQFT_PER_KW;    // ~100 sq ft per kW
-    var systemSize = Math.max(1, Math.min(sizeFromRoof, sizeFromBill));
-    systemSize = parseFloat(systemSize.toFixed(1));
+    // Location → state: the state subsidy top-up applies to Odisha only.
+    var locInput = $('estLocation') ? $('estLocation').value : '';
+    var resolvedState = resolveState(locInput);
+    var stateEligible = resolvedState === 'Odisha';
 
-    // Generation, panels, CO2 (yield per kW scales with system size)
-    var monthlyGen = Math.round(systemSize * genPerKw(systemSize) * DAYS);
-    var panels = Math.ceil(systemSize / PANEL_KW);    // 540 Wp panels
-    var co2 = parseFloat((monthlyGen * 12 * CO2_FAC / 1000).toFixed(1)); // tonnes/yr
+    // --- Run the FRD engine (shared with the homepage teaser) ---
+    var est = computeEstimate(bill, roofArea, consumerType, { includeStateSubsidy: stateEligible });
+    lastEstimate = est;
 
-    // Savings (capped offset of consumption)
-    var offsetUnits = Math.min(monthlyUnits * cat.offsetCap, monthlyGen);
-    monthlySaving = Math.round(offsetUnits * tariff);
-    var newBill = Math.max(bill - monthlySaving, Math.round(bill * 0.08));
-    var reduction = Math.round((bill - newBill) / bill * 100);
-    var annualSaving = monthlySaving * 12;
+    // Map engine outputs onto the locals the existing report paints.
+    var systemSize   = est.recommendedKw;
+    var monthlyGen   = est.monthlyGen;
+    var panels       = est.panels;
+    var co2          = parseFloat((est.co2AnnualKg / 1000).toFixed(1)); // annual tonnes
+    monthlySaving    = est.monthlySaving;   // module-level: feeds EMI cashflow
+    var annualSaving = est.annualSaving;
+    var savings25    = est.savings25;
+    var grossCost    = est.cost;
+    var subsidy      = est.subsidy.total;
+    var netCost      = est.investment;
+    var payback      = parseFloat(est.payback.toFixed(1));
 
-    // 25-year savings: the tariff escalates each year while panel output
-    // degrades, so year 1 runs at full yield and each later year is derated.
-    var savings25 = 0, yearSave = annualSaving, output = 1;
-    for (var y = 0; y < LIFE_YRS; y++) {
-      savings25 += yearSave * output;
-      yearSave *= (1 + ESCAL);
-      output *= (1 - DEGRADE);
+    // Bill-comparison bar (savings can meet or exceed the bill once sized to load).
+    var newBill   = Math.max(bill - monthlySaving, 0);
+    var reduction = bill > 0 ? Math.min(100, Math.round(monthlySaving / bill * 100)) : 0;
+
+    // Roof-shortfall notice (FRD Step 3)
+    var roofWarn = $('rRoofWarn');
+    if (roofWarn) {
+      if (est.roofShortfall) {
+        setText('rRoofWarnMsg',
+          'Based on your available roof area, we recommend a maximum of ' + est.recommendedKw +
+          ' kW. To reach your ideal ' + est.idealKw + ' kW system, an additional ' +
+          Math.round(est.extraSqft).toLocaleString('en-IN') + ' sq ft of shadow-free roof is required.');
+        roofWarn.hidden = false;
+      } else {
+        roofWarn.hidden = true;
+      }
     }
-    savings25 = Math.round(savings25);
 
-    // Cost and subsidy
-    var grossCost = Math.round(systemSize * baseCostPerKw(systemSize) * cat.mult);
-    var subsidy = cat.subsidy ? residentialSubsidy(systemSize) : 0;
-    var netCost = Math.max(grossCost - subsidy, 0);
-    var payback = annualSaving > 0 ? parseFloat((netCost / annualSaving).toFixed(1)) : 0;
-
-    // Paint report
+    // Paint report — headline + system stats
     setText('rSavings25', fmt(savings25));
     setText('rSavingsAnnual', fmt(annualSaving));
     setText('rSystem', systemSize + ' kW');
+    setText('rRoofReq', Math.round(est.roofRequired).toLocaleString('en-IN'));
+    setText('rConsumption', Math.round(est.monthlyUnits).toLocaleString('en-IN'));
     setText('rGen', monthlyGen.toLocaleString('en-IN'));
-    setText('rPanels', panels);
     setText('rPayback', payback + ' yrs');
-    setText('rCo2', co2 + ' T');
-    setText('rSubsidy', subsidy > 0 ? fmt(subsidy) : 'N/A');
-    setText('rSubsidy2', '− ' + (subsidy > 0 ? fmt(subsidy) : rupee + '0'));
+
+    // Extra dashboard figures (FRD Step 12 display list)
+    var gen25 = monthlyGen * 12 * 25;                 // total units generated over life
+    var netBenefit = Math.max(savings25 - netCost, 0); // savings minus investment
+    setText('rSaveMo', fmt(monthlySaving));
+    setText('rGen25', Math.round(gen25).toLocaleString('en-IN'));
+    setText('rNetBenefit', fmt(netBenefit));
+
+    // Cost + subsidy split (FRD Steps 5–7)
     setText('rGross', fmt(grossCost));
+    setText('rSubCentral', '− ' + fmt(est.subsidy.central));
+    // State subsidy row: shown only where a state top-up applies (Odisha).
+    // Elsewhere (pan-India) we show central subsidy only.
+    var stateRow = $('rSubStateRow');
+    if (est.subsidy.state > 0) {
+      setText('rSubStateLabel', resolvedState + ' state subsidy');
+      setText('rSubState', '− ' + fmt(est.subsidy.state));
+      if (stateRow) stateRow.style.display = '';
+    } else if (stateRow) {
+      stateRow.style.display = 'none';
+    }
+    setText('rSubsidy2', '− ' + fmt(subsidy));
     setText('rNet', fmt(netCost));
+
+    // Bill comparison
     setText('rBillNow', fmt(bill));
     setText('rBillSolar', fmt(newBill));
     setText('rReduction', reduction + '%');
     if ($('barNow')) $('barNow').style.width = '100%';
     if ($('barSolar')) $('barSolar').style.width = Math.max(8, Math.round(newBill / bill * 100)) + '%';
+
+    // Carbon impact (FRD Step 13): monthly kg, yearly kg, lifetime tonnes + message
+    setText('rCo2Mo', Math.round(est.co2MonthlyKg).toLocaleString('en-IN') + ' kg');
+    setText('rCo2Yr', Math.round(est.co2AnnualKg).toLocaleString('en-IN') + ' kg');
+    setText('rCo2Life', est.co2LifeT.toFixed(1) + ' t');
+    setText('rCo2Msg', 'By installing this solar system, you can reduce approximately ' +
+      Math.round(est.co2LifeT) + ' tonnes of CO₂ emissions over 25 years, contributing to a cleaner, greener environment.');
 
     if ($('scPlaceholder')) $('scPlaceholder').hidden = true;
     var report = $('scReport');
@@ -400,7 +437,7 @@
 
     setText('vSystem', systemSize + ' kW');
     setText('vPanels', panels + ' panels');
-    setText('vGen', monthlyGen.toLocaleString('en-IN') + ' kWh/mo');
+    setText('vGen', monthlyGen.toLocaleString('en-IN') + ' units/mo');
     setText('vCo2', co2 + ' T/yr');
 
     // Animate the gauge (circumference of r=62 circle ≈ 390)
@@ -418,6 +455,27 @@
     }
     if (gaugePct) gaugePct.textContent = reduction + '%';
 
+    // Snapshot every display value so the lead form / PDF proposal can
+    // reproduce exactly what the customer saw (no recompute, no drift).
+    lastSnapshot = {
+      generatedAt: new Date(),
+      propertyType: TYPE_LABEL[consumerType] || 'Home',
+      location: locInput || '',
+      state: resolvedState || '',
+      bill: bill, monthlyUnits: est.monthlyUnits,
+      systemSize: systemSize, roofRequired: est.roofRequired, panels: panels,
+      monthlyGen: monthlyGen, gen25: gen25,
+      grossCost: grossCost, subCentral: est.subsidy.central, subState: est.subsidy.state,
+      subsidyTotal: subsidy, netCost: netCost, netBenefit: netBenefit,
+      monthlySaving: monthlySaving, annualSaving: annualSaving, savings25: savings25,
+      payback: payback, billNow: bill, billSolar: newBill, reduction: reduction,
+      co2Mo: est.co2MonthlyKg, co2Yr: est.co2AnnualKg, co2Life: est.co2LifeT
+    };
+
+    // Reveal the PDF-download card for this fresh estimate.
+    var scLead = $('scLead');
+    if (scLead) scLead.hidden = false;
+
     // Feed EMI calculator
     hasEstimate = true;
     assetCost = netCost;
@@ -427,12 +485,198 @@
   });
 
   /* ============================================================
+     PDF PROPOSAL
+     One button generates a branded, print-optimised proposal and
+     hands it to the browser's "Save as PDF" via a hidden iframe
+     (no external libraries). The proposal is built from the current
+     estimate snapshot plus the live EMI figures.
+     ============================================================ */
+  (function initPdfProposal() {
+    var pdfBtn = $('pdfBtn');
+    if (!pdfBtn) return;
+
+    var rupeeInr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+
+    // Preload the brand logo as a data URI so it's guaranteed inlined before
+    // the print dialog fires (a network <img> may not load in time). Falls
+    // back to a text wordmark if the fetch fails.
+    var logoDataUri = null;
+    (function preloadLogo() {
+      try {
+        fetch('image/clans_logo.webp')
+          .then(function (r) { return r.ok ? r.blob() : null; })
+          .then(function (b) {
+            if (!b) return;
+            var fr = new FileReader();
+            fr.onload = function () { logoDataUri = fr.result; };
+            fr.readAsDataURL(b);
+          })
+          .catch(function () {});
+      } catch (e) { /* fetch unsupported — text fallback used */ }
+    })();
+
+    // Read the live EMI figures from the calculator's EMI panel (Step 2).
+    function emiFigures() {
+      var t = function (id) { var e = $(id); return e ? e.textContent.trim() : ''; };
+      return {
+        monthly: t('emiMonthly'), months: t('emiMonths'), tenure: t('emiTenureVal'),
+        loan: t('emiLoanVal'), interest: t('emiTotalInterest'), total: t('emiTotal')
+      };
+    }
+
+    function proposalHTML(s, lead, emi) {
+      var d = s.generatedAt instanceof Date ? s.generatedAt : new Date();
+      var dateStr = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+      var row = function (label, val, strong) {
+        return '<tr><td>' + esc(label) + '</td><td class="num' + (strong ? ' hl' : '') + '">' + val + '</td></tr>';
+      };
+      var subStateRow = s.subState > 0
+        ? row((s.state || 'State') + ' subsidy', '− ' + rupeeInr(s.subState)) : '';
+      var brandMark = logoDataUri
+        ? '<img class="logo" src="' + logoDataUri + '" alt="Clans Machina" />'
+        : '<div class="brand">Clans Machina <span>Solar</span></div>';
+      var where = esc(s.location || '');
+      var emiSection = (emi && emi.monthly) ?
+        ('<h2>Loan / EMI plan</h2><table>' +
+          row('Loan amount', esc(emi.loan)) +
+          row('Monthly EMI', esc(emi.monthly) + (emi.months ? ' × ' + esc(emi.months) + ' months' : ''), true) +
+          row('Interest rate', '6.5% p.a.') +
+          row('Total interest', esc(emi.interest)) +
+          row('Total repayment', esc(emi.total)) +
+        '</table>') : '';
+      var usps = ['Premium Solar Solutions', 'MNRE-Compliant Installation', 'Government Subsidy Assistance',
+        'Bank Loan Support', 'Net Metering Assistance', 'Comprehensive Warranty',
+        'Professional Installation', 'Dedicated After-Sales Service'];
+      // "Prepared for" line — customer details are optional (no lead form).
+      var top = [];
+      if (lead && lead.name) top.push('Prepared for <b>' + esc(lead.name) + '</b>');
+      if (lead && lead.phone) top.push(esc(lead.phone));
+      if (lead && lead.email) top.push(esc(lead.email));
+      var bottom = [];
+      if (where) bottom.push('Location: <b>' + where + '</b>');
+      bottom.push('Property: <b>' + esc(s.propertyType) + '</b>');
+      bottom.push('Monthly bill: <b>' + rupeeInr(s.bill) + '</b>');
+      var whoLine = (top.length ? top.join(' · ') + '<br>' : '') + bottom.join(' · ');
+      return '' +
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clans Machina — Solar Proposal</title><style>' +
+'*{box-sizing:border-box;margin:0;padding:0}' +
+'body{font-family:"Segoe UI",Arial,sans-serif;color:#12241c;padding:30px 34px;font-size:13px;line-height:1.5}' +
+'.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #3ecf8e;padding-bottom:14px;margin-bottom:18px}' +
+'.logo{height:40px;width:auto}' +
+'.brand{font-size:22px;font-weight:800;color:#0f6f47;letter-spacing:-.5px}' +
+'.brand span{color:#3ecf8e}' +
+'.meta{text-align:right;font-size:11px;color:#6b7c74;line-height:1.7}' +
+'.meta b{color:#12241c}' +
+'h2{font-size:15px;color:#0f6f47;margin:20px 0 8px}' +
+'.hero{background:linear-gradient(135deg,#e9fbf3,#f4fbf8);border:1px solid #cdeede;border-radius:10px;padding:16px 18px;margin-bottom:6px}' +
+'.hero .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#6b7c74}' +
+'.hero .big{font-size:30px;font-weight:800;color:#0f6f47;line-height:1.1;margin-top:2px}' +
+'.hero .sub{font-size:12px;color:#3a5248;margin-top:2px}' +
+'.who{font-size:12px;color:#3a5248;margin-bottom:14px}' +
+'.who b{color:#12241c}' +
+'.grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}' +
+'.card{flex:1 1 44%;border:1px solid #e0e8e4;border-radius:8px;padding:10px 12px}' +
+'.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#6b7c74}' +
+'.card .v{font-size:17px;font-weight:700;color:#12241c;margin-top:2px}' +
+'table{width:100%;border-collapse:collapse;margin-top:4px}' +
+'td{padding:6px 2px;border-bottom:1px solid #eef2f0}' +
+'td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}' +
+'td.num.hl{color:#0f6f47;font-size:15px}' +
+'tr.total td{border-top:2px solid #cdeede;border-bottom:none;padding-top:9px;font-size:15px;font-weight:800;color:#0f6f47}' +
+'.why{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:4px;padding:0;list-style:none}' +
+'.why li{flex:1 1 40%;font-size:12px;color:#3a5248;padding-left:16px;position:relative}' +
+'.why li:before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;border-radius:50%;background:#3ecf8e}' +
+'.cta{margin-top:18px;background:#0f6f47;color:#fff;border-radius:10px;padding:16px 18px}' +
+'.cta h3{color:#fff;font-size:14px;margin-bottom:6px}' +
+'.cta p{color:#e9fbf3;font-size:12px;margin:2px 0}' +
+'.cta b{color:#fff}' +
+'.foot{margin-top:18px;border-top:1px solid #e0e8e4;padding-top:12px;font-size:10.5px;color:#8a978f;line-height:1.6}' +
+'@media print{body{padding:0}}' +
+'</style></head><body>' +
+'<div class="head">' + brandMark +
+'<div class="meta"><b>Solar Proposal</b><br>' + esc(dateStr) + '</div></div>' +
+'<div class="who">' + whoLine + '</div>' +
+'<div class="hero"><div class="lbl">Estimated 25-year savings</div>' +
+'<div class="big">' + rupeeInr(s.savings25) + '</div>' +
+'<div class="sub">' + rupeeInr(s.annualSaving) + ' saved every year · ' + rupeeInr(s.monthlySaving) + '/month · Net benefit ' + rupeeInr(s.netBenefit) + '</div></div>' +
+'<h2>Recommended system</h2><div class="grid">' +
+'<div class="card"><div class="k">Recommended capacity</div><div class="v">' + s.systemSize + ' kW</div></div>' +
+'<div class="card"><div class="k">Roof area required</div><div class="v">' + Math.round(s.roofRequired).toLocaleString('en-IN') + ' sq ft</div></div>' +
+'<div class="card"><div class="k">Monthly generation</div><div class="v">' + Math.round(s.monthlyGen).toLocaleString('en-IN') + ' units</div></div>' +
+'<div class="card"><div class="k">Payback period</div><div class="v">' + s.payback + ' yrs</div></div>' +
+'</div>' +
+'<h2>Investment & subsidy</h2><table>' +
+row('Project cost', rupeeInr(s.grossCost)) +
+row('Central subsidy', '− ' + rupeeInr(s.subCentral)) +
+subStateRow +
+row('Total subsidy', '− ' + rupeeInr(s.subsidyTotal)) +
+'<tr class="total"><td>Your investment</td><td class="num">' + rupeeInr(s.netCost) + '</td></tr>' +
+'</table>' +
+emiSection +
+'<h2>Bill & environment impact</h2><table>' +
+row('Current monthly bill', rupeeInr(s.billNow)) +
+row('Bill with solar', rupeeInr(s.billSolar), true) +
+row('Bill reduction', s.reduction + '%') +
+row('CO₂ avoided (per month)', Math.round(s.co2Mo).toLocaleString('en-IN') + ' kg') +
+row('CO₂ avoided (per year)', Math.round(s.co2Yr).toLocaleString('en-IN') + ' kg') +
+row('CO₂ avoided (25 years)', s.co2Life.toFixed(1) + ' tonnes') +
+'</table>' +
+'<h2>Why choose Clans Machina</h2><ul class="why">' +
+usps.map(function (u) { return '<li>' + u + '</li>'; }).join('') +
+'</ul>' +
+'<div class="cta"><h3>Ready for the next step?</h3>' +
+'<p>Book a <b>free site survey</b> and talk to a solar expert.</p>' +
+'<p>Call / WhatsApp: <b>+91 91241 65341</b> · Email: <b>info@clansmachina.in</b></p>' +
+'<p>Website: <b>www.clansmachina.in</b></p></div>' +
+'<div class="foot">Indicative estimate generated by the Clans Machina solar calculator per the standard tariff, generation and PM Surya Ghar subsidy assumptions. ' +
+'Final figures depend on your roof, shading, DISCOM tariff and site survey. Subsidy eligibility is subject to prevailing government policy. ' +
+'This document is a savings estimate, not a contract or a guarantee.</div>' +
+'</body></html>';
+    }
+
+    function downloadPdf(snapshot, lead) {
+      // EMI is read live at download time (reflects whatever the customer set
+      // in the EMI panel).
+      var html = proposalHTML(snapshot, lead, emiFigures());
+      var frame = document.createElement('iframe');
+      frame.setAttribute('aria-hidden', 'true');
+      frame.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+      document.body.appendChild(frame);
+      var doc = frame.contentWindow.document;
+      doc.open(); doc.write(html); doc.close();
+      var done = false;
+      function go() {
+        if (done) return; done = true;
+        try {
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+        } catch (e) { /* print unavailable */ }
+        // Leave the frame long enough for the print dialog to read it.
+        setTimeout(function () { if (frame.parentNode) frame.parentNode.removeChild(frame); }, 60000);
+      }
+      // Give the iframe a tick to lay out before printing.
+      if (frame.contentWindow.document.readyState === 'complete') setTimeout(go, 150);
+      else frame.onload = function () { setTimeout(go, 150); };
+    }
+
+    pdfBtn.addEventListener('click', function () {
+      if (!lastSnapshot) return;   // no estimate yet — button is hidden until then
+      downloadPdf(lastSnapshot, { state: lastSnapshot.state, propertyType: lastSnapshot.propertyType });
+    });
+  })();
+
+  /* ============================================================
      STEP 2 - EMI CALCULATOR
      ============================================================ */
   var loanEl = $('emiLoan');
   var dpEl = $('emiDp');
   var tenureEl = $('emiTenure');
-  var interestEl = $('emiInterest');
+  var RATE = (CD.emi && CD.emi.interestRate) || 6.5;   // fixed p.a. (FRD Step 8)
   var syncing = false;
 
   /* Re-base the sliders when a fresh estimate comes in. */
@@ -465,7 +709,7 @@
     var dp = cost - loan;
     var dpPct = cost > 0 ? Math.round(dp / cost * 100) : 0;
     var tenure = parseFloat(tenureEl.value) || 5;
-    var rate = parseFloat(interestEl.value) || 9.5;
+    var rate = RATE;   // fixed 6.5% p.a. per FRD
 
     var res = emiFor(loan, tenure, rate);
 
@@ -485,7 +729,7 @@
     $('splitPrincipal').style.width = pPct + '%';
     $('splitInterest').style.width = (100 - pPct) + '%';
 
-    [loanEl, dpEl, tenureEl, interestEl].forEach(paintRange);
+    [loanEl, dpEl, tenureEl].forEach(paintRange);
 
     // Net cashflow insight (only meaningful after an estimate)
     var cashflow = $('emiCashflow');
@@ -525,7 +769,6 @@
     updateEmi();
   });
   tenureEl.addEventListener('input', updateEmi);
-  interestEl.addEventListener('input', updateEmi);
 
   // Initial paint with default asset cost
   configureEmiFromAsset(assetCost);
