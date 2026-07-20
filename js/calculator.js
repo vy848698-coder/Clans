@@ -459,16 +459,20 @@
       var d = s.generatedAt instanceof Date ? s.generatedAt : new Date();
       var dateStr = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
       var proposalNo = (lead && lead.proposalNo) || makeProposalNo(d);
+      var inr = function (n) { return Math.round(n).toLocaleString('en-IN'); };
       var row = function (label, val, strong) {
-        return '<tr><td>' + esc(label) + '</td><td class="num' + (strong ? ' hl' : '') + '">' + val + '</td></tr>';
+        return '<tr><td>' + esc(label) + '</td><td class="cm-num' + (strong ? ' cm-hl' : '') + '">' + val + '</td></tr>';
+      };
+      var card = function (k, v) {
+        return '<div class="cm-card"><div class="cm-k">' + k + '</div><div class="cm-v">' + v + '</div></div>';
       };
       var subStateRow = s.subState > 0
         ? row((s.state || 'State') + ' subsidy', '− ' + rupeeInr(s.subState)) : '';
       var brandMark = logoDataUri
-        ? '<img class="logo" src="' + logoDataUri + '" alt="Clans Machina" />'
-        : '<div class="brand">Clans Machina <span>Solar</span></div>';
+        ? '<img class="cm-logo" src="' + logoDataUri + '" alt="Clans Machina" />'
+        : '<div class="cm-brand">Clans Machina <span>Solar</span></div>';
       var emiSection = (emi && emi.monthly) ?
-        ('<h2>Loan / EMI plan</h2><table>' +
+        ('<div class="cm-h2">Loan / EMI plan</div><table>' +
           row('Loan amount', esc(emi.loan)) +
           row('Monthly EMI', esc(emi.monthly) + (emi.months ? ' × ' + esc(emi.months) + ' months' : ''), true) +
           row('Interest rate', '6.5% p.a.') +
@@ -484,8 +488,8 @@
       var icoMail = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#fff" stroke-width="1.6"/><path d="m3.5 7 8.5 6 8.5-6" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
       var icoGlobe = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><path d="M3 12h18M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9Z" stroke="#fff" stroke-width="1.6"/></svg>';
       var ctaItem = function (ico, k, v) {
-        return '<div class="cta-item"><span class="cta-ico">' + ico + '</span>' +
-          '<div><div class="ci-k">' + k + '</div><div class="ci-v">' + v + '</div></div></div>';
+        return '<div class="cm-cta-item"><span class="cm-ico">' + ico + '</span>' +
+          '<div><div class="cm-cik">' + k + '</div><div class="cm-civ">' + v + '</div></div></div>';
       };
       // Contact + site line — the name/date/proposal-no already show in the band above.
       var top = [];
@@ -498,144 +502,224 @@
       bottom.push('Property: <b>' + esc(s.propertyType) + '</b>');
       bottom.push('Monthly bill: <b>' + rupeeInr(s.bill) + '</b>');
       var whoLine = (top.length ? top.join(' · ') + '<br>' : '') + bottom.join(' · ');
-      return '' +
-'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clans Machina — Solar Proposal</title><style>' +
-'*{box-sizing:border-box;margin:0;padding:0}' +
-'html{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-'body{font-family:"Segoe UI",Arial,sans-serif;color:#12241c;padding:30px 34px;font-size:13px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-'.head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #3ecf8e;padding-bottom:14px;margin-bottom:18px}' +
-'.logo{height:40px;width:auto}' +
-'.brand{font-size:22px;font-weight:800;color:#0f6f47;letter-spacing:-.5px}' +
-'.brand span{color:#3ecf8e}' +
-'.meta{text-align:right;font-size:11px;color:#6b7c74;line-height:1.7}' +
-'.meta b{color:#12241c}' +
-'h2{font-size:15px;color:#0f6f47;margin:20px 0 8px}' +
-'.hero{background:linear-gradient(135deg,#e9fbf3,#f4fbf8);border:1px solid #cdeede;border-radius:10px;padding:16px 18px;margin-bottom:6px}' +
-'.hero .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#6b7c74}' +
-'.hero .big{font-size:30px;font-weight:800;color:#0f6f47;line-height:1.1;margin-top:2px}' +
-'.hero .sub{font-size:12px;color:#3a5248;margin-top:2px}' +
-'.who{font-size:12px;color:#3a5248;margin-bottom:14px}' +
-'.who b{color:#12241c}' +
-'.grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}' +
-'.card{flex:1 1 44%;border:1px solid #e0e8e4;border-radius:8px;padding:10px 12px}' +
-'.card .k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#6b7c74}' +
-'.card .v{font-size:17px;font-weight:700;color:#12241c;margin-top:2px}' +
-'table{width:100%;border-collapse:collapse;margin-top:4px}' +
-'td{padding:6px 2px;border-bottom:1px solid #eef2f0}' +
-'td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}' +
-'td.num.hl{color:#0f6f47;font-size:15px}' +
-'tr.total td{border-top:2px solid #cdeede;border-bottom:none;padding-top:9px;font-size:15px;font-weight:800;color:#0f6f47}' +
-'.why{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;padding:0;list-style:none}' +
-'.why li{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#12241c;' +
-'background:linear-gradient(135deg,#f1fbf6,#f7fcfa);border:1px solid #dcefe6;border-radius:9px;padding:9px 12px}' +
-'.why li svg{flex:none}' +
-'.cta{margin-top:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b3b28,#0f6f47 68%,#12805a);' +
-'color:#fff;border-radius:14px;padding:22px 24px}' +
-'.cta:after{content:"";position:absolute;right:-70px;top:-70px;width:210px;height:210px;border-radius:50%;' +
+
+      // NOTE: every class is `cm-`-prefixed and scoped under #cmroot so the host
+      // site's stylesheet (e.g. its own .hero/.logo/.cta rules) can never leak in
+      // — html2canvas reads computed styles from the live DOM.
+      return '<style>' +
+'#cmroot,#cmroot *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Arial,sans-serif}' +
+'#cmroot{color:#12241c;background:#fff;padding:26px 30px;font-size:13px;line-height:1.5;width:100%}' +
+'#cmroot .cm-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #3ecf8e;padding-bottom:12px;margin-bottom:14px}' +
+'#cmroot .cm-logo{height:38px;width:auto}' +
+'#cmroot .cm-brand{font-size:22px;font-weight:800;color:#0f6f47;letter-spacing:-.5px}' +
+'#cmroot .cm-brand span{color:#3ecf8e}' +
+'#cmroot .cm-meta{text-align:right;font-size:11px;color:#6b7c74;line-height:1.7}' +
+'#cmroot .cm-meta b{color:#12241c}' +
+'#cmroot .cm-h2{font-size:15px;font-weight:800;color:#0f6f47;margin:15px 0 6px}' +
+'#cmroot .cm-hero{background:linear-gradient(135deg,#e9fbf3,#f4fbf8);border:1px solid #cdeede;border-radius:10px;padding:14px 16px;margin-bottom:4px}' +
+'#cmroot .cm-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#6b7c74}' +
+'#cmroot .cm-big{font-size:28px;font-weight:800;color:#0f6f47;line-height:1.1;margin-top:2px}' +
+'#cmroot .cm-sub{font-size:12px;color:#3a5248;margin-top:2px}' +
+'#cmroot .cm-who{font-size:12px;color:#3a5248;margin-bottom:12px}' +
+'#cmroot .cm-who b{color:#12241c}' +
+'#cmroot .cm-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}' +
+'#cmroot .cm-card{flex:1 1 30%;border:1px solid #e0e8e4;border-radius:8px;padding:9px 11px}' +
+'#cmroot .cm-k{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:#6b7c74}' +
+'#cmroot .cm-v{font-size:16px;font-weight:700;color:#12241c;margin-top:2px}' +
+'#cmroot table{width:100%;border-collapse:collapse;margin-top:2px}' +
+'#cmroot td{padding:5px 2px;border-bottom:1px solid #eef2f0;font-size:12.5px}' +
+'#cmroot .cm-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}' +
+'#cmroot .cm-num.cm-hl{color:#0f6f47;font-size:14px}' +
+'#cmroot tr.cm-total td{border-top:2px solid #cdeede;border-bottom:none;padding-top:8px;font-size:15px;font-weight:800;color:#0f6f47}' +
+'#cmroot .cm-why{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:5px;list-style:none}' +
+'#cmroot .cm-why li{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#12241c;' +
+'background:linear-gradient(135deg,#f1fbf6,#f7fcfa);border:1px solid #dcefe6;border-radius:9px;padding:8px 11px}' +
+'#cmroot .cm-why li svg{flex:none}' +
+'#cmroot .cm-cta{margin-top:16px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b3b28,#0f6f47 68%,#12805a);' +
+'color:#fff;border-radius:14px;padding:20px 22px}' +
+'#cmroot .cm-cta:after{content:"";position:absolute;right:-70px;top:-70px;width:200px;height:200px;border-radius:50%;' +
 'background:radial-gradient(circle,rgba(62,207,142,.45),transparent 70%)}' +
-'.cta-inner{position:relative;z-index:1}' +
-'.cta-badge{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;' +
-'background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:30px;padding:4px 12px;color:#d6f5e6;margin-bottom:11px}' +
-'.cta h3{color:#fff;font-size:19px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px}' +
-'.cta .lead{color:#cdeede;font-size:12px;margin-bottom:15px}' +
-'.cta .lead b{color:#8ef2c4}' +
-'.cta-row{display:flex;flex-wrap:wrap;gap:10px}' +
-'.cta-item{flex:1 1 28%;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);' +
-'border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 12px}' +
-'.cta-ico{flex:none;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;' +
+'#cmroot .cm-cta-inner{position:relative;z-index:1}' +
+'#cmroot .cm-badge{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;' +
+'background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:30px;padding:4px 12px;color:#d6f5e6;margin-bottom:10px}' +
+'#cmroot .cm-cta-title{color:#fff;font-size:19px;font-weight:800;margin-bottom:3px;letter-spacing:-.3px}' +
+'#cmroot .cm-cta-lead{color:#cdeede;font-size:12px;margin-bottom:13px}' +
+'#cmroot .cm-cta-lead b{color:#8ef2c4}' +
+'#cmroot .cm-cta-row{display:flex;flex-wrap:wrap;gap:9px}' +
+'#cmroot .cm-cta-item{flex:1 1 28%;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);' +
+'border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 11px}' +
+'#cmroot .cm-ico{flex:none;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;' +
 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22)}' +
-'.cta-item .ci-k{font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:#a8e6cd;margin-bottom:1px}' +
-'.cta-item .ci-v{font-size:11.5px;font-weight:700;color:#fff}' +
-'.foot{margin-top:18px;border-top:1px solid #e0e8e4;padding-top:12px;font-size:10.5px;color:#8a978f;line-height:1.6}' +
-/* --- Branded cover band (compact, flows into the report) --- */
-'.cover-band{background:linear-gradient(135deg,#0b3b28,#0f6f47 60%,#12805a);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px}' +
-'.cb-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#a8e6cd}' +
-'.cb-title{font-size:24px;font-weight:800;line-height:1.12;margin:3px 0 15px;color:#fff}' +
-'.cb-grid{display:flex;flex-wrap:wrap;gap:26px;border-top:1px solid rgba(255,255,255,.2);padding-top:13px}' +
-'.cb-grid>div{display:flex;flex-direction:column;gap:2px}' +
-'.cb-grid span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#a8e6cd}' +
-'.cb-grid b{font-size:14px;color:#fff}' +
-'@media print{body{padding:0}}' +
-'</style></head><body>' +
-'<div class="head">' + brandMark +
-'<div class="meta"><b>Solar Proposal</b><br>No. ' + esc(proposalNo) + '<br>' + esc(dateStr) + '</div></div>' +
-'<div class="cover-band">' +
-  '<div class="cb-kicker">Solar Savings Proposal</div>' +
-  '<div class="cb-title">Your Solar Journey Starts Here</div>' +
-  '<div class="cb-grid">' +
+'#cmroot .cm-cik{font-size:8.5px;text-transform:uppercase;letter-spacing:.05em;color:#a8e6cd;margin-bottom:1px}' +
+'#cmroot .cm-civ{font-size:11.5px;font-weight:700;color:#fff}' +
+'#cmroot .cm-foot{margin-top:14px;border-top:1px solid #e0e8e4;padding-top:10px;font-size:10px;color:#8a978f;line-height:1.55}' +
+'#cmroot .cm-cover{background:linear-gradient(135deg,#0b3b28,#0f6f47 60%,#12805a);color:#fff;border-radius:12px;padding:18px 22px;margin-bottom:14px}' +
+'#cmroot .cm-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#a8e6cd}' +
+'#cmroot .cm-title{font-size:23px;font-weight:800;line-height:1.12;margin:3px 0 13px;color:#fff}' +
+'#cmroot .cm-cgrid{display:flex;flex-wrap:wrap;gap:26px;border-top:1px solid rgba(255,255,255,.2);padding-top:12px}' +
+'#cmroot .cm-cgrid>div{display:flex;flex-direction:column;gap:2px}' +
+'#cmroot .cm-cgrid span{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#a8e6cd}' +
+'#cmroot .cm-cgrid b{font-size:14px;color:#fff}' +
+'</style>' +
+'<div id="cmroot">' +
+'<div class="cm-head">' + brandMark +
+'<div class="cm-meta"><b>Solar Proposal</b><br>No. ' + esc(proposalNo) + '<br>' + esc(dateStr) + '</div></div>' +
+'<div class="cm-cover">' +
+  '<div class="cm-kicker">Solar Savings Proposal</div>' +
+  '<div class="cm-title">Your Solar Journey Starts Here</div>' +
+  '<div class="cm-cgrid">' +
     '<div><span>Prepared for</span><b>' + esc((lead && lead.name) || s.propertyType) + '</b></div>' +
     '<div><span>Date</span><b>' + esc(dateStr) + '</b></div>' +
     '<div><span>Proposal No.</span><b>' + esc(proposalNo) + '</b></div>' +
   '</div>' +
 '</div>' +
-'<div class="who">' + whoLine + '</div>' +
-'<div class="hero"><div class="lbl">Estimated 25-year savings</div>' +
-'<div class="big">' + rupeeInr(s.savings25) + '</div>' +
-'<div class="sub">' + rupeeInr(s.annualSaving) + ' saved every year · ' + rupeeInr(s.monthlySaving) + '/month · Net benefit ' + rupeeInr(s.netBenefit) + '</div></div>' +
-'<h2>Recommended system</h2><div class="grid">' +
-'<div class="card"><div class="k">Recommended capacity</div><div class="v">' + s.systemSize + ' kW</div></div>' +
-'<div class="card"><div class="k">Roof area required</div><div class="v">' + Math.round(s.roofRequired).toLocaleString('en-IN') + ' sq ft</div></div>' +
-'<div class="card"><div class="k">Monthly generation</div><div class="v">' + Math.round(s.monthlyGen).toLocaleString('en-IN') + ' units</div></div>' +
-'<div class="card"><div class="k">Payback period</div><div class="v">' + s.payback + ' yrs</div></div>' +
+'<div class="cm-who">' + whoLine + '</div>' +
+'<div class="cm-hero"><div class="cm-lbl">Estimated 25-year savings</div>' +
+'<div class="cm-big">' + rupeeInr(s.savings25) + '</div>' +
+'<div class="cm-sub">' + rupeeInr(s.annualSaving) + ' saved every year · ' + rupeeInr(s.monthlySaving) + '/month · Net benefit ' + rupeeInr(s.netBenefit) + '</div></div>' +
+'<div class="cm-h2">Solar assessment &amp; recommended system</div><div class="cm-grid">' +
+card('Recommended capacity', s.systemSize + ' kW') +
+card('Roof area required', inr(s.roofRequired) + ' sq ft') +
+card('Monthly consumption', inr(s.monthlyUnits) + ' units') +
+card('Monthly generation', inr(s.monthlyGen) + ' units') +
+card('Monthly saving', rupeeInr(s.monthlySaving)) +
+card('Payback period', s.payback + ' yrs') +
 '</div>' +
-'<h2>Investment & subsidy</h2><table>' +
+'<div class="cm-h2">Investment &amp; subsidy</div><table>' +
 row('Project cost', rupeeInr(s.grossCost)) +
 row('Central subsidy', '− ' + rupeeInr(s.subCentral)) +
 subStateRow +
 row('Total subsidy', '− ' + rupeeInr(s.subsidyTotal)) +
-'<tr class="total"><td>Your investment</td><td class="num">' + rupeeInr(s.netCost) + '</td></tr>' +
+'<tr class="cm-total"><td>Your investment</td><td class="cm-num">' + rupeeInr(s.netCost) + '</td></tr>' +
 '</table>' +
 emiSection +
-'<h2>Bill & environment impact</h2><table>' +
+'<div class="cm-h2">Savings, bill &amp; environment impact</div><table>' +
 row('Current monthly bill', rupeeInr(s.billNow)) +
 row('Bill with solar', rupeeInr(s.billSolar), true) +
 row('Bill reduction', s.reduction + '%') +
-row('CO₂ avoided (per month)', Math.round(s.co2Mo).toLocaleString('en-IN') + ' kg') +
-row('CO₂ avoided (per year)', Math.round(s.co2Yr).toLocaleString('en-IN') + ' kg') +
+row('Annual savings', rupeeInr(s.annualSaving)) +
+row('Electricity generated (25 years)', inr(s.gen25) + ' units') +
+row('Net financial benefit (25 years)', rupeeInr(s.netBenefit), true) +
+row('CO₂ avoided (per month)', inr(s.co2Mo) + ' kg') +
+row('CO₂ avoided (per year)', inr(s.co2Yr) + ' kg') +
 row('CO₂ avoided (25 years)', s.co2Life.toFixed(1) + ' tonnes') +
 '</table>' +
-'<h2>Why choose Clans Machina</h2><ul class="why">' +
+'<div class="cm-h2">Why choose Clans Machina</div><ul class="cm-why">' +
 usps.map(function (u) { return '<li>' + checkSvg + '<span>' + u + '</span></li>'; }).join('') +
 '</ul>' +
-'<div class="cta"><div class="cta-inner">' +
-'<span class="cta-badge">Get Started Today</span>' +
-'<h3>Ready for the next step?</h3>' +
-'<p class="lead">Book a <b>FREE site survey</b> and talk to a Clans Machina solar expert — no obligation.</p>' +
-'<div class="cta-row">' +
+'<div class="cm-cta"><div class="cm-cta-inner">' +
+'<span class="cm-badge">Get Started Today</span>' +
+'<div class="cm-cta-title">Ready for the next step?</div>' +
+'<div class="cm-cta-lead">Book a <b>FREE site survey</b> and talk to a Clans Machina solar expert — no obligation.</div>' +
+'<div class="cm-cta-row">' +
   ctaItem(icoPhone, 'Call / WhatsApp', '+91 91241 65341') +
   ctaItem(icoMail, 'Email', 'info@clansmachina.in') +
   ctaItem(icoGlobe, 'Website', 'www.clansmachina.in') +
 '</div>' +
 '</div></div>' +
-'<div class="foot">Indicative estimate generated by the Clans Machina solar calculator per the standard tariff, generation and PM Surya Ghar subsidy assumptions. ' +
+'<div class="cm-foot">Indicative estimate generated by the Clans Machina solar calculator per the standard tariff, generation and PM Surya Ghar subsidy assumptions. ' +
 'Final figures depend on your roof, shading, DISCOM tariff and site survey. Subsidy eligibility is subject to prevailing government policy. ' +
 'This document is a savings estimate, not a contract or a guarantee.</div>' +
-'</body></html>';
+'</div>';
     }
 
-    function downloadPdf(snapshot, lead) {
-      // EMI is read live at download time (reflects whatever the customer set
-      // in the EMI panel).
-      var html = proposalHTML(snapshot, lead, emiFigures());
+    // Browser print fallback (used only if html2pdf fails to load/render).
+    function printFallback(markup) {
       var frame = document.createElement('iframe');
       frame.setAttribute('aria-hidden', 'true');
       frame.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
       document.body.appendChild(frame);
       var doc = frame.contentWindow.document;
-      doc.open(); doc.write(html); doc.close();
-      var done = false;
+      doc.open();
+      doc.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clans Machina — Solar Proposal</title>' +
+        '<style>html,body{margin:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}</style>' +
+        '</head><body>' + markup + '</body></html>');
+      doc.close();
       function go() {
-        if (done) return; done = true;
-        try {
-          frame.contentWindow.focus();
-          frame.contentWindow.print();
-        } catch (e) { /* print unavailable */ }
-        // Leave the frame long enough for the print dialog to read it.
+        try { frame.contentWindow.focus(); frame.contentWindow.print(); } catch (e) {}
         setTimeout(function () { if (frame.parentNode) frame.parentNode.removeChild(frame); }, 60000);
       }
-      // Give the iframe a tick to lay out before printing.
       if (frame.contentWindow.document.readyState === 'complete') setTimeout(go, 150);
       else frame.onload = function () { setTimeout(go, 150); };
+    }
+
+    // POST the generated PDF (data URL) + lead to the server to email + store it.
+    function emailProposal(lead, s, pdfDataUrl) {
+      try {
+        return fetch('send-proposal.php', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: lead.name, phone: lead.phone, email: lead.email,
+            district: lead.district, state: lead.state, proposalNo: lead.proposalNo,
+            systemSize: s.systemSize, bill: Math.round(s.bill), pdf: pdfDataUrl || ''
+          })
+        }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+          .catch(function () { return { ok: false }; });
+      } catch (e) { return Promise.resolve({ ok: false }); }
+    }
+
+    function setEmailStatus(res) {
+      var el = $('leadEmailStatus');
+      if (!el) return;
+      if (res && res.ok && res.emailed) {
+        el.textContent = 'A copy has been emailed to your inbox.';
+        el.style.color = '';
+      } else if (res && res.ok) {
+        el.textContent = 'Your download is ready (email delivery is not set up yet).';
+      } else {
+        el.textContent = 'We couldn’t email a copy — please use the download above.';
+      }
+    }
+
+    // Generate the PDF client-side: instant download + (optionally) email a copy.
+    // EMI figures are read live so the PDF matches the current EMI panel.
+    function generateProposal(snapshot, lead, sendEmail) {
+      var markup = proposalHTML(snapshot, lead, emiFigures());
+      var filename = 'Clans-Machina-Solar-Proposal-' + (lead.proposalNo || 'estimate') + '.pdf';
+
+      if (typeof window.html2pdf === 'undefined') {
+        // Library missing — print for the download, still email the summary.
+        printFallback(markup);
+        if (sendEmail) emailProposal(lead, snapshot, '').then(setEmailStatus);
+        return;
+      }
+
+      // Render at the document's top-left (not off-screen / not fixed) and tell
+      // html2canvas to capture from 0,0 — otherwise, if the page is scrolled down
+      // to the lead form, the capture is offset and the PDF comes out blank.
+      var host = document.createElement('div');
+      host.style.cssText = 'position:absolute;left:0;top:0;width:794px;background:#fff;z-index:-1;';
+      host.innerHTML = markup;
+      document.body.appendChild(host);
+      var root = host.querySelector('#cmroot') || host;
+      function cleanup() { if (host.parentNode) host.parentNode.removeChild(host); }
+
+      var opt = {
+        margin: 0, filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2, useCORS: true, backgroundColor: '#ffffff',
+          windowWidth: 794, scrollX: 0, scrollY: 0, x: 0, y: 0
+        },
+        jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      };
+
+      // Guarantee a zero scroll offset while html2canvas captures, then restore.
+      var prevScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+      window.scrollTo(0, 0);
+
+      window.html2pdf().set(opt).from(root).toPdf().get('pdf')
+        .then(function (pdf) {
+          window.scrollTo(0, prevScroll);
+          pdf.save(filename);                      // instant download
+          return pdf.output('datauristring');      // base64 data URL for email
+        })
+        .catch(function () { window.scrollTo(0, prevScroll); printFallback(markup); return ''; })
+        .then(function (dataUrl) {
+          return sendEmail ? emailProposal(lead, snapshot, dataUrl) : null;
+        })
+        .then(function (res) { if (sendEmail) setEmailStatus(res); cleanup(); });
     }
 
     /* ---- Lead capture: gate the PDF behind Name / Mobile / Email / District ---- */
@@ -647,24 +731,6 @@ usps.map(function (u) { return '<li>' + checkSvg + '<span>' + u + '</span></li>'
     function showErr(msg, focusEl) {
       if (leadErr) { leadErr.textContent = msg; leadErr.hidden = false; }
       if (focusEl) focusEl.focus();
-    }
-
-    // Fire-and-forget: store the captured lead alongside the site's other leads.
-    function postLead(lead, s) {
-      try {
-        fetch('submit-contact.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: lead.name, phone: lead.phone, email: lead.email,
-            city: lead.district, service: 'Solar Calculator Proposal',
-            bill: Math.round(s.bill),
-            message: 'Proposal ' + lead.proposalNo + ' · ' + s.propertyType +
-              ' · ' + s.systemSize + ' kW · District: ' + lead.district +
-              (lead.state ? ' · State: ' + lead.state : '')
-          })
-        }).catch(function () {});
-      } catch (e) { /* offline / fetch unsupported — PDF still generated */ }
     }
 
     if (leadForm) {
@@ -690,22 +756,24 @@ usps.map(function (u) { return '<li>' + checkSvg + '<span>' + u + '</span></li>'
           proposalNo: makeProposalNo(lastSnapshot.generatedAt instanceof Date ? lastSnapshot.generatedAt : new Date())
         };
 
-        postLead(currentLead, lastSnapshot);
-        downloadPdf(lastSnapshot, currentLead);
-
         // Swap the form for the "ready / download again" state.
         if (leadForm) leadForm.hidden = true;
         if (leadDone) {
           setText('leadDoneNo', currentLead.proposalNo);
+          var es = $('leadEmailStatus');
+          if (es) { es.textContent = 'Emailing a copy to ' + currentLead.email + '…'; es.style.color = ''; }
           leadDone.hidden = false;
         }
+
+        // Generate the PDF: instant download + email a copy to the customer.
+        generateProposal(lastSnapshot, currentLead, true);
       });
     }
 
     var pdfAgainBtn = $('pdfAgainBtn');
     if (pdfAgainBtn) {
       pdfAgainBtn.addEventListener('click', function () {
-        if (lastSnapshot && currentLead) downloadPdf(lastSnapshot, currentLead);
+        if (lastSnapshot && currentLead) generateProposal(lastSnapshot, currentLead, false);
       });
     }
 
