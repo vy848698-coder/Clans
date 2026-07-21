@@ -3,6 +3,30 @@ require __DIR__ . '/db.php';
 $dynamic = $pdo->query('SELECT * FROM posts WHERE hidden = 0 ORDER BY created_at DESC')->fetchAll();
 $categories = get_categories($pdo);
 function v($s) { return htmlspecialchars($s ?? '', ENT_QUOTES); }
+
+// The `category` column is meant to hold space-separated slugs, but some
+// legacy/imported rows stored the category *name* instead — which breaks the
+// sidebar filter (it matches slugs). Resolve either form to canonical slugs so
+// the filter always works, regardless of how the row was saved.
+$slugSet = [];        // slug => true
+$slugByName = [];     // lower(name) => slug
+foreach ($categories as $cat) {
+    $slugSet[$cat['slug']] = true;
+    $slugByName[mb_strtolower($cat['name'])] = $cat['slug'];
+}
+function post_category_slugs($value, array $slugSet, array $slugByName): array {
+    $value = trim((string)$value);
+    if ($value === '') return [];
+    // Whole value equals a known category name (legacy rows stored the name).
+    if (isset($slugByName[mb_strtolower($value)])) return [$slugByName[mb_strtolower($value)]];
+    // Otherwise treat as space-separated tokens; keep the ones we recognise.
+    $out = [];
+    foreach (preg_split('/\s+/', $value) as $tok) {
+        if (isset($slugSet[$tok])) $out[$tok] = true;
+        elseif (isset($slugByName[mb_strtolower($tok)])) $out[$slugByName[mb_strtolower($tok)]] = true;
+    }
+    return array_keys($out);
+}
 function initials($name) {
     $ini = '';
     foreach (preg_split('/\s+/', trim((string)$name)) as $p) {
@@ -72,7 +96,7 @@ function initials($name) {
 
             <?php /* ---- Owner-added blogs from the database (newest first) ---- */ ?>
             <?php foreach ($dynamic as $i => $p): ?>
-            <article class="blog-page-card glass-card" data-category="<?= v($p['category']) ?>">
+            <article class="blog-page-card glass-card" data-category="<?= v(implode(' ', post_category_slugs($p['category'], $slugSet, $slugByName))) ?>">
               <div class="bp-thumb <?= $thumbStyles[$i % count($thumbStyles)] ?>">
                 <span class="bp-ico"><?= $thumbIcons[$i % count($thumbIcons)] ?></span>
                 <?php if (!empty($p['image'])): ?>

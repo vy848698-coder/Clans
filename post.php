@@ -49,6 +49,13 @@ if ($post) {
         $related = array_merge($related, $stmt->fetchAll());
     }
 }
+
+// Estimated reading time — use the stored value, or derive ~200 words/min.
+$readTime = trim((string)($post['read_time'] ?? ''));
+if ($post && $readTime === '') {
+    $words = str_word_count(strip_tags((string)$post['body']));
+    $readTime = max(1, (int)round($words / 200)) . ' min read';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" data-theme="mint-fresh">
@@ -65,7 +72,13 @@ if ($post) {
   <meta property="og:title" content="<?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina" />
   <meta property="og:description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
   <meta property="og:url" content="https://www.clansmachina.in/post.php?id=<?= (int)$id ?>" />
-<?php $ogImg = ($post && !empty($post['image'])) ? (preg_match('#^https?://#', $post['image']) ? $post['image'] : 'https://www.clansmachina.in/' . ltrim($post['image'], '/')) : 'https://www.clansmachina.in/image/service-residential.webp'; ?>
+<?php
+// og:image must be a public URL — inline data-URL covers can't be used by social
+// platforms, so fall back to the default share image for those.
+$ogImg = ($post && !empty($post['image']) && strpos($post['image'], 'data:') !== 0)
+    ? (preg_match('#^https?://#', $post['image']) ? $post['image'] : 'https://www.clansmachina.in/' . ltrim($post['image'], '/'))
+    : 'https://www.clansmachina.in/image/service-residential.webp';
+?>
   <meta property="og:image" content="<?= v($ogImg) ?>" />
 <?php if ($post): ?>
   <meta property="article:published_time" content="<?= v($post['created_at']) ?>" />
@@ -78,6 +91,7 @@ if ($post) {
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
+    html { scroll-behavior:smooth; }
     .article-wrap { max-width:760px; margin:0 auto; padding:128px 1.25rem 4rem; }
     .article-wrap .crumbs { margin-bottom:1.75rem; font-size:.85rem; color:var(--text-muted); }
     .article-wrap .crumbs a { color:var(--green); text-decoration:none; }
@@ -113,22 +127,176 @@ if ($post) {
     }
     .article-body h2 {
       font-family:var(--font-display); font-size:1.7rem; line-height:1.25; color:var(--text-primary);
-      margin:2.5rem 0 1rem; padding-bottom:.5rem; border-bottom:1px solid var(--border);
+      margin:2.5rem 0 1rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); scroll-margin-top:100px;
     }
     .article-body h3 {
-      font-family:var(--font-display); font-size:1.3rem; color:var(--text-primary); margin:2rem 0 .8rem;
+      font-family:var(--font-display); font-size:1.3rem; color:var(--text-primary); margin:2rem 0 .8rem; scroll-margin-top:100px;
     }
     .article-body strong { color:var(--text-primary); }
     .article-body a { color:var(--green); text-decoration:underline; text-underline-offset:3px; }
     .article-body ul, .article-body ol { margin:0 0 1.4rem; padding-left:1.4rem; }
     .article-body li { margin-bottom:.6rem; }
     .article-body ul li::marker { color:var(--green); }
+    /* Pros / cons check-list (auto-built from ✔ / ✖ lines) */
+    .article-body ul.check-list { list-style:none; padding-left:0; }
+    .article-body ul.check-list li { position:relative; padding-left:2rem; margin-bottom:.7rem; }
+    .article-body ul.check-list li::marker { content:none; }
+    .article-body ul.check-list li::before {
+      position:absolute; left:0; top:0; width:1.4rem; height:1.4rem; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:800;
+    }
+    .article-body ul.check-list li.ok::before { content:"\2713"; color:var(--green); background:var(--green-dim); }
+    .article-body ul.check-list li.no::before { content:"\2715"; color:#f87171; background:rgba(248,113,113,0.14); }
     .article-body blockquote {
       margin:2rem 0; padding:1rem 1.5rem; border-left:4px solid var(--green);
       background:var(--green-dim); border-radius:0 10px 10px 0;
       font-size:1.15rem; font-style:italic; color:var(--text-primary);
     }
     .article-body img { max-width:100%; border-radius:12px; margin:1.5rem 0; }
+    .article-body h4 {
+      font-family:var(--font-display); font-size:1.1rem; color:var(--text-primary); margin:1.6rem 0 .6rem;
+    }
+    .article-body hr {
+      border:0; height:1px; background:var(--border); margin:2.5rem 0;
+    }
+    .article-body code {
+      font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.9em;
+      background:var(--green-dim); border:1px solid var(--border-bright); color:var(--green);
+      padding:.12em .4em; border-radius:6px;
+    }
+    .article-body pre {
+      background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:12px;
+      padding:1rem 1.2rem; overflow-x:auto; margin:1.5rem 0; font-size:.95rem; line-height:1.6;
+    }
+    .article-body pre code { background:none; border:0; padding:0; color:var(--text-secondary); }
+    .article-body mark {
+      background:linear-gradient(120deg, var(--green-dim), var(--blue-dim));
+      color:var(--text-primary); padding:.05em .25em; border-radius:4px;
+    }
+    /* Lead / intro paragraph */
+    .article-body p.lead {
+      font-size:1.25rem; line-height:1.75; color:var(--text-primary); font-weight:500;
+    }
+    .article-body p.lead::first-letter { padding:0; float:none; font-size:inherit; color:inherit; }
+    /* Auto Table of Contents card */
+    .article-toc {
+      background:var(--bg-card, rgba(255,255,255,0.05)); border:1px solid var(--border);
+      border-left:4px solid var(--green); border-radius:14px; padding:1.25rem 1.5rem; margin:0 0 2.5rem;
+    }
+    .article-toc .toc-head {
+      font-family:var(--font-display); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em;
+      color:var(--green); font-weight:700; margin-bottom:.75rem;
+    }
+    .article-toc ol { margin:0; padding-left:1.2rem; counter-reset:toc; list-style:none; }
+    .article-toc li { margin:.35rem 0; counter-increment:toc; position:relative; }
+    .article-toc li::before {
+      content:counter(toc); position:absolute; left:-1.2rem; color:var(--green); font-weight:700; font-size:.85rem;
+    }
+    .article-toc a { color:var(--text-secondary); text-decoration:none; font-size:.98rem; transition:color .15s ease; }
+    .article-toc a:hover { color:var(--green); }
+    .article-toc li.active::before { color:var(--green); }
+    .article-toc li.active a { color:var(--text-primary); font-weight:600; }
+    /* Key takeaways card */
+    .key-takeaways {
+      background:linear-gradient(135deg, var(--green-dim), var(--blue-dim));
+      border:1px solid var(--border-bright); border-radius:16px; padding:1.5rem 1.75rem; margin:0 0 2rem;
+    }
+    .key-takeaways .kt-head {
+      display:flex; align-items:center; gap:.55rem; font-family:var(--font-display); font-weight:700;
+      color:var(--text-primary); margin-bottom:1rem; font-size:1.1rem;
+    }
+    .key-takeaways .kt-head svg { color:var(--green); }
+    .key-takeaways ul { margin:0; padding:0; list-style:none; display:grid; gap:.75rem; }
+    .key-takeaways li { position:relative; padding-left:2rem; color:var(--text-secondary); line-height:1.6; font-size:1rem; }
+    .key-takeaways li::before {
+      content:"\2713"; position:absolute; left:0; top:.05rem; width:1.4rem; height:1.4rem; border-radius:50%;
+      background:var(--green); color:var(--btn-neon-text, #05261a); font-weight:800; font-size:.78rem;
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    /* Intro (content before the first heading) */
+    .art-intro { margin-bottom:.5rem; }
+    /* Section cards — group each H2 and its content */
+    .art-section {
+      background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
+      border:1px solid var(--border); border-radius:16px; padding:1.5rem 2rem 1.75rem; margin:0 0 1.5rem;
+      transition:border-color .25s ease;
+    }
+    .art-section:hover { border-color:var(--border-bright); }
+    .art-section > h2:first-child { margin-top:.25rem; }
+    @media (max-width:640px){ .art-section { padding:1.25rem 1.15rem 1.4rem; } }
+    /* End-of-article CTA card */
+    .article-endcta {
+      display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; justify-content:space-between;
+      background:linear-gradient(135deg, rgba(62,207,142,0.16), rgba(78,168,222,0.16));
+      border:1px solid var(--border-bright); border-radius:18px; padding:1.75rem 2rem; margin:2.5rem 0 1rem;
+      position:relative; overflow:hidden;
+    }
+    .article-endcta::after {
+      content:""; position:absolute; right:-40px; top:-40px; width:180px; height:180px; border-radius:50%;
+      background:radial-gradient(circle, var(--green-glow), transparent 70%); pointer-events:none;
+    }
+    .article-endcta .endcta-text { flex:1; min-width:240px; position:relative; z-index:1; }
+    .article-endcta .endcta-eyebrow { font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--green); }
+    .article-endcta h3 { font-family:var(--font-display); font-size:1.4rem; margin:.35rem 0 .5rem; color:var(--text-primary); }
+    .article-endcta p { margin:0; font-size:.98rem; color:var(--text-secondary); line-height:1.6; }
+    .article-endcta .endcta-btn { display:inline-flex; align-items:center; gap:.5rem; white-space:nowrap; position:relative; z-index:1; }
+    /* Author card */
+    .author-card {
+      display:flex; gap:1rem; align-items:flex-start; margin-top:2.5rem; padding:1.5rem;
+      background:var(--bg-card, rgba(255,255,255,0.05)); border:1px solid var(--border); border-radius:16px;
+    }
+    .author-card .bp-avatar {
+      width:52px; height:52px; border-radius:50%; flex-shrink:0; display:inline-flex; align-items:center;
+      justify-content:center; font-weight:700; font-family:var(--font-display); font-size:1.1rem;
+      color:var(--btn-neon-text); background:linear-gradient(135deg, var(--green), var(--blue));
+    }
+    .author-card .author-text strong { display:block; color:var(--text-primary); font-size:1rem; margin-bottom:.3rem; }
+    .author-card .author-text p { margin:0; font-size:.92rem; color:var(--text-muted); line-height:1.6; }
+    /* Back-to-top button */
+    .back-to-top {
+      position:fixed; right:1.5rem; bottom:1.5rem; width:46px; height:46px; border-radius:50%;
+      border:1px solid var(--border-bright); background:var(--green); color:var(--btn-neon-text, #05261a);
+      display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:60;
+      opacity:0; transform:translateY(12px); pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+      box-shadow:0 10px 24px rgba(0,0,0,0.3);
+    }
+    .back-to-top.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .back-to-top:hover { transform:translateY(-3px); }
+    @media (max-width:640px){ .back-to-top { right:1rem; bottom:5.5rem; } }
+    /* Callout cards (auto-generated from "Label:" paragraphs) */
+    .callout {
+      display:flex; gap:.9rem; align-items:flex-start; margin:1.75rem 0;
+      padding:1.1rem 1.25rem; border-radius:14px; border:1px solid var(--border);
+      background:var(--bg-card, rgba(255,255,255,0.05)); border-left:4px solid var(--green);
+    }
+    .callout-ico { font-size:1.35rem; line-height:1.5; flex-shrink:0; }
+    .callout-content { flex:1; min-width:0; }
+    .callout-label {
+      display:block; font-family:var(--font-display); font-weight:700; font-size:.95rem;
+      color:var(--text-primary); margin-bottom:.15rem;
+    }
+    .callout-content p { margin:0; font-size:1.02rem; line-height:1.7; }
+    .callout-info    { border-left-color:var(--blue);   background:var(--blue-dim); }
+    .callout-info .callout-label { color:var(--blue); }
+    .callout-tip     { border-left-color:var(--green);  background:var(--green-dim); }
+    .callout-tip .callout-label { color:var(--green); }
+    .callout-key     { border-left-color:#f5c451; background:rgba(245,196,81,0.12); }
+    .callout-key .callout-label { color:#f5c451; }
+    .callout-warn    { border-left-color:#f87171; background:rgba(248,113,113,0.12); }
+    .callout-warn .callout-label { color:#f87171; }
+    .callout-example { border-left-color:var(--text-muted); }
+    .callout-faq     { border-left-color:var(--blue); background:var(--blue-dim); }
+    .callout-faq .callout-label { color:var(--blue); }
+    /* Tables (scroll-wrapped by the formatter) */
+    .table-scroll { overflow-x:auto; margin:1.75rem 0; border-radius:12px; border:1px solid var(--border); }
+    .article-body table { width:100%; border-collapse:collapse; font-size:.98rem; min-width:460px; }
+    .article-body th {
+      background:linear-gradient(135deg, var(--green), var(--blue)); color:var(--btn-neon-text, #05261a);
+      text-align:left; padding:.85rem 1rem; font-family:var(--font-display); font-weight:700; font-size:.9rem;
+    }
+    .article-body tbody td { padding:.8rem 1rem; border-top:1px solid var(--border); color:var(--text-secondary); vertical-align:top; }
+    .article-body tbody tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
+    .article-body th, .article-body td { border:0; }
     /* Reading progress bar */
     .reading-progress {
       position:fixed; top:0; left:0; height:3px; width:0%; z-index:1000;
@@ -210,7 +378,7 @@ if ($post) {
         ?></span>
         <span class="meta-text">
           <strong><?= v($post['author'] ?: 'Clans Machina') ?></strong>
-          <span><?= v($post['read_time']) ?><?= $post['read_time'] ? ' &middot; ' : '' ?><?= v(date('j F Y', strtotime($post['created_at']))) ?></span>
+          <span><?= v($readTime) ?><?= $readTime ? ' &middot; ' : '' ?><?= v(date('j F Y', strtotime($post['created_at']))) ?></span>
         </span>
       </div>
 
@@ -218,21 +386,46 @@ if ($post) {
         <img class="article-hero" src="<?= v($post['image']) ?>" alt="<?= v($post['title']) ?>" onerror="this.remove()">
       <?php endif; ?>
 
+      <?php
+        // Body is sanitized HTML (see sanitize_html in db.php).
+        require_once __DIR__ . '/partials/article-format.php';
+        $body = (string)$post['body'];
+        // Plain-text / PDF-pasted posts are reflowed into real paragraphs,
+        // headings and lists so they never render as a broken-line wall.
+        if (strip_tags($body) === $body) {
+            $body = reflow_plain_text($body);
+        }
+        // Auto-format: build a Table of Contents, turn "Note:/Tip:/..." paragraphs
+        // into callout cards, add heading anchors, and make tables scrollable.
+        $enhanced = enhance_article_html($body);
+      ?>
+      <?php if (!empty($enhanced['takeaways'])): ?>
+      <aside class="key-takeaways">
+        <div class="kt-head">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Key takeaways
+        </div>
+        <ul>
+          <?php foreach ($enhanced['takeaways'] as $kt): ?><li><?= v($kt) ?></li><?php endforeach; ?>
+        </ul>
+      </aside>
+      <?php endif; ?>
+
+      <?php if ($enhanced['toc']): ?><?= $enhanced['toc'] ?><?php endif; ?>
       <div class="article-body">
-        <?php
-          // Body is sanitized HTML (see sanitize_html in db.php). Render as-is.
-          // Legacy posts saved as plain text get paragraph-wrapped on the fly.
-          $body = (string)$post['body'];
-          if (strip_tags($body) === $body) {
-              foreach (preg_split('/\n\s*\n/', $body) as $para) {
-                  $para = trim($para);
-                  if ($para !== '') echo '<p>' . nl2br(v($para)) . '</p>';
-              }
-          } else {
-              echo $body;
-          }
-        ?>
+        <?= $enhanced['body'] ?>
       </div>
+
+      <aside class="article-endcta">
+        <div class="endcta-text">
+          <span class="endcta-eyebrow">Ready to save on power bills?</span>
+          <h3>Get a free rooftop solar assessment</h3>
+          <p>We'll size the right system for your home, handle the PM Surya Ghar subsidy paperwork, and give you a clear savings estimate — no obligation.</p>
+        </div>
+        <a href="index.html#contact" class="btn btn-neon endcta-btn">Get a Free Quote
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </aside>
 
       <div class="article-cta">
         <span class="cta-label">Found this helpful?</span>
@@ -248,12 +441,26 @@ if ($post) {
         <span class="share-toast" id="shareToast">Link copied!</span>
       </div>
 
+      <div class="author-card">
+        <span class="bp-avatar"><?= v(initials_of($post['author'] ?: 'Clans Machina')) ?></span>
+        <div class="author-text">
+          <strong>Written by <?= v($post['author'] ?: 'Clans Machina') ?></strong>
+          <p>Clans Machina helps homes and businesses across Odisha switch to solar — from system design and subsidy paperwork to installation and after-sales support.</p>
+        </div>
+      </div>
+
       <a class="article-back" href="blog.php">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Back to all blogs
       </a>
     <?php endif; ?>
   </main>
+
+  <?php if ($post): ?>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <?php endif; ?>
 
   <?php if ($post && $related): ?>
   <section class="related-wrap">
@@ -337,6 +544,38 @@ if ($post) {
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
       update();
+    })();
+
+    // Scroll-spy: highlight the current section in the Table of Contents.
+    (function () {
+      var toc = document.querySelector('.article-toc');
+      if (!toc || !('IntersectionObserver' in window)) return;
+      var links = {};
+      toc.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        links[decodeURIComponent(a.getAttribute('href').slice(1))] = a.parentElement;
+      });
+      var heads = document.querySelectorAll('.article-body h2[id]');
+      if (!heads.length) return;
+      var current = null;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) current = e.target.id;
+        });
+        Object.keys(links).forEach(function (id) {
+          links[id].classList.toggle('active', id === current);
+        });
+      }, { rootMargin: '-90px 0px -70% 0px', threshold: 0 });
+      heads.forEach(function (h) { obs.observe(h); });
+    })();
+
+    // Back-to-top button: appears after scrolling down.
+    (function () {
+      var btn = document.getElementById('backToTop');
+      if (!btn) return;
+      function toggle() { btn.classList.toggle('show', window.scrollY > 700); }
+      btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      window.addEventListener('scroll', toggle, { passive: true });
+      toggle();
     })();
   </script>
 

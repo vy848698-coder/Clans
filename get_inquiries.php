@@ -16,7 +16,7 @@
 $ALLOWED_ORIGIN = getenv('DASHBOARD_ORIGIN') ?: 'http://localhost:3000';
 header("Access-Control-Allow-Origin: $ALLOWED_ORIGIN");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: Content-Type, X-Admin-Key, Authorization");
 header("Content-Type: application/json; charset=utf-8");
 
 // Preflight request (browsers send OPTIONS before the GET)
@@ -24,6 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
     exit;
 }
+
+// This returns customer PII (name, phone, email) — require the shared admin key.
+require __DIR__ . '/api_guard.php';
+require_api_key();
 
 // --- Database connection ----------------------------------------------------
 // Reads Railway's env vars in production; falls back to local XAMPP defaults.

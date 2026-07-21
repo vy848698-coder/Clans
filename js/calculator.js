@@ -515,28 +515,28 @@
 '#cmroot .cm-brand span{color:#3ecf8e}' +
 '#cmroot .cm-meta{text-align:right;font-size:11px;color:#6b7c74;line-height:1.7}' +
 '#cmroot .cm-meta b{color:#12241c}' +
-'#cmroot .cm-h2{font-size:15px;font-weight:800;color:#0f6f47;margin:15px 0 6px}' +
-'#cmroot .cm-hero{background:linear-gradient(135deg,#e9fbf3,#f4fbf8);border:1px solid #cdeede;border-radius:10px;padding:14px 16px;margin-bottom:4px}' +
+'#cmroot .cm-h2{font-size:15px;font-weight:800;color:#0f6f47;margin:15px 0 6px;page-break-after:avoid;break-after:avoid}' +
+'#cmroot .cm-hero{background:linear-gradient(135deg,#e9fbf3,#f4fbf8);border:1px solid #cdeede;border-radius:10px;padding:14px 16px;margin-bottom:4px;page-break-inside:avoid;break-inside:avoid}' +
 '#cmroot .cm-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#6b7c74}' +
 '#cmroot .cm-big{font-size:28px;font-weight:800;color:#0f6f47;line-height:1.1;margin-top:2px}' +
 '#cmroot .cm-sub{font-size:12px;color:#3a5248;margin-top:2px}' +
 '#cmroot .cm-who{font-size:12px;color:#3a5248;margin-bottom:12px}' +
 '#cmroot .cm-who b{color:#12241c}' +
-'#cmroot .cm-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}' +
+'#cmroot .cm-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;page-break-inside:avoid;break-inside:avoid}' +
 '#cmroot .cm-card{flex:1 1 30%;border:1px solid #e0e8e4;border-radius:8px;padding:9px 11px}' +
 '#cmroot .cm-k{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:#6b7c74}' +
 '#cmroot .cm-v{font-size:16px;font-weight:700;color:#12241c;margin-top:2px}' +
-'#cmroot table{width:100%;border-collapse:collapse;margin-top:2px}' +
+'#cmroot table{width:100%;border-collapse:collapse;margin-top:2px;page-break-inside:avoid;break-inside:avoid}' +
 '#cmroot td{padding:5px 2px;border-bottom:1px solid #eef2f0;font-size:12.5px}' +
 '#cmroot .cm-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}' +
 '#cmroot .cm-num.cm-hl{color:#0f6f47;font-size:14px}' +
 '#cmroot tr.cm-total td{border-top:2px solid #cdeede;border-bottom:none;padding-top:8px;font-size:15px;font-weight:800;color:#0f6f47}' +
-'#cmroot .cm-why{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:5px;list-style:none}' +
+'#cmroot .cm-why{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:5px;list-style:none;page-break-inside:avoid;break-inside:avoid}' +
 '#cmroot .cm-why li{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#12241c;' +
 'background:linear-gradient(135deg,#f1fbf6,#f7fcfa);border:1px solid #dcefe6;border-radius:9px;padding:8px 11px}' +
 '#cmroot .cm-why li svg{flex:none}' +
 '#cmroot .cm-cta{margin-top:16px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b3b28,#0f6f47 68%,#12805a);' +
-'color:#fff;border-radius:14px;padding:20px 22px}' +
+'color:#fff;border-radius:14px;padding:20px 22px;page-break-inside:avoid;break-inside:avoid}' +
 '#cmroot .cm-cta:after{content:"";position:absolute;right:-70px;top:-70px;width:200px;height:200px;border-radius:50%;' +
 'background:radial-gradient(circle,rgba(62,207,142,.45),transparent 70%)}' +
 '#cmroot .cm-cta-inner{position:relative;z-index:1}' +
@@ -553,7 +553,7 @@
 '#cmroot .cm-cik{font-size:8.5px;text-transform:uppercase;letter-spacing:.05em;color:#a8e6cd;margin-bottom:1px}' +
 '#cmroot .cm-civ{font-size:11.5px;font-weight:700;color:#fff}' +
 '#cmroot .cm-foot{margin-top:14px;border-top:1px solid #e0e8e4;padding-top:10px;font-size:10px;color:#8a978f;line-height:1.55}' +
-'#cmroot .cm-cover{background:linear-gradient(135deg,#0b3b28,#0f6f47 60%,#12805a);color:#fff;border-radius:12px;padding:18px 22px;margin-bottom:14px}' +
+'#cmroot .cm-cover{background:linear-gradient(135deg,#0b3b28,#0f6f47 60%,#12805a);color:#fff;border-radius:12px;padding:18px 22px;margin-bottom:14px;page-break-inside:avoid;break-inside:avoid}' +
 '#cmroot .cm-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#a8e6cd}' +
 '#cmroot .cm-title{font-size:23px;font-weight:800;line-height:1.12;margin:3px 0 13px;color:#fff}' +
 '#cmroot .cm-cgrid{display:flex;flex-wrap:wrap;gap:26px;border-top:1px solid rgba(255,255,255,.2);padding-top:12px}' +

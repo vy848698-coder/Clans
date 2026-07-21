@@ -62,6 +62,11 @@ $selectedCats = preg_split('/\s+/', trim((string)$post['category']), -1, PREG_SP
     .ql-toolbar button:hover .ql-stroke, .ql-toolbar button.ql-active .ql-stroke { stroke:#22d3ee; }
     .ql-toolbar button:hover .ql-fill, .ql-toolbar button.ql-active .ql-fill { fill:#22d3ee; }
     .check-line input { width:auto; } .check-line label { margin:0; }
+    .format-tips { background:#0f172a; border:1px solid #334155; border-left:3px solid #22d3ee;
+      border-radius:8px; padding:.7rem .9rem; font-size:.8rem; line-height:1.6; color:#94a3b8; margin:.3rem 0 .6rem; }
+    .format-tips strong { color:#22d3ee; }
+    .format-tips .tag { display:inline-block; background:#1e293b; border:1px solid #334155; border-radius:5px;
+      padding:.05rem .4rem; margin:.1rem .05rem; color:#e2e8f0; font-size:.75rem; }
   </style>
 </head>
 <body>
@@ -112,13 +117,26 @@ $selectedCats = preg_split('/\s+/', trim((string)$post['category']), -1, PREG_SP
       <textarea name="excerpt" id="excerptField" rows="3" maxlength="300" data-max="300" required><?= v($post['excerpt']) ?></textarea>
 
       <label>Full Body <span class="hint">use the toolbar for headings, bold, lists, quotes &amp; links</span></label>
+      <div class="format-tips">
+        <strong>Auto-formatting:</strong> the article page styles itself automatically —
+        <b>H2</b> headings become an in-page table of contents, and if a paragraph
+        <em>starts</em> with one of these words + a colon, it turns into a highlighted card:
+        <span class="tag">Note:</span> <span class="tag">Tip:</span> <span class="tag">Important:</span>
+        <span class="tag">Key takeaway:</span> <span class="tag">Warning:</span>
+        <span class="tag">Example:</span> <span class="tag">FAQ:</span>
+        Just write normally — no need to design anything.
+      </div>
       <div id="bodyEditor"></div>
       <textarea name="body" id="bodyField" style="display:none;"><?= v($post['body']) ?></textarea>
 
       <label>Thumbnail Image <span class="hint">JPG/PNG/WebP, under 4 MB<?= $id ? ' — leave empty to keep current' : '' ?></span></label>
       <input type="file" name="image" accept="image/*">
-      <?php if (!empty($post['image'])): ?>
-        <img class="preview" src="../<?= v($post['image']) ?>" alt="current">
+      <?php if (!empty($post['image'])):
+        // Inline data URLs / absolute URLs are used as-is; a stored relative
+        // path is served from the site root (one level up from /admin).
+        $prev = (strpos($post['image'], 'data:') === 0 || preg_match('#^https?://#', $post['image']))
+              ? $post['image'] : '../' . $post['image']; ?>
+        <img class="preview" src="<?= v($prev) ?>" alt="current">
       <?php endif; ?>
 
       <div class="check-line">
@@ -151,9 +169,9 @@ $selectedCats = preg_split('/\s+/', trim((string)$post['category']), -1, PREG_SP
       placeholder: 'Write the full article here…',
       modules: {
         toolbar: [
-          [{ header: [2, 3, false] }],
+          [{ header: [2, 3, 4, false] }],
           ['bold', 'italic', 'underline'],
-          ['blockquote'],
+          ['blockquote', 'code-block'],
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['link'],
           ['clean']

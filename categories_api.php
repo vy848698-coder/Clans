@@ -18,6 +18,10 @@ require __DIR__ . '/db.php';
 // CORS for the admin dashboard (origin configurable via DASHBOARD_ORIGIN env).
 send_cors_headers();
 
+// Require the shared admin key on every real request (see api_guard.php).
+require __DIR__ . '/api_guard.php';
+require_api_key();
+
 function out($data, $code = 200) { http_response_code($code); echo json_encode($data); exit; }
 
 // Turn a display name into a URL-friendly slug, e.g. "Subsidy & Finance" → "subsidy-finance".

@@ -6,12 +6,22 @@
     Require all denied
 </FilesMatch>
 
-<Files "db.php">
+<FilesMatch "^(db|auth_lib|api_guard)\.php$">
     Require all denied
-</Files>
+</FilesMatch>
 
 # Don't list directory contents
 Options -Indexes
+
+# Pass the HTTP Authorization header (the dashboard's "Bearer <token>") through to
+# PHP. Some hosts (incl. Railway/Apache-CGI) strip it by default, which would make
+# every logged-in API call fail with 401. Safe to keep everywhere.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
 # Send old blog.html links to the new dynamic blog.php
 <IfModule mod_rewrite.c>

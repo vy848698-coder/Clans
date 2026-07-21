@@ -51,7 +51,7 @@ function send_cors_headers(): void {
     $origin = getenv('DASHBOARD_ORIGIN') ?: 'http://localhost:3000';
     header("Access-Control-Allow-Origin: $origin");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type");
+    header("Access-Control-Allow-Headers: Content-Type, X-Admin-Key, Authorization");
     header("Content-Type: application/json; charset=utf-8");
     if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
         http_response_code(204);
@@ -76,8 +76,9 @@ function sanitize_html(string $html): string {
     $html = trim($html);
     if ($html === '') return '';
 
-    $allowedTags = ['p','br','strong','b','em','i','u','h2','h3','blockquote','ul','ol','li','a','span'];
-    $allowedAttrs = ['href', 'target', 'rel'];
+    $allowedTags = ['p','br','strong','b','em','i','u','h2','h3','h4','hr','blockquote','ul','ol','li','a','span',
+                    'table','thead','tbody','tr','th','td','code','pre','mark'];
+    $allowedAttrs = ['href', 'target', 'rel', 'colspan', 'rowspan'];
 
     $doc = new DOMDocument();
     libxml_use_internal_errors(true);
@@ -124,4 +125,92 @@ function sanitize_html(string $html): string {
         }
     }
     return trim($out);
+}
+
+/**
+ * Human-readable message for a PHP $_FILES upload error code, so an over-limit
+ * or interrupted upload is reported instead of silently ignored.
+ */
+function upload_error_message(int $code): string {
+    switch ($code) {
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            return 'The image is too large to upload. Please choose a smaller file.';
+        case UPLOAD_ERR_PARTIAL:
+            return 'The image upload was interrupted. Please try again.';
+        case UPLOAD_ERR_NO_TMP_DIR:
+            return 'Server is missing its temporary upload folder. Contact the site admin.';
+        case UPLOAD_ERR_CANT_WRITE:
+            return 'Server could not save the uploaded file to disk.';
+        case UPLOAD_ERR_EXTENSION:
+            return 'A server extension blocked the upload.';
+        default:
+            return 'Image upload failed (error code ' . $code . ').';
+    }
+}
+
+/**
+ * Build a compact base64 data URL for a blog cover image.
+ *
+ * The image is downscaled to a sane max width and recompressed so the stored
+ * string stays small — this keeps pages fast AND keeps the row comfortably
+ * under MySQL's max_allowed_packet (a large raw base64 image is exactly what
+ * makes the UPDATE/INSERT fail, so covers silently "don't update"). Storage is
+ * inline (data URL) by design so images survive host redeploys / DB imports.
+ *
+ * Uses GD when available; falls back to the raw bytes (with a hard size guard)
+ * when it isn't. Returns the data URL, or null with $err populated.
+ */
+function make_cover_data_url(string $tmpPath, string $mime, ?string &$err = null): ?string {
+    $MAX_W        = 1600;          // downscale anything wider than this
+    $TARGET_BYTES = 800 * 1024;    // aim for <=800 KB encoded (~1.05 MB base64)
+
+    if (function_exists('imagecreatetruecolor') && function_exists('imagecreatefromstring')) {
+        $raw = @file_get_contents($tmpPath);
+        $src = $raw !== false ? @imagecreatefromstring($raw) : false;
+        if ($src !== false) {
+            $w = imagesx($src);
+            $h = imagesy($src);
+            $scale = $w > $MAX_W ? $MAX_W / $w : 1.0;
+            $nw = max(1, (int)round($w * $scale));
+            $nh = max(1, (int)round($h * $scale));
+
+            // Flatten onto a white canvas so transparent PNGs don't turn black.
+            $dst = imagecreatetruecolor($nw, $nh);
+            $white = imagecolorallocate($dst, 255, 255, 255);
+            imagefilledrectangle($dst, 0, 0, $nw, $nh, $white);
+            imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
+            imagedestroy($src);
+
+            // Recompress, stepping quality down until under the size target.
+            $quality = 82;
+            $bytes = '';
+            do {
+                ob_start();
+                imagejpeg($dst, null, $quality);
+                $bytes = ob_get_clean();
+                $quality -= 12;
+            } while (strlen($bytes) > $TARGET_BYTES && $quality >= 40);
+            imagedestroy($dst);
+
+            if ($bytes !== '' && $bytes !== false) {
+                return 'data:image/jpeg;base64,' . base64_encode($bytes);
+            }
+        }
+        // If decoding/encoding failed, fall through to the raw path.
+    }
+
+    // No GD (or GD failed): store the original bytes, but refuse anything that
+    // would blow past the packet limit so we fail loudly, not silently.
+    $bytes = @file_get_contents($tmpPath);
+    if ($bytes === false) {
+        $err = 'Could not read the uploaded image.';
+        return null;
+    }
+    if (strlen($bytes) > $TARGET_BYTES) {
+        $err = 'This image is too large to store on the current server setup. '
+             . 'Please upload one under ~700 KB (image compression is not enabled here).';
+        return null;
+    }
+    return 'data:' . $mime . ';base64,' . base64_encode($bytes);
 }
