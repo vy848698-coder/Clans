@@ -270,9 +270,18 @@
       .hs-benefit-grid { grid-template-columns: 1fr; }
       .hs-blog-grid { grid-template-columns: 1fr; }
       .hs-shield { order: -1; }
+      /* Stacked layout: the desktop left-to-right scrim no longer lines up with
+         full-width copy. Switch to an even vertical scrim so the whole column of
+         text stays readable and the photo reads cleanly as a backdrop. */
+      .hs-hero { background:
+        linear-gradient(180deg, rgba(6,18,14,0.78) 0%, rgba(6,18,14,0.55) 42%, rgba(6,18,14,0.72) 100%),
+        url('../image/commercial/residential.jpeg') center 28% / cover no-repeat; }
     }
     @media (max-width: 560px) {
       .hs-journey, .hs-stats { grid-template-columns: 1fr; }
+      .hs-hero { padding: 34px 0 40px; }
+      .hs-hero-grid { gap: 30px; }
+      .hs-hero-copy h1 { font-size: clamp(1.8rem, 8vw, 2.3rem); }
       .hs-form .form-row { grid-template-columns: 1fr; }
       .hs-compare { padding: 34px 12px; border-radius: 22px; }
       .hs-compare-row { grid-template-columns: 1.25fr 0.95fr 0.95fr; font-size: 0.78rem; }
