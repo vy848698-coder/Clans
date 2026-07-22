@@ -36,6 +36,8 @@
     .hs-hero .section-tag { background: rgba(255,255,255,0.16); color: #eafff4; border-color: rgba(255,255,255,0.4); }
     .hs-hero-grid { position: relative; z-index: 1; display: grid;
       grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
+    /* Hidden on desktop; becomes a photo band on mobile (see media query). */
+    .hs-hero-photo { display: none; }
     .hs-hero-copy { padding-top: 6px; }
     .hs-hero-copy h1 { font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; margin: 14px 0 18px; }
     .hs-hero-copy .gradient-text { display: inline; }
@@ -270,12 +272,14 @@
       .hs-benefit-grid { grid-template-columns: 1fr; }
       .hs-blog-grid { grid-template-columns: 1fr; }
       .hs-shield { order: -1; }
-      /* Stacked layout: the desktop left-to-right scrim no longer lines up with
-         full-width copy. Switch to an even vertical scrim so the whole column of
-         text stays readable and the photo reads cleanly as a backdrop. */
-      .hs-hero { background:
-        linear-gradient(180deg, rgba(6,18,14,0.78) 0%, rgba(6,18,14,0.55) 42%, rgba(6,18,14,0.72) 100%),
-        url('../image/commercial/residential.jpeg') center 28% / cover no-repeat; }
+      /* A wide group photo can't be a readable full-bleed background behind text
+         on a narrow phone. Instead: clean brand backdrop for the copy, and show
+         the photo as its own band up top where the faces are fully visible. */
+      .hs-hero { background: linear-gradient(160deg, #0b3b28 0%, #0f5a3a 55%, #10456e 130%); }
+      .hs-hero-photo { display: block; width: 100%; aspect-ratio: 16 / 10;
+        border-radius: 16px; border: 1px solid rgba(255,255,255,0.14);
+        background: url('../image/commercial/residential.jpeg') center 38% / cover no-repeat;
+        box-shadow: 0 22px 46px -22px rgba(0,0,0,0.6); }
     }
     @media (max-width: 560px) {
       .hs-journey, .hs-stats { grid-template-columns: 1fr; }
@@ -355,6 +359,9 @@
   <!-- ===================== HERO + CONSULTATION FORM ===================== -->
   <section class="hs-hero">
     <div class="container hs-hero-grid">
+      <!-- Mobile-only photo band: shows the family + consultant faces clearly
+           (the wide photo can't be a readable full-bleed background on phones). -->
+      <div class="hs-hero-photo" role="img" aria-label="An Indian family reviewing a solar proposal with a Clans Machina consultant at home"></div>
       <div class="hs-hero-copy" data-animate>
         <span class="section-tag">Home Solar</span>
         <h1>Save up to <span class="gradient-text">90%</span> on your electricity bills.</h1>
