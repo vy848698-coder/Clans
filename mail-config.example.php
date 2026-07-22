@@ -1,5 +1,8 @@
 <?php
 /**
+ * TEMPLATE — copy this file to `mail-config.php` and fill in real values.
+ * `mail-config.php` is git-ignored so real credentials are never pushed.
+ *
  * Gmail SMTP settings for emailing solar proposals.
  *
  * SECURITY — use a Gmail **App Password**, never your normal password:
@@ -9,8 +12,8 @@
  *   3. Paste the 16-character password into GMAIL_APP_PASSWORD below,
  *      or set the GMAIL_APP_PASSWORD environment variable on the host.
  *
- * Do NOT commit real credentials to git. In production set these as env vars
- * (GMAIL_USER, GMAIL_APP_PASSWORD, MAIL_FROM_NAME, MAIL_SALES_BCC) instead.
+ * In production (e.g. Railway) prefer environment variables over editing this
+ * file: GMAIL_USER, GMAIL_APP_PASSWORD, MAIL_FROM_NAME, MAIL_SALES_BCC.
  */
 
 // The Gmail address the proposals are sent FROM (also the SMTP username).
@@ -25,7 +28,7 @@ define('MAIL_FROM_NAME', getenv('MAIL_FROM_NAME') ?: 'Clans Machina Solar');
 // Optional: BCC a copy of every proposal to the sales team. '' disables it.
 define('MAIL_SALES_BCC', getenv('MAIL_SALES_BCC') ?: '');
 
-/** True once real credentials have been filled in. */
+/** True once real credentials have been filled in (i.e. no longer the placeholders). */
 function mail_is_configured(): bool {
     return GMAIL_USER !== 'youraddress@gmail.com'
         && GMAIL_APP_PASSWORD !== 'xxxxxxxxxxxxxxxx'

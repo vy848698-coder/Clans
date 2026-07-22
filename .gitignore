@@ -11,6 +11,9 @@ Thumbs.db
 .pw-*.js
 commit.patch
 
+# Secrets — real mail credentials (use mail-config.example.php as the template)
+mail-config.php
+
 # Image optimizer backups (pristine originals, not for deploy)
 image/_originals/
 optimize-images.js
