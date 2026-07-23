@@ -36,8 +36,6 @@
     .hs-hero .section-tag { background: rgba(255,255,255,0.16); color: #eafff4; border-color: rgba(255,255,255,0.4); }
     .hs-hero-grid { position: relative; z-index: 1; display: grid;
       grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
-    /* Hidden on desktop; becomes a photo band on mobile (see media query). */
-    .hs-hero-photo { display: none; }
     .hs-hero-copy { padding-top: 6px; }
     .hs-hero-copy h1 { font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; margin: 14px 0 18px; }
     .hs-hero-copy .gradient-text { display: inline; }
@@ -267,29 +265,46 @@
 
     @media (max-width: 1024px) {
       .hs-hero-grid, .hs-product-grid, .hs-reviews-grid { grid-template-columns: 1fr; }
+      /* Let stacked grid items shrink below min-content (a wide <select>
+         otherwise blows the track out past narrow viewports). */
+      .hs-hero-grid > * { min-width: 0; }
+      .hs-form select { min-width: 0; }
       .hs-journey { grid-template-columns: repeat(2, 1fr); }
       .hs-stats { grid-template-columns: repeat(2, 1fr); }
       .hs-benefit-grid { grid-template-columns: 1fr; }
       .hs-blog-grid { grid-template-columns: 1fr; }
       .hs-shield { order: -1; }
-      /* A wide group photo can't be a readable full-bleed background behind text
-         on a narrow phone. Instead: clean brand backdrop for the copy, and show
-         the photo as its own band up top where the faces are fully visible. */
-      .hs-hero { background: linear-gradient(160deg, #0b3b28 0%, #0f5a3a 55%, #10456e 130%); }
-      .hs-hero-photo { display: block; width: 100%; aspect-ratio: 16 / 10;
-        border-radius: 16px; border: 1px solid rgba(255,255,255,0.14);
-        background: url('../image/commercial/residential.jpeg') center 38% / cover no-repeat;
-        box-shadow: 0 22px 46px -22px rgba(0,0,0,0.6); }
+    }
+    @media (max-width: 768px) {
+      /* Mobile: the hero band holds ONLY the copy + rating over a clean brand
+         gradient, with the FULL photo (untouched 3:2, no crop) shown as its
+         own rounded band on top. The consultation form drops below the band
+         as its own section on a plain background. */
+      .hs-hero { padding: 0 0 46px; background: var(--bg, #f6faf8); }
+      .hs-hero-grid { gap: 34px; }
+      .hs-hero-copy {
+        /* Full-bleed: cancel the .container's 24px side padding (a vw-based
+           calc misbehaves inside the grid track and overflows the page). */
+        margin: 0 -24px;
+        padding: 46px 24px 38px;
+        /* Commercial-page pattern (photo fills the whole text section), but
+           with a portrait variant of the photo built for phones: the FULL
+           scene (both the family and the consultant) sits sharp mid-frame,
+           and a blurred extension of the same photo fills the rest, so
+           nothing important is ever cropped away on a narrow screen. */
+        background:
+          linear-gradient(180deg, rgba(6,18,14,0.55) 0%, rgba(6,18,14,0.28) 42%, rgba(6,18,14,0.55) 100%),
+          url('../image/commercial/residential-mobile.jpeg') center 42% / cover no-repeat;
+      }
     }
     @media (max-width: 560px) {
       .hs-journey, .hs-stats { grid-template-columns: 1fr; }
-      .hs-hero { padding: 34px 0 40px; }
-      .hs-hero-grid { gap: 30px; }
-      .hs-hero-copy h1 { font-size: clamp(1.8rem, 8vw, 2.3rem); }
       .hs-form .form-row { grid-template-columns: 1fr; }
       .hs-compare { padding: 34px 12px; border-radius: 22px; }
       .hs-compare-row { grid-template-columns: 1.25fr 0.95fr 0.95fr; font-size: 0.78rem; }
-      .hs-compare-row > div { padding: 14px 8px; gap: 8px; }
+      /* min-width:0 lets cells shrink below min-content so the grid never
+         overflows the viewport (the "Other Brands" column pushed 8px past). */
+      .hs-compare-row > div { padding: 14px 8px; gap: 8px; min-width: 0; overflow-wrap: break-word; }
       .hs-compare-row > div:not(:first-child) { flex-direction: column; text-align: center; }
       .hs-compare-row > div:first-child { gap: 9px; }
       .hs-row-ic { width: 34px; height: 34px; border-radius: 10px; }
@@ -359,9 +374,6 @@
   <!-- ===================== HERO + CONSULTATION FORM ===================== -->
   <section class="hs-hero">
     <div class="container hs-hero-grid">
-      <!-- Mobile-only photo band: shows the family + consultant faces clearly
-           (the wide photo can't be a readable full-bleed background on phones). -->
-      <div class="hs-hero-photo" role="img" aria-label="An Indian family reviewing a solar proposal with a Clans Machina consultant at home"></div>
       <div class="hs-hero-copy" data-animate>
         <span class="section-tag">Home Solar</span>
         <h1>Save up to <span class="gradient-text">90%</span> on your electricity bills.</h1>
