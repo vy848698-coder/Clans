@@ -4025,10 +4025,32 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
    colour scrim; copy flips to light for readability. Appended
    last so it wins over theme-specific hero overrides.
    ============================================================ */
+/* Hero height follows the photo's NATURAL aspect ratio (no 100vh force), so
+   the full image shows without zoom/crop. Content stays centred, exactly as
+   the original design — only the background changed. Spacing is tightened so
+   the centred stack fits inside the photo's height. */
 .hero--photo {
+  min-height: unset;
+  aspect-ratio: 2560 / 1324;
+  padding: 100px 24px 36px;
   background:
-    linear-gradient(180deg, rgba(5,18,30,0.72) 0%, rgba(5,18,30,0.48) 45%, rgba(5,18,30,0.78) 100%),
+    linear-gradient(180deg, rgba(5,18,30,0.62) 0%, rgba(5,18,30,0.36) 45%, rgba(5,18,30,0.68) 100%),
     url('../image/commercial/homepage-hero.webp') center / cover no-repeat;
+}
+.hero--photo .hero-headline { font-size: clamp(2.4rem, 4.4vw, 4rem); margin-bottom: 1.2rem; }
+.hero--photo .hero-sub { margin-bottom: 2rem; }
+.hero--photo .hero-ctas { margin-bottom: 2rem; }
+.hero--photo .hero-trust-bar { padding: 16px 24px; }
+/* Phones: purpose-cropped portrait photo, near-full screen */
+@media (max-width: 768px) {
+  .hero--photo {
+    aspect-ratio: auto;
+    min-height: 92svh;
+    padding: 110px 24px 60px;
+    background:
+      linear-gradient(180deg, rgba(5,18,30,0.72) 0%, rgba(5,18,30,0.48) 45%, rgba(5,18,30,0.78) 100%),
+      url('../image/commercial/homepage-hero-mobile.webp') center / cover no-repeat;
+  }
 }
 /* The photo replaces the canvas animation and sun decorations */
 .hero--photo #heroCanvas,
