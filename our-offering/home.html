@@ -18,6 +18,10 @@
   <meta name="twitter:title" content="Home Solar | Clans Machina" />
   <meta name="twitter:description" content="Rooftop solar for Indian homes — up to 90% bill savings, up to ₹1,38,000 subsidy support and a 25-year performance warranty." />
   <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <!-- Hero photos are CSS backgrounds (discovered late) — preload the right
+       one per viewport for faster LCP -->
+  <link rel="preload" as="image" href="../image/commercial/home-hero.webp" type="image/webp" media="(min-width: 769px)" />
+  <link rel="preload" as="image" href="../image/commercial/home-mobile.webp" type="image/webp" media="(max-width: 768px)" />
   <link rel="stylesheet" href="../css/fonts.css" />
   <link rel="stylesheet" href="../css/styles.css" />
 
@@ -31,7 +35,7 @@
          at the bottom, white melting in at the top where the text sits) and
          is drawn at its NATURAL ratio (100% auto), anchored to the bottom —
          so the van, the people and the house are never cropped away. */
-      background: #ffffff url('../image/commercial/home-hero.jpg') bottom center / 100% auto no-repeat; }
+      background: #ffffff url('../image/commercial/home-hero.webp') bottom center / 100% auto no-repeat; }
     .hs-hero-grid { position: relative; z-index: 1; display: grid;
       grid-template-columns: 1.2fr 0.9fr; gap: 44px; align-items: stretch; }
     /* Mobile-only floating CTA — see 768px query */
@@ -301,7 +305,7 @@
          CTA pill sits in the faded zone and nothing is ever cropped. */
       .hs-hero-photo { display: block; order: 5; align-self: stretch; width: auto;
         margin: -40px -24px 0; aspect-ratio: 750 / 932;
-        background: url('../image/commercial/home-mobile.jpeg') center / cover no-repeat; }
+        background: url('../image/commercial/home-mobile.webp') center / cover no-repeat; }
       /* Rating: full-bleed pale-yellow strip touching the photo's bottom edge */
       .hs-rating { order: 6; align-self: stretch; margin: 0 -24px 6px;
         background: #fdf6e0; justify-content: center; padding: 14px 16px; }
@@ -764,8 +768,8 @@
 
   <script src="../js/shared-footer.js" defer></script>
   <script src="../js/subpage.js" defer></script>
-  <script src="../js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
+  <script src="../js/lib/lucide.min.js" defer></script>
+  <script>window.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>
 
   <!-- Consultation form handler (self-contained for this subpage) -->
   <script>

@@ -18,6 +18,8 @@
   <meta name="twitter:title" content="Clans Machina | Rooftop Solar for Homes &amp; Businesses" />
   <meta name="twitter:description" content="Rooftop solar for homes, businesses and housing societies across India. Transparent savings, subsidy support, and a 25-year performance warranty." />
   <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <!-- Hero photo is a CSS background (discovered late) — preload it for faster LCP -->
+  <link rel="preload" as="image" href="image/commercial/homepage-hero.webp" type="image/webp" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -78,7 +80,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero" id="hero">
+  <section class="hero hero--photo" id="hero">
     <canvas id="heroCanvas"></canvas>
     <div class="hero-grid-overlay"></div>
     <div class="hero-sunburst" aria-hidden="true"></div>
@@ -1145,13 +1147,15 @@
   </div>
 
 
-  <script src="js/calculator-data.js"></script>
-  <script src="js/solar-engine.js"></script>
+  <!-- All deferred: defer preserves execution order, so calculator-data ->
+       solar-engine -> shared-footer -> script.js still run in sequence. -->
+  <script src="js/calculator-data.js" defer></script>
+  <script src="js/solar-engine.js" defer></script>
   <script src="js/shared-footer.js" defer></script>
   <script src="js/script.js" defer></script>
-  <!-- Lucide icon library -->
-  <script src="js/lib/lucide.min.js"></script>
-  <script>if (window.lucide) lucide.createIcons();</script>
+  <!-- Lucide icon library (deferred scripts finish before DOMContentLoaded) -->
+  <script src="js/lib/lucide.min.js" defer></script>
+  <script>window.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>
 
   <!-- Footprint map: pin interaction, connection-line highlight, scroll reveal -->
   <script>
