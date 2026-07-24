@@ -20,8 +20,7 @@
   <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
   <!-- Hero photos are CSS backgrounds (discovered late) — preload the right
        one per viewport for faster LCP -->
-  <link rel="preload" as="image" href="../image/commercial/home-hero.webp" type="image/webp" media="(min-width: 769px)" />
-  <link rel="preload" as="image" href="../image/commercial/home-mobile.webp" type="image/webp" media="(max-width: 768px)" />
+  <link rel="preload" as="image" href="../image/commercial/home-new.jpeg" type="image/jpeg" />
   <link rel="stylesheet" href="../css/fonts.css" />
   <link rel="stylesheet" href="../css/styles.css" />
 
@@ -31,11 +30,13 @@
        + Google rating, benefit points, and the branded photo (van + family +
        solar house) anchored below the copy. Form stays on the right. */
     .hs-hero { position: relative; margin-top: 90px; padding: 56px 0 80px; overflow: hidden;
-      /* SolarSquare-style hero: the asset has the white fade BAKED IN (photo
-         at the bottom, white melting in at the top where the text sits) and
-         is drawn at its NATURAL ratio (100% auto), anchored to the bottom —
-         so the van, the people and the house are never cropped away. */
-      background: #ffffff url('../image/commercial/home-hero.webp') bottom center / 100% auto no-repeat; }
+      /* Client's branded photo (van + consultant + couple + solar house) drawn
+         at its NATURAL ratio (100% auto), anchored to the bottom so nothing is
+         cropped. The photo has no baked-in fade, so a white gradient is layered
+         on top — melting to white at the top where the centred headline sits. */
+      background:
+        linear-gradient(to bottom, #ffffff 0%, #ffffff 13%, rgba(255,255,255,0.86) 25%, rgba(255,255,255,0) 50%),
+        #ffffff url('../image/commercial/home-new.jpeg') bottom center / 100% auto no-repeat; }
     .hs-hero-grid { position: relative; z-index: 1; display: grid;
       grid-template-columns: 1.2fr 0.9fr; gap: 44px; align-items: stretch; }
     /* Mobile-only floating CTA — see 768px query */
@@ -300,12 +301,14 @@
       /* Client's branded photo, mobile crop (van + people + solar house) —
          whole scene visible at its native ratio, nothing over it. */
       .hs-hero { background: #ffffff; }
-      /* SolarSquare-style portrait asset: white fade baked into the top of
-         the image, photo (van + people) at the bottom, natural ratio — the
-         CTA pill sits in the faded zone and nothing is ever cropped. */
+      /* Client's branded photo, mobile band. It has no baked-in fade, so a
+         white gradient is layered on top — the floating CTA pill sits in that
+         faded zone. 4:3 matches the photo's ratio, so almost nothing is cropped. */
       .hs-hero-photo { display: block; order: 5; align-self: stretch; width: auto;
-        margin: -40px -24px 0; aspect-ratio: 750 / 932;
-        background: url('../image/commercial/home-mobile.webp') center / cover no-repeat; }
+        margin: -40px -24px 0; aspect-ratio: 4 / 3;
+        background:
+          linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.55) 16%, rgba(255,255,255,0) 34%),
+          url('../image/commercial/home-new.jpeg') center 58% / cover no-repeat; }
       /* Rating: full-bleed pale-yellow strip touching the photo's bottom edge */
       .hs-rating { order: 6; align-self: stretch; margin: 0 -24px 6px;
         background: #fdf6e0; justify-content: center; padding: 14px 16px; }
