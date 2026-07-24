@@ -4048,7 +4048,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
     min-height: 92svh;
     padding: 110px 24px 60px;
     background:
-      linear-gradient(180deg, rgba(5,18,30,0.72) 0%, rgba(5,18,30,0.48) 45%, rgba(5,18,30,0.78) 100%),
+      linear-gradient(180deg, rgba(5,18,30,0.46) 0%, rgba(5,18,30,0.22) 45%, rgba(5,18,30,0.58) 100%),
       url('../image/commercial/homepage-hero-mobile.webp') center / cover no-repeat;
   }
 }

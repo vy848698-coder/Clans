@@ -613,6 +613,7 @@ usps.map(function (u) { return '<li>' + checkSvg + '<span>' + u + '</span></li>'
 '<div class="cm-cta-lead">Book a <b>FREE site survey</b> and talk to a Clans Machina solar expert — no obligation.</div>' +
 '<div class="cm-cta-row">' +
   ctaItem(icoPhone, 'Call / WhatsApp', '+91 91241 65341') +
+  ctaItem(icoPhone, 'Toll-Free', '1800 891 3731') +
   ctaItem(icoMail, 'Email', 'info@clansmachina.in') +
   ctaItem(icoGlobe, 'Website', 'www.clansmachina.in') +
 '</div>' +

@@ -54,12 +54,18 @@
     .hs-rating .g-logo { width: 22px; height: 22px; }
     .hs-rating strong { color: var(--text-primary); }
     .hs-rating .hs-stars { color: #f5a623; letter-spacing: 1px; }
-    .hs-hero-points { list-style: none; padding: 0; margin: 18px auto 26px;
+    /* margin-top:auto pushes the points to the bottom of the (stretched) copy
+       column so they sit on the pavement below the van, clearing its branding. */
+    .hs-hero-points { list-style: none; padding: 0; margin: auto auto 8px;
       display: grid; gap: 12px; max-width: 58ch; }
+    /* White + shadow so the points stay readable over the photo (van/pavement).
+       On mobile they sit on a white background, so the 768px query restores dark text. */
     .hs-hero-points li { display: flex; align-items: flex-start; gap: 10px;
-      font-weight: 500; color: var(--text-primary); text-align: left; }
+      font-weight: 500; color: #ffffff; text-align: left;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.6); }
     .hs-hero-points li strong { font-weight: 700; }
-    .hs-hero-points svg { width: 20px; height: 20px; flex: none; color: var(--green); margin-top: 2px; }
+    .hs-hero-points svg { width: 20px; height: 20px; flex: none; color: #6ee7b7; margin-top: 2px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.7)); }
     /* Photo band is mobile-only; on desktop the photo is the section background */
     .hs-hero-photo { display: none; }
 
@@ -312,8 +318,11 @@
       /* Rating: full-bleed pale-yellow strip touching the photo's bottom edge */
       .hs-rating { order: 6; align-self: stretch; margin: 0 -24px 6px;
         background: #fdf6e0; justify-content: center; padding: 14px 16px; }
-      /* Benefit points drop below the rating strip */
+      /* Benefit points drop below the rating strip, on a white background —
+         restore dark text (the desktop white+shadow would be invisible here). */
       .hs-hero-points { order: 7; margin: 20px 0 8px; }
+      .hs-hero-points li { color: var(--text-primary); text-shadow: none; }
+      .hs-hero-points svg { color: var(--green); filter: none; }
     }
     @media (max-width: 560px) {
       .hs-journey, .hs-stats { grid-template-columns: 1fr; }
@@ -761,6 +770,7 @@
         <div class="cm-cta-actions">
           <a href="#hs-consult" class="btn btn-neon btn-lg">Book Free Consultation</a>
           <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
+          <a href="tel:18008913731" class="btn btn-glass btn-lg">Toll-Free 1800 891 3731</a>
         </div>
       </div>
     </div>
@@ -826,7 +836,7 @@
             if (data && data.ok) { formSuccess.style.display = 'block'; form.reset(); }
             else { showError((data && data.message) || 'Submission failed. Please try again.'); }
           })
-          .catch(function () { showError('Network error. Please call us at +91 91241 65341.'); })
+          .catch(function () { showError('Network error. Please call us at +91 91241 65341 or toll-free 1800 891 3731.'); })
           .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = original; });
       });
     })();

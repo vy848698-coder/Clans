@@ -118,13 +118,23 @@
             'addressCountry': 'IN'
           },
           'areaServed': { '@type': 'Country', 'name': 'India' },
-          'contactPoint': {
-            '@type': 'ContactPoint',
-            'telephone': '+91-91241-65341',
-            'contactType': 'customer service',
-            'areaServed': 'IN',
-            'availableLanguage': ['en', 'hi']
-          },
+          'contactPoint': [
+            {
+              '@type': 'ContactPoint',
+              'telephone': '+91-91241-65341',
+              'contactType': 'customer service',
+              'areaServed': 'IN',
+              'availableLanguage': ['en', 'hi']
+            },
+            {
+              '@type': 'ContactPoint',
+              'telephone': '1800-891-3731',
+              'contactType': 'customer service',
+              'contactOption': 'TollFree',
+              'areaServed': 'IN',
+              'availableLanguage': ['en', 'hi']
+            }
+          ],
           'aggregateRating': {
             '@type': 'AggregateRating',
             'ratingValue': '4.8',
