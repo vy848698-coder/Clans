@@ -3927,6 +3927,34 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   color: var(--text-muted);
 }
 
+/* Business / commercial testimonials — 3-up grid + company-initial avatar */
+.proj-quote-stars {
+  color: #f5b301;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.proj-quote-grid--biz {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1180px;
+}
+.proj-quote-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  border: 2px solid var(--border-bright);
+}
+@media (max-width: 980px) { .proj-quote-grid--biz { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .proj-quote-grid--biz { grid-template-columns: 1fr; } }
+
 /* Responsive */
 @media (max-width: 960px) {
   .proj-impact-strip { grid-template-columns: repeat(2, 1fr); }
