@@ -5,6 +5,9 @@
  */
 header('Content-Type: application/json');
 require __DIR__ . '/db.php';
+require __DIR__ . '/mail-config.php';
+require __DIR__ . '/smtp-mailer.php';
+require __DIR__ . '/contact-emails.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -44,8 +47,14 @@ if ($errors) {
     exit;
 }
 
+// The user's typed message, kept separate from the auto-appended attachment
+// links so the notification email can show it cleanly.
+$typedMessage = $message;
+
 // Handle optional resume / file uploads (e.g. from the careers form).
 // Files are stored under uploads/resumes/ and their links appended to $message.
+// $savedFiles keeps name+path so we can attach them to the notification email.
+$savedFiles = [];
 if (!empty($_FILES['resume']) && is_array($_FILES['resume']['name'])) {
     $allowedExt  = ['pdf', 'doc', 'docx', 'rtf', 'txt', 'png', 'jpg', 'jpeg', 'webp'];
     $maxBytes    = 5 * 1024 * 1024; // 5 MB
@@ -79,6 +88,7 @@ if (!empty($_FILES['resume']) && is_array($_FILES['resume']['name'])) {
         $dest     = $uploadDir . '/' . $newName;
         if (move_uploaded_file($_FILES['resume']['tmp_name'][$i], $dest)) {
             $savedLinks[] = 'uploads/resumes/' . $newName;
+            $savedFiles[] = ['name' => $origName, 'path' => $dest];
         }
     }
 
@@ -102,8 +112,47 @@ try {
         ':message' => $message,
     ]);
 
-    echo json_encode(['ok' => true, 'message' => 'We will contact you within 2 hours!']);
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['ok' => false, 'message' => 'Could not save your request. Please try again.']);
+    exit;
 }
+
+// --- Email notifications (best-effort — a saved lead is never lost on mail) ---
+$isCareer    = stripos($service, 'Career Application') === 0;
+$phoneDigits = preg_replace('/\D/', '', $phone);
+
+if (mail_is_configured()) {
+    try {
+        // Attach any uploaded resumes to the owner notification.
+        $attachments = [];
+        foreach ($savedFiles as $f) {
+            $bytes = @file_get_contents($f['path']);
+            if ($bytes !== false) {
+                $attachments[] = ['name' => $f['name'], 'type' => 'application/octet-stream', 'data' => $bytes];
+            }
+        }
+
+        // 1) Notify the owner.
+        smtp_send_mail(
+            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
+            GMAIL_USER, MAIL_FROM_NAME, GMAIL_USER,
+            ($isCareer ? 'New Career Application — ' : 'New Solar Inquiry — ') . $name,
+            contact_owner_email($name, $phoneDigits, $email, $city, $service, $bill, $typedMessage, '91' . $phoneDigits, $isCareer, $savedFiles),
+            $attachments, MAIL_SALES_BCC
+        );
+
+        // 2) Auto-reply to the submitter.
+        smtp_send_mail(
+            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
+            GMAIL_USER, MAIL_FROM_NAME, $email,
+            $isCareer ? 'We received your application — Clans Machina Solar'
+                      : 'We received your request — Clans Machina Solar',
+            contact_autoreply_email($name, $isCareer)
+        );
+    } catch (Exception $e) {
+        // Best-effort: the lead is already saved; ignore mail failures.
+    }
+}
+
+echo json_encode(['ok' => true, 'message' => 'We will contact you within 2 hours!']);

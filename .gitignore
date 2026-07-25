@@ -17,3 +17,6 @@ mail-config.php
 # Image optimizer backups (pristine originals, not for deploy)
 image/_originals/
 optimize-images.js
+
+# Runtime user uploads (resumes etc.) — never commit
+uploads/

@@ -178,6 +178,15 @@
       .pp-hero-actions .btn { width: 100%; justify-content: center; }
     }
 
+    /* ===== Apply form ===== */
+    .pp-apply-form { max-width: 720px; margin: 0 auto; }
+    .pp-apply-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .pp-apply-form .form-group { margin-bottom: 18px; }
+    .pp-apply-form .form-group label { display: block; margin-bottom: 7px; font-weight: 600;
+      font-size: 0.92rem; color: var(--text-primary); }
+    .pp-apply-form select { width: 100%; }
+    @media (max-width: 560px) { .pp-apply-form .form-row { grid-template-columns: 1fr; } }
+
     /* ===== Benefits showcase card ===== */
     .pp-perks { padding: 64px 0 72px; }
     .pp-perks-card { position: relative; background: #ffffff; border: 1px solid rgba(16,90,60,0.08);
@@ -285,7 +294,7 @@
           <h1>Expand Your <span class="gradient-text">Earning Potential</span> with Clans Machina</h1>
           <p class="pp-hero-lead">Build a profitable business with one of India's fastest-growing rooftop solar brands. Join hands as a Channel Partner or a Solar Consultant — and earn while powering homes, businesses and societies with clean energy.</p>
           <div class="pp-hero-actions">
-            <a href="index.html#contact" class="btn btn-neon btn-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5 3 21l4.5-1.5"/><path d="M14 5c4 1.5 5.5 5 5 11-6 .5-9.5-1-11-5"/><path d="M9 15c-1-3 0-6 3-9s6-3 9-3c0 3 0 6-3 9s-6 4-9 3z"/></svg>Become a Partner</a>
+            <a href="#partner-apply" class="btn btn-neon btn-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5 3 21l4.5-1.5"/><path d="M14 5c4 1.5 5.5 5 5 11-6 .5-9.5-1-11-5"/><path d="M9 15c-1-3 0-6 3-9s6-3 9-3c0 3 0 6-3 9s-6 4-9 3z"/></svg>Become a Partner</a>
             <a href="#pp-programs" class="btn btn-glass btn-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Explore Programs</a>
           </div>
         </div>
@@ -380,7 +389,7 @@
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Aggregated lead generation in your area</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> End-to-end project execution by Clans Machina</li>
               </ul>
-              <a href="index.html#contact" class="btn btn-neon btn-full">Apply Now</a>
+              <a href="#partner-apply" class="btn btn-neon btn-full">Apply Now</a>
             </div>
           </div>
 
@@ -401,7 +410,7 @@
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Free periodic training &amp; certification</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lifetime royalty on referrals</li>
               </ul>
-              <a href="index.html#contact" class="btn btn-neon btn-full">Apply Now</a>
+              <a href="#partner-apply" class="btn btn-neon btn-full">Apply Now</a>
             </div>
           </div>
         </div>
@@ -443,7 +452,7 @@
           </div>
         </div>
         <div style="text-align:center;margin-top:34px;">
-          <a href="index.html#contact" class="btn btn-neon btn-lg">Apply Now</a>
+          <a href="#partner-apply" class="btn btn-neon btn-lg">Apply Now</a>
         </div>
       </div>
     </section>
@@ -521,6 +530,123 @@
       </div>
     </section>
 
+    <!-- ===================== PARTNER APPLICATION FORM ===================== -->
+    <section class="cm-section pp-apply" id="partner-apply">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <span class="section-tag">Join Us</span>
+          <h2>Apply to Become a <span class="gradient-text">Partner</span></h2>
+          <p>Fill in your details and our partnership team will reach out within 2 business hours to help you get started.</p>
+        </div>
+        <form class="contact-form glass-card pp-apply-form" id="partnerForm" data-animate novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pName">Name</label>
+              <input type="text" id="pName" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="pMobile">Mobile No.</label>
+              <input type="tel" id="pMobile" name="mobile" placeholder="10-digit mobile number" inputmode="numeric" maxlength="15" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pEmail">Email Address</label>
+              <input type="email" id="pEmail" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="pState">State</label>
+              <select id="pState" name="state" required>
+                <option value="">Select your state</option>
+                <optgroup label="States">
+                  <option>Andhra Pradesh</option>
+                  <option>Arunachal Pradesh</option>
+                  <option>Assam</option>
+                  <option>Bihar</option>
+                  <option>Chhattisgarh</option>
+                  <option>Goa</option>
+                  <option>Gujarat</option>
+                  <option>Haryana</option>
+                  <option>Himachal Pradesh</option>
+                  <option>Jharkhand</option>
+                  <option>Karnataka</option>
+                  <option>Kerala</option>
+                  <option>Madhya Pradesh</option>
+                  <option>Maharashtra</option>
+                  <option>Manipur</option>
+                  <option>Meghalaya</option>
+                  <option>Mizoram</option>
+                  <option>Nagaland</option>
+                  <option>Odisha</option>
+                  <option>Punjab</option>
+                  <option>Rajasthan</option>
+                  <option>Sikkim</option>
+                  <option>Tamil Nadu</option>
+                  <option>Telangana</option>
+                  <option>Tripura</option>
+                  <option>Uttar Pradesh</option>
+                  <option>Uttarakhand</option>
+                  <option>West Bengal</option>
+                </optgroup>
+                <optgroup label="Union Territories">
+                  <option>Andaman and Nicobar Islands</option>
+                  <option>Chandigarh</option>
+                  <option>Dadra and Nagar Haveli and Daman and Diu</option>
+                  <option>Delhi (NCT)</option>
+                  <option>Jammu and Kashmir</option>
+                  <option>Ladakh</option>
+                  <option>Lakshadweep</option>
+                  <option>Puducherry</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pProfession">Profession</label>
+              <select id="pProfession" name="profession" required>
+                <option value="">Select your profession</option>
+                <option>Business Owner / Entrepreneur</option>
+                <option>Electrical / Hardware Dealer</option>
+                <option>EPC Contractor</option>
+                <option>Real Estate Professional</option>
+                <option>Sales &amp; Marketing Professional</option>
+                <option>Engineer / Technician</option>
+                <option>Salaried Professional</option>
+                <option>Student / Fresher</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="pInvestment">Investment Capacity</label>
+              <select id="pInvestment" name="investment" required>
+                <option value="">Select investment range</option>
+                <option>Zero / No investment (Consultant)</option>
+                <option>Below &#8377;50,000</option>
+                <option>&#8377;50,000 &#8211; &#8377;1 Lakh</option>
+                <option>&#8377;1 Lakh &#8211; &#8377;5 Lakh</option>
+                <option>&#8377;5 Lakh &#8211; &#8377;10 Lakh</option>
+                <option>Above &#8377;10 Lakh</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-neon btn-full btn-lg" id="pSubmitBtn">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Submit Application
+          </button>
+          <div class="form-errors" id="pFormErrors" style="display:none;"></div>
+          <div class="form-trust-badges" aria-label="Partner form trust indicators">
+            <span>Free training</span>
+            <span>No spam guarantee</span>
+            <span>2-hour callback SLA</span>
+          </div>
+          <div class="form-success" id="pFormSuccess" style="display:none;">
+            <span>&#10003;</span> Application received! Our team will contact you within 2 hours.
+          </div>
+        </form>
+      </div>
+    </section>
+
     <!-- ===================== FOOTPRINT ===================== -->
     <section class="cm-section">
       <div class="container">
@@ -594,7 +720,7 @@
             <p>Join the Clans Machina partner network today and turn India's solar boom into your business opportunity.</p>
           </div>
           <div class="cm-cta-actions">
-            <a href="index.html#contact" class="btn btn-neon btn-lg">Start Earning Now!</a>
+            <a href="#partner-apply" class="btn btn-neon btn-lg">Start Earning Now!</a>
             <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
           <a href="tel:18008913731" class="btn btn-glass btn-lg">Toll-Free 1800 891 3731</a>
           </div>
@@ -659,6 +785,114 @@
       counters.forEach(function (el) { observer.observe(el); });
     })();
   </script>
+  <!-- Partner application form: validate + submit to submit-partnership.php -->
+  <script>
+    (function () {
+      var form = document.getElementById('partnerForm');
+      if (!form) return;
+
+      var btn      = document.getElementById('pSubmitBtn');
+      var errorsEl  = document.getElementById('pFormErrors');
+      var successEl = document.getElementById('pFormSuccess');
+      var fields = {
+        name:       document.getElementById('pName'),
+        mobile:     document.getElementById('pMobile'),
+        email:      document.getElementById('pEmail'),
+        state:      document.getElementById('pState'),
+        profession: document.getElementById('pProfession'),
+        investment: document.getElementById('pInvestment')
+      };
+
+      function clearState(f) { if (f) { f.classList.remove('input-invalid'); f.removeAttribute('aria-invalid'); } }
+      function setInvalid(f) { if (f) { f.classList.add('input-invalid'); f.setAttribute('aria-invalid', 'true'); } }
+
+      Object.keys(fields).forEach(function (k) {
+        var f = fields[k];
+        if (!f) return;
+        f.addEventListener('input', function () { clearState(f); });
+        f.addEventListener('change', function () { clearState(f); });
+      });
+
+      function validate() {
+        var errors = [], first = null;
+        Object.keys(fields).forEach(function (k) { clearState(fields[k]); });
+
+        var name  = (fields.name.value || '').trim();
+        var phone = (fields.mobile.value || '').replace(/\D/g, '');
+        var email = (fields.email.value || '').trim();
+
+        if (name.length < 2)        { errors.push('Enter your full name.'); setInvalid(fields.name); first = first || fields.name; }
+        if (phone.length !== 10)    { errors.push('Enter a valid 10-digit mobile number.'); setInvalid(fields.mobile); first = first || fields.mobile; }
+        if (!fields.email.checkValidity() || !email) { errors.push('Enter a valid email address.'); setInvalid(fields.email); first = first || fields.email; }
+        if (!fields.state.value)      { errors.push('Select your state.'); setInvalid(fields.state); first = first || fields.state; }
+        if (!fields.profession.value) { errors.push('Select your profession.'); setInvalid(fields.profession); first = first || fields.profession; }
+        if (!fields.investment.value) { errors.push('Select your investment capacity.'); setInvalid(fields.investment); first = first || fields.investment; }
+
+        return { errors: errors, first: first };
+      }
+
+      function restoreBtn() {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Submit Application';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errorsEl.style.display = 'none'; errorsEl.innerHTML = '';
+        successEl.style.display = 'none';
+
+        var v = validate();
+        if (v.errors.length) {
+          errorsEl.innerHTML = '<ul><li>' + v.errors.join('</li><li>') + '</li></ul>';
+          errorsEl.style.display = 'block';
+          if (v.first) v.first.focus();
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        var payload = {
+          name:       fields.name.value.trim(),
+          mobile:     fields.mobile.value.trim(),
+          email:      fields.email.value.trim(),
+          state:      fields.state.value,
+          profession: fields.profession.value,
+          investment: fields.investment.value
+        };
+
+        fetch('submit-partnership.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) { return res.text().then(function (text) {
+            try { return JSON.parse(text); }
+            catch (err) {
+              console.error('Partner form: server did not return JSON.', { status: res.status, body: text });
+              throw new Error('Bad server response (HTTP ' + res.status + '). Open this page through http://localhost/ so PHP can run.');
+            }
+          }); })
+          .then(function (data) {
+            if (data.ok) {
+              form.reset();
+              successEl.style.display = 'block';
+              successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+              errorsEl.innerHTML = '<ul><li>' + (data.message || 'Something went wrong. Please try again.') + '</li></ul>';
+              errorsEl.style.display = 'block';
+            }
+            restoreBtn();
+          })
+          .catch(function (err) {
+            errorsEl.innerHTML = '<ul><li>' + (err.message || 'Network error. Please try again.') + '</li></ul>';
+            errorsEl.style.display = 'block';
+            restoreBtn();
+          });
+      });
+    })();
+  </script>
+
   <!-- FAQPage structured data (JSON-LD) — mirrors the Q&A rendered on this page -->
   <script type="application/ld+json">
   {

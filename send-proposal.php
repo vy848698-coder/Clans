@@ -67,11 +67,25 @@ try {
 }
 
 // Decode the PDF data URL → raw bytes.
+//
+// jsPDF's output('datauristring') returns "data:application/pdf;filename=generated.pdf;base64,...."
+// — note the extra ";filename=..." param. Match any "data:...;base64," prefix
+// (not just the bare "application/pdf;base64,") and take everything after the
+// first comma, otherwise the prefix gets decoded into the file and corrupts it.
 $pdfBin = '';
-if (preg_match('#^data:application/pdf;base64,#', $pdf)) {
-    $pdfBin = base64_decode(substr($pdf, strpos($pdf, ',') + 1)) ?: '';
-} elseif ($pdf !== '') {
-    $pdfBin = base64_decode($pdf) ?: '';
+if ($pdf !== '') {
+    if (preg_match('#^data:[^,]*;base64,#i', $pdf)) {
+        $b64 = substr($pdf, strpos($pdf, ',') + 1);
+    } else {
+        $b64 = $pdf; // already raw base64 (no data URL wrapper)
+    }
+    // Data URIs can carry stray whitespace/newlines; strip before decoding.
+    $b64 = preg_replace('/\s+/', '', $b64);
+    // Strict decode first; fall back to lenient so a stray char never wipes it.
+    $pdfBin = base64_decode($b64, true);
+    if ($pdfBin === false || $pdfBin === '') {
+        $pdfBin = base64_decode($b64) ?: '';
+    }
 }
 
 $emailed = false;
@@ -121,6 +135,24 @@ if (!mail_is_configured()) {
         );
         $emailed = true;
         $message = 'Proposal emailed to ' . $email;
+
+        // Notify the owner with the lead details and the same PDF attached.
+        // Best-effort: never fail the customer flow if the internal copy fails.
+        try {
+            require_once __DIR__ . '/proposal-emails.php';
+            $ownerBody = proposal_owner_email(
+                $name, $phone, $email, $district, $state, $systemSize, $bill,
+                $proposalNo, '91' . $phone, $pdfBin !== ''
+            );
+            smtp_send_mail(
+                'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
+                GMAIL_USER, MAIL_FROM_NAME, GMAIL_USER,
+                'New Solar Calculator Lead — ' . $name . ($proposalNo ? " ($proposalNo)" : ''),
+                $ownerBody, $attachments
+            );
+        } catch (Exception $ownerEx) {
+            // Ignore: the customer proposal already went out.
+        }
     } catch (Exception $e) {
         $message = 'Could not send email: ' . $e->getMessage();
     }
