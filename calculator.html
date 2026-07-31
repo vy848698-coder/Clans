@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Free interactive solar calculator by Clans Machina — estimate your system size, generation, PM Surya Ghar subsidy, 25-year savings and monthly loan EMI in under a minute." />
+  <meta name="description" content="Free interactive solar calculator by Clans Machina — estimate your system size, PM Surya Ghar subsidy, 25-year savings and monthly loan EMI in under a minute." />
   <title>Solar Savings Calculator | Clans Machina</title>
   <link rel="canonical" href="https://www.clansmachina.in/calculator.html" />
   <meta name="robots" content="index, follow" />
@@ -18,6 +18,9 @@
   <meta name="twitter:title" content="Solar Savings Calculator | Clans Machina" />
   <meta name="twitter:description" content="Estimate your system size, generation, subsidy, 25-year savings and monthly loan EMI with our free interactive solar calculator." />
   <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="image/favicon.png" />
+  <link rel="apple-touch-icon" href="image/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css?v=2" />
 </head>
@@ -74,56 +77,122 @@
   <!-- CALCULATOR HERO -->
   <section class="sc-hero">
     <div class="sc-hero-glow"></div>
+
+    <!-- Animated scene: sky + sun + drifting clouds + line-art houses/trees -->
+    <div class="sc-scene" aria-hidden="true">
+      <!-- reusable cloud silhouettes -->
+      <svg class="sc-defs" width="0" height="0"><defs>
+        <g id="scCloudA"><g fill="#ffffff"><ellipse cx="48" cy="48" rx="32" ry="21"/><ellipse cx="83" cy="36" rx="31" ry="26"/><ellipse cx="116" cy="49" rx="26" ry="19"/><rect x="30" y="47" width="100" height="21" rx="10.5"/></g><ellipse cx="80" cy="28" rx="21" ry="12" fill="#f7fdff" opacity=".85"/></g>
+        <g id="scCloudB"><g fill="#ffffff"><ellipse cx="35" cy="44" rx="25" ry="17"/><ellipse cx="62" cy="31" rx="27" ry="23"/><ellipse cx="89" cy="45" rx="21" ry="16"/><rect x="20" y="44" width="82" height="17" rx="8.5"/></g><ellipse cx="60" cy="23" rx="17" ry="10" fill="#f7fdff" opacity=".8"/></g>
+        <g id="scCloudC"><g fill="#ffffff"><ellipse cx="52" cy="36" rx="34" ry="15"/><ellipse cx="99" cy="27" rx="37" ry="20"/><ellipse cx="148" cy="37" rx="30" ry="14"/><rect x="28" y="35" width="150" height="16" rx="8"/></g><ellipse cx="96" cy="19" rx="24" ry="9" fill="#f7fdff" opacity=".75"/></g>
+        <g id="scBirds" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <path class="sc-bird" d="M2 14c5-7 9-7 13 0 4-7 8-7 13 0"/>
+          <path class="sc-bird" d="M36 7c4-6 7.5-6 11 0 3.5-6 7-6 11 0"/>
+          <path class="sc-bird" d="M64 18c3.5-5 6.5-5 9.5 0 3-5 6-5 9.5 0"/>
+        </g>
+      </defs></svg>
+
+      <span class="sc-sun-wrap">
+        <span class="sc-rays"></span>
+        <span class="sc-sun"></span>
+      </span>
+      <svg class="sc-spark" viewBox="0 0 24 24" fill="#ffcf5e"><path d="M12 0c.6 5.4 1.8 6.6 12 12-10.2 5.4-11.4 6.6-12 12-.6-5.4-1.8-6.6-12-12 10.2-5.4 11.4-6.6 12-12Z"/></svg>
+
+      <!-- near layer -->
+      <span class="sc-cloud sc-cloud--1"><svg viewBox="0 0 160 76"><use href="#scCloudA"/></svg></span>
+      <span class="sc-cloud sc-cloud--2"><svg viewBox="0 0 120 64"><use href="#scCloudB"/></svg></span>
+      <span class="sc-cloud sc-cloud--3"><svg viewBox="0 0 160 76"><use href="#scCloudA"/></svg></span>
+      <span class="sc-cloud sc-cloud--4"><svg viewBox="0 0 200 56"><use href="#scCloudC"/></svg></span>
+      <!-- mid layer -->
+      <span class="sc-cloud sc-cloud--5"><svg viewBox="0 0 200 56"><use href="#scCloudC"/></svg></span>
+      <span class="sc-cloud sc-cloud--6"><svg viewBox="0 0 120 64"><use href="#scCloudB"/></svg></span>
+      <span class="sc-cloud sc-cloud--7"><svg viewBox="0 0 160 76"><use href="#scCloudA"/></svg></span>
+      <span class="sc-cloud sc-cloud--8"><svg viewBox="0 0 200 56"><use href="#scCloudC"/></svg></span>
+      <!-- far layer -->
+      <span class="sc-cloud sc-cloud--9"><svg viewBox="0 0 120 64"><use href="#scCloudB"/></svg></span>
+      <span class="sc-cloud sc-cloud--10"><svg viewBox="0 0 160 76"><use href="#scCloudA"/></svg></span>
+      <span class="sc-cloud sc-cloud--11"><svg viewBox="0 0 200 56"><use href="#scCloudC"/></svg></span>
+      <span class="sc-cloud sc-cloud--12"><svg viewBox="0 0 120 64"><use href="#scCloudB"/></svg></span>
+
+      <span class="sc-flock sc-flock--1"><svg viewBox="0 0 90 24"><use href="#scBirds"/></svg></span>
+      <span class="sc-flock sc-flock--2"><svg viewBox="0 0 90 24"><use href="#scBirds"/></svg></span>
+
+      <svg class="sc-landscape" viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax slice" fill="none">
+        <defs>
+          <clipPath id="scPanelClipC"><path d="M612 86 L665 56 L706 78 L653 108 Z"/></clipPath>
+          <clipPath id="scPanelClipL"><path d="M168 104 L210 80 L242 96 L200 122 Z"/></clipPath>
+          <clipPath id="scPanelClipR"><path d="M1138 104 L1183 80 L1216 96 L1172 122 Z"/></clipPath>
+        </defs>
+        <!-- ground -->
+        <rect x="0" y="172" width="1440" height="38" fill="#bfe7cf"/>
+        <rect x="0" y="172" width="1440" height="7" fill="#a7dbbc"/>
+        <line x1="0" y1="172" x2="1440" y2="172" stroke="#95d0aa" stroke-width="2"/>
+        <!-- trees -->
+        <g><rect x="60" y="150" width="6" height="26" fill="#7c5a41"/><circle cx="63" cy="141" r="15" fill="#57bd86"/><circle cx="52" cy="152" r="10" fill="#49ac78"/><circle cx="74" cy="152" r="10" fill="#49ac78"/></g>
+        <g><rect x="392" y="152" width="6" height="24" fill="#7c5a41"/><circle cx="395" cy="144" r="12" fill="#57bd86"/><circle cx="386" cy="153" r="9" fill="#49ac78"/><circle cx="404" cy="153" r="9" fill="#49ac78"/></g>
+        <g><rect x="1050" y="152" width="6" height="24" fill="#7c5a41"/><circle cx="1053" cy="144" r="12" fill="#57bd86"/><circle cx="1044" cy="153" r="9" fill="#49ac78"/><circle cx="1062" cy="153" r="9" fill="#49ac78"/></g>
+        <g><rect x="1382" y="150" width="6" height="26" fill="#7c5a41"/><circle cx="1385" cy="141" r="15" fill="#57bd86"/><circle cx="1374" cy="152" r="10" fill="#49ac78"/><circle cx="1396" cy="152" r="10" fill="#49ac78"/></g>
+        <!-- left house -->
+        <g stroke="#39664f" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="150" y="112" width="120" height="60" fill="#ffffff"/>
+          <path d="M138 114 L210 74 L282 114 Z" fill="#ffffff"/>
+          <path d="M168 104 L210 80 L242 96 L200 122 Z" fill="#2e7fae" stroke="#eaf6ff" stroke-width="1.2"/>
+          <rect x="200" y="140" width="20" height="32" fill="#39664f" stroke="none"/>
+          <rect x="164" y="124" width="20" height="16" fill="#d5f0e2"/>
+          <rect x="236" y="124" width="20" height="16" fill="#d5f0e2"/>
+        </g>
+        <!-- center house (prominent, big blue panel) -->
+        <g stroke="#39664f" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="590" y="96" width="150" height="76" fill="#ffffff"/>
+          <path d="M576 98 L665 50 L754 98 Z" fill="#ffffff"/>
+          <path d="M612 86 L665 56 L706 78 L653 108 Z" fill="#2e7fae" stroke="#eaf6ff" stroke-width="1.4"/>
+          <path d="M636 72 L688 92" stroke="#eaf6ff" stroke-width="1.4"/>
+          <rect x="650" y="140" width="30" height="32" fill="#39664f" stroke="none"/>
+          <rect x="606" y="118" width="24" height="20" fill="#d5f0e2"/>
+          <rect x="700" y="118" width="24" height="20" fill="#d5f0e2"/>
+        </g>
+        <!-- right house -->
+        <g stroke="#39664f" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="1120" y="112" width="126" height="60" fill="#ffffff"/>
+          <path d="M1108 114 L1183 74 L1258 114 Z" fill="#ffffff"/>
+          <path d="M1138 104 L1183 80 L1216 96 L1172 122 Z" fill="#2e7fae" stroke="#eaf6ff" stroke-width="1.2"/>
+          <rect x="1172" y="140" width="20" height="32" fill="#39664f" stroke="none"/>
+          <rect x="1136" y="124" width="20" height="16" fill="#d5f0e2"/>
+          <rect x="1210" y="124" width="20" height="16" fill="#d5f0e2"/>
+        </g>
+
+        <!-- panels catching the light -->
+        <g clip-path="url(#scPanelClipL)"><g transform="rotate(-30 205 101)"><rect class="sc-shine sc-shine--l" x="150" y="60" width="16" height="86" fill="#ffffff" opacity=".5"/></g></g>
+        <g clip-path="url(#scPanelClipC)"><g transform="rotate(-30 659 82)"><rect class="sc-shine sc-shine--c" x="580" y="34" width="20" height="102" fill="#ffffff" opacity=".55"/></g></g>
+        <g clip-path="url(#scPanelClipR)"><g transform="rotate(-30 1177 101)"><rect class="sc-shine sc-shine--r" x="1120" y="60" width="16" height="86" fill="#ffffff" opacity=".5"/></g></g>
+
+        <!-- little generation sparkles above each roof -->
+        <g transform="translate(246 78)"><path class="sc-glint sc-glint--a" d="M6 0c.3 2.7.9 3.3 6 6-5.1 2.7-5.7 3.3-6 6-.3-2.7-.9-3.3-6-6 5.1-2.7 5.7-3.3 6-6Z" fill="#ffd76b"/></g>
+        <g transform="translate(716 56) scale(1.35)"><path class="sc-glint sc-glint--b" d="M6 0c.3 2.7.9 3.3 6 6-5.1 2.7-5.7 3.3-6 6-.3-2.7-.9-3.3-6-6 5.1-2.7 5.7-3.3 6-6Z" fill="#ffd76b"/></g>
+        <g transform="translate(1222 78)"><path class="sc-glint sc-glint--c" d="M6 0c.3 2.7.9 3.3 6 6-5.1 2.7-5.7 3.3-6 6-.3-2.7-.9-3.3-6-6 5.1-2.7 5.7-3.3 6-6Z" fill="#ffd76b"/></g>
+      </svg>
+    </div>
+
     <div class="container">
-      <div class="sc-hero-layout">
-        <div class="sc-hero-inner" data-animate>
-          <span class="section-tag">Interactive Solar Tool</span>
-          <h1>Solar Savings &amp; <span class="gradient-text">Loan EMI Calculator</span></h1>
-          <p>Estimate your system size, generation, subsidy and 25-year savings &mdash; then fine-tune your solar loan EMI with live sliders. Get a clear, transparent picture in under a minute.</p>
-          <div class="sc-hero-chips">
-            <span class="sc-chip"><span class="sc-chip-dot"></span>PM Surya Ghar subsidy included</span>
-            <span class="sc-chip"><span class="sc-chip-dot"></span>Net-metering savings model</span>
-            <span class="sc-chip"><span class="sc-chip-dot"></span>No sign-up needed</span>
-          </div>
+      <div class="sc-hero-center" data-animate>
+        <h1>Calculate your solar <span class="gradient-text">savings in a few clicks</span></h1>
+        <p class="sc-hero-lead">Real numbers for your roof &mdash; in under a minute.</p>
+
+        <div class="sc-hero-feats">
+          <span class="sc-feat">Subsidy included</span>
+          <span class="sc-feat">Net-metering savings</span>
+          <span class="sc-feat">No sign-up</span>
         </div>
 
-        <!-- HERO VISUAL: animated solar-savings widget -->
-        <aside class="sc-hero-art" data-animate aria-hidden="true">
-          <div class="sc-art-card glass-card">
-            <div class="sc-art-sun"></div>
-            <span class="sc-art-rays"></span>
-
-            <!-- rooftop with panels -->
-            <svg class="sc-art-roof" viewBox="0 0 220 120" fill="none">
-              <path class="sc-art-house" d="M14 70 110 22 206 70" />
-              <path class="sc-art-wall" d="M30 64v44h160V64" />
-              <g class="sc-art-panels">
-                <rect x="58"  y="50" width="38" height="26" rx="2"/>
-                <rect x="100" y="50" width="38" height="26" rx="2"/>
-                <rect x="142" y="50" width="38" height="26" rx="2"/>
-              </g>
-              <!-- energy flow line into the meter -->
-              <path class="sc-art-flow" d="M110 76 110 100" />
-              <circle class="sc-art-pulse" cx="110" cy="76" r="3"/>
-            </svg>
-
-            <!-- live savings readout -->
-            <div class="sc-art-readout">
-              <span class="sc-art-readout-label">Avg. 25-year savings</span>
-              <span class="sc-art-readout-value" id="scArtCount">&#8377;0</span>
-              <span class="sc-art-trend">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 17 10 11l4 4 6-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8h4v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Net bill drops up to 90%
-              </span>
-            </div>
-
-            <!-- mini stat chips floating -->
-            <div class="sc-art-stats">
-              <div class="sc-art-stat"><strong>&#8377;1,38,000</strong><span>Govt. subsidy</span></div>
-              <div class="sc-art-stat"><strong>4–6 yr</strong><span>Payback</span></div>
-            </div>
-          </div>
-        </aside>
+        <div class="sc-hero-actions">
+          <a href="#calculator" class="btn btn-neon btn-lg" id="scHeroCta">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Calculate Now
+          </a>
+          <a href="#calculator" class="sc-hero-link" id="scHeroHow">See how it works
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>
