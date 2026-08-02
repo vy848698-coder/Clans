@@ -1163,6 +1163,9 @@
   <script src="js/solar-engine.js" defer></script>
   <script src="js/shared-footer.js" defer></script>
   <script src="js/script.js" defer></script>
+  <!-- Lead-capture popup — homepage only, so it is loaded here rather than
+       from shared-footer.js which every page uses. -->
+  <script src="js/popup-modal.js" defer></script>
   <!-- Lucide icon library (deferred scripts finish before DOMContentLoaded) -->
   <script src="js/lib/lucide.min.js" defer></script>
   <script>window.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>

@@ -31,13 +31,20 @@ $city    = clean($input['city']    ?? '');
 $service = clean($input['service'] ?? '');
 $bill    = clean($input['bill']    ?? '');
 $message = clean($input['message'] ?? '');
+$source  = clean($input['source']  ?? '');
+
+// The homepage popup (js/popup-modal.js) deliberately asks for as little as
+// possible — name, PIN, WhatsApp, bill — so it has no email address to send.
+$emailOptional = ($source === 'popup');
 
 // Server-side validation
 $errors = [];
 if ($name === '')                                      $errors[] = 'Name is required.';
 if (!preg_match('/^[0-9]{10}$/', preg_replace('/\D/', '', $phone)))
                                                        $errors[] = 'Valid 10-digit phone is required.';
-if (!filter_var($email, FILTER_VALIDATE_EMAIL))        $errors[] = 'Valid email is required.';
+if ($email !== '' || !$emailOptional) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))    $errors[] = 'Valid email is required.';
+}
 if ($city === '')                                      $errors[] = 'City is required.';
 if ($bill === '')                                      $errors[] = 'Monthly bill is required.';
 
@@ -142,14 +149,16 @@ if (mail_is_configured()) {
             $attachments, MAIL_SALES_BCC
         );
 
-        // 2) Auto-reply to the submitter.
-        smtp_send_mail(
-            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-            GMAIL_USER, MAIL_FROM_NAME, $email,
-            $isCareer ? 'We received your application — Clans Machina Solar'
-                      : 'We received your request — Clans Machina Solar',
-            contact_autoreply_email($name, $isCareer)
-        );
+        // 2) Auto-reply to the submitter — only when they gave us an address.
+        if ($email !== '') {
+            smtp_send_mail(
+                'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
+                GMAIL_USER, MAIL_FROM_NAME, $email,
+                $isCareer ? 'We received your application — Clans Machina Solar'
+                          : 'We received your request — Clans Machina Solar',
+                contact_autoreply_email($name, $isCareer)
+            );
+        }
     } catch (Exception $e) {
         // Best-effort: the lead is already saved; ignore mail failures.
     }
