@@ -11,7 +11,7 @@ $DB_HOST = getenv('MYSQLHOST')     ?: 'localhost';
 $DB_PORT = getenv('MYSQLPORT')     ?: '3306';
 $DB_USER = getenv('MYSQLUSER')     ?: 'root';
 $DB_PASS = getenv('MYSQLPASSWORD') !== false ? getenv('MYSQLPASSWORD') : '';
-$DB_NAME = getenv('MYSQLDATABASE') ?: 'clansmachina';
+$DB_NAME = getenv('MYSQLDATABASE') ?: 'clansmachina_solar';
 
 // Admin dashboard login.
 // Password is stored as a bcrypt hash, never plain text.
@@ -48,8 +48,28 @@ try {
  * server. Call this at the top of every *_api.php / get_*.php / update_*.php.
  */
 function send_cors_headers(): void {
-    $origin = getenv('DASHBOARD_ORIGIN') ?: 'http://localhost:3000';
-    header("Access-Control-Allow-Origin: $origin");
+    $originHeader = $_SERVER['HTTP_ORIGIN'] ?? '';
+    $envOrigins = getenv('DASHBOARD_ORIGIN') ?: '';
+
+    // DASHBOARD_ORIGIN can be a single URL or a comma-separated allowlist.
+    $allowedOrigins = $envOrigins !== ''
+        ? array_values(array_filter(array_map('trim', explode(',', $envOrigins))))
+        : [
+            'http://localhost:3000',
+            'http://127.0.0.1:3000',
+            'http://localhost:3001',
+            'http://127.0.0.1:3001',
+            'https://dashboard.clansmachina.com',
+            'https://www.dashboard.clansmachina.com',
+        ];
+
+    $allowOrigin = $allowedOrigins[0] ?? 'http://localhost:3000';
+    if ($originHeader !== '' && in_array($originHeader, $allowedOrigins, true)) {
+        $allowOrigin = $originHeader;
+    }
+
+    header("Access-Control-Allow-Origin: $allowOrigin");
+    header('Vary: Origin');
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, X-Admin-Key, Authorization");
     header("Content-Type: application/json; charset=utf-8");

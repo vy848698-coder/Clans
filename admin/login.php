@@ -23,13 +23,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($locked) {
         $error = 'Too many attempts. Try again in ' . ceil(($_SESSION['lock_until'] - $now) / 60) . ' min.';
     } else {
-        $u = $_POST['username'] ?? '';
-        $p = $_POST['password'] ?? '';
+    $u = trim((string)($_POST['username'] ?? ''));
+    $p = (string)($_POST['password'] ?? '');
 
-        $userOk = hash_equals(ADMIN_USER, $u);
-        $passOk = password_verify($p, ADMIN_PASS_HASH);
+    // Legacy single-account login from db.php constants.
+    $legacyOk = hash_equals(ADMIN_USER, $u) && password_verify($p, ADMIN_PASS_HASH);
 
-        if ($userOk && $passOk) {
+    // Also allow owner accounts from admin_users (same credentials as Dashboard).
+    $ownerOk = false;
+    if ($u !== '') {
+      $stmt = $pdo->prepare(
+        'SELECT password_hash FROM admin_users
+         WHERE LOWER(email) = :login OR LOWER(name) = :login
+         LIMIT 1'
+      );
+      $stmt->execute([':login' => mb_strtolower($u)]);
+      $row = $stmt->fetch();
+      $hash = $row['password_hash'] ?? '$2y$10$............................................';
+      $ownerOk = password_verify($p, $hash) && (bool)$row;
+    }
+
+    if ($legacyOk || $ownerOk) {
             // Success: reset counters, regenerate session ID to prevent fixation.
             $_SESSION['attempts']   = 0;
             $_SESSION['lock_until'] = 0;
