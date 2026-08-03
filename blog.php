@@ -56,6 +56,9 @@ function initials($name) {
   <meta name="twitter:title" content="Blog and Insights | Clans Machina" />
   <meta name="twitter:description" content="Practical guides on rooftop solar costs, subsidy, savings, net metering and maintenance for Indian homes and businesses." />
   <meta name="twitter:image" content="https://www.clansmachina.in/image/service-residential.webp" />
+  <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="image/favicon.png" />
+  <link rel="apple-touch-icon" href="image/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>

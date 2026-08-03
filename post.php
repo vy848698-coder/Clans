@@ -88,6 +88,9 @@ $ogImg = ($post && !empty($post['image']) && strpos($post['image'], 'data:') !==
   <meta name="twitter:title" content="<?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina" />
   <meta name="twitter:description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
   <meta name="twitter:image" content="<?= v($ogImg) ?>" />
+  <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="image/favicon.png" />
+  <link rel="apple-touch-icon" href="image/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>

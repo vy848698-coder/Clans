@@ -20,7 +20,7 @@ function contact_owner_email(
 ): string {
     $rows = email_row('Name', $name)
           . email_row('Phone', '+91 ' . $phone)
-          . email_row('Email', $email)
+          . email_row('Email', $email !== '' ? $email : '—')
           . email_row('City', $city !== '' ? $city : '—');
 
     if ($isCareer) {
@@ -58,6 +58,11 @@ function contact_owner_email(
     $emailE = e($email);
     $waE    = e($waNumber);
 
+    // Popup leads carry no email address, so drop the mailto button for them
+    // rather than rendering one that opens an empty compose window.
+    $emailBtn = $email === '' ? '' :
+        '<td style="padding:0 6px;"><a href="mailto:' . $emailE . '" style="display:inline-block;background:#14507a;color:#fff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;">&#9993;&#65039; Email</a></td>';
+
     $badge   = $isCareer ? 'New Application' : 'New Inquiry';
     $heading = $isCareer ? 'New Career Application' : 'New Solar Inquiry';
 
@@ -71,7 +76,7 @@ function contact_owner_email(
 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 8px;"><tr>
   <td style="padding:0 6px;"><a href="tel:+91{$phoneE}" style="display:inline-block;background:#0f6f47;color:#fff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;">📞 Call</a></td>
   <td style="padding:0 6px;"><a href="https://wa.me/{$waE}" style="display:inline-block;background:#25d366;color:#fff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;">💬 WhatsApp</a></td>
-  <td style="padding:0 6px;"><a href="mailto:{$emailE}" style="display:inline-block;background:#14507a;color:#fff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;">✉️ Email</a></td>
+  {$emailBtn}
 </tr></table>
 <p style="margin:18px 0 4px;color:#8a978f;font-size:12px;">This submission was also saved to your admin dashboard.</p>
 HTML;

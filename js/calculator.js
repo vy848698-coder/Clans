@@ -149,7 +149,10 @@
     if (res) res.hidden = true;
   }
 
-  function setUrlType(type) {
+  function setUrlType(type, isInit) {
+    // On the initial render, leave the incoming URL untouched so an anchor like
+    // calculator.html#calculator (jump straight to the property cards) survives.
+    if (isInit) return;
     try {
       var url = type ? (window.location.pathname + '?type=' + type) : window.location.pathname;
       window.history.replaceState(null, '', url);
@@ -164,39 +167,65 @@
     container.querySelectorAll('[data-animate]').forEach(function (el) { el.classList.add('visible'); });
   }
 
-  function showTool(type) {
+  // Bring the tool section (#calculator) to the top, just under the fixed navbar
+  // (respects .sc-tool scroll-margin-top) so the visible screen — cards or the
+  // input form — is what the user lands on, instead of the hero above it.
+  function scrollToTool(smooth) {
+    var sec = document.getElementById('calculator');
+    if (sec && sec.scrollIntoView) {
+      sec.scrollIntoView(smooth ? { behavior: 'smooth', block: 'start' } : { block: 'start' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function showTool(type, isInit) {
     applyType(type);
     if (scChoose) scChoose.hidden = true;
     if (scTool) scTool.hidden = false;
     reveal(scTool);
-    setUrlType(type);
-    window.scrollTo(0, 0);
+    setUrlType(type, isInit);
+    if (!isInit) scrollToTool(true);
   }
 
-  function showChoose() {
+  function showChoose(isInit) {
     if (scTool) scTool.hidden = true;
     if (scChoose) scChoose.hidden = false;
     reveal(scChoose);
-    setUrlType(null);
-    window.scrollTo(0, 0);
+    setUrlType(null, isInit);
+    if (!isInit) scrollToTool(true);
   }
 
   // Property cards -> open the calculator for that type
   document.querySelectorAll('[data-choose-type]').forEach(function (card) {
     card.addEventListener('click', function () { showTool(card.getAttribute('data-choose-type')); });
   });
-  // Back link -> return to the choose screen
+  // Back link -> return to the choose screen (wrapped so the click Event isn't
+  // passed as the isInit flag).
   var scBack = $('scBack');
-  if (scBack) scBack.addEventListener('click', showChoose);
+  if (scBack) scBack.addEventListener('click', function () { showChoose(); });
+
+  // Hero "Calculate Now" button + "See how it works" link -> show the property
+  // cards and scroll to them.
+  ['scHeroCta', 'scHeroHow'].forEach(function (elId) {
+    var el = $(elId);
+    if (el) el.addEventListener('click', function (e) { e.preventDefault(); showChoose(); });
+  });
 
   // Initial screen: deep-link via ?type= jumps straight to the calculator
   var initialType = null;
   try { initialType = new URLSearchParams(window.location.search).get('type'); } catch (e) {}
   if (scChoose && scTool) {
-    if (initialType && TYPE_LABEL[initialType]) showTool(initialType);
-    else showChoose();
+    if (initialType && TYPE_LABEL[initialType]) showTool(initialType, true);
+    else showChoose(true);
   } else {
     applyType(initialType && TYPE_LABEL[initialType] ? initialType : 'residential');
+  }
+
+  // Honour a #calculator anchor: jump straight to the property cards (past the
+  // hero). Done after init so the reveal()/layout is settled first.
+  if (window.location.hash === '#calculator') {
+    requestAnimationFrame(function () { scrollToTool(false); });
   }
 
   // Deep-link via ?bill= (from the homepage bill slider) pre-fills the bill field
