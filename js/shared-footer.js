@@ -89,7 +89,7 @@
   // ---- Global structured data (JSON-LD) — Organization + WebSite + LocalBusiness ----
   // Injected site-wide so every page carries a consistent business identity for SEO.
   if (!document.getElementById('cm-global-schema')) {
-    var SITE = 'https://www.clansmachina.in';
+    var SITE = 'https://www.clansmachina.com';
     var graph = {
       '@context': 'https://schema.org',
       '@graph': [
