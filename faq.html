@@ -134,6 +134,8 @@
     }
     .fq-search button:hover { background: color-mix(in srgb, var(--fq-orange) 85%, #000); }
     .fq-search button svg { width: 20px; height: 20px; }
+    .fq-search-empty { margin: 12px 0 0; font-size: .92rem; color: color-mix(in srgb, var(--fq-ink) 70%, transparent); }
+    .fq-search-empty button { margin-left: 4px; padding: 0; border: 0; background: none; font: inherit; font-weight: 700; color: var(--fq-orange); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
     /* hero image + floating cards */
     .fq-hero-visual { position: relative; min-height: 320px; display: flex; align-items: center; }
@@ -559,35 +561,6 @@
 
   <footer class="footer"></footer>
 
-  <!-- CHATBOT WIDGET (same as index.html) -->
-  <div class="chatbot-widget" id="chatbot">
-    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open solar consultation chat">
-      <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="chatbot-pulse"></span>
-    </button>
-    <div class="chatbot-panel glass-card" id="chatbotPanel" style="display:none;">
-      <div class="chat-header">
-        <div class="chat-avatar-icon">&#9889;</div>
-        <div><strong>Solar Helper</strong><span class="chat-status">&#9679; Online</span></div>
-        <button class="chat-close" id="chatClose">&#215;</button>
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="chat-msg bot-msg"><span>&#128075; Hi! I am your Solar Helper. Ask me anything about solar — costs, subsidies, installation and more!</span></div>
-      </div>
-      <div class="chat-quick-replies">
-        <button class="quick-reply" data-reply="What does a rooftop solar system cost in India?">&#128176; System Cost</button>
-        <button class="quick-reply" data-reply="How much subsidy can I get?">&#127963; Subsidy</button>
-        <button class="quick-reply" data-reply="How long does the installation take?">&#128295; Installation</button>
-      </div>
-      <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Ask about solar..." />
-        <button id="chatSend">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
   <script src="js/shared-footer.js" defer></script>
   <script src="js/subpage.js" defer></script>
   <script>
@@ -605,99 +578,17 @@
         });
       });
 
-      /* ---- CHATBOT ---- */
-      var chatbotToggle = document.getElementById('chatbotToggle');
-      var chatbotPanel  = document.getElementById('chatbotPanel');
-      var chatClose     = document.getElementById('chatClose');
-      var chatMessages  = document.getElementById('chatMessages');
-      var chatInput     = document.getElementById('chatInput');
-      var chatSend      = document.getElementById('chatSend');
-
-      function addMsg(text, isBot) {
-        var div = document.createElement('div');
-        div.className = 'chat-msg ' + (isBot ? 'bot-msg' : 'user-msg');
-        var span = document.createElement('span');
-        span.textContent = text;
-        div.appendChild(span);
-        chatMessages.appendChild(div);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-
-      function getBotResponse(msg) {
-        var m = msg.toLowerCase();
-        if (m.includes('cost') || m.includes('price') || m.includes('much') || m.includes('lakh')) {
-          return 'Residential systems run roughly ₹55,000–70,000 per kW before subsidy. A 3 kW system is about ₹1.7–2.1 lakh. Want a personalised quote?';
-        }
-        if (m.includes('saving') || m.includes('bill') || m.includes('reduc')) {
-          return 'A well-sized on-grid system with net metering can cut your bill by up to 90%. Use our Calculator to get your exact savings!';
-        }
-        if (m.includes('subsid') || m.includes('surya') || m.includes('government') || m.includes('scheme')) {
-          return 'Under PM Surya Ghar Muft Bijli Yojana you can get up to ₹1,38,000 subsidy for residential systems. We handle all the paperwork!';
-        }
-        if (m.includes('payback') || m.includes('return') || m.includes('roi') || m.includes('year')) {
-          return 'Typical payback is 4–5 years for homes after subsidy. After that the power is effectively free for 20+ years.';
-        }
-        if (m.includes('install') || m.includes('how long') || m.includes('time') || m.includes('days')) {
-          return 'Most projects go from survey to commissioning in 18–27 days. The physical installation usually takes just 1–3 days.';
-        }
-        if (m.includes('roof') || m.includes('area') || m.includes('space') || m.includes('sqft') || m.includes('sq.ft')) {
-          return 'About 100 sq.ft. of shadow-free roof per kW. A typical 3 kW home system needs roughly 300 sq.ft.';
-        }
-        if (m.includes('panel') || m.includes('technolog') || m.includes('mono') || m.includes('perc') || m.includes('topcon')) {
-          return 'We recommend Tier-1 monocrystalline (Mono PERC / N-type TOPCon) panels for high efficiency and strong low-light performance.';
-        }
-        if (m.includes('warrant') || m.includes('guarantee') || m.includes('last')) {
-          return 'You get a 25-year panel performance warranty, 10–12 year product warranty, and 5–10 year inverter warranty, plus our service support.';
-        }
-        if (m.includes('clean') || m.includes('mainten') || m.includes('servic')) {
-          return 'Cleaning once a month keeps generation at peak. Our monitoring flags under-performance automatically and triggers a service check.';
-        }
-        if (m.includes('financ') || m.includes('loan') || m.includes('emi')) {
-          return 'We offer solar loans through partner institutions — your EMI is often lower than your electricity savings, so you are cash-positive from day one!';
-        }
-        if (m.includes('batter') || m.includes('backup') || m.includes('hybrid')) {
-          return 'Yes! Systems can be designed hybrid-ready so you can add batteries or an EV charger later without replacing the core setup.';
-        }
-        if (m.includes('cloud') || m.includes('rain') || m.includes('low light')) {
-          return 'Output dips on cloudy days but systems are sized around annual averages. India gets 300+ sunny days in most regions.';
-        }
-        if (m.includes('hi') || m.includes('hello') || m.includes('hey')) {
-          return 'Hello! I am your Solar Helper. Ask me about costs, subsidies, installation, warranties or financing — I am here to help!';
-        }
-        return 'Great question! Our solar experts can give you a detailed answer. Book a free consultation and we will call you within 2 hours. 📞';
-      }
-
-      function openChat() { chatbotPanel.style.display = 'block'; }
-      function closeChat() { chatbotPanel.style.display = 'none'; }
-
-      function sendChat() {
-        var text = chatInput.value.trim();
-        if (!text) return;
-        addMsg(text, false);
-        chatInput.value = '';
-        setTimeout(function () { addMsg(getBotResponse(text), true); }, 700);
-      }
-
-      if (chatbotToggle) chatbotToggle.addEventListener('click', function () {
-        chatbotPanel.style.display === 'none' ? openChat() : closeChat();
-      });
-      if (chatClose) chatClose.addEventListener('click', closeChat);
-      if (chatSend)  chatSend.addEventListener('click', sendChat);
-      if (chatInput) chatInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendChat(); });
-
-      document.querySelectorAll('.quick-reply').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var reply = btn.dataset.reply;
-          addMsg(reply, false);
-          setTimeout(function () { addMsg(getBotResponse(reply), true); }, 700);
-          openChat();
-        });
-      });
-
       /* ---- SMART SEARCH ---- */
+      // Filters the questions as you type. When nothing matches, a hint under
+      // the search box offers Solar Saathi (the site-wide chatbot), whose FAQ
+      // can answer typed or spoken questions.
       var searchInput = document.getElementById('fqSearchInput');
       var searchForm  = document.getElementById('fqSearch');
-      var chatbotRedirectTimer = null;
+      var emptyHint = document.createElement('p');
+      emptyHint.className = 'fq-search-empty';
+      emptyHint.hidden = true;
+      emptyHint.innerHTML = 'No matching question. <button type="button" data-open-saathi>Ask Solar Saathi &rarr;</button>';
+      if (searchForm) searchForm.insertAdjacentElement('afterend', emptyHint);
 
       function runSearch(q) {
         q = (q || '').trim().toLowerCase();
@@ -715,16 +606,8 @@
           totalHits += hits;
         });
 
-        if (chatbotRedirectTimer) clearTimeout(chatbotRedirectTimer);
-
-        if (q !== '' && totalHits === 0) {
-          chatbotRedirectTimer = setTimeout(function () {
-            chatInput.value = searchInput.value.trim();
-            openChat();
-            addMsg(searchInput.value.trim(), false);
-            setTimeout(function () { addMsg(getBotResponse(searchInput.value.trim()), true); }, 700);
-          }, 600);
-        }
+        emptyHint.hidden = !(q !== '' && totalHits === 0);
+        return totalHits;
       }
 
       if (searchInput) {
@@ -734,17 +617,7 @@
         searchForm.addEventListener('submit', function (e) {
           e.preventDefault();
           var q = searchInput ? searchInput.value.trim() : '';
-          if (!q) return;
-          var totalHits = 0;
-          document.querySelectorAll('.fq-item').forEach(function (item) {
-            if (item.style.display !== 'none') totalHits++;
-          });
-          if (totalHits === 0) {
-            chatInput.value = q;
-            openChat();
-            addMsg(q, false);
-            setTimeout(function () { addMsg(getBotResponse(q), true); }, 700);
-          }
+          if (q && runSearch(q) === 0 && window.ClansSaathi) window.ClansSaathi.open();
         });
       }
 

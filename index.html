@@ -1127,36 +1127,6 @@
   <!-- FOOTER -->
   <footer class="footer"></footer>
 
-  <!-- CHATBOT -->
-  <div class="chatbot-widget" id="chatbot">
-    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open solar consultation chat">
-      <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="chatbot-pulse"></span>
-    </button>
-    <div class="chatbot-panel glass-card" id="chatbotPanel" style="display:none;">
-      <div class="chat-header">
-        <div class="chat-avatar-icon">&#9889;</div>
-        <div><strong>Solar Helper</strong><span class="chat-status">&#9679; Online</span></div>
-        <button class="chat-close" id="chatClose">&#215;</button>
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="chat-msg bot-msg"><span>&#128075; Hi! I am your Solar Helper. How can I help you go solar today?</span></div>
-      </div>
-      <div class="chat-quick-replies">
-        <button class="quick-reply" data-reply="Calculate my savings">&#128176; Calculate Savings</button>
-        <button class="quick-reply" data-reply="I want a free quote">&#128203; Free Quote</button>
-        <button class="quick-reply" data-reply="Tell me about subsidies">&#127963; Subsidies</button>
-      </div>
-      <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Ask about solar..." />
-        <button id="chatSend">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-
   <!-- All deferred: defer preserves execution order, so calculator-data ->
        solar-engine -> shared-footer -> script.js still run in sequence. -->
   <script src="js/calculator-data.js" defer></script>

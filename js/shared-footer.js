@@ -215,14 +215,94 @@
     document.body.appendChild(wa);
   }
 
-  // Floating Call Now button (bottom-right). Skipped on pages that already
-  // have the chatbot widget in that corner (e.g. home, FAQ) to avoid overlap.
-  if (!document.querySelector('.call-float') && !document.querySelector('.chatbot-widget')) {
-    var call = document.createElement('a');
-    call.className = 'call-float';
-    call.href = 'tel:+919124165341';
-    call.setAttribute('aria-label', 'Call Now +91 91241 65341');
-    call.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg>';
-    document.body.appendChild(call);
+  // Solar Saathi chatbot (site-wide, bottom-right). The launcher opens the
+  // Solar Saathi app in a new tab (desktop and mobile); the app saves every
+  // lead to `saathi_leads`, which the admin dashboard reads.
+  // Styles: "SOLAR SAATHI CHATBOT" in css/styles.css.
+  // Any element with data-open-saathi opens it, as does window.ClansSaathi.open().
+  if (!document.querySelector('.saathi-launcher')) {
+    // Where the Saathi app runs. On this PC / the office Wi-Fi it is the dev
+    // server (npm run dev, port 3005); on the live site, SAATHI_PROD_URL.
+    var SAATHI_PROD_URL = 'https://saathi.clansmachina.com/';
+    var host = location.hostname;
+    var isLocal = host === 'localhost' || host === '127.0.0.1' || /^(192\.168|10)\./.test(host);
+    var saathiUrl = window.SAATHI_URL || (isLocal ? 'http://' + host + ':3005/' : SAATHI_PROD_URL);
+    var WA_URL = 'https://wa.me/919124165341';
+
+    // Saathi's head, drawn from the chatbot's own mascot (solar-panel cap,
+    // visor, green eyes). `p` keeps gradient ids unique per copy.
+    var saathiBot = function (p, cls) {
+      return '<svg class="' + cls + '" viewBox="38 6 164 142" aria-hidden="true" focusable="false">' +
+        '<defs>' +
+        '<linearGradient id="' + p + 'sh" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#e8eff5"/><stop offset="1" stop-color="#b7c6d4"/></linearGradient>' +
+        '<linearGradient id="' + p + 'vi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14262f"/><stop offset="1" stop-color="#050c10"/></linearGradient>' +
+        '<linearGradient id="' + p + 'ce" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a80d6"/><stop offset="1" stop-color="#163a66"/></linearGradient>' +
+        '<clipPath id="' + p + 'cl"><rect x="79" y="19" width="82" height="22" rx="3"/></clipPath>' +
+        '</defs>' +
+        '<rect x="116" y="36" width="8" height="18" rx="3" fill="#9fb0bf"/>' +
+        '<rect x="76" y="16" width="88" height="28" rx="5" fill="#e3eaf0"/>' +
+        '<rect x="79" y="19" width="82" height="22" rx="3" fill="url(#' + p + 'ce)"/>' +
+        '<g stroke="rgba(255,255,255,.3)" stroke-width="1"><line x1="99.5" y1="19" x2="99.5" y2="41"/><line x1="120" y1="19" x2="120" y2="41"/><line x1="140.5" y1="19" x2="140.5" y2="41"/><line x1="79" y1="30" x2="161" y2="30"/></g>' +
+        '<g clip-path="url(#' + p + 'cl)"><g class="saathi-cells-shine"><rect x="70" y="8" width="14" height="44" fill="#fff" opacity=".4" transform="skewX(-22)"/></g></g>' +
+        '<circle cx="54" cy="95" r="11.5" fill="url(#' + p + 'sh)"/><circle cx="54" cy="95" r="5.5" fill="none" stroke="#3ecf8e" stroke-width="2.5"/>' +
+        '<circle cx="186" cy="95" r="11.5" fill="url(#' + p + 'sh)"/><circle cx="186" cy="95" r="5.5" fill="none" stroke="#3ecf8e" stroke-width="2.5"/>' +
+        '<rect x="56" y="48" width="128" height="94" rx="42" fill="url(#' + p + 'sh)"/>' +
+        '<ellipse cx="88" cy="60" rx="20" ry="6" fill="#fff" opacity=".8" transform="rotate(-12 88 60)"/>' +
+        '<rect x="68" y="62" width="104" height="66" rx="30" fill="url(#' + p + 'vi)" stroke="rgba(62,207,142,.3)"/>' +
+        '<g class="saathi-eyes" fill="#3ecf8e"><rect x="94.5" y="81" width="13" height="20" rx="6.5"/><rect x="132.5" y="81" width="13" height="20" rx="6.5"/>' +
+        '<circle cx="103.5" cy="86" r="1.9" fill="#eafff5"/><circle cx="141.5" cy="86" r="1.9" fill="#eafff5"/></g>' +
+        '<path d="M109 109 Q120 118 131 109" fill="none" stroke="#3ecf8e" stroke-width="3.4" stroke-linecap="round"/>' +
+        '<ellipse cx="84" cy="110" rx="6.5" ry="3.6" fill="#ffb27a" opacity=".35"/><ellipse cx="156" cy="110" rx="6.5" ry="3.6" fill="#ffb27a" opacity=".35"/>' +
+        '</svg>';
+    };
+    var openSaathi = function () { window.open(saathiUrl, '_blank', 'noopener'); };
+
+    var launcher = document.createElement('a');
+    launcher.className = 'saathi-launcher';
+    launcher.href = saathiUrl;
+    launcher.target = '_blank';
+    launcher.rel = 'noopener';
+    launcher.setAttribute('aria-label', 'Chat with Solar Saathi: get your free solar plan (opens in a new tab)');
+    launcher.innerHTML = saathiBot('sl', 'saathi-launcher__bot') +
+      '<span class="saathi-launcher__dot" aria-hidden="true"></span>';
+
+    var teaser = document.createElement('div');
+    teaser.className = 'saathi-teaser';
+    teaser.innerHTML =
+      '<span class="saathi-teaser__title">Hi, I&#39;m Saathi &#128075;</span>' +
+      '<span class="saathi-teaser__text">Get your free rooftop solar plan and subsidy estimate in 2 minutes, in Hindi or English.</span>' +
+      '<a class="saathi-teaser__cta" href="' + saathiUrl + '" target="_blank" rel="noopener">Get my free plan &rarr;</a>' +
+      '<button type="button" class="saathi-teaser__x" aria-label="Dismiss">&times;</button>';
+
+    document.body.appendChild(teaser);
+    document.body.appendChild(launcher);
+
+    var teaserTimer = null;
+    var hideTeaser = function () {
+      clearTimeout(teaserTimer);
+      teaser.classList.remove('is-visible');
+      try { sessionStorage.setItem('saathiTeaserSeen', '1'); } catch (e) {}
+    };
+    var showTeaser = function () {
+      // Wait while the homepage lead popup is on screen.
+      if (document.querySelector('.cm-pop-overlay.is-open')) { teaserTimer = setTimeout(showTeaser, 3000); return; }
+      teaser.classList.add('is-visible');
+      teaserTimer = setTimeout(hideTeaser, 14000);
+    };
+
+    launcher.addEventListener('click', hideTeaser);
+    teaser.addEventListener('click', function (e) {
+      if (!e.target.closest('.saathi-teaser__x, .saathi-teaser__cta')) openSaathi();
+      hideTeaser();
+    });
+    document.addEventListener('click', function (e) {
+      var trigger = e.target.closest && e.target.closest('[data-open-saathi]');
+      if (trigger) { e.preventDefault(); openSaathi(); }
+    });
+    window.ClansSaathi = { open: openSaathi, url: saathiUrl };
+
+    var teaserSeen = false;
+    try { teaserSeen = sessionStorage.getItem('saathiTeaserSeen') === '1'; } catch (e) {}
+    if (!teaserSeen) teaserTimer = setTimeout(showTeaser, 4000);
   }
 })();
