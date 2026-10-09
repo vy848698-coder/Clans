@@ -57,6 +57,13 @@ if (!$result) {
     exit;
 }
 
+// created_at has no timezone. Send ISO 8601 with the DB server's UTC offset
+// ("2026-10-09T16:14:23+00:00") so every browser parses it (Safari rejects
+// "2026-10-09 16:14:23") and shows the right time when MySQL runs in UTC.
+$tz = $conn->query("SELECT TIME_FORMAT(TIMEDIFF(NOW(), UTC_TIMESTAMP()), '%H:%i') AS o");
+$offset = $tz ? $tz->fetch_assoc()["o"] : "00:00";
+$TZ_SUFFIX = ($offset[0] === "-" ? "" : "+") . $offset;
+
 // --- Shape the rows to match what the dashboard expects ---------------------
 $rows = [];
 while ($r = $result->fetch_assoc()) {
@@ -70,7 +77,7 @@ while ($r = $result->fetch_assoc()) {
         "monthlyBill" => $r["bill"],
         "message"     => $r["message"],
         "status"      => $r["status"] ?: "New",
-        "date"        => $r["created_at"],
+        "date"        => str_replace(" ", "T", $r["created_at"]) . $TZ_SUFFIX,
     ];
 }
 
