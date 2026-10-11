@@ -38,7 +38,7 @@ function email_shell(string $preheader, string $badge, string $heading, string $
         <div style="font-size:13px;color:#5b6b62;line-height:1.6;">
           <b style="color:#0f6f47;">Clans Machina Solar</b><br>
           DCB-221, DLF Cyber City, Chandaka Industrial Estate, Patia, Bhubaneswar, Odisha - 751024<br>
-          📞 +91 91241 65341 &nbsp;·&nbsp; Toll-Free 1800 891 3731 &nbsp;·&nbsp; 🌐 www.clansmachina.in
+          📞 +91 91241 65341 &nbsp;·&nbsp; Toll-Free 1800 891 3731 &nbsp;·&nbsp; 🌐 www.clansmachina.com
         </div>
       </td></tr>
     </table>

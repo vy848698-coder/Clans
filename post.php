@@ -64,20 +64,20 @@ if ($post && $readTime === '') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
   <title><?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina</title>
-  <link rel="canonical" href="https://www.clansmachina.in/post.php?id=<?= (int)$id ?>" />
+  <link rel="canonical" href="https://www.clansmachina.com/post.php?id=<?= (int)$id ?>" />
   <meta name="robots" content="<?= $post ? 'index, follow' : 'noindex, follow' ?>" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Clans Machina Solar" />
   <meta property="og:locale" content="en_IN" />
   <meta property="og:title" content="<?= $post ? v($post['title']) : 'Article not found' ?> | Clans Machina" />
   <meta property="og:description" content="<?= $post ? v(mb_substr($post['excerpt'], 0, 150)) : 'Article not found' ?>" />
-  <meta property="og:url" content="https://www.clansmachina.in/post.php?id=<?= (int)$id ?>" />
+  <meta property="og:url" content="https://www.clansmachina.com/post.php?id=<?= (int)$id ?>" />
 <?php
 // og:image must be a public URL — inline data-URL covers can't be used by social
 // platforms, so fall back to the default share image for those.
 $ogImg = ($post && !empty($post['image']) && strpos($post['image'], 'data:') !== 0)
-    ? (preg_match('#^https?://#', $post['image']) ? $post['image'] : 'https://www.clansmachina.in/' . ltrim($post['image'], '/'))
-    : 'https://www.clansmachina.in/image/service-residential.webp';
+    ? (preg_match('#^https?://#', $post['image']) ? $post['image'] : 'https://www.clansmachina.com/' . ltrim($post['image'], '/'))
+    : 'https://www.clansmachina.com/image/service-residential.webp';
 ?>
   <meta property="og:image" content="<?= v($ogImg) ?>" />
 <?php if ($post): ?>

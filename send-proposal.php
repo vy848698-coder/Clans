@@ -114,7 +114,7 @@ if (!mail_is_configured()) {
           . '<p style="margin:0 0 4px">📞 Call / WhatsApp: <b>+91 91241 65341</b></p>'
           . '<p style="margin:0 0 4px">📞 Toll-Free: <b>1800 891 3731</b></p>'
           . '<p style="margin:0 0 4px">✉️ Email: <b>info@clansmachina.in</b></p>'
-          . '<p style="margin:0 0 18px">🌐 Website: <b>www.clansmachina.in</b></p>'
+          . '<p style="margin:0 0 18px">🌐 Website: <b>www.clansmachina.com</b></p>'
           . '<p style="margin:0;color:#8a978f;font-size:12px">This proposal is an indicative savings estimate, not a contract or guarantee. '
           . 'Final figures depend on your roof, shading, DISCOM tariff and a site survey.</p>'
           . '</div>';

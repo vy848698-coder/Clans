@@ -623,75 +623,6 @@
     });
   }
 
-  /* ---- CHATBOT ---- */
-  const chatbotToggle = document.getElementById('chatbotToggle');
-  const chatbotPanel = document.getElementById('chatbotPanel');
-  const chatClose = document.getElementById('chatClose');
-  const chatMessages = document.getElementById('chatMessages');
-  const chatInput = document.getElementById('chatInput');
-  const chatSend = document.getElementById('chatSend');
-
-  function addMsg(text, isBot) {
-    const div = document.createElement('div');
-    div.className = 'chat-msg ' + (isBot ? 'bot-msg' : 'user-msg');
-    const span = document.createElement('span');
-    span.textContent = text;
-    div.appendChild(span);
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  function getBotResponse(msg) {
-    const m = msg.toLowerCase();
-    if (m.includes('saving') || m.includes('bill') || m.includes('calculat')) {
-      return 'With solar, most customers save 80-90% on electricity bills. Use our calculator above to get your exact savings!';
-    }
-    if (m.includes('quote') || m.includes('price') || m.includes('cost')) {
-      return 'A typical home system costs Rs.2.5L to Rs.4L installed. After PM Surya Ghar subsidy, your net cost can be much lower. Want a free site survey?';
-    }
-    if (m.includes('subsid') || m.includes('scheme') || m.includes('government')) {
-      return 'Under PM Surya Ghar Muft Bijli scheme 2025, you can get up to Rs.78,000 subsidy on residential rooftop solar. We handle all the paperwork!';
-    }
-    if (m.includes('install') || m.includes('how long') || m.includes('time')) {
-      return 'Our installations are typically completed in 1-2 days. From booking to going live, the entire process takes 15-25 days including approvals.';
-    }
-    if (m.includes('warrant') || m.includes('guarantee')) {
-      return 'We offer a 25-year panel performance warranty, 10-year inverter warranty, and our ClansZero savings guarantee - India\'s first!';
-    }
-    if (m.includes('hi') || m.includes('hello') || m.includes('hey')) {
-      return 'Hello! I am your Solar Helper. I can help with solar savings, pricing, subsidies and more. What would you like to know?';
-    }
-    return 'Great question! Our solar experts can give you a detailed answer. Book a free consultation and we will call you within 2 hours.';
-  }
-
-  function sendChat() {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    addMsg(text, false);
-    chatInput.value = '';
-    setTimeout(() => addMsg(getBotResponse(text), true), 700);
-  }
-
-  if (chatbotToggle) {
-    chatbotToggle.addEventListener('click', () => {
-      const isOpen = chatbotPanel.style.display !== 'none';
-      chatbotPanel.style.display = isOpen ? 'none' : 'block';
-    });
-  }
-  if (chatClose) {
-    chatClose.addEventListener('click', () => {
-      chatbotPanel.style.display = 'none';
-    });
-  }
-  if (chatSend) {
-    chatSend.addEventListener('click', sendChat);
-  }
-  if (chatInput) {
-    chatInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') sendChat();
-    });
-  }
-
   /* ---- FAQ ACCORDION ---- */
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -709,16 +640,6 @@
         const icon = btn.querySelector('span');
         if (icon) icon.textContent = '-';
       }
-    });
-  });
-
-  // Quick replies
-  document.querySelectorAll('.quick-reply').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const reply = btn.dataset.reply;
-      addMsg(reply, false);
-      setTimeout(() => addMsg(getBotResponse(reply), true), 700);
-      chatbotPanel.style.display = 'block';
     });
   });
 
