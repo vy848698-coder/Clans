@@ -23,6 +23,7 @@ require __DIR__ . '/db.php';
 require __DIR__ . '/mail-config.php';
 require __DIR__ . '/smtp-mailer.php';
 require __DIR__ . '/partner-emails.php';
+require __DIR__ . '/crm-webhook.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -122,6 +123,20 @@ if (mail_is_configured()) {
 } else {
     $emailMsg = 'Saved. Email not configured (add your Gmail App Password in mail-config.php).';
 }
+
+// --- Copy to the CRM (best-effort) -------------------------------------------
+crm_webhook_send([
+    'full_name'           => $name,
+    'phone_number'        => '+91' . $mobileDigits,
+    'email_address'       => $email,
+    'state'               => $state,
+    'country'             => 'India',
+    'service'             => 'Partnership application',
+    'profession'          => $profession,
+    'investment_capacity' => $investment,
+    'message'             => $message,
+    'source'              => 'Website partnership form',
+]);
 
 echo json_encode([
     'ok'      => true,

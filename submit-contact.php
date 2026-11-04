@@ -8,6 +8,7 @@ require __DIR__ . '/db.php';
 require __DIR__ . '/mail-config.php';
 require __DIR__ . '/smtp-mailer.php';
 require __DIR__ . '/contact-emails.php';
+require __DIR__ . '/crm-webhook.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -162,6 +163,24 @@ if (mail_is_configured()) {
     } catch (Exception $e) {
         // Best-effort: the lead is already saved; ignore mail failures.
     }
+}
+
+// --- Copy to the CRM (best-effort; job applications are not sales leads) ---
+if (!$isCareer) {
+    // The popup sends its PIN code in `city` as "PIN 751001".
+    $postalCode = preg_match('/^PIN\s+(\d{6})$/', $city, $m) ? $m[1] : '';
+    crm_webhook_send([
+        'full_name'     => $name,
+        'phone_number'  => '+91' . $phoneDigits,
+        'email_address' => $email,
+        'city'          => $postalCode === '' ? $city : '',
+        'postal_code'   => $postalCode,
+        'country'       => 'India',
+        'service'       => $service,
+        'monthly_bill'  => $bill,
+        'message'       => $typedMessage,
+        'source'        => $source === 'popup' ? 'Website popup' : 'Website contact form',
+    ]);
 }
 
 echo json_encode(['ok' => true, 'message' => 'We will contact you within 2 hours!']);
