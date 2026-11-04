@@ -3,10 +3,10 @@
  * Receives the Partnership application form (JSON or POST), stores it in the
  * SAME `leads` table the contact form uses (so partner applications show up in
  * the admin dashboard alongside every other inquiry), then emails:
- *   1. a NOTIFICATION to the owner (GMAIL_USER), and
+ *   1. a NOTIFICATION to the owner (SMTP_USER), and
  *   2. an AUTO-REPLY to the applicant,
- * both via Gmail SMTP (smtp-mailer.php). Email is best-effort — a lead is never
- * lost if mail fails.
+ * both via the company mailbox SMTP (smtp-mailer.php). Email is best-effort —
+ * a lead is never lost if mail fails.
  *
  * Field mapping into `leads` (so get_inquiries.php surfaces them unchanged):
  *   Name        -> name
@@ -99,8 +99,8 @@ if (mail_is_configured()) {
     try {
         // 1) Notify the owner.
         smtp_send_mail(
-            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-            GMAIL_USER, MAIL_FROM_NAME, GMAIL_USER,
+            SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD,
+            SMTP_USER, MAIL_FROM_NAME, SMTP_USER,
             'New Partnership Application — ' . $name,
             partner_owner_email($name, $mobileDigits, $email, $state, $profession, $investment, $waNumber),
             [], MAIL_SALES_BCC
@@ -108,8 +108,8 @@ if (mail_is_configured()) {
 
         // 2) Auto-reply to the applicant.
         smtp_send_mail(
-            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-            GMAIL_USER, MAIL_FROM_NAME, $email,
+            SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD,
+            SMTP_USER, MAIL_FROM_NAME, $email,
             'We received your partnership application — Clans Machina Solar',
             partner_autoreply_email($name, $state, $profession, $investment)
         );

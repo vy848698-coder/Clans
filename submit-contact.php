@@ -142,8 +142,8 @@ if (mail_is_configured()) {
 
         // 1) Notify the owner.
         smtp_send_mail(
-            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-            GMAIL_USER, MAIL_FROM_NAME, GMAIL_USER,
+            SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD,
+            SMTP_USER, MAIL_FROM_NAME, SMTP_USER,
             ($isCareer ? 'New Career Application — ' : 'New Solar Inquiry — ') . $name,
             contact_owner_email($name, $phoneDigits, $email, $city, $service, $bill, $typedMessage, '91' . $phoneDigits, $isCareer, $savedFiles),
             $attachments, MAIL_SALES_BCC
@@ -152,8 +152,8 @@ if (mail_is_configured()) {
         // 2) Auto-reply to the submitter — only when they gave us an address.
         if ($email !== '') {
             smtp_send_mail(
-                'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-                GMAIL_USER, MAIL_FROM_NAME, $email,
+                SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD,
+                SMTP_USER, MAIL_FROM_NAME, $email,
                 $isCareer ? 'We received your application — Clans Machina Solar'
                           : 'We received your request — Clans Machina Solar',
                 contact_autoreply_email($name, $isCareer)

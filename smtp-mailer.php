@@ -3,7 +3,8 @@
  * Minimal, dependency-free SMTP client.
  *
  * Enough to send ONE MIME email (HTML body + optional attachments) through an
- * authenticated STARTTLS SMTP server such as Gmail (smtp.gmail.com:587).
+ * authenticated SMTP server, either implicit-TLS (port 465, e.g. cPanel
+ * mail.clansmachina.com) or STARTTLS (port 587, e.g. Gmail).
  * No Composer / PHPMailer required — uses PHP's openssl + stream sockets.
  *
  * Throws Exception on any protocol/connection failure so the caller can decide
@@ -16,7 +17,12 @@ function smtp_send_mail(
     string $from, string $fromName, string $to, string $subject,
     string $htmlBody, array $attachments = [], string $bcc = ''
 ): bool {
-    $fp = @stream_socket_client("tcp://$host:$port", $errno, $errstr, 30);
+    // Port 465 (SMTPS) is encrypted from the first byte; other ports (587/25)
+    // connect in plaintext and upgrade via STARTTLS after EHLO.
+    $implicitTls = $port === 465;
+
+    $transport = ($implicitTls ? 'ssl' : 'tcp') . "://$host:$port";
+    $fp = @stream_socket_client($transport, $errno, $errstr, 30);
     if (!$fp) {
         throw new Exception("SMTP connect failed: $errstr ($errno)");
     }
@@ -41,11 +47,13 @@ function smtp_send_mail(
 
     $expect($read(), '220');
     $send("EHLO clansmachina.in");     $expect($read(), '250');
-    $send("STARTTLS");                 $expect($read(), '220');
-    if (!stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
-        throw new Exception('TLS negotiation failed');
+    if (!$implicitTls) {
+        $send("STARTTLS");                 $expect($read(), '220');
+        if (!stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            throw new Exception('TLS negotiation failed');
+        }
+        $send("EHLO clansmachina.in");     $expect($read(), '250');
     }
-    $send("EHLO clansmachina.in");     $expect($read(), '250');
     $send("AUTH LOGIN");               $expect($read(), '334');
     $send(base64_encode($user));       $expect($read(), '334');
     $send(base64_encode($pass));       $expect($read(), '235');

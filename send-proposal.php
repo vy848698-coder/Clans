@@ -129,8 +129,8 @@ if (!mail_is_configured()) {
         }
 
         smtp_send_mail(
-            'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-            GMAIL_USER, MAIL_FROM_NAME, $email, $subject, $body,
+            SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD,
+            SMTP_USER, MAIL_FROM_NAME, $email, $subject, $body,
             $attachments, MAIL_SALES_BCC
         );
         $emailed = true;
@@ -145,8 +145,8 @@ if (!mail_is_configured()) {
                 $proposalNo, '91' . $phone, $pdfBin !== ''
             );
             smtp_send_mail(
-                'smtp.gmail.com', 587, GMAIL_USER, GMAIL_APP_PASSWORD,
-                GMAIL_USER, MAIL_FROM_NAME, GMAIL_USER,
+                SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD,
+                SMTP_USER, MAIL_FROM_NAME, SMTP_USER,
                 'New Solar Calculator Lead — ' . $name . ($proposalNo ? " ($proposalNo)" : ''),
                 $ownerBody, $attachments
             );
