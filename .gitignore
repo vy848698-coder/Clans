@@ -20,3 +20,6 @@ optimize-images.js
 
 # Runtime user uploads (resumes etc.) — never commit
 uploads/
+
+# Secrets — Solar Saathi lead key (use saathi-config.example.php as the template)
+saathi-config.php
