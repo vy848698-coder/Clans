@@ -3105,6 +3105,10 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
    ============================================================ */
 .home-calc { padding: 100px 0; }
 .hc-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 30px; align-items: stretch; margin-top: 46px; }
+/* Grid items default to min-width:auto and refuse to shrink below their
+   content, which pushed the homepage wider than 360px phones. Let the cards
+   in these grids shrink to the column instead. */
+.hc-grid > *, .cta-grid > *, .footprint-grid > * { min-width: 0; }
 .hc-input { padding: 34px 32px; border-radius: 22px; display: flex; flex-direction: column; }
 .hc-field-label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; }
 .hc-bill-display { display: flex; align-items: baseline; gap: 3px; margin-bottom: 16px; color: var(--text-primary); }
@@ -4176,6 +4180,8 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   transition: opacity 0.35s ease, transform 0.35s cubic-bezier(.2,.9,.3,1.2);
 }
 .saathi-teaser.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+/* Never over the homepage lead popup. */
+body:has(.cm-pop-overlay.is-open) .saathi-teaser { opacity: 0; pointer-events: none; }
 .saathi-teaser__title { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 3px; }
 .saathi-teaser__text { display: block; font-size: 0.84rem; line-height: 1.4; color: #3b5249; }
 .saathi-teaser__cta {
