@@ -110,12 +110,19 @@
     'border-color:var(--cmp-green-lite);box-shadow:0 0 0 3px rgba(22,179,101,.16);}',
     '.cm-pop-form .is-invalid{border-color:#e5533d;box-shadow:0 0 0 3px rgba(229,83,61,.14);}',
 
-    '.cm-pop-submit{display:flex;align-items:center;justify-content:center;gap:9px;height:56px;margin-top:6px;',
-    'border:0;border-radius:11px;color:#fff;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;',
+    // Long label: the button grows to two lines on narrow screens instead of overflowing.
+    '.cm-pop-submit{display:flex;align-items:center;justify-content:center;gap:9px;min-height:56px;margin-top:6px;',
+    'padding:10px 18px;line-height:1.3;text-align:center;',
+    'border:0;border-radius:11px;color:#fff;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;',
     'letter-spacing:.01em;background:linear-gradient(95deg,var(--cmp-green),var(--cmp-green-lite));',
     'box-shadow:0 8px 22px rgba(11,122,75,.28);',
     'transition:filter .2s ease,transform .15s ease,box-shadow .2s ease;}',
     '.cm-pop-submit svg{flex:none;transition:transform .2s ease;}',
+    // The arrow rides inline after the amount, so it reads as part of the
+    // label (not a separate target) and wraps together with it.
+    '.cm-pop-submit-text{text-wrap:balance;}',
+    '.cm-pop-submit .cm-nb{white-space:nowrap;}',
+    '.cm-pop-submit .cm-nb svg{display:inline-block;vertical-align:-2px;margin-left:6px;opacity:.9;}',
     '.cm-pop-submit:hover:not(:disabled){filter:brightness(1.07);box-shadow:0 12px 30px rgba(11,122,75,.38);',
     'transform:translateY(-1px);}',
     '.cm-pop-submit:hover:not(:disabled) svg{transform:translateX(3px);}',
@@ -171,7 +178,7 @@
     // phones, where the body has barely 250px of usable width.
     '.cm-pop-eyebrow{font-size:.62rem;letter-spacing:.04em;padding:5px 11px 5px 9px;}',
     '.cm-pop-form input,.cm-pop-form select{height:50px;}',
-    '.cm-pop-submit{height:52px;}',
+    '.cm-pop-submit{min-height:52px;padding:9px 16px;font-size:.92rem;}',
     '}',
 
     '@media (prefers-reduced-motion:reduce){',
@@ -213,8 +220,8 @@
     '        <option>&#8377;5,000 &#8211; &#8377;10,000</option>',
     '        <option>Above &#8377;10,000</option>',
     '      </select>',
-    '      <button type="submit" class="cm-pop-submit">Book a FREE Consultation',
-    '        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    '      <button type="submit" class="cm-pop-submit"><span class="cm-pop-submit-text">Book a free consultation and get subsidy up to <span class="cm-nb">&#8377;1,38,000',
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>',
     '      </button>',
     '      <div class="cm-pop-msg" role="alert"></div>',
     '    </form>',
