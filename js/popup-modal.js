@@ -220,7 +220,7 @@
     '        <option>&#8377;5,000 &#8211; &#8377;10,000</option>',
     '        <option>Above &#8377;10,000</option>',
     '      </select>',
-    '      <button type="submit" class="cm-pop-submit"><span class="cm-pop-submit-text">Book a free consultation and get subsidy up to <span class="cm-nb">&#8377;1,38,000',
+    '      <button type="submit" class="cm-pop-submit"><span class="cm-pop-submit-text">Book a FREE <span class="cm-nb">Consultation',
     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>',
     '      </button>',
     '      <div class="cm-pop-msg" role="alert"></div>',
