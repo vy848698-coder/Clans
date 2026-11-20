@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="mint-fresh">
 <head>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1634249778319572');
+    fbq('track', 'PageView');
+    </script>
+    
+    <!-- End Meta Pixel Code -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Home solar by Clans Machina — rooftop solar systems for Indian homes with up to 90% bill savings, up to ₹1,38,000 government subsidy support and a 25-year performance warranty." />
@@ -772,8 +787,7 @@
         </div>
         <div class="cm-cta-actions">
           <a href="#hs-consult" class="btn btn-neon btn-lg">Book Free Consultation</a>
-          <a href="tel:+919124165341" class="btn btn-glass btn-lg">Call +91 91241 65341</a>
-          <a href="tel:18008913731" class="btn btn-glass btn-lg">Toll-Free 1800 891 3731</a>
+          <a href="tel:+918093001383" class="btn btn-glass btn-lg">Call +91 80930 01383</a>
         </div>
       </div>
     </div>
@@ -836,10 +850,10 @@
         })
           .then(function (res) { return res.json(); })
           .then(function (data) {
-            if (data && data.ok) { formSuccess.style.display = 'block'; form.reset(); }
+            if (data && data.ok) { formSuccess.style.display = 'block'; form.reset(); if (window.fbq) fbq('track', 'Lead', { content_name: 'Home solar page form' }); }
             else { showError((data && data.message) || 'Submission failed. Please try again.'); }
           })
-          .catch(function () { showError('Network error. Please call us at +91 91241 65341 or toll-free 1800 891 3731.'); })
+          .catch(function () { showError('Network error. Please call us at +91 80930 01383.'); })
           .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = original; });
       });
     })();

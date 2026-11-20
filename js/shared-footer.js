@@ -108,7 +108,7 @@
           'image': SITE + '/image/service-residential.webp',
           'description': 'Rooftop solar for homes, businesses and housing societies across India — transparent savings, government subsidy support and a 25-year performance warranty.',
           'email': 'info@clansmachina.in',
-          'telephone': '+91-91241-65341',
+          'telephone': '+91-80930-01383',
           'address': {
             '@type': 'PostalAddress',
             'streetAddress': 'DCB-221, DLF Cyber City, Chandaka Industrial Estate, Patia',
@@ -121,16 +121,8 @@
           'contactPoint': [
             {
               '@type': 'ContactPoint',
-              'telephone': '+91-91241-65341',
+              'telephone': '+91-80930-01383',
               'contactType': 'customer service',
-              'areaServed': 'IN',
-              'availableLanguage': ['en', 'hi']
-            },
-            {
-              '@type': 'ContactPoint',
-              'telephone': '1800-891-3731',
-              'contactType': 'customer service',
-              'contactOption': 'TollFree',
               'areaServed': 'IN',
               'availableLanguage': ['en', 'hi']
             }
@@ -165,7 +157,7 @@
           'url': SITE + '/',
           'image': SITE + '/image/service-residential.webp',
           'logo': SITE + '/image/clans_logo.webp',
-          'telephone': '+91-91241-65341',
+          'telephone': '+91-80930-01383',
           'email': 'info@clansmachina.in',
           'priceRange': '₹₹',
           'parentOrganization': { '@id': SITE + '/#organization' },
@@ -207,7 +199,7 @@
   if (!document.querySelector('.wa-float')) {
     var wa = document.createElement('a');
     wa.className = 'wa-float';
-    wa.href = 'https://wa.me/919124165341';
+    wa.href = 'https://wa.me/918093001383';
     wa.target = '_blank';
     wa.rel = 'noopener noreferrer';
     wa.setAttribute('aria-label', 'Chat with us on WhatsApp');
@@ -227,7 +219,7 @@
     var host = location.hostname;
     var isLocal = host === 'localhost' || host === '127.0.0.1' || /^(192\.168|10)\./.test(host);
     var saathiUrl = window.SAATHI_URL || (isLocal ? 'http://' + host + ':3005/' : SAATHI_PROD_URL);
-    var WA_URL = 'https://wa.me/919124165341';
+    var WA_URL = 'https://wa.me/918093001383';
 
     // Saathi's head, drawn from the chatbot's own mascot (solar-panel cap,
     // visor, green eyes). `p` keeps gradient ids unique per copy.

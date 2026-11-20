@@ -200,7 +200,7 @@
     '    <p class="cm-pop-eyebrow"><span class="cm-pop-dot"></span>PM Surya Ghar &#183; Subsidy open</p>',
     '    <h2 class="cm-pop-title" id="cmPopTitle">Switch to solar at <span>&#8377;0 Investment</span></h2>',
     '    <p class="cm-pop-sub">Govt. subsidy covers your down payment, savings cover EMIs</p>',
-    '    <p class="cm-pop-offer">Book a free consultation &amp; save up to <b>&#8377;78,000</b></p>',
+    '    <p class="cm-pop-offer">Book a free consultation &amp; avail subsidy up to <b>&#8377;1,38,000</b> and 90% savings on your electricity bill</p>',
     '    <form class="cm-pop-form" novalidate>',
     '      <input type="text" name="name" placeholder="Full Name*" autocomplete="name" maxlength="80">',
     '      <input type="tel" name="pin" placeholder="PIN Code*" autocomplete="postal-code" inputmode="numeric" maxlength="6">',
@@ -362,6 +362,7 @@
       .then(function (res) {
         if (!res.ok) throw new Error(res.message || 'Submission failed. Please try again.');
         card.classList.add('is-done');
+        if (window.fbq) fbq('track', 'Lead', { content_name: 'Homepage popup' });
         setTimeout(close, 3200);
       })
       .catch(function (err) {

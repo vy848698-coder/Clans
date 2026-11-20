@@ -607,6 +607,7 @@
         .then(data => {
           if (data.ok) {
             if (formSuccess) formSuccess.style.display = 'flex';
+            if (window.fbq) fbq('track', 'Lead', { content_name: 'Homepage contact form' });
             contactForm.reset();
           } else if (formErrors) {
             formErrors.innerHTML = '<ul><li>' + (data.message || 'Submission failed.') + '</li></ul>';

@@ -133,8 +133,7 @@ HTML;
 </div>
 
 <p style="margin:0 0 6px;">Need us sooner? We're here to help:</p>
-<p style="margin:0 0 4px;font-size:14px;">📞 Call / WhatsApp: <b>+91 91241 65341</b></p>
-<p style="margin:0 0 4px;font-size:14px;">📞 Toll-Free: <b>1800 891 3731</b></p>
+<p style="margin:0 0 4px;font-size:14px;">📞 Call / WhatsApp: <b>+91 80930 01383</b></p>
 <p style="margin:0 0 18px;font-size:14px;">✉️ Email: <b>info@clansmachina.in</b></p>
 
 <p style="margin:0 0 4px;">Warm regards,</p>
