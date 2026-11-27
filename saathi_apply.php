@@ -72,6 +72,7 @@ function docs_state(PDO $pdo, string $journey): array {
     return [
         'ok'      => true,
         'status'  => $app['status'] ?? null,
+        'details' => $app ? ['discom' => $app['discom'], 'consumerNo' => $app['consumer_no'], 'nameOnBill' => $app['name_on_bill']] : null,
         'docs'    => array_map('saathi_doc_json', $st->fetchAll()),
         'missing' => saathi_missing_docs($pdo, $journey),
     ];
