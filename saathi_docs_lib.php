@@ -12,14 +12,14 @@
 if (is_file(__DIR__ . '/saathi-config.php')) require_once __DIR__ . '/saathi-config.php';
 if (!defined('SAATHI_DOCS_DIR')) define('SAATHI_DOCS_DIR', getenv('SAATHI_DOCS_DIR') ?: dirname(__DIR__) . '/saathi_docs');
 
-// Every application needs all of these (client's decision, Nov 2026).
+// Documents for an application; minimum 0 = optional (PAN, ROR since Nov 2026).
 // [label, minimum files, maximum files]
 const SAATHI_DOCS = [
     'bill'    => ['Latest electricity bill', 1, 1],
     'aadhaar' => ['Aadhaar card (masked)', 1, 1],
-    'pan'     => ['PAN card', 1, 1],
+    'pan'     => ['PAN card (optional)', 0, 1],
     'bank'    => ['Bank passbook / cancelled cheque', 1, 1],
-    'ror'     => ['ROR / land ownership document', 1, 1],
+    'ror'     => ['ROR / land ownership document (optional)', 0, 1],
     'roof'    => ['Rooftop photographs', 2, 4],
 ];
 const SAATHI_DOC_TYPES = ['application/pdf' => 'pdf', 'image/jpeg' => 'jpg', 'image/png' => 'png'];
