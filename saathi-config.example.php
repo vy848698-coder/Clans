@@ -11,6 +11,13 @@
 define('SAATHI_LEAD_KEY', getenv('SAATHI_LEAD_KEY') ?: 'xxxxxxxxxxxxxxxx');
 
 /**
+ * Where "Apply now" documents (Aadhaar, PAN, bank, bills…) are stored. MUST be
+ * outside public_html so no web address can reach them. Default: a
+ * "saathi_docs" folder next to public_html (e.g. /home/<user>/saathi_docs).
+ */
+// define('SAATHI_DOCS_DIR', '/home/<cpanel-user>/saathi_docs');
+
+/**
  * Aivoryx CRM inbound lead webhook (crm-webhook.php). The contact and
  * partnership forms post a copy of every lead here, best-effort. Both empty
  * = nothing is sent. Use the same values as the chatbot's Vercel variables.

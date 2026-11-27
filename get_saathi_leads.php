@@ -13,8 +13,15 @@ require_api_key();
 
 header('Cache-Control: no-store');
 
+// With the "Apply now" application, if any: its status and document count.
+require __DIR__ . '/saathi_docs_lib.php';
+saathi_docs_tables($pdo);
 $rows = $pdo->query(
-    'SELECT * FROM saathi_leads ORDER BY created_at DESC, id DESC'
+    'SELECT l.*, a.status AS app_status, a.submitted_at AS app_submitted_at,
+            (SELECT COUNT(*) FROM saathi_documents d WHERE d.journey_id = l.journey_id) AS doc_count
+     FROM saathi_leads l
+     LEFT JOIN saathi_applications a ON a.journey_id = l.journey_id
+     ORDER BY l.created_at DESC, l.id DESC'
 )->fetchAll();
 
 // DATETIME columns carry no timezone. Tag them with the DB server's UTC offset
@@ -68,6 +75,9 @@ $out = array_map(static function ($r) use ($intOrNull, $floatOrNull, $iso) {
         'score'           => (int) $r['score'],
         'temperature'     => $r['temperature'],
         'status'          => $r['status'] ?: 'New',
+        'appStatus'       => $r['app_status'],          // null = never started "Apply now"
+        'appSubmittedAt'  => $iso($r['app_submitted_at']),
+        'docCount'        => (int) $r['doc_count'],
         'createdAt'       => $iso($r['created_at']),
         'updatedAt'       => $iso($r['updated_at']),
     ];
