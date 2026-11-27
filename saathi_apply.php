@@ -8,7 +8,7 @@
  * chatbot has already checked the customer's verified mobile/email.
  *
  *   POST ?action=start   JSON {journey, language, consent:{version,text,ip,ua}, details:{discom,consumer_no,name_on_bill}}
- *   POST ?action=upload  multipart: journey, doc, file
+ *   POST ?action=upload  multipart: journey, doc, file (+ token when sent by the browser)
  *   POST ?action=remove  JSON {journey, id}
  *   POST ?action=status  JSON {journey}
  *   POST ?action=submit  JSON {journey}
@@ -20,6 +20,22 @@ require __DIR__ . '/saathi-config.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
+// Uploads come straight from the customer's browser on the chatbot's site
+// (Vercel can't pass on files above 4.5 MB), with a ticket the chatbot signed.
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$appOrigins = ['https://saathi.clansmachina.com'];
+if (defined('SAATHI_APP_ORIGIN')) $appOrigins[] = SAATHI_APP_ORIGIN;
+if (in_array($origin, $appOrigins, true)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header('Vary: Origin');
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Max-Age: 600');
+}
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 function out(int $code, array $body): void {
     http_response_code($code);
     echo json_encode($body);
@@ -28,11 +44,29 @@ function out(int $code, array $body): void {
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') out(405, ['ok' => false, 'error' => 'Method not allowed']);
 
+$action = $_GET['action'] ?? '';
+
+// A too-large multipart body arrives with $_POST and $_FILES empty.
+if ($action === 'upload' && empty($_POST) && empty($_FILES) && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
+    out(413, ['ok' => false, 'error' => 'too_large', 'detail' => 'Above post_max_size (' . ini_get('post_max_size') . ')']);
+}
+
 $provided = $_SERVER['HTTP_X_SAATHI_KEY'] ?? '';
 $keySet = SAATHI_LEAD_KEY !== '' && SAATHI_LEAD_KEY !== 'xxxxxxxxxxxxxxxx';
-if (!$keySet || !is_string($provided) || !hash_equals(SAATHI_LEAD_KEY, $provided)) out(401, ['ok' => false, 'error' => 'Unauthorized']);
+$byKey = $keySet && is_string($provided) && hash_equals(SAATHI_LEAD_KEY, $provided);
 
-$action = $_GET['action'] ?? '';
+// Upload ticket from the chatbot: "expiry.hmac" over upload|journey|doc|expiry,
+// signed with the shared key, valid for minutes and for one document type.
+function upload_ticket_ok(bool $keySet): bool {
+    $t = $_POST['token'] ?? '';
+    if (!$keySet || !is_string($t) || !preg_match('/^(\d{10})\.([a-f0-9]{64})$/', $t, $m)) return false;
+    $exp = (int) $m[1];
+    if ($exp < time() || $exp > time() + 3600) return false;
+    $msg = 'upload|' . (string) ($_POST['journey'] ?? '') . '|' . (string) ($_POST['doc'] ?? '') . '|' . $exp;
+    return hash_equals(hash_hmac('sha256', $msg, SAATHI_LEAD_KEY), $m[2]);
+}
+
+if (!$byKey && !($action === 'upload' && upload_ticket_ok($keySet))) out(401, ['ok' => false, 'error' => 'Unauthorized']);
 
 if ($action === 'limits') {
     out(200, [
@@ -42,11 +76,6 @@ if ($action === 'limits') {
         'file_uploads'        => ini_get('file_uploads'),
         'finfo'               => class_exists('finfo'),
     ]);
-}
-
-// A too-large multipart body arrives with $_POST and $_FILES empty.
-if ($action === 'upload' && empty($_POST) && empty($_FILES) && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
-    out(413, ['ok' => false, 'error' => 'too_large', 'detail' => 'Above post_max_size (' . ini_get('post_max_size') . ')']);
 }
 
 $in = $action === 'upload' ? $_POST : (json_decode(file_get_contents('php://input'), true) ?: []);
