@@ -3933,7 +3933,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
 .proj-quote-section { padding: 0 0 80px; }
 .proj-quote-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   max-width: 980px;
   margin: 0 auto;
@@ -3953,7 +3953,11 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   opacity: 0.7;
   flex-shrink: 0;
 }
+/* min-width:0 + overflow-wrap so one long word or pasted link in a
+   dashboard-added testimonial wraps instead of pushing the card off-screen. */
+.proj-quote-card, .proj-quote-body, .proj-quote-author > div { min-width: 0; }
 .proj-quote-body { flex: 1; }
+.proj-quote-text, .proj-quote-author strong, .proj-quote-author span { overflow-wrap: anywhere; }
 .proj-quote-text {
   font-size: 1.05rem;
   line-height: 1.75;
@@ -3992,7 +3996,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   margin-bottom: 12px;
 }
 .proj-quote-grid--biz {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 1180px;
 }
 .proj-quote-avatar {
@@ -4009,7 +4013,7 @@ button.sc-back { background: none; border: none; cursor: pointer; font-family: i
   background: linear-gradient(135deg, var(--green), var(--blue));
   border: 2px solid var(--border-bright);
 }
-@media (max-width: 980px) { .proj-quote-grid--biz { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 980px) { .proj-quote-grid--biz { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .proj-quote-grid--biz { grid-template-columns: 1fr; } }
 
 /* Responsive */
