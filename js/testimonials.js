@@ -78,6 +78,35 @@
     return BASE + encodeURI(src.replace(/^\/+/, ''));
   }
 
+  // Reviews longer than this are shortened to 8 lines with a "Read more" link
+  // (see .review-text--clamped in styles.css) so one very long review can't
+  // stretch its whole row. The longest original review is ~410 characters,
+  // so none of those are affected.
+  var CLAMP_CHARS = 450;
+  function readMore(textEl, message) {
+    if ((message || '').length <= CLAMP_CHARS) return null;
+    textEl.classList.add('review-text--clamped');
+    var btn = el('button', 'review-more', 'Read more');
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function () {
+      var open = !textEl.classList.toggle('review-text--clamped');
+      btn.textContent = open ? 'Show less' : 'Read more';
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    return btn;
+  }
+  // After layout: drop the link where the text fits in 8 lines anyway.
+  function tidyReadMore(grid) {
+    Array.prototype.forEach.call(grid.querySelectorAll('.review-text--clamped'), function (t) {
+      if (t.scrollHeight <= t.clientHeight + 1) {
+        t.classList.remove('review-text--clamped');
+        var btn = t.nextElementSibling;
+        if (btn && btn.classList.contains('review-more')) btn.parentNode.removeChild(btn);
+      }
+    });
+  }
+
   function stars(rating) {
     rating = Math.max(0, Math.min(5, parseInt(rating, 10) || 0));
     return rating ? new Array(rating + 1).join('★') : '';
@@ -104,6 +133,8 @@
     // With no stars row, start the text below the corner quote icon, not under it.
     if (withMark && !s) q.style.marginTop = '36px';
     root.appendChild(q);
+    var more = readMore(q, t.message);
+    if (more) root.appendChild(more);
 
     var foot = el('div', 'testi-footer');
     var photo = photoUrl(t.photo);
@@ -144,6 +175,8 @@
     var text = el('p', 'proj-quote-text', t.message || '');
     text.style.whiteSpace = 'pre-line';
     body.appendChild(text);
+    var more = readMore(text, t.message);
+    if (more) body.appendChild(more);
 
     var author = el('div', 'proj-quote-author');
     var photo = photoUrl(t.photo);
@@ -186,6 +219,7 @@
       // Added after the page's scroll-animation observer ran, so reveal directly.
       setTimeout(function () { c.classList.add('visible'); }, 60 + i * 80);
     });
+    requestAnimationFrame(function () { tidyReadMore(grid); });
   }
 
   var keys = grids.map(function (g) { return g.getAttribute('data-reviews'); })
