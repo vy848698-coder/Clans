@@ -262,7 +262,7 @@
     teaser.className = 'saathi-teaser';
     teaser.innerHTML =
       '<span class="saathi-teaser__title">Hi, I&#39;m Saathi &#128075;</span>' +
-      '<span class="saathi-teaser__text">Get your free rooftop solar plan and subsidy estimate in 2 minutes, in Hindi or English.</span>' +
+      '<span class="saathi-teaser__text">Get your free rooftop solar plan and subsidy estimate in 2 minutes, in Odia, Hindi or English.</span>' +
       '<a class="saathi-teaser__cta" href="' + saathiUrl + '" target="_blank" rel="noopener">Get my free plan &rarr;</a>' +
       '<button type="button" class="saathi-teaser__x" aria-label="Dismiss">&times;</button>';
 
@@ -278,6 +278,8 @@
     var showTeaser = function () {
       // Wait while the homepage lead popup is on screen.
       if (document.querySelector('.cm-pop-overlay.is-open')) { teaserTimer = setTimeout(showTeaser, 3000); return; }
+      // The homepage Saathi popup already made this pitch; don't repeat it.
+      if (document.querySelector('.cm-pop-overlay.was-shown')) return;
       teaser.classList.add('is-visible');
       teaserTimer = setTimeout(hideTeaser, 14000);
     };
@@ -291,7 +293,7 @@
       var trigger = e.target.closest && e.target.closest('[data-open-saathi]');
       if (trigger) { e.preventDefault(); openSaathi(); }
     });
-    window.ClansSaathi = { open: openSaathi, url: saathiUrl };
+    window.ClansSaathi = { open: openSaathi, url: saathiUrl, bot: saathiBot };
 
     var teaserSeen = false;
     try { teaserSeen = sessionStorage.getItem('saathiTeaserSeen') === '1'; } catch (e) {}

@@ -886,7 +886,7 @@
         <p>Share your details for a tailored feasibility report with estimated savings, subsidy band and deployment timeline.</p>
       </div>
       <div class="cta-grid">
-        <form class="contact-form glass-card" id="contactForm" data-animate>
+        <form class="contact-form glass-card" id="contactForm" data-source="homepage" data-animate>
           <div class="form-row">
             <div class="form-group">
               <label>Full Name</label>
@@ -898,8 +898,8 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="cEmail" placeholder="your@email.com" required />
+            <label>Email Address <span style="font-weight:400;opacity:.7">(optional)</span></label>
+            <input type="email" id="cEmail" placeholder="your@email.com" />
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -1142,7 +1142,7 @@
   <script src="js/solar-engine.js" defer></script>
   <script src="js/shared-footer.js" defer></script>
   <script src="js/script.js" defer></script>
-  <!-- Lead-capture popup — homepage only, so it is loaded here rather than
+  <!-- "Meet Saathi" chatbot popup — homepage only, so it is loaded here rather than
        from shared-footer.js which every page uses. -->
   <script src="js/popup-modal.js" defer></script>
   <!-- Lucide icon library (deferred scripts finish before DOMContentLoaded) -->

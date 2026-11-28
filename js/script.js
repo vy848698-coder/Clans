@@ -532,6 +532,7 @@
         setFieldInvalid(contactFields.phone);
         firstInvalid.push(contactFields.phone);
       }
+      // Empty is fine where the field is optional (homepage); a typed address must still be valid.
       if (!contactFields.email?.checkValidity()) {
         errors.push('Enter a valid email address.');
         setFieldInvalid(contactFields.email);
@@ -586,7 +587,8 @@
         city: contactFields.city.value.trim(),
         service: (document.getElementById('cService') || {}).value || '',
         bill: contactFields.bill.value,
-        message: (document.getElementById('cMsg') || {}).value || ''
+        message: (document.getElementById('cMsg') || {}).value || '',
+        source: contactForm.dataset.source || ''
       };
 
       fetch('submit-contact.php', {

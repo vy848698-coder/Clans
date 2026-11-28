@@ -34,9 +34,10 @@ $bill    = clean($input['bill']    ?? '');
 $message = clean($input['message'] ?? '');
 $source  = clean($input['source']  ?? '');
 
-// The homepage popup (js/popup-modal.js) deliberately asks for as little as
-// possible — name, PIN, WhatsApp, bill — so it has no email address to send.
-$emailOptional = ($source === 'popup');
+// Email is optional on the homepage contact form (source 'homepage') and was
+// never collected by the old homepage popup (source 'popup'). If one is typed,
+// it must still be valid; without one, no auto-reply is sent.
+$emailOptional = in_array($source, ['popup', 'homepage'], true);
 
 // Server-side validation
 $errors = [];
