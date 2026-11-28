@@ -167,7 +167,7 @@
     '  <div class="cm-sb-hero">',
     '    <div>',
     '      <h2 class="cm-sb-kicker" id="cmSbTitle">Meet your Solar Buddy <span class="cm-sb-name">Saathi</span></h2>',
-    '      <p class="cm-sb-tag">Your <b>free</b> assistant for everything about <b>PM Surya Ghar</b> rooftop solar.</p>',
+    '      <p class="cm-sb-tag">Your <b>free</b> guide to <b>rooftop solar</b>, from subsidy to savings.</p>',
     '    </div>',
     bot ? '    <div class="cm-sb-mascot">' + bot + '<span class="cm-sb-bubble" aria-hidden="true"><i></i><i></i><i></i></span></div>' : '',
     '  </div>',
